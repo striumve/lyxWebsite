@@ -132,3 +132,33 @@ otheBtn.addEventListener("click", function () {
 abouBtn.addEventListener("click", function () {
     changePage(curPage, 6, pageSelector[curPage], pageSelector[6]);
 })
+
+//加载文章
+async function loadArticles() {
+    try {
+        const response = await fetch('../version4/articles/articles.json');
+        const articles = await response.json();
+        displayArticles(articles);
+    } catch (error) {
+        console.error('加载文章失败 ', error);
+        document.querySelector(".article").innerHTML = "加载文章列表失败，请联系我<br>" + error;
+    }
+}
+
+function displayArticles(articles) {
+    const container = document.querySelector(".article");
+
+    articles.forEach(article => {
+        const articleElement = document.createElement('a');
+        articleElement.className = 'pageitem arti-item';
+        articleElement.href = `${article.href}`;
+        articleElement.innerHTML = `
+            <div class="arti-item-time"><span style="font-family: 'icomoon';"></span> ${article.time}</div>
+            <div class="arti-item-title">${article.title}</div>
+            <div class="arti-item-preview">${article.preview}</div>
+        `;
+        container.appendChild(articleElement);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', loadArticles);
