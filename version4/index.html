@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lyx的个人网站</title>
+    <link rel="icon" href="../public/images/logo.jpg" sizes="32x32">
+    <meta name="description" itemprop="description" content="欢迎分享">
+    <meta itemprop="name" content="lyx的个人网站">
+    <meta itemprop="image" content="../public/images/logo.jpg">
+    <link rel="stylesheet" href="./style/fontFace.css">
+    <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="./style/publicStyle.css">
+    <style>
+        .menu {
+            width: 200px;
+            /* padding: 10px; */
+            /* border: 1px solid #ddd; */
+            background-color: rgba(248, 149, 136, 0);
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            /* border-radius: 5px; */
+            z-index: 1000;
+            /* box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2); */
+        }
+
+        .menu>img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <!-- 背景 -->
+        <div class="background"></div>
+
+        <!-- 鼠标右键菜单 -->
+        <div class="menu">
+            <!-- <div class="menu-item">&emsp;&emsp;ヾ(^▽^*))) &emsp;&emsp;</div> -->
+            <img src="images/bocchi.png" alt="ヾ(^▽^*)))">
+        </div>
+
+        <!-- 占位 -->
+        <!-- <div class="pageHold"></div> -->
+
+        <!-- 左侧信息栏(fixed) -->
+        <div class="box info1">
+            <div class="info1-logo"></div>
+            <div class="info1-msg"><span style="font-size: 2.5vh;">芒蹊</span><br><br>7月27日 INFJ</div>
+            <div class="info1-welcome">欢迎来到lyx的个人网站！</div>
+        </div>
+
+        <div class="box yiyan">
+            <a href="https://hitokoto.cn/" class="yiyan-a" target="_blank">
+                <p class="yiyan-sen" style="font-family: 'siyuan';">竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。</p>
+                <p class="yiyan-from" style="font-family: 'siyuan';">——苏轼</p>
+            </a>
+            <p class="yiyan-new">换一句</p>
+        </div>
+
+        <div class="box info2">
+            <div class="info2-talk">QQ: 1041095264<br>&numsp;&numsp;&numsp; 2607585214<br>WeChat: _zzmxqsm_sp_ysyyrps</div>
+        </div>
+
+        <!-- 导航栏 -->
+        <div class="time"></div>
+        <div class="nav">
+            <button class="nav-btn nav-btn-talk active">说说</button><br>
+            <button class="nav-btn nav-btn-article">文章</button><br>
+            <button class="nav-btn nav-btn-link">链接</button><br>
+            <button class="nav-btn nav-btn-tool">工具</button><br>
+            <button class="nav-btn nav-btn-other">其他</button><br>
+            <button class="nav-btn nav-btn-about">关于</button>
+        </div>
+        <div class="music">
+
+        </div>
+
+
+        <!-- 中间 -->
+        <!-- <div class="test"
+            style="width: 100px;height: 2000px;background-color: #fff;position: absolute;top: 100px;left: 500px;"></div> -->
+        <!-- <div class="pages"> -->
+            <div class="page talk" style="opacity: 1;">
+                <div class="pageitem talk-item">
+                    <div class="talk-item-time">2025/12/03 - 22:51</div>
+                    <div class="talk-item-content">我今天才知道世界上还有CloudFlare Pages这么一个东西。。<br>CloudFlare无敌</div>
+                </div>
+                <div class="pageitem talk-item">
+                    <div class="talk-item-time">2025/12/01 - 00:09</div>
+                    <div class="talk-item-content">十二月快乐！<br><img src="./images/mugi_square.png" alt="" loading="lazy"></div>
+                </div>
+                <div class="pageitem talk-item">
+                    <div class="talk-item-time">2025/11/30 - 23:29</div>
+                    <div class="talk-item-content">马上就要十二月了吗，时间过得好快</div>
+                </div>
+                <div class="pageitem talk-item">
+                    <div class="talk-item-time">2025/11/30 - 17:06</div>
+                    <div class="talk-item-content">第一条说说</div>
+                </div>
+            </div>
+
+            <div class="page article" style="opacity: 0;display: none;">
+                <a class="pageitem arti-item" href="./articles/test.html">
+                    <div class="arti-item-time">2025/11/30 - 17:16</div>
+                    <div class="arti-item-title">测试文章</div>
+                    <div class="arti-item-preview">
+                        测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览测试文章预览
+                    </div>
+                </a>
+            </div>
+
+            <div class="page link" style="opacity: 0;display: none;">
+                <a class="pageitem link-item" href="../welcome.html">
+                    <div class="link-item-name">返回欢迎页</div>
+                    <div class="link-item-link">welcome.html</div>
+                </a>
+                <a class="pageitem link-item" href="../public/diary4.html">
+                    <div class="link-item-name">网页开发日志</div>
+                    <div class="link-item-link">diary4.html</div>
+                </a>
+                <a class="pageitem link-item" href="../version2/eason.html">
+                    <div class="link-item-name">陈奕迅的歌</div>
+                    <div class="link-item-link">eason.html</div>
+                </a>
+                <a class="pageitem link-item" href="https://github.com/striumve">
+                    <div class="link-item-name">GitHub主页</div>
+                    <div class="link-item-link">https://github.com/striumve</div>
+                </a>
+                <a class="pageitem link-item" href="https://space.bilibili.com/1353555452">
+                    <div class="link-item-name">Bilibili主页</div>
+                    <div class="link-item-link">https://space.bilibili.com/1353555452</div>
+                </a>
+            </div>
+
+            <div class="page tool" style="opacity: 0;display: none;">
+                Tool
+            </div>
+
+            <div class="page other" style="opacity: 0;display: none;">
+                Other
+            </div>
+
+            <div class="page about" style="opacity: 0;display: none;">
+                <div class="pageitem about-item">
+                    <div class="about-item-title">关于我</div>
+                    <div class="about-item-content">
+                        08年，阳光开朗积极向上（希望如此<br>
+                        喜欢技术类的东西，无聊的时候搞点小项目，但是高中后一直没什么时间<br>
+                        二次元，喜欢各种治愈的美好的东西
+                    </div>
+                </div>
+                <div class="pageitem about-item">
+                    <div class="about-item-title">「芒蹊」</div>
+                    <div class="about-item-content">
+                        “芒”是来自苏轼的“竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生”<br>
+                        “蹊”是来自“桃李不言，下自成蹊”<br>
+                        只要做好自己，不必在意世界纷繁扰攘
+                    </div>
+                </div>
+                <div class="pageitem about-item">
+                    <div class="about-item-title">关于本站</div>
+                    <div class="about-item-content">
+                        最开始是2022年网课期间，上课摸鱼的时候就开始做网站<br>
+                        最初的版本其实很粗糙，就是想放什么放什么，然后一点一点变成现在这样，现在更像一个个人博客<br>
+                        现在的这个版本是高三的时候才开始做的<br><br>
+                        网站中所有内容都是本人手敲出来的，没有用WordPress一类的工具（因为之前根本不知道<br>
+                        网页托管：
+                        <img src="./images/CFLogoCut.png" alt="" style="height: 3vh;margin-top: 1vh;">
+                        CloudFlare Pages
+                    </div>
+                </div>
+                <div class="pageitem about-item">
+                    <div class="about-item-title">联系方式</div>
+                    <div class="about-item-content" style="user-select:text; cursor: url(../public/cursor/text.cur), default;">
+                        QQ: 1041095264(主号)；2607585214(二次号)<br>
+                        微信: _zzmxqsm_sp_ysyyrps<br>
+                        邮箱: 1041095264@qq.com<br>
+                    </div>
+                </div>
+            </div>
+        <!-- </div> -->
+    </div>
+</body>
+<script src="./js/functions.js"></script>
+<script>
+    // 鼠标右键菜单
+    window.oncontextmenu = function (e) {
+        e.preventDefault(); //取消默认的浏览器自带右键 
+        var evt = window.event || arguments[0];
+        var menu = document.querySelector('.menu'); //获取右键菜单
+        var container = document.querySelector('body'); //获取区域
+        /*获取当前鼠标右键按下后的位置，据此定义菜单显示的位置*/
+        var rightedge = container.clientWidth - evt.clientX;
+        var bottomedge = container.clientHeight - evt.clientY;
+        // console.log(container.clientHeight);
+        /*如果从鼠标位置到容器右边的空间小于菜单的宽度，就定位菜单的左坐标（Left）为当前鼠标位置向左一个菜单宽度*/
+        if (rightedge < menu.offsetWidth) {
+            menu.style.left = container.scrollLeft + evt.clientX - menu.offsetWidth + "px";
+        } else {
+            /*否则，就定位菜单的左坐标为当前鼠标位置*/
+            menu.style.left = container.scrollLeft + evt.clientX + "px";
+        }
+        /*如果从鼠标位置到容器下边的空间小于菜单的高度，就定位菜单的上坐标（Top）为当前鼠标位置向上一个菜单高度*/
+        if (bottomedge < menu.offsetHeight) {
+            menu.style.top = container.scrollTop + evt.clientY - menu.offsetHeight + "px";
+        } else {
+            /*否则，就定位菜单的上坐标为当前鼠标位置*/
+            menu.style.top = container.scrollTop + evt.clientY + "px";
+        }
+        /*设置菜单可见*/
+        menu.style.visibility = 'visible';
+        menu.style.animation = 'public_show ease .2s both';
+    }
+
+    window.onclick = function (e) { //关闭右键菜单
+        document.querySelector('.menu').style.animation = 'public_hide ease .2s both';
+        setTimeout(() => {
+            document.querySelector('.menu').style.visibility = 'hidden';
+        }, 200)
+        //用户触发click事件就可以关闭了，因为绑定在window上，按事件冒泡处理，不会影响菜单的功能
+    }
+</script>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test - lyx's personal website</title>
+</head>
+<body>
+    
+
+    <script>
+        var data = {
+                name: "John",
+                age: 30,
+                city: "New York"
+            };
+            var jsonStr = JSON.stringify(data);
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log("JSON 对象已成功写入 .json 文件。");
+                }
+            };
+            xhttp.open("POST", "data.json", true);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.send(jsonStr);
+    </script>
+</body>
+</html>

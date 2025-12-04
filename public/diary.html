@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../version3/style/fontFace.css">
+    <script src="../version3/javascript/publicData.js"></script>
+    <script src="./javascript/jQuery.js"></script>
+    <title>网页开发日志 - lyx的个人网站!</title>
+    <style>
+        @media screen and (max-width: 500px) {
+
+            /* 最小页面宽适配 */
+            body {
+                width: 500px;
+            }
+        }
+
+        :root {
+            --backgroundColor: rgba(255, 255, 255, 1);
+            --textColor: rgba(0, 0, 0, 1);
+            --itemColor: rgba(200, 245, 255, 1);
+            --itemColor-hover: rgba(150, 200, 255, 1);
+            --backColor: rgba(200, 200, 255, .7);
+            --backColor-hover: rgba(150, 150, 200, .7);
+        }
+
+        body {
+            background-color: var(--backgroundColor);
+        }
+
+        a {
+            color: var(--textColor);
+        }
+
+        .title {
+            text-align: center;
+            font-size: 3vh;
+            color: var(--textColor);
+        }
+
+        .back {
+            position: fixed;
+            top: 2vh;
+            left: 2vw;
+            text-decoration: none;
+            color: var(--textColor);
+            font-size: 2vh;
+            z-index: 10;
+            background-color: var(--backColor);
+            padding: 1vh;
+            transition: .4s;
+        }
+
+        .back:hover {
+            background-color: var(--backColor-hover);
+        }
+
+        .item {
+            width: 98%;
+            height: auto;
+            background-color: var(--itemColor);
+            border-radius: 2vh;
+            position: relative;
+            margin-bottom: 2vh;
+            padding: 1vw;
+            transition: .5s;
+            color: var(--textColor);
+        }
+
+        .item:hover {
+            background-color: var(--itemColor-hover);
+        }
+
+        .left {
+            display: inline-block;
+            position: absolute;
+            /* left: 1vw; */
+            top: 0vh;
+            font-size: 2.5vh;
+            /* margin-left: 1vw; */
+            font-family: 'consolas';
+            margin-bottom: 0;
+        }
+
+        .right {
+            /* display: inline-block; */
+            font-size: 2vh;
+            /* position: absolute; */
+            /* right: 1vw; */
+            text-align: right;
+            /* margin: 2vh; */
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        var root = document.querySelector(':root');
+        if (localStorage.set4_theme === '2') {
+            root.style.setProperty('--backgroundColor', 'rgb(20, 20, 50)');
+            root.style.setProperty('--textColor', 'rgba(200, 200, 200, 1)');
+            root.style.setProperty('--itemColor', 'rgba(200, 200, 255, .3)');
+            root.style.setProperty('--itemColor-hover', 'rgba(150, 150, 255, .5)');
+            root.style.setProperty('--backColor', 'rgba(50, 50, 100, .8)');
+            root.style.setProperty('--backColor-hover', 'rgba(50, 50, 250, .8)');
+        } else {
+            root.style.setProperty('--backgroundColor', 'rgba(255, 255, 255, 1)');
+            root.style.setProperty('--textColor', 'rgba(0, 0, 0, 1)');
+            root.style.setProperty('--itemColor', 'rgba(200, 245, 255, 1)');
+            root.style.setProperty('--itemColor-hover', 'rgba(150, 200, 255, 1)');
+            root.style.setProperty('--backColor', 'rgba(200, 200, 255, .7)');
+            root.style.setProperty('--backColor-hover', 'rgba(150, 150, 200, .7)');
+        }
+    </script>
+    <p class="title">网页开发日志</p>
+    <a class="back" href="../version2/index.html">返回</a>
+    <div class="item">
+        <p class="left">2022.06.30 v2.0.0</p>
+        <p class="right">开始制作新版网页</p>
+        <p class="right">原版网页开发日志请前往<a href="./diary_origin.html" target="_blank">这里</a></p>
+    </div>
+    <div class="item">
+        <p class="left">2022.07.02 v2.0.1</p>
+        <p class="right">完善了主界面</p>
+    </div>
+    <div class="item">
+        <p class="left">2022.07.04 v2.0.2</p>
+        <p class="right">制作了移动端页面</p>
+        <p class="right">添加了背景音乐</p>
+        <p class="right">增加了(假的)清除缓存工具</p>
+        <p class="right">增加了时间显示功能</p>
+    </div>
+    <div class="item">
+        <p class="left">2022.07.08 v2.0.3</p>
+        <p class="right">进行了一些优化</p>
+    </div>
+    <div class="item">
+        <p class="left">2022.07.09 v2.0.4</p>
+        <p class="right">增加了一个功能(info)</p>
+        <p class="right">增加了意见反馈功能</p>
+    </div>
+    <div class="item">
+        <p class="left">2022.07.19 v2.0.5</p>
+        <p class="right">增加了右下角的随机文案</p>
+        <p class="right">增加了背景图片加载提示</p>
+        <p class="right">增加了(假的)注册账号功能</p>
+        <p class="right">可以切换背景图片</p>
+    </div>
+    <div class="item">
+        <p class="left">2022.07.23 v2.0.6</p>
+        <p class="right">增加了背景图片加载动画</p>
+        <p class="right">增加了生僻字读音查询工具<br>灵感来源：
+            <a href="https://space.bilibili.com/452157792" target="_blank">B站@奥文同学</a>
+        </p>
+    </div>
+    <div class="item">
+        <p class="left">2022.07.24 v2.0.7</p>
+        <p class="right">增加了切换文案功能</p>
+        <p class="right">添加了控制台互动</p>
+    </div>
+    <div class="item">
+        <p class="left">2022.07.30 v2.0.8</p>
+        <p class="right">优化了JavaScript代码</p>
+        <p class="right">增加了求直线表达式工具</p>
+        <p class="right">增加了错误反馈工具</p>
+    </div>
+    <div class="item">
+        <p class="left">2022.08.01 v2.0.9</p>
+        <p class="right">增加了求直线表达式的计算原理</p>
+        <p class="right">优化了排版方式</p>
+    </div>
+    <div class="item">
+        <p class="left">2022.08.07 v2.0.10</p>
+        <p class="right">增加了夜间模式</p>
+        <p class="right">更新了背景图片</p>
+        <p class="right">更新了右下角随机文案</p>
+    </div>
+    <div class="item">
+        <p class="left">2022.08.08 v2.0.11</p>
+        <p class="right">夜间模式自动跟随系统调整</p>
+        <p class="right">可以记住设置</p>
+        <p class="right">把清除缓存工具变成真的了</p>
+        <p class="right">增加登录功能</p>
+    </div>
+    <div class="item">
+        <p class="left">2022.08.09 v2.1.1</p>
+        <p class="right">自动获取QQ昵称<br>（<a href="https://blog.csdn.net/qq_45802080/article/details/122588553"
+                target="_blank">部分代码来源</a>）</p>
+    </div>
+    <div class="item">
+        <p class="left">2022.09.03 v2.1.2</p>
+        <p class="right">增加登录时的文字验证码功能<br>（<a href="https://github.com/saucxs/captcha-mini/blob/master/captcha-mini.js"
+                target="_blank">部分代码来源</a>）</p>
+        <p class="right">添加了注册时的拼图验证码<br>（<a href="https://b23.tv/5aIKyCZ" target="_blank">部分代码来源</a>）<br>拼图验证码的图片来源：电影
+            天气之子</p>
+        <p class="right">可能能够收到消息</p>
+        <p class="right">添加了开源协议（Apache License 2.0）</p>
+    </div>
+    <div class="item">
+        <p class="left">2022.09.10 v2.1.3</p>
+        <p class="right">为英文页面添加了右下角的文案</p>
+        <p class="right">对403及404页面进行了微调</p>
+        <p class="right">修复了 文字验证码图片刷新而验证码未跟随更新 的错误</p>
+        <p class="right">部分修复了 移动端拼图验证码无法正常拖动 的错误</p>
+    </div>
+    <div class="item">
+        <p class="left">2022.10.02 v2.1.4</p>
+        <p class="right">更新了右下角随机文案</p>
+        <p class="right">真的修复了 移动端拼图验证码无法正常拖动 的错误</p>
+    </div>
+    <div class="item">
+        <p class="left">2022.10.03 v2.1.4</p>
+        <p class="right">自动获取QQ昵称头像接口当前无法使用<br>（半小时后）呃然后现在又修复了</p>
+    </div>
+    <div class="item">
+        <p class="left">2022.10.27 v2.2.1</p>
+        <p class="right">删去右下角文案</p>
+        <p class="right">添加了页面中间的文案及今日天气<br>移动端暂未适配</p>
+    </div>
+    <div class="item">
+        <p class="left">2022.10.29 v2.2.2</p>
+        <p class="right">优化了页面中间的文案及今日天气</p>
+        <p class="right">为文案及今日天气进行了移动端适配</p>
+    </div>
+    <div class="item">
+        <p class="left">2022.10.30 v2.2.3</p>
+        <p class="right">优化了页面中间的文案及今日天气</p>
+    </div>
+    <div class="item">
+        <p class="left">2023.06.27 v2.2.4</p>
+        <p class="right">对拼图验证码的z-index进行调整</p>
+        <p class="right">取消在.html中使用Spacing JS (by CodingStartup)<br>这仿佛会拖慢页面加载</p>
+    </div>
+    <div class="item">
+        <p class="left">2023.07.12 v2.2.5</p>
+        <p class="right">开始使用阿里云的云服务器(三个月免费)<br>但是域名还没弄好</p>
+    </div>
+    <div class="item">
+        <p class="left">2023.10.04 v2.2.6</p>
+        <p class="right">设置了鼠标右键菜单</p>
+        <p class="right">修改了英文页面中的一些表达问题及拼写错误</p>
+        <p class="right">优化了夜间模式</p>
+        <p class="right">优化了按钮及输入框</p>
+    </div>
+    <div class="item">
+        <p class="left">2024.04.05 v2.2.7</p>
+        <p class="right">买了阿里云99一年的服务器</p>
+        <p class="right">做了一个简单的欢迎页</p>
+    </div>
+    <div class="item">
+        <p class="left">2024.04.06 v2.2.8</p>
+        <p class="right">优化了字体</p>
+        <p class="right">更换Web服务器为IIS</p>
+    </div>
+    <div class="item">
+        <p class="left">2024.04.07 v2.2.9</p>
+        <p class="right">优化了欢迎页</p>
+        <p class="right">新增了“陈奕迅的歌”页面</p>
+    </div>
+    <div class="item">
+        <p class="left">2024.04.08 v2.2.10</p>
+        <p class="right">欢迎页 移动端适配</p>
+    </div>
+    <div class="item">
+        <p class="left">2024.04.20 v2.2.11</p>
+        <p class="right">增加了版本号显示（包括旧版）</p>
+        <p class="right">优化了日志页面、欢迎页、网站主页、歌曲页面</p>
+        <p class="right">更换了获取QQ昵称的API</p>
+        <p class="right">取消使用MathJax（拖慢页面加载）</p>
+    </div>
+    <div class="item">
+        <p class="left">2024.04.21 v2.2.12</p>
+        <p class="right">优化了隐藏nav栏后的页面</p>
+    </div>
+    <div class="item">
+        <p class="left">2024.04.25 v2.2.13</p>
+        <p class="right">优化了重定向至移动端页面的过程</p>
+    </div>
+    <div class="item">
+        <p class="left">2024.04.27 v2.2.14</p>
+        <p class="right">优化了夜间模式</p>
+        <p class="right">制作了通知提示框</p>
+    </div>
+    <div class="item">
+        <p class="left">2024.05.25 v2.2.15</p>
+        <p class="right">优化了输入框</p>
+        <p class="right">优化了通知提示框</p>
+    </div>
+    <div class="item">
+        <p class="left">2024.05.26 v2.3.1</p>
+        <p class="right">重构了工具页面部分代码</p>
+        <p class="right">重构了移动端适配代码</p>
+        <p class="right">优化了登录功能验证码</p>
+        <p class="right">优化了欢迎页</p>
+        <p class="right">为欢迎页添加了联系方式、源码下载</p>
+    </div>
+    <div class="item">
+        <p class="left">2024.06.01 v2.3.2</p>
+        <p class="right">更改了鼠标样式</p>
+        <p class="right">修复了夜间模式bug，重构了代码</p>
+        <p class="right">优化了验证码</p>
+        <p class="right">优化了颜色相关代码</p>
+        <p class="right">优化了页面中间句子内容</p>
+        <p class="right">优化了天气模块中城市的显示</p>
+    </div>
+    <div class="item">
+        <p class="left">2024.06.03 v2.3.3</p>
+        <p class="right">优化了info功能</p>
+    </div>
+    <div class="item">
+        <p class="left">2024.06.05 v2.3.4</p>
+        <p class="right">增加了切换主题颜色功能</p>
+        <p class="right">为网页开发日志页面增加了夜间模式</p>
+        <p class="right">优化了欢迎页</p>
+        <p class="right">优化了鼠标右键菜单</p>
+        <p class="right">优化了通知提示框</p>
+    </div>
+    <div class="item">
+        <p class="left">2024.06.06 v2.3.5</p>
+        <p class="right">为欢迎页增加了切换语言功能</p>
+        <p class="right">优化了设置页面</p>
+        <p class="right">优化了切换主题色功能</p>
+    </div>
+    <div class="item">
+        <p class="left">2024.06.06 v2.3.6</p>
+        <p class="right">增加了提示音效</p>
+        <p class="right">优化了错误页面</p>
+        <p class="right">优化了验证码</p>
+    </div>
+    <div class="item">
+        <p class="left">2024.06.07 v3.0.0(Beta)</p>
+        <p class="right">开始制作第3版网页</p>
+        <p class="right">第3版模仿了Windows 11的主题</p>
+    </div>
+    <div class="item">
+        <p class="left">2024.06.15 v3.0.1</p>
+        <p class="right">整理了根目录结构</p>
+        <p class="right">添加了毛玻璃效果</p>
+    </div>
+    <div class="item">
+        <p class="left">2024.06.18 v3.0.2</p>
+        <p class="right">开始在部分功能中使用Vue</p>
+        <p class="right">功能窗口现在可以自由移动和调整大小</p>
+        <p class="right">为各功能窗口增加标题栏</p>
+    </div>
+</body>
+
+</html>

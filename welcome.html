@@ -1,0 +1,449 @@
+﻿<!DOCTYPE html>
+<html lang="zh-hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=yes">
+    <title>Welcome!</title>
+    <link rel="icon" href="./public/images/logo.jpg" sizes="32x32">
+    <link rel="stylesheet" href="./version3/style/fontFace.css">
+    <script src="./public/javascript/publicData.js"></script>
+    <style>
+        @media screen and (max-width: 700px) {
+
+            /* 调整最小页面宽 */
+            body {
+                width: 700px;
+            }
+        }
+
+        html {
+            user-select: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /* width: 100%; */
+            /* height: 500px; */
+            background: url(./public/images/welcome_bg.jpg);
+            background-size: cover;
+            cursor: url(./public/cursor/normal.cur), default;
+            font-family: 'siyuan';
+        }
+
+        h1 {
+            display: block;
+            text-align: left;
+            line-height: 100px;
+            /* font-size: 50px; */
+            font-size: 75px;
+            margin-left: 20%;
+            font-family: 'Din';
+            margin-top: -12.5px;
+            letter-spacing: 5px;
+            /* font-family: 'siyuan'; */
+            color: rgba(244, 122, 117, .7);
+        }
+
+        a {
+            cursor: url(./public/cursor/link.cur), pointer;
+            display: block;
+            width: 450px;
+            height: 85px;
+            line-height: 75px;
+            text-decoration: none;
+            /* color: rgb(50, 50, 50); */
+            color: darkslateblue;
+            font-size: 23px;
+            text-align: center;
+            margin-left: 20%;
+            background-color: rgba(240, 240, 255, .4);
+            transition: .3s;
+            font-weight: 500;
+            border-radius: 10px;
+        }
+
+        a:hover {
+            background-color: rgba(220, 220, 255, .7);
+        }
+
+        .option1::after {
+            content: "v2.3.1 (2024.05.26)";
+            font-size: 12px;
+            line-height: 12px;
+            display: block;
+            margin-left: 20%;
+            position: relative;
+            bottom: 15px;
+            color: darkslategrey;
+        }
+
+        .option2::after {
+            content: "v2.3.1 (2024.05.26)";
+            font-size: 12px;
+            line-height: 12px;
+            display: block;
+            margin-left: 20%;
+            position: relative;
+            bottom: 15px;
+            color: darkslategrey;
+        }
+
+        .option3::after {
+            content: "可以在线播放";
+            font-size: 12px;
+            line-height: 12px;
+            display: block;
+            margin-left: 20%;
+            position: relative;
+            bottom: 15px;
+            color: darkslategrey;
+        }
+
+        .option4::after {
+            content: "v3.0.2 (2024.06.18)";
+            font-family: 'siyuan';
+            font-size: 12px;
+            line-height: 14px;
+            display: block;
+            margin-left: 20%;
+            position: relative;
+            bottom: 15px;
+            color: darkslategrey;
+        }
+
+
+        .option5::after {
+            content: "v1.0.9 (2022.03.31)";
+            font-size: 12px;
+            line-height: 12px;
+            display: block;
+            margin-left: 20%;
+            position: relative;
+            bottom: 15px;
+            color: darkslategrey;
+        }
+
+        .option6::after {
+            content: "不含Eason的歌曲文件";
+            font-size: 12px;
+            line-height: 12px;
+            display: block;
+            margin-left: 20%;
+            position: relative;
+            bottom: 15px;
+            color: darkslategrey;
+        }
+
+        .notice {
+            font-family: 'serif';
+            font-size: 15px;
+            display: block;
+            margin-left: 20%;
+            transition: .3s;
+            color: rgba(0, 0, 0, 1);
+        }
+
+        .more {
+            font-family: 'serif';
+            font-size: 20px;
+            display: block;
+            margin-left: 20%;
+            transition: .3s;
+            color: rgba(0, 0, 0, 1);
+        }
+
+        div::-webkit-scrollbar {
+            /*滚动条整体样式*/
+            width: 4px;
+            /*高宽分别对应横竖滚动条的尺寸*/
+            height: 4px;
+            /* scrollbar-arrow-color: red; */
+        }
+
+        div::-webkit-scrollbar-thumb {
+            /*滚动条里面小方块*/
+            border-radius: 5px;
+            box-shadow: inset 0 0 5px rgba(50, 50, 250, .7);
+            background: rgba(0, 0, 0, 0.2);
+            /* scrollbar-arrow-color: red; */
+        }
+
+        div::-webkit-scrollbar-track {
+            /*滚动条里面轨道*/
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0);
+            border-radius: 0;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .footer {
+            margin-left: 20%;
+            margin-top: 50px;
+            font-family: 'siyuan';
+        }
+
+        .ft-title {
+            display: block;
+            text-align: left;
+            line-height: 50px;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        table {
+            font-size: 20px;
+        }
+
+        .td-left {
+            /* width: 200px; */
+            text-align: right;
+        }
+
+        .td-right {
+            /* width: 200px; */
+            text-align: left;
+            padding-left: 2vw;
+            user-select: text;
+            cursor: url(./public/cursor/text.cur), text;
+        }
+
+        .lang {
+            display: block;
+            text-align: left;
+            line-height: 30px;
+            font-size: 23px;
+            margin-left: 20%;
+            font-family: 'pingfang';
+        }
+
+        .lang>p {
+            display: inline-block;
+            color: rgba(200, 200, 200, .5);
+            border-bottom: 1px solid rgba(200, 200, 200, .5);
+            transition: .3s;
+        }
+
+        .lang>p:hover {
+            color: rgba(00, 00, 00, .9);
+            border-bottom: 1px solid rgba(00, 00, 00, .9);
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        //移动端适配
+        if (deviceFlag === 2) {
+            window.location = "welcome.m.html";
+        }
+    </script>
+    <div class="lang">
+        <p class="lang-cn-s" style="color: rgba(00, 00, 00, .9);border-bottom: 1px solid rgba(00, 00, 00, .9);">简体中文</p>
+        &emsp;&emsp;
+        <p class="lang-cn-t">繁體中文</p>&emsp;&emsp;
+        <p class="lang-en" style="font-family: 'Din';">English</p>
+    </div>
+    <div class="bg"></div>
+    <!-- <h1>Welcome to <br> lyx's personal website!</h1> -->
+    <h1>Welcome!<br>lyx<span style="font-family: 'pingfang'; letter-spacing: 10px;">的个人网站</span></h1>
+    <br>
+    <p class="notice"><span class="notice-unchangeable">注：第一次打开页面需要下载字体，请耐心等待页面加载完成。<br>这可能需要一二十秒钟……</span><span
+            class="percent">0%</span></p>
+    <a href="./version4/index.html" class="option1" style="font-weight: 800;">网站主页 →</a>
+    <br>
+    <p class="more">更多</p>
+    <br>
+    <a href="./version2/index.html" class="option2">主页v2 →</a>
+    <br>
+    <a href="./version2/eason.html" class="option3">陈奕迅的歌 →</a>
+    <br>
+    <a href="./version3/index.html" class="option4">win11主页[已弃项] →</a>
+    <br>
+    <a href="./version1/index.html" class="option5">初版网站主页 →</a>
+    <br>
+    <a href="lyxWebsiteSourceCode_v2.3.3.zip" class="option6">网页源码下载 →</a>
+    <div class="footer">
+        <p class="ft-title">联系我</p>
+        <table>
+            <tbody>
+                <tr>
+                    <td class="td-left">QQ</td>
+                    <td class="td-right">1041095264</td>
+                </tr>
+                <tr>
+                    <td class="td-left td-left2">微信号</td>
+                    <td class="td-right">_zzmxqsm_sp_ysyyrps</td>
+                </tr>
+                <tr>
+                    <td class="td-left td-left3">邮箱</td>
+                    <td class="td-right">1041095264@qq.com</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- <audio src="./sound/winxp.mp3" class="startAudio"></audio> -->
+
+    <script>
+        var cnS = document.querySelector('.lang-cn-s');
+        var cnT = document.querySelector('.lang-cn-t');
+        var en = document.querySelector('.lang-en');
+        var language = '1';
+        var loadFlag = 0;
+        if (localStorage.language != undefined) {
+            language = localStorage.language;
+            changeLang();
+        }
+
+        document.styleSheets[1].addRule('.option1::after', 'content: "' + currentVersion + " (" + latestUpdateTime +
+            ")" + '"');
+        document.querySelector(".option6").href = 'lyxWebsiteSourceCode_' + currentVersion + '.zip';
+        var notice = document.querySelector(".notice");
+        var percent = document.querySelector(".percent");
+        var i = 0;
+        var interval = setInterval(function loading() {
+            if (language === '1') {
+                percent.innerHTML = i + "%";
+            } else if (language === '3') {
+                percent.innerHTML = i + "%";
+            } else {
+                percent.innerHTML = i + "%";
+            }
+            i += 1;
+            if (i >= 98) {
+                clearInterval(interval);
+            }
+        }, 250);
+
+        window.onload = function () {
+            clearInterval(interval);
+            loadFlag = 1;
+            if (language === '1') {
+                percent.innerHTML = "100%";
+            } else if (language === '3') {
+                percent.innerHTML = "100%";
+            } else {
+                percent.innerHTML = "100%";
+            }
+            setTimeout(() => {
+                notice.style.color = "rgba(0, 0, 0, 0)";
+                setTimeout(() => {
+                    notice.style.color = "rgba(0, 0, 0, 1)";
+                    if (language === '1') {
+                        notice.innerHTML = "页面加载完成。<br>欢迎浏览。";
+                    } else if (language === '3') {
+                        notice.innerHTML = "頁面加載完成。<br>歡迎瀏覽。";
+                    } else {
+                        notice.innerHTML = "Successfully done. <br>Welcome. ";
+                    }
+                    setTimeout(() => {
+                        notice.style.color = "rgba(0, 0, 0, 0)";
+                    }, 2000);
+                }, 300);
+            }, 500);
+        }
+
+        function changeLang() {
+            if (language === '1') { // simplified Chinese
+                cnS.style.color = 'rgba(00, 00, 00, .9)';
+                cnS.style.borderBottom = '1px solid rgba(00, 00, 00, .9)';
+                cnT.style.color = 'rgba(200, 200, 200, .5)';
+                cnT.style.borderBottom = '1px solid rgba(200, 200, 200, .5)';
+                en.style.color = 'rgba(200, 200, 200, .5)';
+                en.style.borderBottom = '1px solid rgba(200, 200, 200, .5)';
+                document.querySelector('h1').innerHTML =
+                    'Welcome!<br>lyx<span style="font-family: "pingfang"; letter-spacing: 10px;">的个人网站</span>';
+                if (loadFlag === 1) {
+                    document.querySelector('.notice').innerHTML = '页面加载完成。';
+                } else {
+                    document.querySelector('.notice-unchangeable').innerHTML =
+                        '注：第一次打开页面需要下载字体，请耐心等待页面加载完成。<br>这可能需要一二十秒钟……';
+                }
+                document.querySelector('.option1').innerHTML = '网站主页 →';
+                document.querySelector('.more').innerHTML = '更多';
+                document.querySelector('.option2').innerHTML = '主页v2 →';
+                document.querySelector('.option3').innerHTML = '陈奕迅的歌 →';
+                document.styleSheets[1].addRule('.option3::after', 'content: "可以在线播放"');
+                document.querySelector('.option4').innerHTML = 'win11主页[已弃项] →';
+                document.querySelector('.option5').innerHTML = '初版网站主页 →';
+                document.querySelector('.option6').innerHTML = '网页源码下载 →';
+                document.styleSheets[1].addRule('.option6::after', 'content: "不含Eason的歌曲文件"');
+                document.querySelector('.ft-title').innerHTML = '联系我';
+                document.querySelector('.td-left2').innerHTML = '微信号';
+                document.querySelector('.td-left3').innerHTML = '邮箱';
+            } else if (language === '3') { // traditional Chinese
+                cnT.style.color = 'rgba(00, 00, 00, .9)';
+                cnT.style.borderBottom = '1px solid rgba(00, 00, 00, .9)';
+                cnS.style.color = 'rgba(200, 200, 200, .5)';
+                cnS.style.borderBottom = '1px solid rgba(200, 200, 200, .5)';
+                en.style.color = 'rgba(200, 200, 200, .5)';
+                en.style.borderBottom = '1px solid rgba(200, 200, 200, .5)';
+                document.querySelector('h1').innerHTML =
+                    'Welcome!<br>lyx<span style="font-family: "pingfang"; letter-spacing: 10px;">的個人網站</span>';
+                if (loadFlag === 1) {
+                    document.querySelector('.notice').innerHTML = '頁面加載完成。';
+                } else {
+                    document.querySelector('.notice-unchangeable').innerHTML =
+                        '註：第一次打開頁面需要下載字體，請耐心等待頁面加載完成。<br>這可能需要一二十秒鐘……';
+                }
+                document.querySelector('.option1').innerHTML = '網站主頁 →';
+                document.querySelector('.more').innerHTML = '更多';
+                document.querySelector('.option2').innerHTML = '主頁v2 →';
+                document.querySelector('.option3').innerHTML = '陳奕迅的歌 →';
+                document.styleSheets[1].addRule('.option3::after', 'content: "可以在線播放"');
+                document.querySelector('.option4').innerHTML = 'win11主頁[已棄項] →';
+                document.querySelector('.option5').innerHTML = '初版網站主頁 →';
+                document.querySelector('.option6').innerHTML = '網頁源碼下載 →';
+                document.styleSheets[1].addRule('.option6::after', 'content: "不含Eason的歌曲文件"');
+                document.querySelector('.ft-title').innerHTML = '聯系我';
+                document.querySelector('.td-left2').innerHTML = '微信號碼';
+                document.querySelector('.td-left3').innerHTML = 'e-mail';
+            } else if (language === '2') { // English
+                en.style.color = 'rgba(00, 00, 00, .9)';
+                en.style.borderBottom = '1px solid rgba(00, 00, 00, .9)';
+                cnT.style.color = 'rgba(200, 200, 200, .5)';
+                cnT.style.borderBottom = '1px solid rgba(200, 200, 200, .5)';
+                cnS.style.color = 'rgba(200, 200, 200, .5)';
+                cnS.style.borderBottom = '1px solid rgba(200, 200, 200, .5)';
+                document.querySelector('h1').innerHTML = 'Welcome!<br>lyx\'s personal website';
+                if (loadFlag === 1) {
+                    document.querySelector('.notice').innerHTML = 'Successfully done. ';
+                } else {
+                    document.querySelector('.notice-unchangeable').innerHTML =
+                        'notice: We should download the font. Please wait for a moment. <br>It may take around 20 sec……';
+                }
+                document.querySelector('.option1').innerHTML = 'Home Page →';
+                document.querySelector('.more').innerHTML = 'More';
+                document.querySelector('.option2').innerHTML = 'Version 2 →';
+                document.querySelector('.option3').innerHTML = 'Eason\'s songs →';
+                document.styleSheets[1].addRule('.option3::after', 'content: "Listen Online"');
+                document.querySelector('.option4').innerHTML = 'win11 Homepage [Discontinued] →';
+                document.querySelector('.option5').innerHTML = 'First Page →';
+                document.querySelector('.option6').innerHTML = 'Source Code →';
+                document.styleSheets[1].addRule('.option6::after', 'content: "Excluding Eason\'s song files"');
+                document.querySelector('.ft-title').innerHTML = 'Contact me';
+                document.querySelector('.td-left2').innerHTML = 'WeChat';
+                document.querySelector('.td-left3').innerHTML = 'e-mail';
+            }
+        }
+
+        cnS.addEventListener("click", function () {
+            language = '1';
+            localStorage.setItem("language", language);
+            changeLang();
+        })
+        cnT.addEventListener("click", function () {
+            language = '3';
+            localStorage.setItem("language", language);
+            changeLang();
+        })
+        en.addEventListener("click", function () {
+            language = '2';
+            localStorage.setItem("language", language);
+            changeLang();
+        })
+    </script>
+</body>
+
+</html>

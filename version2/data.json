@@ -1,0 +1,20 @@
+{
+    "test": "testData",
+    "userNum": 2,
+    "userData": [
+        {
+            "uid": "00001",
+            "name": "admin",
+            "qqnum": "1041095264",
+            "deviceFlag": "1",
+            "pw": "admin123"
+        }, 
+        {
+            "uid": "00002",
+            "name": "1111",
+            "qqnum": "10001",
+            "deviceFlag": "2",
+            "pw": "123456"
+        }
+    ]
+}

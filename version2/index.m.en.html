@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lyx's personal website!</title>
+    <link rel="icon" href="../public/images/logo.jpg" sizes="32x32">
+    <link rel="stylesheet" href="./style/indexStyle.css">
+    <link rel="stylesheet" href="./style/publicStyle.css">
+    <link rel="stylesheet" href="./style/fontFace.css">
+    <meta name="description" itemprop="description" content="欢迎分享">
+    <meta itemprop="name" content="lyx的个人网站">
+    <meta itemprop="image" content="../public/images/logo.jpg">
+    <!-- MathJax -->
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+    <!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+    <!-- jQuery -->
+    <script src="../public/javascript/jQuery.js"></script>
+    <!-- captcha -->
+    <script src="../public/javascript/captcha.js"></script>
+    <script src="../public/javascript/publicData.js"></script>
+    <!-- Spacing JS (by CodingStartup) -->
+    <!-- <script src="//cdn.jsdelivr.net/npm/spacingjs" defer></script> -->
+    <style>
+        .info {
+            position: absolute;
+            top: -2500vh;
+            left: -5000vh;
+            width: 50vw;
+            height: 50vh;
+            background-color: var(--basicColor-info-hide);
+            border-radius: 3vh;
+            z-index: 1145;
+            padding: 1vh;
+            overflow: auto;
+        }
+
+        .info-headimg {
+            margin-left: 2vw;
+            width: 8vw;
+            height: 8vw;
+            background: url(./images/logo.jpg);
+            background-size: cover;
+        }
+
+        .info-qqname {
+            position: absolute;
+            left: 13vw;
+            top: 1.5vh;
+            font-size: 2vh;
+            width: 45vw;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .info-qqnum {
+            position: absolute;
+            left: 13vw;
+            top: 4.5vh;
+            font-size: 2vh;
+            width: 45vw;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .info-sup,
+        .info-shr {
+            font-family: 'icomoon';
+            display: inline;
+            font-size: 3vh;
+            margin: 0;
+            margin-left: 2vh;
+            margin-top: 2vh;
+        }
+
+        .web-go {
+            font-family: 'icomoon';
+            width: 4vh;
+            position: absolute;
+            right: 2vh;
+            font-size: 3vh;
+            text-align: center;
+            line-height: 4vh;
+        }
+
+        .web-name {
+            width: 70vw;
+            margin-left: 2vw;
+            position: relative;
+            font-size: 2vh;
+            line-height: 4vh;
+            padding-right: 2vh;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .set-item {
+            height: auto;
+        }
+
+        .tool7_formula-out {
+            margin-left: 25vw;
+        }
+
+        .tool7_formula-check {
+            bottom: 10vh;
+        }
+
+        .tool7_formula-kuohao {
+            display: inline-block;
+            margin-left: 20vw;
+            /* margin-top: 5vh; */
+            margin-bottom: 5vh;
+        }
+
+        .tool7_formula-left2 {
+            margin-bottom: 5vh;
+        }
+
+        .tool7_formula-why {
+            width: 80vw;
+            left: 10vw;
+        }
+
+        .tool7_formula-why-close {
+            right: 11vw;
+        }
+
+        .captcha2 {
+            --width: 50vw;
+            --height: 30vh;
+            --puzzle-width: 7vw;
+            --puzzle-height: 7vh;
+
+            left: 30vw;
+        }
+
+        .weather-message {
+            width: 50vw;
+            display: inline-block;
+        }
+
+        .weather-message-title {
+            width: 24vw;
+        }
+
+        .weather-detail {
+            width: 20vw;
+        }
+
+        .weather {
+            height: 30vh;
+            overflow: auto;
+        }
+
+        .tool-table {
+            left: 15vw;
+        }
+
+        .tool-table-right {
+            width: 30vw;
+
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        // 移动端适配
+        if (deviceFlag === 1) {
+            window.location = "index.en.html";
+        }
+    </script>
+
+    <audio class="noticeSound">
+        <source src="./sound/noticeSound.mp3" type="audio/mpeg" />
+        Your brouser cannot play music. ┑(￣Д ￣)┍
+    </audio>
+
+    <audio class="alertSound">
+        <source src="./sound/alertSound.mp3" type="audio/mpeg" />
+        Your brouser cannot play music. ┑(￣Д ￣)┍
+    </audio>
+
+    <audio class="errorSound">
+        <source src="./sound/errorSound.mp3" type="audio/mpeg" />
+        Your brouser cannot play music. ┑(￣Д ￣)┍
+    </audio>
+
+    <div class="alert">
+        <div class="alert-box">
+            <p class="alert-content">content</p>
+            <form action="">
+                <button class="alert-btn">OK</button>
+            </form>
+        </div>
+    </div>
+    <div class="nav">
+        <p class="logo"></p>
+        <a class="web navbtn navNight1"></a>
+        <a class="tool navbtn navNight2"></a>
+        <a class="set navbtn navNight3"></a>
+        <p class="time navNight4">[time]</p>
+    </div>
+
+    <div class="info">
+        <p class="info-headimg"></p>
+        <p class="info-qqname">Not signed in</p>
+        <p class="info-qqnum"></p>
+        <p class="infoOff  "></p>
+        <p class="info-sup info-sup-1  "></p>
+        <br>
+        <a class="info-sup info-sup-2" href="https://github.com" target="_blank"></a>
+        <a class="info-sup info-sup-3" href="https://code.visualstudio.com/" target="_blank"></a>
+        <a class="info-sup info-sup-4" href="https://www.microsoft.com/zh-cn/windows" target="_blank"></a>
+        <a class="info-sup info-sup-5" href="https://fanyi.youdao.com/" target="_blank">&nbsp;&nbsp;</a>
+        <br>
+        <br>
+        <!-- <p class="info-shr info-shr-1">share to:</p>
+        <br> -->
+        <!-- <div class="bshare-custom">
+            <a title="share to Qzone" class="bshare-qzone info-shr"></a>
+            <a title="Share to Sina Weibo" class="bshare-sinaminiblog info-shr"></a>
+            <a title="Share to Renren" class="bshare-renren info-shr"></a>
+            <a title="Share to Tencent Weibo" class="bshare-qqmb info-shr"></a>
+            <a title="Share to NetEase Weibo" class="bshare-neteasemb info-shr"></a>
+            <a title="More platforms" class="bshare-more bshare-more-icon more-style-addthis info-shr"></a>
+        </div> -->
+        <p class="info-version">current version: [version]</p>
+        <p class="info-update">update time: [updateTime]</p>
+        <a href="welcome.html" class="info-send">come back to welcome page</a>
+        <a class="info-send   full"></a>
+        <a href="mqqapi://card/show_pslcard?src_type=internal&version=1&uin=1041095264&card_type=person&source=qrcode"
+            class="info-send  ">Use QQ to send messages
+            to me directly</a>
+        <a href="https://www.apache.org/licenses/LICENSE-2.0.html" class="info-send  " target="_blank">Apache
+            License 2.0</a>
+    </div>
+
+    <div class="main"></div>
+
+    <div class="senDiv">
+        <!-- <p class="sen" title="">Attitude decides altitude.</p> -->
+        <p class="sen"></p>
+        <p class="senChange"></p>
+    </div>
+
+    <div class="load">
+        <p class="loadAni"></p>
+        background image is loading……
+    </div>
+
+    <div class="noJS">You've closed the JavaScript,<br>this may degrade your browsing experience.<br>Please go to the
+        setting of
+        your browser and open JavaScript.</div>
+
+    <p class="navBtn"></p>
+
+    <div class="msg1">
+        <span class="msg1-title">You have a new message&emsp;</span>
+        <span class="msg1-btn">more</span>
+        <div class="msg1-detail">
+            <p>Dear Friend:</p>
+            <p>Congratulations on your successful registration to run for president of the United States.</p>
+            <p>Please arrive on time for the campaign speech at the White House, 1600 Pennsylvania Avenue, Washington,
+                DC, United States of America. <br>
+                The exact time will be informed later.</p>
+            <p>Please dress appropriately, do not overdo makeup, do not wear sandals, do not dye hair, perm hair,
+                etc.<br>
+                Please prepare your speech in advance. It is better not to have pauses, typos and so on during the
+                campaign speech, which may affect the speech.</p>
+        </div>
+    </div>
+
+    <div class="msg2">
+        <span class="msg2-title">You have a new message&emsp;</span>
+        <span class="msg2-btn">more</span>
+        <div class="msg2-detail">
+            <p>Dear Friend:</p>
+            <p>Congratulations on your successful registration for ACT.</p>
+            <p class="msg2-detail-date">Please arrive at Room 114514 of the Oxford University Trinity College at 7:30 am
+                on [date]/[month]/[year].
+            <p>
+            <p>20 minutes before the test (the first 30 minutes before the test),<br>
+                people in an orderly manner into the examination room, check the admission ticket and other
+                documents
+                required.<br>
+                Distribute the test papers 5 minutes before the start of the examination.<br>
+                After the start of the examination signal issued, begin to answer the questions.<br>
+            </p>
+        </div>
+    </div>
+
+    <div class="captcha2-scene">
+        <p class="captcha2-title">Jigsaw Puzzle Captcha<br>Drag the slider to match the image:</p>
+        <div class="captcha2">
+            <div class="handle">
+                <span class="handle-span"></span>
+            </div>
+        </div>
+        <p class="captcha2-btn">I can't make it.</p>
+    </div>
+
+    <div class="hitokoto">
+        <a href="https://hitokoto.cn/" class="hitokoto-jump" target="_blank">
+            <p class="sentence"></p>
+            <p class="resource"></p>
+        </a>
+        <p class="newSen"></p>
+        <!-- <div class="filter"></div> -->
+        <div class="weather">
+            <p class="weather-title"></p>
+            <p class="weather-city"></p>
+            <!-- <p class="weather-location"></p> -->
+            <input type="text" value="" class="weather-location" placeholder="">
+            <p class="weather-get"></p>
+            <p class="weather-check p-button"></p>
+            <br>
+            <div class="weather-message">
+                <p class="weather-message-title"></p>
+                <p class="weather-detail weather-tempMax"></p>
+            </div>
+            <div class="weather-message">
+                <p class="weather-message-title"></p>
+                <p class="weather-detail weather-tempMin"></p>
+            </div>
+            <div class="weather-message">
+                <p class="weather-message-title"></p>
+                <p class="weather-detail weather-textDay"></p>
+            </div>
+            <div class="weather-message">
+                <p class="weather-message-title"></p>
+                <p class="weather-detail weather-textNight"></p>
+            </div>
+            <div class="weather-message">
+                <p class="weather-message-title"></p>
+                <p class="weather-detail weather-precip"></p>
+            </div>
+            <div class="weather-message">
+                <p class="weather-message-title"></p>
+                <p class="weather-detail weather-sunrise"></p>
+            </div>
+            <div class="weather-message">
+                <p class="weather-message-title"></p>
+                <p class="weather-detail weather-sunset"></p>
+            </div>
+            <div class="weather-message">
+                <p class="weather-message-title"></p>
+                <p class="weather-detail weather-moonrise"></p>
+            </div>
+            <div class="weather-message">
+                <p class="weather-message-title"></p>
+                <p class="weather-detail weather-moonset"></p>
+            </div>
+            <div class="weather-message">
+                <p class="weather-message-title"></p>
+                <p class="weather-detail weather-moonPhase"></p>
+            </div>
+            <div class="weather-message">
+                <p class="weather-message-title"></p>
+                <p class="weather-detail weather-windDirDay"></p>
+            </div>
+            <div class="weather-message">
+                <p class="weather-message-title"></p>
+                <p class="weather-detail weather-windScaleDay"></p>
+            </div>
+            <div class="weather-message">
+                <p class="weather-message-title"></p>
+                <p class="weather-detail weather-windDirNight"></p>
+            </div>
+            <div class="weather-message">
+                <p class="weather-message-title"></p>
+                <p class="weather-detail weather-windScaleNight"></p>
+            </div>
+            <div class="weather-message">
+                <p class="weather-message-title"></p>
+                <p class="weather-detail weather-vis"></p>
+            </div>
+            <div class="weather-message">
+                <p class="weather-message-title"></p>
+                <p class="weather-detail weather-humidity"></p>
+            </div>
+            <a class="weather-a" href="https://www.qweather.com/" target="_blank"></a>
+        </div>
+    </div>
+
+    <div class="webPage page">
+        <p class="pageTitle pageTitle1" style="font-family: 'Din';">websites</p>
+        <div class="web-item">
+            <p class="web-name">&emsp;Diary of this web(Chinese)</p>
+            <a class="web-go" href="../public/diary.html"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;welcome page</p>
+            <a class="web-go p-button" href="welcome.html"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;bilibili</p>
+            <a class="web-go" href="https://www.bilibili.com/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;source code of this website</p>
+            <a class="web-go" href="https://github.com/striumve/lyxWeb" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;GitHub</p>
+            <a class="web-go" href="https://github.com/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;free file convert</p>
+            <a class="web-go p-button" href="https://www.freeconvert.com/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;Search for Luxun's words</p>
+            <a class="web-go" href="http://www.luxunmuseum.com.cn/cx/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;my GitHub profile</p>
+            <a class="web-go" href="https://github.com/striumve" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;MDN Web Docs</p>
+            <a class="web-go" href="https://developer.mozilla.org/en-US/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;Want Quotes</p>
+            <a class="web-go" href="https://wantquotes.net/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;Want Words</p>
+            <a class="web-go" href="https://wantwords.net/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;China Natural Herbarium</p>
+            <a class="web-go" href="https://cfh.ac.cn/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;List of biological species in China</p>
+            <a class="web-go" href="http://www.sp2000.org.cn/browse/browse_taxa" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;Youdao translator</p>
+            <a class="web-go" href="https://fanyi.youdao.com/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;GitHub Pages offical documentation (Simplified Chinese)</p>
+            <a class="web-go" href="https://docs.github.com/cn/pages" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;Visual Studio Code</p>
+            <a class="web-go" href="https://code.visualstudio.com/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;Visual Studio</p>
+            <a class="web-go" href="https://visualstudio.microsoft.com/zh-hans/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;Microsoft</p>
+            <a class="web-go" href="https://www.microsoft.com/zh-cn/windows" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;BShare Short link service</p>
+            <a class="web-go" href="https://www.bshare.cn/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;Chicken jumping</p>
+            <a class="web-go" href="http://jlh.125ks.cn/cxk/dinogame/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;Find out the array general term formula</p>
+            <a class="web-go"
+                href="https://www.wolframalpha.com/input/?i=interpolating%20polynomial%20calculator&utm_medium=social&utm_source=qq&utm_oi=1162720434608119808"
+                target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;icomoon iconfont</p>
+            <a class="web-go" href="https://icomoon.io/app/#/select" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;Bullsh*t generator</p>
+            <a class="web-go" href="https://suulnnka.github.io/BullshitGenerator/index.html" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;Central People's Government of the People's Republic of China</p>
+            <a class="web-go" href="https://www.gov.cn" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;National intelligent education platform for primary and secondary schools</p>
+            <a class="web-go" href="https://basic.smartedu.cn/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;Stack Overflow</p>
+            <a class="web-go" href="https://stackoverflow.com" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;QWeather</p>
+            <a class="web-go" href="https://www.qweather.com/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;hitokoto</p>
+            <a class="web-go" href="https://hitokoto.cn/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;Teach you how to access any website resources</p>
+            <a class="web-go" href="https://www.bilibili.com/video/BV1GJ411x7h7" target="_blank"></a>
+        </div>
+    </div>
+
+    <div class="toolPage page">
+        <p class="pageTitle pageTitle2" style="font-family: 'Din';">tools</p>
+        <div class="tool-item tool7_formula">
+            <p class="tool-item-name" style="font-family: 'Din';">Given two points on a line, find the analytical
+                formula for the line</p>
+            <p class="tool7_formula-why-title"></p>
+            <br>
+            <p class="tool7_formula-note">
+                Note:<br>
+                1. Input data <strong>in fractional form</strong>, but no need to simplify. For 3.14, enter 314/100.
+                If the data to be entered is an integer, the denominator is 1.<br>
+                2. The input data can contain <strong>only digits</strong>, no decimal points, square roots and other
+                operational symbols and special symbols.<br>
+                3. If the input data is negative, you can write the negative sign in the numerator or denominator.<br>
+            </p>
+            <p class="tool7_formula-left1">Enter the two point coordinates (fraction):</p>
+            <br>
+            <div class="tool7_formula-kuohao">(
+                <div class="tool7_formula-frac tool7_formula-input-frac">
+                    <input class="tool7_formula-input tool7_formula-fz tool7_formula-a" maxlength="114514"
+                        placeholder="a" value="4">
+                    <input class="tool7_formula-input tool7_formula-fm tool7_formula-b" maxlength="114514"
+                        placeholder="b" value="1">
+                </div>,
+                <div class="tool7_formula-frac tool7_formula-input-frac">
+                    <input class="tool7_formula-input tool7_formula-fz tool7_formula-c" maxlength="114514"
+                        placeholder="c" value="5">
+                    <input class="tool7_formula-input tool7_formula-fm tool7_formula-d" maxlength="114514"
+                        placeholder="d" value="2">
+                </div>)
+            </div>
+            <div class="tool7_formula-kuohao">(
+                <div class="tool7_formula-frac tool7_formula-input-frac">
+                    <input class="tool7_formula-input tool7_formula-fz tool7_formula-e" maxlength="114514"
+                        placeholder="e" value="2">
+                    <input class="tool7_formula-input tool7_formula-fm tool7_formula-f" maxlength="114514"
+                        placeholder="f" value="1">
+                </div>,
+                <div class="tool7_formula-frac tool7_formula-input-frac">
+                    <input class="tool7_formula-input tool7_formula-fz tool7_formula-g" maxlength="114514"
+                        placeholder="g" value="3">
+                    <input class="tool7_formula-input tool7_formula-fm tool7_formula-h" maxlength="114514"
+                        placeholder="h" value="1">
+                </div>)
+            </div>
+            <p class="tool7_formula-check p-button">calculate</p>
+            <p class="tool7_formula-left2">Analytical expression:</p>
+            <div class="tool7_formula-out">
+                <p class="tool7_formula-output tool7_formula-out-y">y=</p>
+                <div class="tool7_formula-frac">
+                    <p class="tool7_formula-output tool7_formula-fz tool7_formula-out-k-fz">a</p>
+                    <p class="tool7_formula-output tool7_formula-fm tool7_formula-out-k-fm">b</p>
+                </div>
+                <p class="tool7_formula-output tool7_formula-out-k">x+</p>
+                <div class="tool7_formula-frac">
+                    <p class="tool7_formula-output tool7_formula-fz tool7_formula-out-h-fz">a</p>
+                    <p class="tool7_formula-output tool7_formula-fm tool7_formula-out-h-fm">b</p>
+                </div>
+            </div>
+            <div class="tool7_formula-why">
+                <p class="tool7_formula-why-close"></p>
+            </div>
+        </div>
+        <div class="tool-item tool8_login">
+            <p class="tool-item-name" style="font-family: 'Din';">sign in</p>
+            <table class="tool-table">
+                <tbody>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">QQ number</span></td>
+                        <td><input class="tool-table-right tool8_login-right" type="text" placeholder="enter QQ number">
+                        </td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">captcha</span></td>
+                        <td class="tool-table-td-right"><canvas width="240" height="90" class="captcha"
+                                style="z-index: 9;"></canvas></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">enter captcha</span></td>
+                        <td><input class="tool-table-right inputCaptcha" type="text" placeholder="enter captcha"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="tool-table-check p-button tool8_login-check">sign in</p>
+        </div>
+        <div class="tool-item tool1_cache">
+            <p class="tool-item-name" style="font-family: 'Din';">clear the cache</p>
+            <p class="tool-item-right tool1_cache-change">11.4514 MB</p>
+        </div>
+        <div class="tool-item tool3_feedback">
+            <p class="tool-item-name">feedback</p>
+            <br>
+            <textarea class="tool3_feedback-input">I don't have any opinion.</textarea>
+            <p class="tool3_feedback-check p-button">feedback</p>
+        </div>
+        <div class="tool-item tool6_bugFeedback">
+            <p class="tool-item-name" style="font-family: 'Din';">bug feedback</p>
+            <table class="tool-table">
+                <tbody>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">type</span></td>
+                        <td><input class="tool-table-right" type="text" placeholder="enter type"></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">device</span></td>
+                        <td><input class="tool-table-right" type="text" placeholder="enter device"></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">browser</span></td>
+                        <td><input class="tool-table-right" type="text" placeholder="your browser"></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left tool-table-left-ta">condition</span>
+                        </td>
+                        <td><textarea class="tool-table-right tool-table-ta" type="text"
+                                placeholder="enter condiition"></textarea></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left tool-table-left-ta">step</span></td>
+                        <td><textarea class="tool-table-right tool-table-ta" type="text"
+                                placeholder="enter step(s)"></textarea></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left tool-table-left-ta"
+                                style="bottom: 18vh;">more details</span></td>
+                        <td><textarea class="tool-table-right tool-table-ta" type="text"
+                                placeholder="more details"></textarea>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="tool-table-check p-button tool6_bugFeedback-check">feedback</p>
+        </div>
+        <div class="tool-item tool4_signup">
+            <p class="tool-item-name" style="font-family: 'Din';">sign up</p>
+            <table class="tool-table">
+                <tbody>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">nickname</span></td>
+                        <td><input class="tool-table-right" type="text" placeholder="enter nickname"></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">gender</span></td>
+                        <td><input class="tool-table-right" type="text" placeholder="your gender"></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">tel.</span></td>
+                        <td><input class="tool-table-right" type="text" placeholder="enter tel."></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">email</span></td>
+                        <td><input class="tool-table-right" type="text" placeholder="email address"></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">address</span></td>
+                        <td><input class="tool-table-right" type="text" placeholder="your loaction"></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">birthday</span></td>
+                        <td><input class="tool-table-right" type="text" placeholder="birthday"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="tool-table-check p-button tool4_signup-check">sign up</p>
+        </div>
+        <div class="tool-item tool5_rareWord">
+            <p class="tool-item-name" style="font-family: 'Din';">Search for pronunciation of rare words</p>
+            <br>
+            <p class="tool5_rareWord-left1">Enter rare words you do not know:</p>
+            <input class="tool5_rareWord-input" maxlength="114514" placeholder="enter"
+                style="margin-left: 25vw;"></input>
+            <p class="tool5_rareWord-check p-button">search</p>
+            <p class="tool5_rareWord-left2">Pronunciation of rare word:</p>
+            <p class="tool5_rareWord-output" style="margin-left: 15vw;">&emsp;</p>
+        </div>
+    </div>
+
+    <div class="setPage page">
+        <p class="pageTitle pageTitle3" style="font-family: 'Din';">settings</p>
+        <div class="set-item set1_lang">
+            <p style="font-family: 'Din';">language</p>
+            <!-- <div class="set-option">
+                    简体中文&emsp;English
+                    <div class="set-chooser" id="set1_lang-chooser"></div>
+                </div> -->
+            <select name="" id="" class="set-select set1_lang-select">
+                <option value="2" class="set1_lang-option" selected>English</option>
+                <option value="1" class="set1_lang-option">简体中文</option>
+                <option value="3" class="set1_lang-option">日本語</option>
+            </select>
+            <button class="set-check p-button set1_lang-check p-button">OK</button>
+        </div>
+        <div class="set-item set2_music">
+            <audio class="bgm" loop id="player2">
+                <source src="./sound/bgm.mp3" type="audio/mpeg" />
+                Your brouser cannot play music. ┑(￣Д ￣)┍
+            </audio>
+            <p style="font-family: 'Din';">music</p>
+            <select name="" id="" class="set-select set2_music-select">
+                <option value="1" class="set2_music-option set2_music-option1">Les Premiers Sourires de Vanessa</option>
+                <option value="2" class="set2_music-option set2_music-option2" selected>no music</option>
+            </select>
+            <button class="set-check p-button set2_music-check p-button">OK</button>
+        </div>
+        <div class="set-item set3_background">
+            <p style="font-family: 'Din';">background</p>
+            <select name="" id="" class="set-select set3_background-select">
+                <option value="1" class="set3_background-option set3_background-option1" selected>picture 1(Zhihu@世尊逛人间)
+                </option>
+                <option value="2" class="set3_background-option set3_background-option2">picture 2(film: Your Name.)
+                </option>
+            </select>
+            <button class="set-check p-button set3_background-check p-button">OK</button>
+        </div>
+        <div class="set-item set4_theme">
+            <p style="font-family: 'Din';">theme</p>
+            <table style="overflow-x: auto;">
+                <tr>
+                    <td class="set4_theme-preview" themeNum="1" style="background-color: rgba(129, 216, 207, 1);">
+                        <div class="set4_theme-name" style="font-family: 'Din';">mint</div>
+                    </td>
+                    <td class="set4_theme-preview" themeNum="2" style="background-color: rgba(50, 50, 50, 1);">
+                        <div class="set4_theme-name" style="font-family: 'Din';">night</div>
+                    </td>
+                    <td class="set4_theme-preview" themeNum="3" style="background-color: rgba(252, 187, 207, 1);">
+                        <div class="set4_theme-name" style="font-family: 'Din';">pink</div>
+                    </td>
+                    <td class="set4_theme-preview" themeNum="4" style="background-color: rgba(114, 148, 212, 1);">
+                        <div class="set4_theme-name" style="font-family: 'Din';">sky</div>
+                    </td>
+                    <td class="set4_theme-preview" themeNum="5" style="background-color: rgba(253, 199, 101, 1);">
+                        <div class="set4_theme-name" style="font-family: 'Din';">gold</div>
+                    </td>
+                </tr>
+            </table>
+            <button class="set-check set4_theme-check p-button">OK</button>
+        </div>
+    </div>
+</body>
+
+<script>
+    languageFlag = 2;
+    deviceFlag = 2;
+</script>
+
+<script src="./javascript/functions.js"></script>
+<!-- <script src="sentences.js"></script> -->
+
+<script>
+    //隐藏JavaScript提示
+    var nojs = document.querySelector('.noJS');
+    nojs.style.display = 'none';
+
+    //按格式获取当前时间
+    function getNowDate() {
+        var getdate = new Date();
+        var year = getdate.getFullYear();
+        var month = getdate.getMonth();
+        var date = getdate.getDate();
+        var day = getdate.getDay();
+        var hour = getdate.getHours();
+        var minute = getdate.getMinutes();
+        var chiday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        var chimonth = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+            'October', 'November', 'December'
+        ];
+        var outday = chiday[day];
+        var outmonth = chimonth[month];
+        var output = outmonth + ' ' + date + ', ' + year + ', ' + outday + '<br>' + hour + ':' + minute;
+        if (minute < 10) {
+            output = outmonth + ' ' + date + ', ' + year + ', ' + outday + '<br>' + hour + ':' + '0' + minute;
+        };
+        if (hour === 0) {
+            hour = '00';
+        };
+        console.log('Welcome to visit lyx\'s personal website.');
+        return output;
+    }
+
+    //显示时间
+    var showTime = document.querySelector('.time');
+    showTime.innerHTML = getNowDate();
+    var timeTimer = setInterval(function () {
+        showTime.innerHTML = getNowDate();
+    }, 10000);
+
+    //
+    var vh = window.innerHeight;
+    var vw = window.innerWidth;
+    var time = document.querySelector('.time');
+    if (vw <= 0.8 * vh) {
+        time.style.display = 'none';
+    }
+    if (vw >= 1.3 * vh) {
+        // alertBox('检测到您当前的屏幕适宜使用电脑版网页。');
+    }
+</script>
+
+</html>

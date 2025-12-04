@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eason 陈奕迅专区</title>
+    <link rel="stylesheet" href="./style/fontFace.css">
+    <link rel="icon" href="./images/logo.jpg" sizes="32x32">
+    <!-- <script src="./javascript/functions.js"></script> -->
+    <link rel="stylesheet" href="./style/publicStyle.css">
+    <style>
+        @media screen and (max-width: 700px) {
+
+            /* 调整最小页面宽 */
+            body {
+                width: 700px;
+            }
+        }
+
+        body {
+            margin: 0;
+        }
+
+        a {
+            position: relative;
+            top: 20px;
+            left: 20px;
+            text-decoration: none;
+            color: #000;
+            font-size: 20px;
+            padding: 10px;
+            z-index: 999;
+            transition: .2s;
+            background-color: rgba(255, 255, 255, .5);
+        }
+
+        a:hover {
+            background-color: var(--basicColor_white_a080);
+        }
+
+        .pw {
+            height: 100%;
+            background: url(./images/easonBg.png);
+            background-size: cover;
+            background-position-y: top;
+            overflow: auto;
+            color: white;
+        }
+
+        .pwTtl {
+            font-size: 30px;
+            font-family: 'siyuan';
+            position: absolute;
+            top: 50px;
+            left: 75px;
+        }
+
+        .enterPw {
+            width: 500px;
+            height: 50px;
+            line-height: 50px;
+            padding-left: 10px;
+            font-size: 25px;
+            font-family: 'Din';
+            position: absolute;
+            top: 150px;
+            left: 75px;
+            outline: none;
+            background-color: rgba(255, 255, 255, .3);
+        }
+
+        .pwCheck {
+            width: 100px;
+            height: 50px;
+            line-height: 50px;
+            /* padding-left: 10px; */
+            padding: 0;
+            font-size: 25px;
+            font-family: 'siyuan';
+            position: absolute;
+            top: 225px;
+            left: 75px;
+            outline: none;
+            border: none;
+            transition: .2s;
+            color: var(--basicColor_black_a100);
+            background-color: rgba(200, 200, 255, .8);
+        }
+
+        .pwCheck:hover {
+            background-color: rgba(150, 150, 255, .9);
+            color: white;
+        }
+
+        .song {
+            height: 100%;
+            background: url(./images/easonBg.png);
+            background-size: cover;
+            background-position-y: top;
+            overflow: auto;
+        }
+
+        .music-img {
+            width: 70px;
+            /* height: 70px; */
+            margin-left: 30px;
+        }
+
+        audio {
+            display: inline-block;
+            border: none;
+            /* position: absolute;
+            top: 50%;
+            left: 600px; */
+            /* transform: translate(0, -50%); */
+            position: relative;
+            /* left: 300px; */
+            top: 15px;
+            height: 50px;
+        }
+
+        .music-info {
+            display: inline-block;
+            width: 300px;
+            position: relative;
+            /* bottom: 5px; */
+            font-size: 25px;
+            margin: 0;
+            font-family: 'siyuan';
+            line-height: 50px;
+            color: var(--basicColor_white_a080);
+        }
+
+        audio::-webkit-media-controls-enclosure {
+            background-color: rgba(255, 255, 255, .7);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="alert">
+        <div class="alert-box">
+            <p class="alert-content">内容</p>
+            <form action="">
+                <button class="alert-btn">已阅</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="pw" style="display: block;">
+        <a href="../welcome.html">返回欢迎页</a>
+        <p class="pwTtl">请输入密码</p>
+        <input class="enterPw" type="password" placeholder="还想白嫖？" autofocus>
+        <button class="pwCheck">确定</button>
+    </div>
+
+    <div class="song" style="display: none;">
+        <a href="../welcome.html">返回欢迎页</a>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>
+                    <!-- place holder -->
+                </p>
+            </div>
+            <audio preload="none" class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="" type="audio/mpeg" />
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>K歌之王</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - K歌之王.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>K歌之王 (国语版)</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - K歌之王 (国语版).mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>Lonely Christmas</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - Lonely Christmas.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>Shall We Talk</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - Shall We Talk.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>一丝不挂</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 一丝不挂.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>七百年后</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 七百年后.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>不要说话</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 不要说话.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>人来人往</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 人来人往.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>任我行</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 任我行.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>倾城 (Live)</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 倾城 (Live).mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>十年</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 十年.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>十面埋伏</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 十面埋伏.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>单车</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 单车.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>四季</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 四季.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>圣诞结</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 圣诞结.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>失忆蝴蝶</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 失忆蝴蝶.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>好久不见</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 好久不见.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>完</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 完.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>富士山下</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 富士山下.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>当这地球没有花</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 当这地球没有花.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>我们</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 我们.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>我的快乐时代</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 我的快乐时代.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>无人之境</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 无人之境.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>无条件</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 无条件.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>明年今日</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 明年今日.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>最佳损友</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 最佳损友 (To My Friend Special Mix).mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>最冷一天</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 最冷一天.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>月球上的人</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 月球上的人 (Bonus Track).mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>梦想天空分外蓝</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 梦想天空分外蓝.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>沙龙</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 沙龙.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>浮夸</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 浮夸.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>淘汰</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 淘汰.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>白玫瑰</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 白玫瑰.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>稳稳的幸福</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 稳稳的幸福.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>粤语残片</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 粤语残片.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>红玫瑰</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 红玫瑰.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>苦瓜</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 苦瓜.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>落花流水</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 落花流水.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>葡萄成熟时</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 葡萄成熟时.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>阴天快乐</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 阴天快乐.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>阿牛</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 阿牛.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>陀飞轮</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 陀飞轮.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>黑暗中漫舞</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 黑暗中漫舞.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+        <div class="music-item" data-music-count="1">
+            <img class="music-img" src=""></img>
+            <div class="music-info">
+                <p>黑洞</p>
+            </div>
+            <audio preload="none" controls class="music" id="player1" title="初次播放需要加载，请稍候">
+                <source src="./Eason/陈奕迅 - 黑洞.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector(".song").style.height = document.documentElement.clientHeight + "px";
+        document.querySelector(".pw").style.height = document.documentElement.clientHeight + "px";
+
+        function checkPassword() {
+            if (document.querySelector(".enterPw").value === "test") {
+                document.querySelector(".pw").style.display = "none";
+                document.querySelector(".song").style.display = "block";
+            } else {
+                errorSound.play();
+                alertBox("&emsp;密码错误&emsp;");
+            }
+        }
+        document.querySelector(".pwCheck").addEventListener("click", function () {
+            checkPassword();
+        })
+        document.querySelector(".enterPw").addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) { // 按下回车键的键码是13
+                event.preventDefault(); // 阻止回车键的默认行为
+                checkPassword();
+            }
+        });
+    </script>
+</body>
+
+</html>

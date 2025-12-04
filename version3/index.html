@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lyx的个人网站!</title>
+    <link rel="icon" href="../public/images/logo.jpg" sizes="32x32">
+    <link rel="stylesheet" href="./style/indexStyle.css">
+    <link rel="stylesheet" href="./style/publicStyle.css">
+    <link rel="stylesheet" href="./style/fontFace.css">
+    <meta name="description" itemprop="description" content="欢迎分享">
+    <meta itemprop="name" content="lyx的个人网站">
+    <meta itemprop="image" content="../public/images/logo.jpg">
+    <!-- MathJax -->
+    <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+    <!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
+    <!-- Vue -->
+    <!-- jQuery -->
+    <script src="../public/javascript/jQuery.js"></script>
+    <!-- captcha -->
+    <script src="../public/javascript/captcha.js"></script>
+    <script src="../public/javascript/publicData.js"></script>
+    <!-- Spacing JS (by CodingStartup) -->
+    <!-- <script src="//cdn.jsdelivr.net/npm/spacingjs" defer></script> -->
+    <style>
+        .info {
+            position: absolute;
+            left: 40vw;
+            bottom: -100vh;
+            /* bottom: 6vh; */
+            width: 20vw;
+            height: 45vh;
+            background-color: var(--basicColor_info);
+            border-radius: 1vh;
+            z-index: 1145;
+            padding: 1vh;
+            overflow: auto;
+            /* opacity: 0; */
+            padding-top: 3vh;
+            backdrop-filter: blur(5px);
+        }
+
+        .info-headimg {
+            margin-top: 3vh;
+            margin-left: 2vw;
+            width: 3vw;
+            height: 3vw;
+            background: url(../public/images/logo.jpg);
+            background-size: cover;
+            position: absolute;
+            bottom: 1vh;
+            left: 1vh;
+        }
+
+        .info-qqname {
+            position: absolute;
+            left: 7vw;
+            bottom: 4vh;
+            font-size: 2vh;
+            width: 13vw;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .info-qqnum {
+            position: absolute;
+            left: 7vw;
+            bottom: 1vh;
+            font-size: 2vh;
+            width: 13vw;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .info-send {
+            font-size: 2vh;
+        }
+
+        .menu {
+            width: auto;
+            padding: 10px;
+            /* border: 1px solid #ddd; */
+            background-color: var(--basicColor_white_a080);
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            border-radius: 5px;
+            z-index: 1146;
+            box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .web-go {
+            font-family: 'icomoon';
+            width: 3vw;
+            position: absolute;
+            right: 2vw;
+            font-size: 3vh;
+            text-align: center;
+            line-height: 4vh;
+            transform: rotate(90deg);
+        }
+
+        .web-name,
+        .web-site {
+            width: 37vw;
+            margin-left: 2vw;
+            position: relative;
+            /* bottom: .5vh; */
+            font-size: 2vh;
+            line-height: 4vh;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .set-item {
+            height: auto;
+        }
+
+        .tool7_formula-out {
+            margin-left: 35vw;
+        }
+
+        .tool7_formula-check {
+            bottom: 10vh;
+        }
+
+        .tool7_formula-kuohao {
+            display: inline-block;
+            margin-left: 20vw;
+            /* margin-top: 5vh; */
+            margin-bottom: 8vh;
+        }
+
+        .tool7_formula-why {
+            width: 50vw;
+            left: 25vw;
+        }
+
+        .tool7_formula-why-close {
+            right: 27vw;
+        }
+
+        .captcha2 {
+            --width: 30vw;
+            --height: 30vh;
+            --puzzle-width: 5vw;
+            --puzzle-height: 7vh;
+
+            left: 40vw;
+        }
+
+        .weather-message {
+            width: 15vw;
+            float: left;
+            display: block;
+        }
+
+        .weather-message-title {
+            width: 7vw;
+        }
+
+        .weather-detail {
+            /* width: auto; */
+            width: 5vw;
+        }
+
+        .weather {
+            height: 70vh;
+            overflow: auto;
+        }
+
+        .tool-table {
+            left: 25vw;
+        }
+
+        .tool-table-right {
+            width: 20vw;
+
+        }
+    </style>
+</head>
+
+
+<!-- 鼠标右键菜单 -->
+<div class="menu">
+    <div class="menu-item">ヾ(^▽^*)))点鼠标右键想干什么呀？</div>
+</div>
+
+<audio class="noticeSound">
+    <source src="./sound/Windows Notify System Generic.wav" type="audio/wav" />
+    Your brouser cannot play music. ┑(￣Д ￣)┍
+</audio>
+
+<audio class="alertSound">
+    <source src="./sound/Windows Background.wav" type="audio/wav" />
+    Your brouser cannot play music. ┑(￣Д ￣)┍
+</audio>
+
+<audio class="errorSound">
+    <source src="./sound/Windows Foreground.wav" type="audio/wav" />
+    Your brouser cannot play music. ┑(￣Д ￣)┍
+</audio>
+
+<div class="alert">
+    <div class="alert-box">
+        <p class="alert-content">内容</p>
+        <form action="">
+            <button class="alert-btn">已阅</button>
+        </form>
+    </div>
+</div>
+
+<div class="nav" id="app-nav">
+    <div class="nav-left" title="天气" @click="weatherFrame()"></div>
+    <div class="nav-center">
+        <p class="logo" @click="infoFrame()"></p>
+        <p class="web navbtn" @click="pageFrame(0)"></p>
+        <p class="tool navbtn" @click="pageFrame(1)"></p>
+        <p class="set navbtn" @click="pageFrame(2)"></p>
+    </div>
+    <!-- <p class="navRight">  </p> -->
+    <p class="time navNight4">[time]</p>
+    <p class="navBtn" @click="navFrame()"></p>
+</div>
+
+<div class="info" id="app-info" :style>
+    <p class="info-headimg"></p>
+    <p class="info-qqname">未登录</p>
+    <p class="info-qqnum"></p>
+    <br>
+    <!-- <p class="info-shr info-shr-1">分享至:</p> -->
+    <!-- <div class="bshare-custom">
+                <a title="分享到QQ空间" class="bshare-qzone info-shr"></a>
+                <a title="分享到新浪微博" class="bshare-sinaminiblog info-shr"></a>
+                <a title="分享到人人网" class="bshare-renren info-shr"></a>
+                <a title="分享到腾讯微博" class="bshare-qqmb info-shr"></a>
+                <a title="分享到网易微博" class="bshare-neteasemb info-shr"></a>
+                <a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis info-shr"></a>
+            </div> -->
+    <!-- <a class="info-shr info-shr-2">&emsp;</a>
+            <a class="info-shr info-shr-3"></a>
+            <a class="info-shr info-shr-4"></a>
+            <a class="info-shr info-shr-5"></a> -->
+    <p class="info-version">当前版本：{{ currentVersion }}</p>
+    <p class="info-update">更新时间：{{ latestUpdate }}</p>
+    <a href="../welcome.html" class="info-send">回到欢迎页</a>
+    <a class="info-send full">点击以全屏显示网页</a>
+    <a href="tencent://message/?uin=1041095264" class="info-send">点击以使用QQ直接向我发送消息</a>
+    <a href="https://www.apache.org/licenses/LICENSE-2.0.html" class="info-send" target="_blank">开源协议
+        Apache License 2.0</a>
+</div>
+
+<div class="main"></div>
+
+<div class="load">
+    <p class="loadAni"></p>
+    背景图片加载中……
+</div>
+
+<div class="noJS">您已关闭JavaScript，<br>这可能会影响到您的浏览体验。<br>建议前往浏览器设置中开启JavaScript。</div>
+
+<div class="msg1">
+    <span class="msg1-title">您有一条新通知&emsp;</span>
+    <span class="msg1-btn">展开</span>
+    <div class="msg1-detail">
+        <p>亲爱的小朋友：</p>
+        <p>恭喜你，成功报名参加中央电视台少儿频道《智慧树》。</p>
+        <p>栏目创办于2003年12月28日。是为3-6岁学龄前儿童专门打造的一档益智娱乐节目。<br>
+            节目以自由生动的形式，寓科学的教育理念于生动的游戏当中，让孩子在游戏中学，在游戏中乐，在游戏中快乐成长。</p>
+        <p class="msg1-detail-date">请你在家长的陪伴下于[year]年[month]月[date]日下午12:00前到达中央广播电视台参与节目录制。</p>
+        <p>小咕咚和她的朋友们都等着你哟~<br>
+            记住我们的口号，智慧树上智慧果，智慧树下你和我，智慧树前做游戏欢乐多又多~期待与你的见面！<br>
+            ——小咕咚</p>
+    </div>
+</div>
+
+<div class="msg2">
+    <span class="msg2-title">您有一条新通知&emsp;</span>
+    <span class="msg2-btn">展开</span>
+    <div class="msg2-detail">
+        <p>您好，感谢您对2022《男生女生向前冲》栏目的支持，</p>
+        <p class="msg2-detail-date">请您于[year]年[month]月[date]日上午7:00至祁门门路与怀宁路交口向西100米 男生女生向前冲观众入口处检录并参加节目录制。</p>
+        <p>1、请务必携带本人有效身份证以及身份证复印件2张，[不带者视作放弃]；<br>
+            2、请穿宽松运动服，尽量是纯色[千万不要有条纹、骷髅头、雪花点、马赛克图案等明显商标，或带日本文字的服装。不要穿牛仔裤]；<br>
+            3、请穿运动休闲鞋[千万不要穿钉鞋或内增高]；<br>
+            4、请携带一套换洗衣服，包括内衣和鞋子。因为疫情，现场暂不提供沐浴，望您谅解；<br>
+            5、请确保您的健康码是绿色，否则无法参与节目录制；<br>
+            6、请确保您的头发颜色正常，头发颜色是彩色、过黄或非正常发色，颜色过于明显都无法参与节目。<br>
+        </p>
+    </div>
+</div>
+
+<div class="captcha2-scene">
+    <p class="captcha2-title">拼图验证码<br>拖动滑块使图片拼合：</p>
+    <div class="captcha2">
+        <div class="handle">
+            <span class="handle-span"></span>
+        </div>
+    </div>
+    <p class="captcha2-btn">算了，不验证了</p>
+</div>
+
+<div class="hitokoto">
+    <a href="https://hitokoto.cn/" class="hitokoto-jump" target="_blank">
+        <p class="sentence" style="font-family: 'siyuan';">竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。</p>
+        <p class="resource" style="font-family: 'siyuan';">——苏轼</p>
+    </a>
+    <p class="newSen">换一句</p>
+    <!-- <div class="filter"></div> -->
+    <div class="weather" id="app-weather" :onload="updateWeather()">
+        <p class="weather-title" style="font-family: 'siyuan';">今日天气</p>
+        <p class="weather-city">北京朝阳</p>
+        <!-- <p class="weather-location">北京市</p> -->
+        <input type="text" value="朝阳区" class="weather-location" placeholder="输入城市名或经纬度">
+        <p class="weather-get p-button">定位</p>
+        <p class="weather-check p-button">确定</p>
+        <br>
+        <div class="weather-message" v-for="item in weatherData">
+            <p class="weather-message-title">{{ item.name }}</p>
+            <p class="weather-detail">{{ item.detail }}</p>
+        </div>
+        <a class="weather-a" href="https://www.qweather.com/" target="_blank">数据来源：和风天气</a>
+    </div>
+</div>
+
+<div id="pages">
+    <div class="webPage page" pageId="page0" @mousedown="setFrontPage(0)">
+        <div class="pageBar webPageBar" id="pageBar0" onmousedown="dragPage_1('.webPage'), dragPage_2()" onmouseup="isDraging = false">
+            <p class="pageBar-title">&emsp;网址导航</p>
+            <p class="pageBar-btn-min pageBar-btn"></p>
+            <p class="pageBar-btn-full pageBar-btn"></p>
+            <p class="pageBar-btn-float pageBar-btn"></p>
+            <p class="pageBar-btn-close pageBar-btn" @click="closePage(0)"></p>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;网页开发日志</p>
+            <p class="web-site">&emsp;diary.html</p>
+            <a class="web-go p-button" href="../public/diary.html"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;欢迎页</p>
+            <p class="web-site">&emsp;welcome.html</p>
+            <a class="web-go p-button" href="welcome.html"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;哔哩哔哩</p>
+            <p class="web-site">&emsp;https://www.bilibili.com/</p>
+            <a class="web-go p-button" href="https://www.bilibili.com/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;网页源代码</p>
+            <p class="web-site">&emsp;https://github.com/striumve/lyxWeb</p>
+            <a class="web-go p-button" href="https://github.com/striumve/lyxWeb" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;GitHub</p>
+            <p class="web-site">&emsp;https://github.com/</p>
+            <a class="web-go p-button" href="https://github.com/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;文件转换器</p>
+            <p class="web-site">&emsp;https://www.freeconvert.com/</p>
+            <a class="web-go p-button" href="https://www.freeconvert.com/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;鲁迅语录查询</p>
+            <p class="web-site">&emsp;http://www.luxunmuseum.com.cn/cx/</p>
+            <a class="web-go p-button" href="http://www.luxunmuseum.com.cn/cx/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;GitHub个人主页</p>
+            <p class="web-site">&emsp;https://github.com/striumve</p>
+            <a class="web-go p-button" href="https://github.com/striumve" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;MDN Web Docs</p>
+            <p class="web-site">&emsp;https://developer.mozilla.org/en-US/</p>
+            <a class="web-go p-button" href="https://developer.mozilla.org/en-US/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;据意查句</p>
+            <p class="web-site">&emsp;https://wantquotes.net/</p>
+            <a class="web-go p-button" href="https://wantquotes.net/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;反向词典</p>
+            <p class="web-site">&emsp;https://wantwords.net/</p>
+            <a class="web-go p-button" href="https://wantwords.net/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;中国自然标本馆</p>
+            <p class="web-site">&emsp;https://cfh.ac.cn/</p>
+            <a class="web-go p-button" href="https://cfh.ac.cn/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;中国生物物种名录</p>
+            <p class="web-site">&emsp;http://www.sp2000.org.cn/browse/browse_taxa</p>
+            <a class="web-go p-button" href="http://www.sp2000.org.cn/browse/browse_taxa" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;有道翻译</p>
+            <p class="web-site">&emsp;https://fanyi.youdao.com/</p>
+            <a class="web-go p-button" href="https://fanyi.youdao.com/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;GitHub Pages 官方文档 (简体中文)</p>
+            <p class="web-site">&emsp;https://docs.github.com/cn/pages</p>
+            <a class="web-go p-button" href="https://docs.github.com/cn/pages" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;Visual Studio Code</p>
+            <p class="web-site">&emsp;https://code.visualstudio.com/</p>
+            <a class="web-go p-button" href="https://code.visualstudio.com/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;Visual Studio</p>
+            <p class="web-site">&emsp;https://visualstudio.microsoft.com/zh-hans/</p>
+            <a class="web-go p-button" href="https://visualstudio.microsoft.com/zh-hans/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;Microsoft</p>
+            <p class="web-site">&emsp;https://www.microsoft.com/zh-cn/windows</p>
+            <a class="web-go p-button" href="https://www.microsoft.com/zh-cn/windows" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;bShare短链接服务</p>
+            <p class="web-site">&emsp;https://www.bshare.cn/</p>
+            <a class="web-go p-button" href="https://www.bshare.cn/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;菜虚坤跳跳乐</p>
+            <p class="web-site">&emsp;http://jlh.125ks.cn/cxk/dinogame/</p>
+            <a class="web-go p-button" href="http://jlh.125ks.cn/cxk/dinogame/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;找出数组通项公式（拉格朗日插值）</p>
+            <p class="web-site">
+                &emsp;https://www.wolframalpha.com/input/?i=interpolating%20polynomial%20calculator&utm_medium=social&utm_source=qq&utm_oi=1162720434608119808
+            </p>
+            <a class="web-go p-button"
+                href="https://www.wolframalpha.com/input/?i=interpolating%20polynomial%20calculator&utm_medium=social&utm_source=qq&utm_oi=1162720434608119808"
+                target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;icomoon字体图标</p>
+            <p class="web-site">&emsp;https://icomoon.io/app/#/select</p>
+            <a class="web-go p-button" href="https://icomoon.io/app/#/select" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;狗屁不通文章生成器</p>
+            <p class="web-site">&emsp;https://suulnnka.github.io/BullshitGenerator/index.html</p>
+            <a class="web-go p-button" href="https://suulnnka.github.io/BullshitGenerator/index.html"
+                target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;中华人民共和国中央人民政府</p>
+            <p class="web-site">&emsp;https://www.gov.cn</p>
+            <a class="web-go p-button" href="https://www.gov.cn" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;国家中小学智慧教育平台</p>
+            <p class="web-site">&emsp;https://basic.smartedu.cn/</p>
+            <a class="web-go p-button" href="https://basic.smartedu.cn/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;Stack Overflow</p>
+            <p class="web-site">&emsp;https://stackoverflow.com</p>
+            <a class="web-go p-button" href="https://stackoverflow.com" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;和风天气</p>
+            <p class="web-site">&emsp;https://www.qweather.com/</p>
+            <a class="web-go p-button" href="https://www.qweather.com/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;一言</p>
+            <p class="web-site">&emsp;https://hitokoto.cn/</p>
+            <a class="web-go p-button" href="https://hitokoto.cn/" target="_blank"></a>
+        </div>
+        <div class="web-item">
+            <p class="web-name">&emsp;教你获取任意网站资源</p>
+            <p class="web-site">&emsp;机密资料，网址不显示</p>
+            <a class="web-go p-button" href="https://www.bilibili.com/video/BV1GJ411x7h7" target="_blank"></a>
+        </div>
+    </div>
+
+    <div class="toolPage page" pageId="page1" @mousedown="setFrontPage(1)">
+        <div class="pageBar webPageBar" onmousedown="dragPage_1('.toolPage'), dragPage_2()" onmouseup="isDraging = false" id="pageBar1">
+            <p class="pageBar-title">&emsp;工具</p>
+            <p class="pageBar-btn-min pageBar-btn"></p>
+            <p class="pageBar-btn-full pageBar-btn"></p>
+            <p class="pageBar-btn-float pageBar-btn"></p>
+            <p class="pageBar-btn-close pageBar-btn" @click="closePage(1)"></p>
+        </div>
+        <div class="tool-item tool2">
+            <!-- <p class="tool-item-name">LaTeX公式预览</p>
+                <p style="display: inline;color:gray;">（这玩意我也不知道为什么，反正就是没法搞，看看就好）</p>
+                <br>
+                <textarea class="tool2-input">s^2 = \frac{1}{n}\sum^n_{i=1}(x-\overline{x})^2</textarea>
+                <p class="tool2-output">$$ s^2 = \frac{1}{n}\sum^n_{i=1}(x-\overline{x})^2 $$</p>
+                <p class="tool2-check">123</p> -->
+        </div>
+        <div class="tool-item tool7_formula">
+            <p class="tool-item-name" style="font-family: 'siyuan';">已知直线上两点，求直线解析式</p>
+            <p class="tool7_formula-why-title"></p>
+            <br>
+            <p class="tool7_formula-note">
+                注意事项：<br>
+                1. 输入的数据请<strong>化成分数形式</strong>，但不必化简。如3.14，请输入314/100。欲输入的数据为整数的，分母即为1。<br>
+                2. 输入的数据中<strong>只能有数字</strong>，不得包含小数点、根号等运算符号及特殊符号。<br>
+                3. 输入的数据为负的，可以把负号（英文状态下（-））写在分子或分母。<br>
+            </p>
+            <p class="tool7_formula-left1">输入两点坐标（分式）：</p>
+            <br>
+            <div class="tool7_formula-kuohao">(
+                <div class="tool7_formula-frac tool7_formula-input-frac">
+                    <input class="tool7_formula-input tool7_formula-fz tool7_formula-a" maxlength="114514"
+                        placeholder="a" value="4">
+                    <input class="tool7_formula-input tool7_formula-fm tool7_formula-b" maxlength="114514"
+                        placeholder="b" value="1">
+                </div>,
+                <div class="tool7_formula-frac tool7_formula-input-frac">
+                    <input class="tool7_formula-input tool7_formula-fz tool7_formula-c" maxlength="114514"
+                        placeholder="c" value="5">
+                    <input class="tool7_formula-input tool7_formula-fm tool7_formula-d" maxlength="114514"
+                        placeholder="d" value="2">
+                </div>)
+            </div>
+            <div class="tool7_formula-kuohao">(
+                <div class="tool7_formula-frac tool7_formula-input-frac">
+                    <input class="tool7_formula-input tool7_formula-fz tool7_formula-e" maxlength="114514"
+                        placeholder="e" value="2">
+                    <input class="tool7_formula-input tool7_formula-fm tool7_formula-f" maxlength="114514"
+                        placeholder="f" value="1">
+                </div>,
+                <div class="tool7_formula-frac tool7_formula-input-frac">
+                    <input class="tool7_formula-input tool7_formula-fz tool7_formula-g" maxlength="114514"
+                        placeholder="g" value="3">
+                    <input class="tool7_formula-input tool7_formula-fm tool7_formula-h" maxlength="114514"
+                        placeholder="h" value="1">
+                </div>)
+            </div>
+            <p class="tool7_formula-check p-button">计算</p>
+            <p class="tool7_formula-left2">直线解析式：</p>
+            <div class="tool7_formula-out">
+                <p class="tool7_formula-output tool7_formula-out-y">y=</p>
+                <div class="tool7_formula-frac">
+                    <p class="tool7_formula-output tool7_formula-fz tool7_formula-out-k-fz">a</p>
+                    <p class="tool7_formula-output tool7_formula-fm tool7_formula-out-k-fm">b</p>
+                </div>
+                <p class="tool7_formula-output tool7_formula-out-k">x+</p>
+                <div class="tool7_formula-frac">
+                    <p class="tool7_formula-output tool7_formula-fz tool7_formula-out-h-fz">a</p>
+                    <p class="tool7_formula-output tool7_formula-fm tool7_formula-out-h-fm">b</p>
+                </div>
+            </div>
+            <div class="tool7_formula-why">
+                <p class="tool7_formula-why-close"></p>
+            </div>
+        </div>
+        <div class="tool-item tool8_login">
+            <p class="tool-item-name" style="font-family: 'siyuan';">QQ登录</p>
+            <table class="tool-table">
+                <tbody>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">QQ号码</span></td>
+                        <td><input class="tool-table-right tool8_login-right" type="text" placeholder="要退出登录请留空">
+                        </td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">验证码，点击可刷新</span></td>
+                        <td class="tool-table-td-right"><canvas width="240" height="90" class="captcha"
+                                style="z-index: 9;"></canvas></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">输入验证码</span></td>
+                        <td><input class="tool-table-right inputCaptcha" type="text" placeholder="输入六位验证码"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="tool-table-check p-button tool8_login-check">登录</p>
+
+            <!-- 
+                表格模板：
+                <table class="tool-table">
+                    <tbody>
+                        <tr class="tool-table-tr">
+                            <td class="tool-table-td-left"><span class="tool-table-left">行1列1</span></td>
+                            <td><input class="tool-table-right" type="text" placeholder="行1列2"></td>
+                        </tr>
+                        <tr class="tool-table-tr">
+                            <td class="tool-table-td-left"><span class="tool-table-left">行2列1</span></td>
+                            <td><input class="tool-table-right" type="text" placeholder="行2列2"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="tool-table-check p-button tool1_cache-check">提交</p>
+                -->
+        </div>
+        <div class="tool-item tool9_login">
+            <p class="tool-item-name" style="font-family: 'siyuan';">用户登录（测试功能）</p>
+            <form action="">
+                <table class="tool-table">
+                    <tbody>
+                        <tr class="tool-table-tr">
+                            <td class="tool-table-td-left"><span class="tool-table-left">用户账号</span></td>
+                            <td><input class="tool-table-right tool9_login-uid" type="text" placeholder="输入uid">
+                            </td>
+                        </tr>
+                        <tr class="tool-table-tr">
+                            <td class="tool-table-td-left"><span class="tool-table-left">输入密码</span></td>
+                            <td><input class="tool-table-right tool9_login-pw" type="password" placeholder="输入密码">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="tool-table-check p-button tool9_login-check">登录</p>
+            </form>
+        </div>
+        <div class="tool-item tool1_cache">
+            <p class="tool-item-name" style="font-family: 'siyuan';">清除缓存</p>
+            <p class="tool-item-right tool1_cache-change">11.4514 MB</p>
+        </div>
+        <div class="tool-item tool3_feedback">
+            <p class="tool-item-name" style="font-family: 'siyuan';">意见反馈</p>
+            <br>
+            <textarea class="tool3_feedback-input">我没有什么意见。</textarea>
+            <p class="tool3_feedback-check p-button">反馈</p>
+        </div>
+        <div class="tool-item tool6_bugFeedback">
+            <p class="tool-item-name" style="font-family: 'siyuan';">错误反馈</p>
+            <table class="tool-table">
+                <tbody>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">类型</span></td>
+                        <td><input class="tool-table-right" type="text" placeholder="输入类型"></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">设备</span></td>
+                        <td><input class="tool-table-right" type="text" placeholder="输入设备"></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">浏览器</span></td>
+                        <td><input class="tool-table-right" type="text" placeholder="输入使用的浏览器"></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left tool-table-left-ta">前置条件</span>
+                        </td>
+                        <td><textarea class="tool-table-right tool-table-ta" type="text"
+                                placeholder="输入前置条件"></textarea></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left tool-table-left-ta">复现步骤</span>
+                        </td>
+                        <td><textarea class="tool-table-right tool-table-ta" type="text"
+                                placeholder="输入复现步骤"></textarea></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left tool-table-left-ta"
+                                style="bottom: 18vh;">更多备注</span></td>
+                        <td><textarea class="tool-table-right tool-table-ta" type="text" placeholder="输入备注"></textarea>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="tool-table-check p-button tool6_bugFeedback-check">反馈</p>
+
+            <!-- <p class="tool-item-name" style="font-family: 'siyuan';">错误反馈</p>
+                <br>
+                <span class="tool6_bugFeedback-left">类型</span>
+                <input class="tool6_bugFeedback-right" type="text" placeholder="输入类型">
+                <br>
+                <span class="tool6_bugFeedback-left">设备</span>
+                <input class="tool6_bugFeedback-right" type="text" placeholder="输入设备">
+                <br>
+                <span class="tool6_bugFeedback-left">浏览器</span>
+                <input class="tool6_bugFeedback-right" type="text" placeholder="输入使用的浏览器">
+                <br>
+                <span class="tool6_bugFeedback-left tool6_bugFeedback-left-ta">前置条件</span>
+                <textarea class="tool6_bugFeedback-right tool6_bugFeedback-ta" type="text" placeholder="输入前置条件"></textarea>
+                <br>
+                <span class="tool6_bugFeedback-left tool6_bugFeedback-left-ta">复现步骤</span>
+                <textarea class="tool6_bugFeedback-right tool6_bugFeedback-ta" type="text" placeholder="输入复现步骤"></textarea>
+                <br>
+                <span class="tool6_bugFeedback-left tool6_bugFeedback-left-ta" style="bottom: 18vh;">更多备注</span>
+                <textarea class="tool6_bugFeedback-right tool6_bugFeedback-ta" type="text" placeholder="输入备注"
+                    style="margin-bottom: 10vh;"></textarea>
+                <p class="tool6_bugFeedback-check p-button">反馈</p> -->
+        </div>
+        <div class="tool-item tool4_signup">
+            <p class="tool-item-name" style="font-family: 'siyuan';">注册账号</p>
+            <table class="tool-table">
+                <tbody>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">昵称</span></td>
+                        <td><input class="tool-table-right" type="text" placeholder="输入昵称"></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">性别</span></td>
+                        <td><input class="tool-table-right" type="text" placeholder="输入性别"></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">电话号码</span></td>
+                        <td><input class="tool-table-right" type="text" placeholder="输入电话号码"></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">邮箱</span></td>
+                        <td><input class="tool-table-right" type="text" placeholder="输入邮箱"></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">地址</span></td>
+                        <td><input class="tool-table-right" type="text" placeholder="输入地址"></td>
+                    </tr>
+                    <tr class="tool-table-tr">
+                        <td class="tool-table-td-left"><span class="tool-table-left">出生日期</span></td>
+                        <td><input class="tool-table-right" type="text" placeholder="输入出生日期"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="tool-table-check p-button tool4_signup-check">注册</p>
+        </div>
+        <div class="tool-item tool5_rareWord">
+            <p class="tool-item-name" style="font-family: 'siyuan';">生僻字读音查询</p>
+            <br>
+            <p class="tool5_rareWord-left1">输入您不认识的生僻字（114514字以内）：</p>
+            <input class="tool5_rareWord-input" maxlength="114514" placeholder="请输入">
+            <p class="tool5_rareWord-check p-button">查询</p>
+            <p class="tool5_rareWord-left2">生僻字的读音：</p>
+            <p class="tool5_rareWord-output">&emsp;</p>
+        </div>
+    </div>
+
+
+
+    <div class="setPage page" pageId="page2" @mousedown="setFrontPage(2)">
+        <div class="pageBar webPageBar" onmousedown="dragPage_1('.setPage'), dragPage_2()" onmouseup="isDraging = false" id="pageBar2">
+            <p class="pageBar-title">&emsp;设置</p>
+            <p class="pageBar-btn-min pageBar-btn"></p>
+            <p class="pageBar-btn-full pageBar-btn"></p>
+            <p class="pageBar-btn-float pageBar-btn"></p>
+            <p class="pageBar-btn-close pageBar-btn" @click="closePage(2)"></p>
+        </div>
+        <div class="set-item set1_lang">
+            <p style="font-family: 'siyuan';">语言</p>
+            <select name="" id="" class="set-select set1_lang-select">
+                <option value="1" class="set1_lang-option" selected>简体中文</option>
+                <option value="2" class="set1_lang-option">English</option>
+                <option value="3" class="set1_lang-option">日本語</option>
+            </select>
+            <button class="set-check set1_lang-check p-button">确定</button>
+        </div>
+        <div class="set-item set2_music">
+            <audio class="bgm" loop id="player2">
+                <source src="../version2/sound/bgm.mp3" type="audio/mpeg" />
+                你的浏览器不支持播放音乐┑(￣Д ￣)┍
+            </audio>
+            <p style="font-family: 'siyuan';">音乐</p>
+            <select name="" id="" class="set-select set2_music-select">
+                <option value="1" class="set2_music-option set2_music-option1">瓦妮莎的微笑</option>
+                <option value="2" class="set2_music-option set2_music-option2" selected>不播放音乐</option>
+            </select>
+            <button class="set-check set2_music-check p-button">确定</button>
+        </div>
+        <div class="set-item set3_background">
+            <p style="font-family: 'siyuan';">背景图片</p>
+            <select name="" id="" class="set-select set3_background-select">
+                <option value="1" class="set3_background-option set3_background-option1" selected>背景1(知乎@世尊逛人间)
+                </option>
+                <option value="2" class="set3_background-option set3_background-option2">背景2(电影 你的名字。)</option>
+            </select>
+            <button class="set-check set3_background-check p-button">确定</button>
+        </div>
+        <div class="set-item set4_theme">
+            <p style="font-family: 'siyuan';">主题</p>
+            <table>
+                <tr>
+                    <!-- read://https_blog.csdn.net/?url=https%3A%2F%2Fblog.csdn.net%2Fz2014z%2Farticle%2Fdetails%2F116723359 -->
+                    <td class="set4_theme-preview" themeNum="1" style="background-color: rgba(129, 216, 207, 1);">
+                        <div class="set4_theme-name">薄荷绿</div>
+                    </td>
+                    <td class="set4_theme-preview" themeNum="2" style="background-color: rgba(50, 50, 50, 1);">
+                        <div class="set4_theme-name">暗夜黑</div>
+                    </td>
+                    <td class="set4_theme-preview" themeNum="3" style="background-color: rgba(252, 187, 207, 1);">
+                        <div class="set4_theme-name">少女粉</div>
+                    </td>
+                    <td class="set4_theme-preview" themeNum="4" style="background-color: rgba(114, 148, 212, 1);">
+                        <div class="set4_theme-name">地中海蓝</div>
+                    </td>
+                    <td class="set4_theme-preview" themeNum="5" style="background-color: rgba(253, 199, 101, 1);">
+                        <div class="set4_theme-name">麦浪金</div>
+                    </td>
+                </tr>
+            </table>
+            <button class="set-check set4_theme-check p-button">确定</button>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+    languageFlag = 1;
+    deviceFlag = 1;
+</script>
+
+<script src="../public/javascript/vue.js"></script>
+<script src="./javascript/functions.js"></script>
+<script src="./javascript/vueApp.js"></script>
+<!-- <script src="sentences.js"></script> -->
+<!-- <script src="https://tenapi.cn/yiyan/?format=js"></script> -->
+<!-- <script src="https://v1.hitokoto.cn/?encode=js&select=%23hitokoto" defer></script> -->
+
+<script>
+    //隐藏JavaScript提示
+    var nojs = document.querySelector('.noJS');
+    nojs.style.display = 'none';
+
+    // 鼠标右键菜单
+    window.oncontextmenu = function (e) {
+        e.preventDefault(); //取消默认的浏览器自带右键 
+        var evt = window.event || arguments[0];
+        var menu = document.querySelector('.menu'); //获取右键菜单
+        var container = document.querySelector('body'); //获取区域
+        /*获取当前鼠标右键按下后的位置，据此定义菜单显示的位置*/
+        var rightedge = container.clientWidth - evt.clientX;
+        var bottomedge = container.clientHeight - evt.clientY;
+        // console.log(container.clientHeight);
+        /*如果从鼠标位置到容器右边的空间小于菜单的宽度，就定位菜单的左坐标（Left）为当前鼠标位置向左一个菜单宽度*/
+        if (rightedge < menu.offsetWidth) {
+            menu.style.left = container.scrollLeft + evt.clientX - menu.offsetWidth + "px";
+        } else {
+            /*否则，就定位菜单的左坐标为当前鼠标位置*/
+            menu.style.left = container.scrollLeft + evt.clientX + "px";
+        }
+        /*如果从鼠标位置到容器下边的空间小于菜单的高度，就定位菜单的上坐标（Top）为当前鼠标位置向上一个菜单高度*/
+        if (bottomedge < menu.offsetHeight) {
+            menu.style.top = container.scrollTop + evt.clientY - menu.offsetHeight + "px";
+        } else {
+            /*否则，就定位菜单的上坐标为当前鼠标位置*/
+            menu.style.top = container.scrollTop + evt.clientY + "px";
+        }
+        /*设置菜单可见*/
+        document.querySelector('.noticeSound').play();
+        menu.style.visibility = 'visible';
+        menu.style.animation = 'public_show ease .2s both';
+    }
+
+    window.onclick = function (e) { //关闭右键菜单
+        document.querySelector('.menu').style.animation = 'public_hide ease .2s both';
+        setTimeout(() => {
+            document.querySelector('.menu').style.visibility = 'hidden';
+        }, 200)
+        //用户触发click事件就可以关闭了，因为绑定在window上，按事件冒泡处理，不会影响菜单的功能
+    }
+
+    //按格式获取当前时间
+    function getNowDate() {
+        var getdate = new Date();
+        var year = getdate.getFullYear();
+        var month = getdate.getMonth() + 1;
+        var date = getdate.getDate();
+        var day = getdate.getDay();
+        var hour = getdate.getHours();
+        var minute = getdate.getMinutes();
+        var chiday = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+        var outday = chiday[day];
+        var output = year + '年' + month + '月' + date + '日' + ' ' + '<br>' + outday + '&emsp;' + hour + ':' + minute;
+        if (minute < 10) {
+            output = year + '年' + month + '月' + date + '日' + ' ' + '<br>' + outday + '&emsp;' + hour + ':' + '0' + minute;
+        };
+        if (hour === 0) {
+            hour = '00';
+        };
+        return output;
+    }
+
+    //显示时间
+    var showTime = document.querySelector('.time');
+    showTime.innerHTML = getNowDate();
+    var timeTimer = setInterval(function () {
+        showTime.innerHTML = getNowDate();
+    }, 10000);
+</script>
+
+</html>

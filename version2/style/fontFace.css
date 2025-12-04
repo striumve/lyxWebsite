@@ -1,0 +1,52 @@
+@font-face {
+    /* 字体声明  */
+    font-family: 'icomoon';
+    src: url('../fonts/icomoon.eot?p4ssmb');
+    src: url('../fonts/icomoon.eot?p4ssmb#iefix') format('embedded-opentype'),
+        url('../fonts/icomoon.ttf?p4ssmb') format('truetype'),
+        url('../fonts/icomoon.woff?p4ssmb') format('woff'),
+        url('../fonts/icomoon.svg?p4ssmb#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'consolas';
+    src: url('../../public/fonts/consolas.ttf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Din';
+    src: url('../../public/fonts/DIN-Regular-2.otf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Din-Heavy';
+    src: url('../../public/fonts/DIN-Medium-2.otf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'siyuan';
+    src: url('../../public/fonts/SourceHanSerifCN-Regular-1.otf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'pingfang';
+    src: url('../../public/fonts/PingFangSC-Regular.woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}

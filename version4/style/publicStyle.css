@@ -1,0 +1,147 @@
+:root {
+    user-select: none;
+    cursor: url(../../public/cursor/normal.cur), default;
+
+    --color_bodyBackground: rgb(150, 150, 255);
+    --color_box: rgba(230, 230, 255, .55);
+    --color_box_hover: rgba(230, 230, 255, .65);
+    --color_pagebox: rgba(230, 230, 255, .75);
+    --color_pagebox_hover: rgba(230, 230, 255, .85);
+    --color_purple: rgba(100, 100, 255, 1);
+    --color_blue: rgba(1, 47, 268, 1);
+}
+
+/* 最小页面宽 */
+@media screen and (max-width: 1600px) {
+    body {
+        width: 1600px;
+    }
+}
+
+body {
+    /* width: 100vw;
+    height: 100vh; */
+    margin: 0;
+    padding: 0;
+    /* position: relative; */
+    background-color: var(--color_bodyBackground);
+    cursor: url(../../public/cursor/normal.cur), default;
+    /* cursor: url(../../../../../../coding/鼠标样式文件/naibai-cus_7234/牛奶蓝光标/diagonal1.cur), default; */
+    overflow: auto;
+}
+
+button {
+    cursor: url(../../public/cursor/normal.cur), default;
+}
+
+a {
+    cursor: url(../../public/cursor/link.cur), default;
+}
+
+.main {
+    width: 100vw;
+    height:100vh;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    overflow: auto;
+}
+
+div::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 10px;
+    /*高宽分别对应横竖滚动条的尺寸*/
+    height: 10px;
+    /* scrollbar-arrow-color: red; */
+    cursor: url(../../public/cursor/diagonal1.cur), default;
+}
+
+div::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    /* width: 5px;
+    height: 5px; */
+    border-radius: 15px;
+    /* box-shadow: inset 0 0 5px rgba(50, 50, 250, .3); */
+    background: rgba(50, 50, 150, .3);
+    /* scrollbar-arrow-color: red; */
+    transition: .3s;
+}
+
+div::-webkit-scrollbar-thumb:hover {
+    background: rgba(127, 50, 250, 0.7);
+}
+
+div::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    /* box-shadow: inset 0 0 5px rgba(0, 0, 0, 0); */
+    border-radius: 0;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+@keyframes public_hide {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes public_show {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes page_hide_totop {
+    0% {
+        top: 10vh;
+        opacity: 1;
+    }
+
+    100% {
+        top: 5vh;
+        opacity: 0;
+    }
+}
+
+@keyframes page_hide_tobottom {
+    0% {
+        top: 10vh;
+        opacity: 1;
+    }
+
+    100% {
+        top: 15vh;
+        opacity: 0;
+    }
+}
+
+@keyframes page_show_totop {
+    0% {
+        top: 15vh;
+        opacity: 0;
+    }
+
+    100% {
+        top: 10vh;
+        opacity: 1;
+    }
+}
+
+@keyframes page_show_tobottom {
+    0% {
+        top: 5vh;
+        opacity: 0;
+    }
+
+    100% {
+        top: 10vh;
+        opacity: 1;
+    }
+}

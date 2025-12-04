@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../version4/style/fontFace.css">
+    <script src="../public/javascript/publicData.js"></script>
+    <!-- <script src="./javascript/jQuery.js"></script> -->
+    <title>网页开发日志 - lyx的个人网站!</title>
+    <style>
+        @media screen and (max-width: 500px) {
+
+            /* 最小页面宽适配 */
+            body {
+                width: 500px;
+            }
+        }
+
+        :root {
+            --backgroundColor: rgba(255, 255, 255, 1);
+            --textColor: rgba(0, 0, 0, 1);
+            --itemColor: rgba(200, 245, 255, 1);
+            --itemColor-hover: rgba(150, 200, 255, 1);
+            --backColor: rgba(200, 200, 255, .7);
+            --backColor-hover: rgba(150, 150, 200, .7);
+        }
+
+        body {
+            background-color: var(--backgroundColor);
+        }
+
+        a {
+            color: var(--textColor);
+        }
+
+        .title {
+            text-align: center;
+            font-size: 3vh;
+            color: var(--textColor);
+        }
+
+        .back {
+            position: fixed;
+            top: 2vh;
+            left: 2vw;
+            text-decoration: none;
+            color: var(--textColor);
+            font-size: 2vh;
+            z-index: 10;
+            background-color: var(--backColor);
+            padding: 1vh;
+            transition: .4s;
+        }
+
+        .back:hover {
+            background-color: var(--backColor-hover);
+        }
+
+        .item {
+            width: 98%;
+            height: auto;
+            background-color: var(--itemColor);
+            border-radius: 2vh;
+            position: relative;
+            margin-bottom: 2vh;
+            padding: 1vw;
+            transition: .5s;
+            color: var(--textColor);
+        }
+
+        .item:hover {
+            background-color: var(--itemColor-hover);
+        }
+
+        .left {
+            display: inline-block;
+            position: absolute;
+            /* left: 1vw; */
+            top: 0vh;
+            font-size: 2.5vh;
+            /* margin-left: 1vw; */
+            font-family: 'consolas';
+            margin-bottom: 0;
+        }
+
+        .right {
+            /* display: inline-block; */
+            font-size: 2vh;
+            /* position: absolute; */
+            /* right: 1vw; */
+            text-align: right;
+            /* margin: 2vh; */
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        var root = document.querySelector(':root');
+        // if (localStorage.set4_theme === '2') {
+        //     root.style.setProperty('--backgroundColor', 'rgb(20, 20, 50)');
+        //     root.style.setProperty('--textColor', 'rgba(200, 200, 200, 1)');
+        //     root.style.setProperty('--itemColor', 'rgba(200, 200, 255, .3)');
+        //     root.style.setProperty('--itemColor-hover', 'rgba(150, 150, 255, .5)');
+        //     root.style.setProperty('--backColor', 'rgba(50, 50, 100, .8)');
+        //     root.style.setProperty('--backColor-hover', 'rgba(50, 50, 250, .8)');
+        // } else {
+        //     root.style.setProperty('--backgroundColor', 'rgba(255, 255, 255, 1)');
+        //     root.style.setProperty('--textColor', 'rgba(0, 0, 0, 1)');
+        //     root.style.setProperty('--itemColor', 'rgba(200, 245, 255, 1)');
+        //     root.style.setProperty('--itemColor-hover', 'rgba(150, 200, 255, 1)');
+        //     root.style.setProperty('--backColor', 'rgba(200, 200, 255, .7)');
+        //     root.style.setProperty('--backColor-hover', 'rgba(150, 150, 200, .7)');
+        // }
+    </script>
+    <p class="title">网页开发日志</p>
+    <a class="back" href="../version4/index.html">返回</a>
+    <div class="item">
+        <p class="left">2025.11.30 v4.0.0</p>
+        <p class="right">开始制作新版网页</p>
+        <p class="right">制作了基本页面，制作了说说、文章、链接页面</p>
+        <p class="right">第2版网页开发日志请前往<a href="./diary.html" target="_blank">这里</a></p>
+    </div>
+    <div class="item">
+        <p class="left">2025.12.01 v4.0.1</p>
+        <p class="right">制作并填写了关于页面</p>
+    </div>
+</body>
+
+</html>
