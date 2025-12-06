@@ -50,11 +50,3 @@
     font-style: normal;
     font-display: block;
 }
-
-@font-face {
-    font-family: 'harmony';
-    src: url('../../public/fonts/HarmonyOS_Sans_SC_Regular.ttf');
-    font-weight: normal;
-    font-style: normal;
-    font-display: block;
-}

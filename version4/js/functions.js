@@ -12,6 +12,96 @@ console.log('%c%s',
     |   \\________||     \\_//         /_//       \\_\\\\   \n\
     *------------------------------------------------\n');
 
+
+
+const urlParams = new URLSearchParams(window.location.search);
+const body = document.querySelector("body");
+
+//移动端适配
+
+var vw = document.documentElement.clientWidth;
+var vh = document.documentElement.clientHeight;
+if ((vw / vh) <= 1.2) {
+    document.querySelector('.showInfo').style.display = 'block';
+    visionMobilise();
+}
+
+function visionMobilise() {
+    body.style.setProperty('--start_btn_width', '30vw');
+    body.style.setProperty('--box_width', '80vw');
+    body.style.setProperty('--box_left', '10vw');
+    body.style.setProperty('--page_width', '70vw');
+    body.style.setProperty('--pages_left', '23vw');
+    body.style.setProperty('--yiyan_margin', '5vw');
+    body.style.setProperty('--padding_top', '7vh');
+    body.style.setProperty('--padding_top_minus', '4vh');
+    body.style.setProperty('--padding_top_plus', '11vh');
+    body.style.setProperty('--pages_columncount', '1');
+    body.style.setProperty('--navbtn_fontsize', '2.1vh');
+    body.style.setProperty('--navbtn_padding', '2vw');
+    body.style.setProperty('--artiitemgo_right', '5vw');
+    body.style.setProperty('--linkitemgo_right', '5vw');
+    body.style.setProperty('--item_after_width', '10vw');
+    document.querySelector(".nav").style.left = '5vw';
+    document.querySelector('.nav').style.top = 'calc(var(--padding_top) + 5vh)';
+    document.querySelector('.info1').style.top = '15vh';
+    document.querySelector('.time').style.left = '25vw';
+
+    document.querySelector(".info").style.display = 'none';
+    document.querySelector(".info").style.opacity = '0';
+}
+
+var is_info_show = false;
+
+function hide(page) {
+    page.style.animation = 'public_hide ease .3s both';
+    setTimeout(function () {
+        page.style.display = 'none';
+    }, 300);
+}
+
+function show(page) {
+    page.style.display = 'block';
+    page.style.animation = 'public_show ease .3s both';
+}
+
+document.querySelector('.showInfo').addEventListener('click', function () {
+    if (!is_info_show) {
+        show(document.querySelector('.info'));
+        hide(document.querySelector('.pages'));
+        hide(document.querySelector('.nav'));
+        is_info_show = true;
+    } else {
+        hide(document.querySelector('.info'));
+        show(document.querySelector('.pages'));
+        show(document.querySelector('.nav'));
+        is_info_show = false;
+    }
+})
+
+//开始
+
+function start() {
+    document.querySelector(".start").style.animation = 'startpage_hide ease .5s both';
+    setTimeout(function () {
+        document.querySelector(".home").style.display = 'block';
+        document.querySelector(".home").style.animation = 'public_show ease .5s both';
+        document.querySelector(".start").style.display = 'none';
+    }, 300)
+}
+
+function quickstart() {
+    document.querySelector(".start").style.display = 'none';
+    document.querySelector(".home").style.display = 'block';
+    document.querySelector(".home").style.animation = 'public_show ease .3s both';
+}
+
+document.querySelector(".start-btn").addEventListener("click", start);
+
+if (urlParams.get('start') == 1) {
+    quickstart();
+}
+
 //获取与显示时间
 
 function getNowDate() {
@@ -133,6 +223,12 @@ abouBtn.addEventListener("click", function () {
     changePage(curPage, 6, pageSelector[curPage], pageSelector[6]);
 })
 
+
+const page = urlParams.get('page');
+if (page) {
+    changePage(curPage, page, pageSelector[curPage], pageSelector[page]);
+}
+
 //加载文章
 async function loadArticles() {
     try {
@@ -153,8 +249,9 @@ function displayArticles(articles) {
         articleElement.className = 'pageitem arti-item';
         articleElement.href = `${article.href}`;
         articleElement.innerHTML = `
-            <div class="arti-item-time"><span style="font-family: 'icomoon';"></span> ${article.time}</div>
+            <div class="arti-item-time"><span style="font-family: 'icomoon';"></span> ${article.time} &emsp14; <span style="font-family: 'icomoon';font-weight:700; "></span> ${article.author} </div>
             <div class="arti-item-title">${article.title}</div>
+            <div class="arti-item-go"></div>
             <div class="arti-item-preview">${article.preview}</div>
         `;
         container.appendChild(articleElement);

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-hans">
 
 <head>
     <meta charset="UTF-8">
@@ -17,22 +17,57 @@
                 width: 500px;
             }
         }
-
         :root {
+            user-select: none;
+            cursor: url(../../public/cursor/normal.cur), default;
             --backgroundColor: rgba(255, 255, 255, 1);
             --textColor: rgba(0, 0, 0, 1);
-            --itemColor: rgba(200, 245, 255, 1);
-            --itemColor-hover: rgba(150, 200, 255, 1);
-            --backColor: rgba(200, 200, 255, .7);
-            --backColor-hover: rgba(150, 150, 200, .7);
+            --itemColor: rgba(200, 230, 200, .7);
+            --itemColor-hover: rgb(134, 226, 173);
+
         }
 
         body {
-            background-color: var(--backgroundColor);
+            padding: 0;
+            margin: 0;
+            background-color:blanchedalmond;
         }
 
-        a {
-            color: var(--textColor);
+        .head {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 50px;
+            background-color: rgb(99, 194, 129);
+        }
+
+        .head-name {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 20px;
+            line-height: 50px;
+            margin-left: 20px;
+            font-family: 'siyuan';
+        }
+
+        .head-back {
+            position: absolute;
+            top: 0;
+            right: 0;
+            text-decoration: none;
+            color: black;
+            font-size: 20px;
+            line-height: 50px;
+            margin-right: 20px;
+            font-family: 'pingfang';
+            transition: .3s;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .head-back:hover {
+            background-color: rgba(200, 240, 200, .6);
         }
 
         .title {
@@ -41,29 +76,13 @@
             color: var(--textColor);
         }
 
-        .back {
-            position: fixed;
-            top: 2vh;
-            left: 2vw;
-            text-decoration: none;
-            color: var(--textColor);
-            font-size: 2vh;
-            z-index: 10;
-            background-color: var(--backColor);
-            padding: 1vh;
-            transition: .4s;
-        }
-
-        .back:hover {
-            background-color: var(--backColor-hover);
-        }
-
         .item {
-            width: 98%;
+            width: 90vw;
             height: auto;
             background-color: var(--itemColor);
             border-radius: 2vh;
             position: relative;
+            left: 4vw;
             margin-bottom: 2vh;
             padding: 1vw;
             transition: .5s;
@@ -97,35 +116,26 @@
 </head>
 
 <body>
-    <script>
-        var root = document.querySelector(':root');
-        // if (localStorage.set4_theme === '2') {
-        //     root.style.setProperty('--backgroundColor', 'rgb(20, 20, 50)');
-        //     root.style.setProperty('--textColor', 'rgba(200, 200, 200, 1)');
-        //     root.style.setProperty('--itemColor', 'rgba(200, 200, 255, .3)');
-        //     root.style.setProperty('--itemColor-hover', 'rgba(150, 150, 255, .5)');
-        //     root.style.setProperty('--backColor', 'rgba(50, 50, 100, .8)');
-        //     root.style.setProperty('--backColor-hover', 'rgba(50, 50, 250, .8)');
-        // } else {
-        //     root.style.setProperty('--backgroundColor', 'rgba(255, 255, 255, 1)');
-        //     root.style.setProperty('--textColor', 'rgba(0, 0, 0, 1)');
-        //     root.style.setProperty('--itemColor', 'rgba(200, 245, 255, 1)');
-        //     root.style.setProperty('--itemColor-hover', 'rgba(150, 200, 255, 1)');
-        //     root.style.setProperty('--backColor', 'rgba(200, 200, 255, .7)');
-        //     root.style.setProperty('--backColor-hover', 'rgba(150, 150, 200, .7)');
-        // }
-    </script>
-    <p class="title">网页开发日志</p>
-    <a class="back" href="../version4/index.html">返回</a>
+    <div class="head">
+        <div class="head-name">竹芒雨蹊 | <span style="font-family: 'pingfang';">日志</span></div>
+        <a href="/version4/index.html?page=3&start=1" class="head-back">返回主页</a>
+    </div>
+    <div class="placeholder" style="height: 100px;"> </div>
     <div class="item">
         <p class="left">2025.11.30 v4.0.0</p>
         <p class="right">开始制作新版网页</p>
-        <p class="right">制作了基本页面，制作了说说、文章、链接页面</p>
+        <p class="right">制作了基本页面，制作了说说、文章列表、链接页面</p>
         <p class="right">第2版网页开发日志请前往<a href="./diary.html" target="_blank">这里</a></p>
     </div>
     <div class="item">
         <p class="left">2025.12.01 v4.0.1</p>
         <p class="right">制作并填写了关于页面</p>
+    </div>
+    <div class="item">
+        <p class="left">2025.12.06 v4.0.2</p>
+        <p class="right">制作了启动页面</p>
+        <p class="right">制作了文章浏览页面</p>
+        <p class="right">进行了移动端适配</p>
     </div>
 </body>
 

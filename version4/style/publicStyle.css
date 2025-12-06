@@ -2,13 +2,30 @@
     user-select: none;
     cursor: url(../../public/cursor/normal.cur), default;
 
-    --color_bodyBackground: rgb(150, 150, 255);
-    --color_box: rgba(230, 230, 255, .55);
-    --color_box_hover: rgba(230, 230, 255, .65);
-    --color_pagebox: rgba(230, 230, 255, .75);
-    --color_pagebox_hover: rgba(230, 230, 255, .85);
+    --color_bodyBackground: rgb(57, 197, 99);
+    --color_box: rgba(230, 255, 230, .55);
+    --color_box_hover: rgba(230, 255, 230, .65);
+    --color_pagebox: rgba(230, 245, 230, .75);
+    --color_pagebox_hover: rgba(230, 245, 230, .85);
     --color_purple: rgba(100, 100, 255, 1);
-    --color_blue: rgba(1, 47, 268, 1);
+    --color_blue: rgba(1, 47, 255, 1);
+    --color_green: rgba(1, 150, 47, 1);
+
+    --start_btn_width: 15vw;
+    --box_width: 20vw;
+    --box_left: 5vw;
+    --yiyan_margin: 2vw;
+    --page_width: 60vw;
+    --pages_left: 35vw;
+    --padding_top: 10vh;
+    --padding_top_minus: 5vh;
+    --padding_top_plus: 15vh;
+    --pages_columncount: 2;
+    --navbtn_fontsize: 2.3vh;
+    --navbtn_padding: 1.5vw;
+    --artiitemgo_right: 5vw;
+    --linkitemgo_right: 3vw;
+    --item_after_width: 5vw;
 }
 
 /* 最小页面宽 */
@@ -78,6 +95,20 @@ div::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.1);
 }
 
+
+
+@keyframes startpage_hide {
+    0% {
+        opacity: 1;
+        top: 0;
+    }
+
+    100% {
+        opacity: 0;
+        top: -10vh;
+    }
+}
+
 @keyframes public_hide {
     0% {
         opacity: 1;
@@ -100,48 +131,48 @@ div::-webkit-scrollbar-track {
 
 @keyframes page_hide_totop {
     0% {
-        top: 10vh;
+        top: var(--padding_top);
         opacity: 1;
     }
 
     100% {
-        top: 5vh;
+        top: var(--padding_top_minus);
         opacity: 0;
     }
 }
 
 @keyframes page_hide_tobottom {
     0% {
-        top: 10vh;
+        top: var(--padding_top);
         opacity: 1;
     }
 
     100% {
-        top: 15vh;
+        top: var(--padding_top_plus);
         opacity: 0;
     }
 }
 
 @keyframes page_show_totop {
     0% {
-        top: 15vh;
+        top: var(--padding_top_plus);
         opacity: 0;
     }
 
     100% {
-        top: 10vh;
+        top: var(--padding_top);
         opacity: 1;
     }
 }
 
 @keyframes page_show_tobottom {
     0% {
-        top: 5vh;
+        top: var(--padding_top_minus);
         opacity: 0;
     }
 
     100% {
-        top: 10vh;
+        top: var(--padding_top);
         opacity: 1;
     }
 }

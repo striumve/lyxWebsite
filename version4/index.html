@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>lyx的个人网站</title>
+    <title>首页 - 竹芒雨蹊</title>
     <link rel="icon" href="../public/images/logo.jpg" sizes="32x32">
     <meta name="description" itemprop="description" content="欢迎分享">
     <meta itemprop="name" content="lyx的个人网站">
@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="./style/fontFace.css">
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="./style/publicStyle.css">
+    <!-- Source Han Serif SC VF -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/@wc1font/source-han-serif-sc-vf@1.0.6/font.min.css" rel="stylesheet"> -->
     <style>
         .menu {
             width: 200px;
@@ -48,138 +50,180 @@
         <!-- 占位 -->
         <!-- <div class="pageHold"></div> -->
 
-        <!-- 左侧信息栏(fixed) -->
-        <div class="box info1">
-            <div class="info1-logo"></div>
-            <div class="info1-msg"><span style="font-size: 2.5vh;">芒蹊</span><br><br>7月27日 INFJ</div>
-            <div class="info1-welcome">欢迎来到lyx的个人网站！</div>
+        <!-- 启动页 -->
+        <div class="start" style="opacity: 1;display: block;">
+            <p class="start-title"><span style="font-size: 3.5vh">竹芒雨蹊</span><br>Jade Raintrail</p>
+            <button class="start-btn">进入空间</button>
         </div>
 
-        <div class="box yiyan">
-            <a href="https://hitokoto.cn/" class="yiyan-a" target="_blank">
-                <p class="yiyan-sen" style="font-family: 'siyuan';">竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。</p>
-                <p class="yiyan-from" style="font-family: 'siyuan';">——苏轼</p>
-            </a>
-            <p class="yiyan-new">换一句</p>
-        </div>
+        <!-- 主页 -->
+        <div class="home" style="opacity: 0;display: none;">
 
-        <div class="box info2">
-            <div class="info2-talk">QQ: 1041095264<br>&numsp;&numsp;&numsp; 2607585214<br>WeChat: _zzmxqsm_sp_ysyyrps</div>
-        </div>
+            <!-- 左侧信息栏(fixed) -->
+            <div class="info">
+                <div class="time"></div>
+                <div class="box info1">
+                    <div class="info1-logo"></div>
+                    <div class="info1-msg" style="font-family: siyuan;font-size: 2.5vh; ">竹芒雨蹊<br><span
+                            style="font-size: 2.2vh;">Jade Raintrail</span></div>
+                    <!-- <div class="info1-welcome">欢迎来到lyx的个人网站！</div> -->
+                </div>
 
-        <!-- 导航栏 -->
-        <div class="time"></div>
-        <div class="nav">
-            <p style="font-family: 'icomoon';text-align: center;font-size: 2vh;margin: .5vh;"></p>
-            <button class="nav-btn nav-btn-talk active">说说</button><br>
-            <button class="nav-btn nav-btn-article">文章</button><br>
-            <button class="nav-btn nav-btn-link">链接</button><br>
-            <button class="nav-btn nav-btn-tool">工具</button><br>
-            <button class="nav-btn nav-btn-other">其他</button><br>
-            <button class="nav-btn nav-btn-about">关于</button>
-        </div>
-        <div class="music">
+                <div class="box yiyan">
+                    <a href="https://hitokoto.cn/" class="yiyan-a" target="_blank">
+                        <p class="yiyan-sen" style="font-family: 'siyuan';">竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生。</p>
+                        <p class="yiyan-from" style="font-family: 'siyuan';">——苏轼</p>
+                    </a>
+                    <p class="yiyan-new">换一句</p>
+                </div>
 
-        </div>
+                <div class="box info2">
+                    <div class="info2-talk">QQ: 1041095264<br>&numsp;&numsp;&numsp; 2607585214<br>WeChat:
+                        _zzmxqsm_sp_ysyyrps
+                    </div>
+                </div>
+            </div>
+
+            <!-- 移动端按键 -->
+
+            <div class="showInfo"></div>
+
+            <!-- 导航栏 -->
+            <div class="nav">
+                <p style="font-family: 'icomoon';text-align: center;font-size: 2vh;margin: .5vh;"></p>
+                <button class="nav-btn nav-btn-talk active">说说</button><br>
+                <button class="nav-btn nav-btn-article">文章</button><br>
+                <button class="nav-btn nav-btn-link">链接</button><br>
+                <button class="nav-btn nav-btn-tool">工具</button><br>
+                <button class="nav-btn nav-btn-other">其他</button><br>
+                <button class="nav-btn nav-btn-about">关于</button>
+            </div>
+
+            <div class="music">
+
+            </div>
 
 
-        <!-- 中间 -->
-        <!-- <div class="test"
+            <!-- 中间 -->
+            <!-- <div class="test"
             style="width: 100px;height: 2000px;background-color: #fff;position: absolute;top: 100px;left: 500px;"></div> -->
-        <!-- <div class="pages"> -->
-            <div class="page talk" style="opacity: 1;">
-                <div class="pageitem talk-item">
-                    <div class="talk-item-time"><span style="font-family: 'icomoon';"></span> 2025/12/03 - 22:51</div>
-                    <div class="talk-item-content">我今天才知道世界上还有CloudFlare Pages这么一个东西。。<br>CloudFlare无敌</div>
-                </div>
-                <div class="pageitem talk-item">
-                    <div class="talk-item-time"><span style="font-family: 'icomoon';"></span> 2025/12/01 - 00:09</div>
-                    <div class="talk-item-content">十二月快乐！<br><img src="./images/mugi_square.png" alt="" loading="lazy"></div>
-                </div>
-                <div class="pageitem talk-item">
-                    <div class="talk-item-time"><span style="font-family: 'icomoon';"></span> 2025/11/30 - 23:29</div>
-                    <div class="talk-item-content">马上就要十二月了吗，时间过得好快</div>
-                </div>
-                <div class="pageitem talk-item">
-                    <div class="talk-item-time"><span style="font-family: 'icomoon';"></span> 2025/11/30 - 17:06</div>
-                    <div class="talk-item-content">第一条说说</div>
-                </div>
-            </div>
 
-            <div class="page article" style="opacity: 0;display: none;">
-            </div>
-
-            <div class="page link" style="opacity: 0;display: none;">
-                <a class="pageitem link-item" href="../welcome.html">
-                    <div class="link-item-name">返回欢迎页</div>
-                    <div class="link-item-link">welcome.html</div>
-                </a>
-                <a class="pageitem link-item" href="../public/diary4.html">
-                    <div class="link-item-name">网页开发日志</div>
-                    <div class="link-item-link">diary4.html</div>
-                </a>
-                <a class="pageitem link-item" href="../version2/eason.html">
-                    <div class="link-item-name">陈奕迅的歌</div>
-                    <div class="link-item-link">eason.html</div>
-                </a>
-                <a class="pageitem link-item" href="https://github.com/striumve">
-                    <div class="link-item-name">GitHub主页</div>
-                    <div class="link-item-link">https://github.com/striumve</div>
-                </a>
-                <a class="pageitem link-item" href="https://space.bilibili.com/1353555452">
-                    <div class="link-item-name">Bilibili主页</div>
-                    <div class="link-item-link">https://space.bilibili.com/1353555452</div>
-                </a>
-            </div>
-
-            <div class="page tool" style="opacity: 0;display: none;">
-                Tool
-            </div>
-
-            <div class="page other" style="opacity: 0;display: none;">
-                Other
-            </div>
-
-            <div class="page about" style="opacity: 0;display: none;">
-                <div class="pageitem about-item">
-                    <div class="about-item-title">关于我</div>
-                    <div class="about-item-content">
-                        08年，阳光开朗积极向上（希望如此<br>
-                        喜欢技术类的东西，无聊的时候搞点小项目，但是高中后一直没什么时间<br>
-                        二次元，喜欢各种治愈的美好的东西
+            <div class="pages">
+                <div class="page talk" style="opacity: 1;">
+                    <div class="pageitem talk-item">
+                        <div class="talk-item-time"><span style="font-family: 'icomoon';"></span> 2025/12/06 - 21:21
+                        </div>
+                        <div class="talk-item-content">做网站怎么这么累。好吧是我自己不用框架纯手搓导致的</div>
+                    </div>
+                    <div class="pageitem talk-item">
+                        <div class="talk-item-time"><span style="font-family: 'icomoon';"></span> 2025/12/03 - 22:51
+                        </div>
+                        <div class="talk-item-content">我今天才知道世界上还有CloudFlare Pages这么一个东西。。<br>CloudFlare无敌</div>
+                    </div>
+                    <div class="pageitem talk-item">
+                        <div class="talk-item-time"><span style="font-family: 'icomoon';"></span> 2025/12/01 - 00:09
+                        </div>
+                        <div class="talk-item-content">十二月快乐！<br><img src="./images/mugi_square.png" alt=""
+                                loading="lazy">
+                        </div>
+                    </div>
+                    <div class="pageitem talk-item">
+                        <div class="talk-item-time"><span style="font-family: 'icomoon';"></span> 2025/11/30 - 23:29
+                        </div>
+                        <div class="talk-item-content">马上就要十二月了吗，时间过得好快</div>
+                    </div>
+                    <div class="pageitem talk-item">
+                        <div class="talk-item-time"><span style="font-family: 'icomoon';"></span> 2025/11/30 - 17:06
+                        </div>
+                        <div class="talk-item-content">第一条说说</div>
                     </div>
                 </div>
-                <div class="pageitem about-item">
-                    <div class="about-item-title">「芒蹊」</div>
-                    <div class="about-item-content">
-                        “芒”是来自苏轼的“竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生”<br>
-                        “蹊”是来自“桃李不言，下自成蹊”<br>
-                        只要做好自己，不必在意世界纷繁扰攘
-                    </div>
+
+                <div class="page article" style="opacity: 0;display: none;">
                 </div>
-                <div class="pageitem about-item">
-                    <div class="about-item-title">关于本站</div>
-                    <div class="about-item-content">
-                        最开始是2022年网课期间，上课摸鱼的时候就开始做网站<br>
-                        最初的版本其实很粗糙，就是想放什么放什么，然后一点一点变成现在这样，现在更像一个个人博客<br>
-                        现在的这个版本是高三的时候才开始做的<br><br>
-                        网站中所有内容都是本人手敲出来的，没有用WordPress一类的工具（因为之前根本不知道<br>
-                        网页托管：
-                        <img src="./images/CFLogoCut.png" alt="" style="height: 3vh;margin-top: 1vh;">
-                        CloudFlare Pages
-                    </div>
+
+                <div class="page link" style="opacity: 0;display: none;">
+                    <a class="pageitem link-item" href="../welcome.html">
+                        <div class="link-item-go"></div>
+                        <div class="link-item-name">返回欢迎页</div>
+                        <div class="link-item-link">welcome.html</div>
+                    </a>
+                    <a class="pageitem link-item" href="../public/diary4.html">
+                        <div class="link-item-go"></div>
+                        <div class="link-item-name">网页开发日志</div>
+                        <div class="link-item-link">diary4.html</div>
+                    </a>
+                    <a class="pageitem link-item" href="../version2/eason.html">
+                        <div class="link-item-go"></div>
+                        <div class="link-item-name">陈奕迅的歌</div>
+                        <div class="link-item-link">eason.html</div>
+                    </a>
+                    <a class="pageitem link-item" href="https://github.com/striumve">
+                        <div class="link-item-go"></div>
+                        <div class="link-item-name">GitHub主页</div>
+                        <div class="link-item-link">https://github.com/striumve</div>
+                    </a>
+                    <a class="pageitem link-item" href="https://space.bilibili.com/1353555452">
+                        <div class="link-item-go"></div>
+                        <div class="link-item-name">Bilibili主页</div>
+                        <div class="link-item-link">https://space.bilibili.com/1353555452</div>
+                    </a>
                 </div>
-                <div class="pageitem about-item">
-                    <div class="about-item-title">联系方式</div>
-                    <div class="about-item-content">
-                        QQ: <span style="user-select: all;cursor: url(../public/cursor/text.cur), default;">1041095264</span>(主号)；
-                        <span style="user-select: all;cursor: url(../public/cursor/text.cur), default;">2607585214</span>(二次号)<br>
-                        微信: <span style="user-select: all;cursor: url(../public/cursor/text.cur), default;">_zzmxqsm_sp_ysyyrps</span><br>
-                        邮箱: <span style="user-select: all;cursor: url(../public/cursor/text.cur), default;">1041095264@qq.com</span><br>
+
+                <div class="page tool" style="opacity: 0;display: none;">
+                    Tool
+                </div>
+
+                <div class="page other" style="opacity: 0;display: none;">
+                    Other
+                </div>
+
+                <div class="page about" style="opacity: 0;display: none;">
+                    <div class="pageitem about-item">
+                        <div class="about-item-title">关于我</div>
+                        <div class="about-item-content">
+                            08年，阳光开朗积极向上（希望如此<br>
+                            喜欢技术类的东西，无聊的时候搞点小项目，但是高中后一直没什么时间<br>
+                            二次元，喜欢各种治愈的美好的东西
+                        </div>
+                    </div>
+                    <div class="pageitem about-item">
+                        <div class="about-item-title">「芒蹊」</div>
+                        <div class="about-item-content">
+                            “芒”是来自苏轼的“竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生”<br>
+                            “蹊”是来自“桃李不言，下自成蹊”<br>
+                            只要做好自己，不必在意世界纷繁扰攘
+                        </div>
+                    </div>
+                    <div class="pageitem about-item">
+                        <div class="about-item-title">关于本站</div>
+                        <div class="about-item-content">
+                            最开始是2022年网课期间，上课摸鱼的时候就开始做网站<br>
+                            最初的版本其实很粗糙，就是想放什么放什么，然后一点一点变成现在这样，现在更像一个个人博客<br>
+                            现在的这个版本是高三的时候才开始做的<br><br>
+                            网站中所有内容都是本人手敲出来的，没有用WordPress一类的工具（因为之前根本不知道<br>
+                            使用服务：
+                            <img src="./images/CFLogoCut.png" alt="" style="height: 3vh;margin-top: 1vh;">
+                            CloudFlare Workers & Pages
+                        </div>
+                    </div>
+                    <div class="pageitem about-item">
+                        <div class="about-item-title">联系方式</div>
+                        <div class="about-item-content">
+                            QQ: <span
+                                style="user-select: all;cursor: url(../public/cursor/text.cur), default;">1041095264</span>(主号)；
+                            <span
+                                style="user-select: all;cursor: url(../public/cursor/text.cur), default;">2607585214</span>(二次号)<br>
+                            微信: <span
+                                style="user-select: all;cursor: url(../public/cursor/text.cur), default;">_zzmxqsm_sp_ysyyrps</span><br>
+                            邮箱: <span
+                                style="user-select: all;cursor: url(../public/cursor/text.cur), default;">1041095264@qq.com</span><br>
+                        </div>
                     </div>
                 </div>
             </div>
-        <!-- </div> -->
+
+        </div>
     </div>
 </body>
 <script src="./js/functions.js"></script>
