@@ -23,6 +23,8 @@
     --pages_columncount: 2;
     --navbtn_fontsize: 2.3vh;
     --navbtn_padding: 1.5vw;
+    --musicbtn_fontsize: 2.8vh;
+    --musicSelectorBox_width: 20vw;
     --artiitemgo_right: 5vw;
     --linkitemgo_right: 3vw;
     --item_after_width: 5vw;
@@ -57,7 +59,7 @@ a {
 
 .main {
     width: 100vw;
-    height:100vh;
+    height: 100vh;
     position: absolute;
     top: 0px;
     left: 0px;
@@ -95,8 +97,6 @@ div::-webkit-scrollbar-track {
     background: rgba(0, 0, 0, 0.1);
 }
 
-
-
 @keyframes startpage_hide {
     0% {
         opacity: 1;
@@ -106,6 +106,30 @@ div::-webkit-scrollbar-track {
     100% {
         opacity: 0;
         top: -10vh;
+    }
+}
+
+@keyframes musicbox_hide {
+    0% {
+        opacity: 1;
+        left: calc(var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2 + 1vw);
+    }
+
+    100% {
+        opacity: 0;
+        left: calc(var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2);
+    }
+}
+
+@keyframes musicbox_show {
+    0% {
+        opacity: 0;
+        left: calc(var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2);
+    }
+
+    100% {
+        opacity: 1;
+        left: calc(var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2 + 1vw);
     }
 }
 

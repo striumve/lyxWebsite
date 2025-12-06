@@ -18,7 +18,7 @@
         body {
             /* width: 100%; */
             /* height: 500px; */
-            background: url(./images/welcome_bg.jpg);
+            background: url(/public/images/welcome_bg.jpg);
             background-size: cover;
             cursor: url(./public/cursor/normal.cur), default;
             font-family: 'siyuan';
@@ -100,18 +100,6 @@
 
         .option4::after {
             content: "v3.0.2 (2024.06.18)";
-            font-family: 'siyuan';
-            font-size: 12px;
-            line-height: 14px;
-            display: block;
-            margin-left: 20%;
-            position: relative;
-            bottom: 15px;
-            color: darkslategrey;
-        }
-
-        .option6::after {
-            content: "不含Eason的歌曲文件";
             font-family: 'siyuan';
             font-size: 12px;
             line-height: 14px;
@@ -247,7 +235,7 @@
     <br>
     <a href="./version1/index.html" class="option5">初版网站主页 →</a>
     <br>
-    <a href="lyxWebsiteSourceCode_v2.3.3.zip" class="option6">网页源码下载 →</a>
+    <a href="https://github.com/striumve/lyxWebsite" class="option6">网页源码 →</a>
     <div class="footer">
         <p class="ft-title">联系我</p>
         <table>
@@ -346,8 +334,7 @@
                 document.styleSheets[1].addRule('.option3::after', 'content: "可以在线播放"');
                 document.querySelector('.option4').innerHTML = 'win11主页[已弃项] →';
                 document.querySelector('.option5').innerHTML = '初版网站主页 →';
-                document.querySelector('.option6').innerHTML = '网页源码下载 →';
-                document.styleSheets[1].addRule('.option6::after', 'content: "不含Eason的歌曲文件"');
+                document.querySelector('.option6').innerHTML = '网页源码 →';
                 document.querySelector('.ft-title').innerHTML = '联系我';
                 document.querySelector('.td-left2').innerHTML = '微信号';
                 document.querySelector('.td-left3').innerHTML = '邮箱';
@@ -371,8 +358,7 @@
                 document.styleSheets[1].addRule('.option3::after', 'content: "可以在線播放"');
                 document.querySelector('.option4').innerHTML = 'win11主頁[已棄項] →';
                 document.querySelector('.option5').innerHTML = '初版網站主頁 →';
-                document.querySelector('.option6').innerHTML = '網頁源碼下載 →';
-                document.styleSheets[1].addRule('.option6::after', 'content: "不含Eason的歌曲文件"');
+                document.querySelector('.option6').innerHTML = '網頁源碼 →';
                 document.querySelector('.ft-title').innerHTML = '聯系我';
                 document.querySelector('.td-left2').innerHTML = 'WeChat';
                 document.querySelector('.td-left3').innerHTML = 'e-mail';
@@ -397,7 +383,6 @@
                 document.querySelector('.option4').innerHTML = 'win11 Homepage [Discontinued] →';
                 document.querySelector('.option5').innerHTML = 'First Page →';
                 document.querySelector('.option6').innerHTML = 'Source Code →';
-                document.styleSheets[1].addRule('.option6::after', 'content: "Excluding Eason\'s song files"');
                 document.querySelector('.ft-title').innerHTML = 'Contact me';
                 document.querySelector('.td-left2').innerHTML = 'WeChat';
                 document.querySelector('.td-left3').innerHTML = 'e-mail';

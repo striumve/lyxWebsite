@@ -39,10 +39,12 @@ function visionMobilise() {
     body.style.setProperty('--pages_columncount', '1');
     body.style.setProperty('--navbtn_fontsize', '2.1vh');
     body.style.setProperty('--navbtn_padding', '2vw');
+    body.style.setProperty('--musicSelectorBox_width', '60vw');
     body.style.setProperty('--artiitemgo_right', '5vw');
-    body.style.setProperty('--linkitemgo_right', '5vw');
+    body.style.setProperty('--linkitemgo_right', '5vw');     
     body.style.setProperty('--item_after_width', '10vw');
     document.querySelector(".nav").style.left = '5vw';
+    document.querySelector(".music").style.left = '5vw';
     document.querySelector('.nav').style.top = 'calc(var(--padding_top) + 5vh)';
     document.querySelector('.info1').style.top = '15vh';
     document.querySelector('.time').style.left = '25vw';
@@ -70,11 +72,13 @@ document.querySelector('.showInfo').addEventListener('click', function () {
         show(document.querySelector('.info'));
         hide(document.querySelector('.pages'));
         hide(document.querySelector('.nav'));
+        hide(document.querySelector('.music'));
         is_info_show = true;
     } else {
         hide(document.querySelector('.info'));
         show(document.querySelector('.pages'));
         show(document.querySelector('.nav'));
+        show(document.querySelector('.music'));
         is_info_show = false;
     }
 })
@@ -228,6 +232,68 @@ const page = urlParams.get('page');
 if (page) {
     changePage(curPage, page, pageSelector[curPage], pageSelector[page]);
 }
+
+//音乐
+var is_musicSelectbox_on = false;
+var is_playing = false;
+var curPlaying = 1;
+var musicBox = document.querySelector('.music-selectbox');
+var playBtn = document.querySelector('.music-btn-play');
+var pauseBtn = document.querySelector('.music-btn-pause');
+const bgm1 = document.querySelector('.bgm1');
+const bgm2 = document.querySelector('.bgm2');
+const bgmSelector = [0, bgm1, bgm2];
+const musicSelectorP = [0, document.querySelector('.music-selector1'), document.querySelector('.music-selector2')];
+
+function playMusic() {
+    if (!is_playing) {
+        bgmSelector[curPlaying].play();
+        playBtn.style.display = 'none';
+        pauseBtn.style.display = 'block';
+        document.querySelector('.music-title').style.color = 'var(--color_green)';
+    }
+}
+
+function pauseMusic() {
+    if (!is_playing) {
+        bgmSelector[curPlaying].pause();
+        playBtn.style.display = 'block';
+        pauseBtn.style.display = 'none';
+        document.querySelector('.music-title').style.color = 'black';
+    }
+}
+
+document.querySelector('.music-btn-select').addEventListener('click', function () {
+    if (!is_musicSelectbox_on) {
+        musicBox.style.display = 'block';
+        musicBox.style.animation = 'musicbox_show ease .3s both';
+        is_musicSelectbox_on = true;
+    } else {
+        musicBox.style.animation = 'musicbox_hide ease .3s both';
+        setTimeout(function () {
+            musicBox.style.display = 'none';
+        }, 300)
+        is_musicSelectbox_on = false;
+    }
+})
+
+musicSelectorP[1].addEventListener('click', function () {
+    pauseMusic();
+    curPlaying = 1;
+    musicSelectorP[2].classList.remove('active');
+    this.classList.add('active');
+})
+
+musicSelectorP[2].addEventListener('click', function () {
+    pauseMusic();
+    curPlaying = 2;
+    musicSelectorP[1].classList.remove('active');
+    this.classList.add('active');
+})
+
+playBtn.addEventListener('click', playMusic)
+
+pauseBtn.addEventListener('click', pauseMusic)
 
 //加载文章
 async function loadArticles() {

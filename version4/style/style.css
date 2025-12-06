@@ -167,7 +167,7 @@
 
 .yiyan {
     height: 25vh;
-    top: 43vh;
+    top: 35vh;
     color: black;
     /* padding: 3vh; */
 }
@@ -220,8 +220,8 @@
 }
 
 .info2 {
-    height: 15vh;
-    top: 75vh;
+    height: 25vh;
+    top: 67vh;
     font-family: 'consolas';
 }
 
@@ -250,7 +250,8 @@
     display: none;
 }
 
-.nav {
+.nav, 
+.music {
     /* position: fixed; */
     position: fixed;
     left: 27vw;
@@ -263,15 +264,53 @@
     box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
     transition: .4s;
     font-family: 'pingfang';
+    text-align: center;
+}
+
+.music {
+    top: calc(var(--padding_top) + 40vh);
+    z-index: 15;
+    padding-bottom: 2vh;
+}
+
+.music-selectbox {
+    z-index: 15;
+    position: absolute;
+    left: calc(var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2 + 1vw);
+    top: 10vh;
+    width: var(--musicSelectorBox_width);
+    text-align: left;
+    background-color: var(--color_box);
+    border-radius: 1vh;
+    backdrop-filter: blur(3px);
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
+    transition: .4s;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    /* word-break:keep-all;
+    overflow-wrap:normal; */
+    display: none;
 }
 
 .nav:hover, 
-.showInfo:hover {
+.showInfo:hover, 
+.music:hover, 
+.music-selectbox:hover {
     background-color: var(--color_box_hover);
     box-shadow: 0px 0px 5px 6px rgba(0, 0, 0, 0.2);
 }
 
-.nav-btn {
+.music-selector {
+    transition: .4s;
+}
+
+.music-selector:hover {
+    color: var(--color_green);
+}
+
+.nav-btn, 
+.music-btn, 
+.music-title {
     outline: none;
     border: none;
     background-color: rgba(0, 0, 0, 0);
@@ -281,10 +320,25 @@
     padding-right: var(--navbtn_padding);
     transition: .3s;
     border-radius: 3px;
+    display: block;
+    text-align: center;
+}
+
+.music-title {
+    margin: 0;
+    z-index: 15;
+}
+
+.music-btn {
+    font-family: 'icomoon';
+    font-size: var(--musicbtn_fontsize);
+    margin: 0;
 }
 
 .nav-btn:hover,
-.nav-btn.active {
+.nav-btn.active, 
+.music-btn:hover, 
+.music-selector.active {
     color: var(--color_green);
 }
 
@@ -300,6 +354,10 @@
     padding: 1vw;
 } */
 
+.pages {
+    background-color: transparent;
+}
+
 .page {
     width: var(--page_width);
     height: auto;
@@ -309,12 +367,14 @@
     /* background-color: #fff; */
     /* padding: 5vh; */
     z-index: 0;
+    background-color: transparent;
 }
 
 .pageitem {
     z-index: 1;
     backdrop-filter: blur(2px);
     font-family: 'pingfang';
+    position: relative;
 }
 
 .talk,
