@@ -339,11 +339,11 @@ document.querySelector('.music-btn-select').addEventListener('click', function (
     }
 })
 
-for (i = 1; i <= musicNum; i++) {
-    musicSelectorP[i].addEventListener('click', function () {
+for (let a = 1; a <= musicNum; a++) {
+    musicSelectorP[a].addEventListener('click', function () {
         pauseMusic();
-        curPlaying = i;
-        for (j = 1; j <= musicNum; j++) {
+        curPlaying = a;
+        for (let j = 1; j <= musicNum; j++) {
             musicSelectorP[j].classList.remove('active');
         }
         this.classList.add('active');
