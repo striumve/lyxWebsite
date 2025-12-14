@@ -4,25 +4,33 @@
 
     --color_bodyBackground: rgb(57, 197, 99);
     --color_basic: rgba(0, 0, 0, 1);
+    --color_textSelected: rgba(57, 197, 99, .6);
     --color_grey: rgba(150, 150, 150, 1);
     --color_box: rgba(230, 255, 230, .55);
     --color_box_hover: rgba(230, 255, 230, .65);
+    --color_box_solid: rgba(225, 250, 225, .9);
+    --color_box_solid_hover: rgba(225, 250, 225, .95);
     --color_pagebox: rgba(230, 245, 230, .75);
     --color_pagebox_hover: rgba(230, 245, 230, .85);
+    --color_reader: rgba(220, 245, 220, .65);
+    --color_input: rgba(240, 255, 240, .8);
+    --color_input_hover: rgba(245, 255, 245, .9);
+
     --color_purple: rgba(100, 100, 255, 1);
     --color_blue: rgba(1, 47, 255, 1);
-    --color_green: rgba(1, 150, 47, 1);
+    --color_theme: rgba(1, 150, 47, 1);
 
     --start_btn_width: 15vw;
     --box_width: 20vw;
     --nav_width: 101px;
     --box_left: 5vw;
-    --yiyan_margin: 2vw;
     --page_width: 60vw;
     --pages_left: 35vw;
     --padding_top: 10vh;
     --padding_top_minus: 5vh;
     --padding_top_plus: 15vh;
+
+    --yiyan_margin: 2vw;
     --pages_columncount: 2;
     --navbtn_fontsize: 2.3vh;
     --navbtn_padding: 1.5vw;
@@ -31,6 +39,16 @@
     --artiitemgo_right: 5vw;
     --linkitemgo_right: 3vw;
     --item_after_width: 5vw;
+
+    --reader_width: 65vw;
+    --readerContainer_width: 55vw;
+    --reader_fontSize: 18px;
+    --reader_padding: 3vw;
+    --reader_top: 3vh;
+    --reader-bottom: 3vh;
+    --readerBtn_padding: 1.5vw;
+    --readerCtrl_left: 57vw;
+    --readerCtrl_width: 10vw;
 }
 
 /* 最小页面宽 */
@@ -60,6 +78,12 @@ button {
 
 a {
     cursor: url(../../public/cursor/link.cur), default;
+}
+
+::selection {
+    background-color: var(--color_textSelected);
+    /* background-color: linear-gradient(45deg, #ff6b6b, #4ecdc4); */
+    /* transition: .2s; */
 }
 
 .main {
@@ -92,14 +116,69 @@ div::-webkit-scrollbar-thumb {
 }
 
 div::-webkit-scrollbar-thumb:hover {
-    background: rgba(50, 150, 50, 0.9);
+    background: rgba(50, 150, 50, 0.7);
+    /* animation: scroll_bar ease .3s both; */
 }
 
 div::-webkit-scrollbar-track {
     /*滚动条里面轨道*/
     /* box-shadow: inset 0 0 5px rgba(0, 0, 0, 0); */
-    border-radius: 0;
+    border-radius: 15px;
     background: rgba(0, 0, 0, 0.1);
+}
+
+@font-face {
+    /* 字体声明  */
+    font-family: 'icomoon';
+    src: url('../fonts/icomoon/fonts/icomoon.eot');
+    src: url('../fonts/icomoon/fonts/icomoon.eot') format('embedded-opentype'),
+        url('../fonts/icomoon/fonts/icomoon.ttf') format('truetype'),
+        url('../fonts/icomoon/fonts/icomoon.woff') format('woff'),
+        url('../fonts/icomoon/fonts/icomoon.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'consolas';
+    src: url('../../public/fonts/consolas.ttf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Din';
+    src: url('../../public/fonts/DIN-Regular-2.otf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'Din-Heavy';
+    src: url('../../public/fonts/DIN-Medium-2.otf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'siyuan';
+    /* src: url('../../public/fonts/SourceHanSerifCN-Regular-1.otf'); */
+    src: url(https://cdn.jsdelivr.net/gh/striumve/lyxWebsite@main/public/fonts/SourceHanSerifCN-Regular-1.otf);
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: 'pingfang';
+    src: url('../../public/fonts/PingFangSC-Regular.woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
 }
 
 @keyframes startpage_hide {
@@ -203,5 +282,81 @@ div::-webkit-scrollbar-track {
     100% {
         top: var(--padding_top);
         opacity: 1;
+    }
+}
+
+@keyframes readerCtrl_show_toleft {
+    0% {
+        left: calc(var(--readerCtrl_left) + 1vw);
+        opacity: 0;
+    }
+
+    100% {
+        left: calc(var(--readerCtrl_left));
+        opacity: 1;
+    }
+}
+
+@keyframes readerCtrl_show_toright {
+    0% {
+        left: calc(var(--readerCtrl_left) - 1vw);
+        opacity: 0;
+    }
+
+    100% {
+        left: calc(var(--readerCtrl_left));
+        opacity: 1;
+    }
+}
+
+@keyframes readerCtrl_hide_toleft {
+    0% {
+        left: calc(var(--readerCtrl_left));
+        opacity: 1;
+    }
+
+    100% {
+        left: calc(var(--readerCtrl_left) - 1vw);
+        opacity: 0;
+    }
+}
+
+
+@keyframes readerCtrl_hide_toright {
+    0% {
+        left: calc(var(--readerCtrl_left));
+        opacity: 1;
+    }
+
+    100% {
+        left: calc(var(--readerCtrl_left) + 1vw);
+        opacity: 0;
+    }
+}
+@keyframes blur_5 {
+    0% {
+        backdrop-filter: blur(5px);
+    }
+
+    50% {
+        backdrop-filter: blur(5.1px);
+    }
+
+    100% {
+        backdrop-filter: blur(5px);
+    }
+}
+
+@keyframes blur_2 {
+    0% {
+        backdrop-filter: blur(2px);
+    }
+
+    50% {
+        backdrop-filter: blur(2.1px);
+    }
+
+    100% {
+        backdrop-filter: blur(2px);
     }
 }

@@ -62,7 +62,7 @@
     content: '';
     width: 2px;
     height: 0vh;
-    background-color: var(--color_green);
+    background-color: var(--color_theme);
     position: absolute;
     bottom: 0;
     left: 0;
@@ -73,7 +73,7 @@
     content: '';
     width: 2px;
     height: 0vh;
-    background-color: var(--color_green);
+    background-color: var(--color_theme);
     position: absolute;
     bottom: 0;
     left: var(--start_btn_width);
@@ -99,7 +99,9 @@
     position: fixed;
     background-color: var(--color_box);
     border-radius: 10px;
-    backdrop-filter: blur(2px);
+    /* backdrop-filter: blur(2px); */
+    
+    animation: blur_2 ease .5s both;
     /* x 偏移量 | y 偏移量 | 阴影模糊半径 | 阴影扩散半径 | 阴影颜色 */
     box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
     transition: .4s;
@@ -249,6 +251,7 @@
     text-align: center;
     font-size: var(--navbtn_fontsize);
     display: none;
+    z-index: 50;
 }
 
 .nav, 
@@ -284,9 +287,10 @@
     top: 10vh;
     width: var(--musicSelectorBox_width);
     text-align: left;
-    background-color: var(--color_box);
+    background-color: var(--color_box_solid);
     border-radius: 1vh;
-    backdrop-filter: blur(3px);
+    /* backdrop-filter: blur(5px); */
+    animation: 'blur_5' ease .1s both;
     box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
     transition: .4s;
     padding-left: 1vw;
@@ -300,7 +304,7 @@
 .showInfo:hover, 
 .music:hover, 
 .music-selectbox:hover {
-    background-color: var(--color_box_hover);
+    background-color: var(--color_box_solid_hover);
     box-shadow: 0px 0px 5px 6px rgba(0, 0, 0, 0.2);
 }
 
@@ -309,7 +313,7 @@
 }
 
 .music-selector:hover {
-    color: var(--color_green);
+    color: var(--color_theme);
 }
 
 .nav-btn, 
@@ -343,7 +347,7 @@
 .nav-btn.active, 
 .music-btn:hover, 
 .music-selector.active {
-    color: var(--color_green);
+    color: var(--color_theme);
 }
 
 /* Page */
@@ -376,7 +380,7 @@
 
 .pageitem {
     z-index: 1;
-    backdrop-filter: blur(2px);
+    animation: blur_2 ease .5s both;
     font-family: 'pingfang';
     position: relative;
 }
@@ -401,7 +405,7 @@
     color: var(--color_basic);
     background-color: var(--color_pagebox);
     border-radius: 10px;
-    backdrop-filter: blur(2px);
+    animation: blur_2 ease .5s both;
     /* x 偏移量 | y 偏移量 | 阴影模糊半径 | 阴影扩散半径 | 阴影颜色 */
     box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
     transition: .4s;
@@ -514,4 +518,186 @@
     top: 1vh;
     font-size: 2vh;
     /* color: grey; */
+}
+
+.reader {
+    position: fixed;
+    width: var(--reader_width);
+    height: 100vh;
+    left: calc(var(--box_left) + var(--box_width) + 2.5vw);
+    /* background-color: black; */
+    padding: 0;
+    z-index: 15;
+}
+
+.reader-container {
+    width: calc(var(--readerContainer_width) - var(--reader_padding) * 2) ;
+    height: calc(100vh - var(--reader_top) - var(--reader-bottom));
+    position: absolute;
+    left: 0;
+    top: var(--reader_top);
+    overflow: auto;
+    font-size: var(--reader_fontSize);
+    background-color: var(--color_reader);
+    padding-left: var(--reader_padding);
+    padding-right: var(--reader_padding);
+    border-radius: 10px;
+    animation: blur_5 ease .5s both;
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
+    transition: .4s;
+    user-select: text;
+    font-family: 'siyuan';
+}
+
+.reader-container > p, 
+.reader-container > h1,
+.reader-container > h2, 
+.reader-container > h3, 
+.reader-container > pre > code {
+    cursor: url(/public/cursor/text.cur), default;
+
+}
+
+.reader-container> p {
+    text-indent: 2em;
+} 
+
+.reader-container > h1 {
+    font-size: calc(var(--reader_fontSize) * 1.5);
+    text-align: center;
+}
+
+.reader-container > h2 {
+    font-size: calc(var(--reader_fontSize) * 1.3);
+}
+
+.reader-container > h3 {
+    text-align: center;
+    font-size: var(--reader_fontSize);
+    font-weight: 400;
+}
+
+.reader-container > pre > code {
+    font-family: 'consolas';
+    /* background-color: black; */
+}
+
+.hljs-ln-numbers {
+    color: var(--color_theme);
+}
+
+.reader-back {
+    position: absolute;
+    left: calc(var(--readerContainer_width) + 2vw) ;
+    top: calc(var(--reader_top) );
+    font-size: 2vh;
+    background-color: var(--color_box);
+    line-height: 4vh;
+    padding-left: var(--readerBtn_padding);
+    padding-right: var(--readerBtn_padding);
+    border-radius: 5px;
+    transition: .3s;
+    color: var(--color_basic);
+}
+
+.reader-back:hover {
+    background-color: var(--color_box_hover);
+    color: var(--color_theme);
+}
+
+.reader-nav {
+    position: absolute;
+    left: calc(var(--readerContainer_width) + var(--readerBtn_padding) * 2 + 2vw + 4vh + 2vh) ;
+    top: calc(var(--reader_top) );
+    width: 50vw;
+}
+
+.reader-btn, 
+.reader-setting-default {
+    display: inline;
+    font-size: 2vh;
+    line-height: 4vh;
+    background: transparent;
+    outline: none;
+    border: none;
+    padding-left: calc(var(--navbtn_padding) / 2) ;
+    padding-right: calc(var(--navbtn_padding) / 2) ;
+    /* padding-right: var(--navbtn_padding); */
+    color: var(--color_basic);
+    transition: .3s;
+    border-bottom: 2px solid transparent;
+}
+
+.reader-btn:hover, 
+.reader-setting-default:hover {
+    color: var(--color_theme);
+    /* text-decoration: underline; */
+    /* background-color: var(--color_box_hover); */
+}
+
+.reader-btn.active {
+    border-bottom: 2px solid var(--color_theme);
+    color: var(--color_theme);
+}
+
+.reader-ctrl {
+    width: var(--readerCtrl_width);
+    height: auto;
+    position: absolute;
+    left: var(--readerCtrl_left);
+    top: calc(var(--reader_top) + 4vh + 2vh);
+    font-size: 1.8vh;
+    background-color: var(--color_box);
+    /* line-height: 4vh; */
+    padding-left: var(--navbtn_padding);
+    padding-right: var(--navbtn_padding);
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    /* padding: var(--navbtn_padding); */
+    border-radius: 5px;
+    transition: .3s;
+    color: var(--color_basic);
+}
+
+.reader-index-heading {
+    font-size: 1.8vh;
+    line-height: 2.5vh;
+    color: var(--color_basic);
+    transition: .3s;
+}
+
+.reader-index-heading:hover, 
+.reader-index-heading.active {
+    color: var(--color_theme);
+}
+
+.reader-setting>table {
+    border: none;
+    border-spacing: 0vh;
+}
+
+.reader-setting>table>p {
+    font-size: 2vh;
+    line-height: 2vh;
+}
+
+input {
+    border: none;
+    outline: none;
+    width: 6vh;
+    padding: 1vh;
+    background-color: var(--color_input);
+    font-family: 'consolas';
+    font-size: 2vh;
+    transition: .3s;
+    border-bottom: 2px solid transparent;
+}
+
+input:hover, 
+input:focus {
+    background-color: var(--color_input_hover);
+}
+
+input:focus {
+    border-bottom: 2px solid var(--color_theme);
 }

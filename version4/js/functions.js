@@ -10,11 +10,11 @@ console.log('%c%s',
     |  | ||             | ||           / //   \\ \\\\       \n\
     |  \\ \\\\______..     | ||          / //     \\ \\\\   \n\
     |   \\________||     \\_//         /_//       \\_\\\\   \n\
-    *------------------------------------------------\n');
+    *-------------------------------------------------\n');
 
 
-
-const urlParams = new URLSearchParams(window.location.search);
+var url = new URL(window.location.href);
+var urlParams = new URLSearchParams(url.search);
 const body = document.querySelector("body");
 
 
@@ -22,8 +22,10 @@ const body = document.querySelector("body");
 
 var vw = document.documentElement.clientWidth;
 var vh = document.documentElement.clientHeight;
+var is_mobile = false;
 if ((vw / vh) <= 1.2) {
     document.querySelector('.showInfo').style.display = 'block';
+    is_mobile = true;
     visionMobilise();
 }
 
@@ -40,10 +42,22 @@ function visionMobilise() {
     body.style.setProperty('--pages_columncount', '1');
     body.style.setProperty('--navbtn_fontsize', '2.1vh');
     body.style.setProperty('--navbtn_padding', '2vw');
+
     body.style.setProperty('--musicSelectorBox_width', '70vw');
     body.style.setProperty('--artiitemgo_right', '5vw');
     body.style.setProperty('--linkitemgo_right', '5vw');
     body.style.setProperty('--item_after_width', '10vw');
+
+
+    body.style.setProperty('--reader_width', '90vw');
+    body.style.setProperty('--readerContainer_width', '90vw');
+    body.style.setProperty('--reader_padding', '10vw');
+    body.style.setProperty('--reader_top', '10vh');
+    body.style.setProperty('--reader_bottom', '3vh');
+    body.style.setProperty('--readerBtn_padding', '3vw');
+    body.style.setProperty('--readerCtrl_left', '10vw');
+    body.style.setProperty('--readerCtrl_width', '60vw');
+
     document.querySelector(".nav").style.left = '5vw';
     document.querySelector(".music").style.left = '10vw';
     document.querySelector(".info2").style.left = 'calc(10vw + 5vw + (var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2))';
@@ -52,11 +66,21 @@ function visionMobilise() {
     document.querySelector('.info1').style.top = '15vh';
     document.querySelector('.time').style.left = '25vw';
 
+    document.querySelector('.reader').style.left = '5vw';
+    document.querySelector('.reader-back').style.left = '20vw';
+    document.querySelector('.reader-back').style.top = '4vh';
+    document.querySelector('.reader-nav').style.left = 'calc(26vw + 4vh + 5vw)';
+    document.querySelector('.reader-nav').style.top = '4vh';
+    // document.querySelector('.reader-ctrl').style.width = '60vw';
+    // document.querySelector('.reader-ctrl').style.top = '10vh';
+
     document.querySelector(".info").style.display = 'none';
     document.querySelector(".info").style.opacity = '0';
+
 }
 
 var is_info_show = false;
+var is_reader_open = false;
 
 function hide(page) {
     page.style.animation = 'public_hide ease .3s both';
@@ -73,15 +97,23 @@ function show(page) {
 document.querySelector('.showInfo').addEventListener('click', function () {
     if (!is_info_show) {
         show(document.querySelector('.info'));
-        hide(document.querySelector('.pages'));
-        hide(document.querySelector('.nav'));
         show(document.querySelector('.music'));
+        if (!is_reader_open) {
+            hide(document.querySelector('.pages'));
+            hide(document.querySelector('.nav'));
+        } else {
+            hide(document.querySelector('.reader'));
+        }
         is_info_show = true;
     } else {
         hide(document.querySelector('.info'));
-        show(document.querySelector('.pages'));
-        show(document.querySelector('.nav'));
         hide(document.querySelector('.music'));
+        if (!is_reader_open) {
+            show(document.querySelector('.pages'));
+            show(document.querySelector('.nav'));
+        } else {
+            show(document.querySelector('.reader'));
+        }
         is_info_show = false;
     }
 })
@@ -90,12 +122,16 @@ document.querySelector('.showInfo').addEventListener('click', function () {
 
 function nightMode() {
     document.querySelector('.background').style.background = 'url(/version4/images/background_night.jpg)';
-    body.style.setProperty('--color_basic', 'rgba(200, 200, 200, .95)');
+    body.style.setProperty('--color_basic', 'rgba(220, 220, 220, .95)');
     body.style.setProperty('--color_grey', 'rgba(170, 170, 170, .95)');
+    body.style.setProperty('--color_theme', 'rgb(2, 179, 58)');
     body.style.setProperty('--color_box', 'rgba(150, 150, 170, .4)');
     body.style.setProperty('--color_box_hover', 'rgba(140, 140, 160, .5)');
+    body.style.setProperty('--color_box_solid', 'rgba(150, 150, 170, .6)');
+    body.style.setProperty('--color_box_solid_hover', 'rgba(140, 140, 160, .7)');
     body.style.setProperty('--color_pagebox', 'rgba(150, 150, 180, .4)');
     body.style.setProperty('--color_pagebox_hover', 'rgba(140, 140, 170, .5)');
+    body.style.setProperty('--color_reader', 'rgba(150, 150, 170, .4)');
 }
 
 
@@ -251,9 +287,9 @@ abouBtn.addEventListener("click", function () {
 })
 
 
-const page = urlParams.get('page');
-if (page) {
-    changePage(curPage, page, pageSelector[curPage], pageSelector[page]);
+var openPage = urlParams.get('page');
+if (openPage) {
+    changePage(curPage, openPage, pageSelector[curPage], pageSelector[openPage]);
 }
 
 //音乐
@@ -273,7 +309,7 @@ function playMusic() {
         bgmSelector[curPlaying].play();
         playBtn.style.display = 'none';
         pauseBtn.style.display = 'block';
-        document.querySelector('.music-title').style.color = 'var(--color_green)';
+        document.querySelector('.music-title').style.color = 'var(--color_theme)';
     }
 }
 
@@ -349,38 +385,272 @@ document.addEventListener('DOMContentLoaded', loadTalks);
 
 
 //加载文章列表
-async function loadArticles() {
+async function loadArticleList() {
     try {
         const response = await fetch('/version4/articles/articles.json');
         const articles = await response.json();
-        displayArticles(articles);
+        // displayArticleList(articles);
+        const container = document.querySelector(".article");
+
+        articles.forEach(article => {
+            const articleElement = document.createElement('div');
+            articleElement.className = 'pageitem arti-item';
+            articleElement.dataset.artiId = `${article.artiID}`;
+            articleElement.innerHTML = `
+            <div class="arti-item-time"><span style="font-family: 'icomoon';"></span> ${article.time} &emsp14; <span style="font-family: 'icomoon';"></span> ${article.author} &emsp14; # ${article.tag}</div>
+            <div class="arti-item-title">${article.title}</div>
+            <div class="arti-item-go"></div>
+            <div class="arti-item-preview">${article.preview}</div>
+        `;
+            container.appendChild(articleElement);
+        });
     } catch (error) {
         console.error('加载文章失败 ', error);
         document.querySelector(".article").innerHTML = "加载文章列表失败，请联系我<br>" + error;
     }
 }
 
-function displayArticles(articles) {
-    const container = document.querySelector(".article");
 
-    articles.forEach(article => {
-        const articleElement = document.createElement('div');
-        articleElement.className = 'pageitem arti-item';
-        articleElement.dataset.artiId = `${article.artiID}`;
-        articleElement.innerHTML = `
-            <div class="arti-item-time"><span style="font-family: 'icomoon';"></span> ${article.time} &emsp14; <span style="font-family: 'icomoon';font-weight:700; "></span> ${article.author} </div>
-            <div class="arti-item-title">${article.title}</div>
-            <div class="arti-item-go"></div>
-            <div class="arti-item-preview">${article.preview}</div>
-        `;
-        container.appendChild(articleElement);
-    });
-}
-
-document.addEventListener('DOMContentLoaded', loadArticles);
+document.addEventListener('DOMContentLoaded', loadArticleList);
 
 //文章阅读器
 
+var curReading = 0;
+
+async function openReader(id) {
+    document.querySelector('.pages').style.animation = 'public_hide ease .3s both';
+    document.querySelector('.nav').style.animation = 'public_hide ease .3s both';
+    setTimeout(function () {
+        document.querySelector('.nav').style.display = 'none';
+        document.querySelector('.pages').style.display = 'none';
+        document.querySelector('.reader').style.display = 'block';
+        document.querySelector('.reader').style.animation = 'public_show ease .3s both';
+    }, 200);
+
+
+    try {
+        const response = await fetch('/version4/articles/article' + id + '.html');
+        const articles = await response.text();
+        // displayArticleList(articles);
+        const container = document.querySelector(".reader-container");
+        container.innerHTML = articles;
+    } catch (error) {
+        console.error('加载文章失败 ', error);
+        document.querySelector(".article").innerHTML = "加载文章失败，请联系我<br>" + error;
+    }
+
+    loadIndex();
+    is_reader_open = true;
+    hljs.highlightAll();
+    hljs.initLineNumbersOnLoad();
+}
+
+function closeReader() {
+    document.querySelector('.reader').style.animation = 'public_hide ease .3s both';
+    setTimeout(function () {
+        document.querySelector('.reader').style.display = 'none';
+        document.querySelector('.pages').style.animation = 'public_show ease .3s both';
+        document.querySelector('.pages').style.display = 'block';
+        document.querySelector('.nav').style.animation = 'public_show ease .3s both';
+        document.querySelector('.nav').style.display = 'block';
+    }, 200);
+
+    urlParams.delete('reading_id');
+    urlParams.toString();
+    history.pushState(null, "", '?' + urlParams.toString());
+    changePage(curPage, 2, pageSelector[curPage], pageSelector[2]);
+
+    is_reader_open = false;
+}
+
+if (urlParams.get('reading_id')) {
+    openReader(urlParams.get('reading_id'));
+}
+
+document.querySelector('.reader-back').addEventListener('click', closeReader);
+
 document.querySelector('.article').addEventListener('click', function (event) {
-    alert(event.target.closest('.arti-item').dataset.artiId);
+    curReading = event.target.closest('.arti-item').dataset.artiId;
+    // alert(curReading);
+    urlParams.set('reading_id', curReading);
+    urlParams.toString();
+    history.pushState(null, "", '?' + urlParams.toString());
+    openReader(curReading);
+})
+
+//文章阅读器-目录与设置
+//控件切换
+var readerBtnIndex = document.querySelector('.reader-nav-index');
+var readerBtnSet = document.querySelector('.reader-nav-setting');
+var curReaderCtrl = 1;
+var mobile_is_ctrl_open = false;
+
+if (is_mobile) {
+    document.querySelector('.reader-nav-index').classList.remove('active');
+    document.querySelector('.reader-index').style.display = 'none';
+    document.querySelector('.reader-index').style.opacity = '0';
+}
+
+readerBtnIndex.addEventListener('click', function () {
+    if (is_mobile && !mobile_is_ctrl_open) {
+        readerBtnIndex.classList.add('active');
+        curReaderCtrl = 1;
+        mobile_is_ctrl_open = true;
+        show(document.querySelector('.reader-index'));
+        document.querySelector('.reader-container').style.animation = 'public_hide ease .3s both';
+    } else if (curReaderCtrl === 2) {
+        readerBtnSet.classList.remove('active');
+        readerBtnIndex.classList.add('active');
+        curReaderCtrl = 1;
+        mobile_is_ctrl_open = true;
+        document.querySelector('.reader-setting').style.animation = 'readerCtrl_hide_toright ease .3s both';
+        setTimeout(function () {
+            document.querySelector('.reader-setting').style.display = 'none';
+            document.querySelector('.reader-index').style.display = 'block';
+            document.querySelector('.reader-index').style.animation = 'readerCtrl_show_toright ease .3s both';
+        }, 200);
+    } else if (is_mobile && mobile_is_ctrl_open && curReaderCtrl === 1) {
+        readerBtnIndex.classList.remove('active');
+        mobile_is_ctrl_open = false;
+        hide(document.querySelector('.reader-index'));
+        document.querySelector('.reader-container').style.animation = 'public_show ease .3s both';
+    }
+})
+
+readerBtnSet.addEventListener('click', function () {
+    if (is_mobile && !mobile_is_ctrl_open) {
+        readerBtnSet.classList.add('active');
+        curReaderCtrl = 2;
+        mobile_is_ctrl_open = true;
+        show(document.querySelector('.reader-setting'));
+        document.querySelector('.reader-container').style.animation = 'public_hide ease .3s both';
+    } else if (curReaderCtrl === 1) {
+        readerBtnIndex.classList.remove('active');
+        readerBtnSet.classList.add('active');
+        curReaderCtrl = 2;
+        mobile_is_ctrl_open = true;
+        document.querySelector('.reader-index').style.animation = 'readerCtrl_hide_toleft ease .3s both';
+        setTimeout(function () {
+            document.querySelector('.reader-index').style.display = 'none';
+            document.querySelector('.reader-setting').style.display = 'block';
+            document.querySelector('.reader-setting').style.animation = 'readerCtrl_show_toleft ease .3s both';
+        }, 200);
+    } else if (is_mobile && mobile_is_ctrl_open && curReaderCtrl === 2) {
+        readerBtnSet.classList.remove('active');
+        mobile_is_ctrl_open = false;
+        hide(document.querySelector('.reader-setting'));
+        document.querySelector('.reader-container').style.animation = 'public_show ease .3s both';
+    }
+})
+
+//加载目录
+function loadIndex() {
+    var headings = document.querySelectorAll(".reader-container>h2");
+    var container = document.querySelector('.reader-container');
+
+    document.querySelector('.reader-index').innerHTML = '';
+    if (headings.length === 0) {
+        document.querySelector('.reader-index').innerHTML = '<br>该文章没有目录<br><br>';
+    }
+    headings.forEach((heading, index) => {
+        var headingLine = document.createElement('p');
+        headingLine.innerHTML = heading.textContent;
+        headingLine.classList.add('reader-index-heading');
+        if (index === 0) {
+            headingLine.classList.add('active');
+        }
+        headingLine.dataset.index = index;
+        heading.dataset.index = index;
+        document.querySelector('.reader-index').appendChild(headingLine);
+    })
+
+    //跳转
+    document.querySelector('.reader-index').addEventListener("click", function (event) {
+        // alert(event.target.dataset.index);
+        document.querySelectorAll('.reader-index-heading').forEach(heading => {
+            heading.classList.remove('active');
+        })
+        event.target.classList.add('active');
+        // alert(container.scrollTop);
+        container.scrollTo({
+            top: document.querySelector(`h2[data-index='${event.target.dataset.index}']`).offsetTop - 50,
+            behavior: 'smooth'
+        });
+    })
+
+    //自动高亮
+    container.addEventListener('scroll', function () {
+        var headingNum = document.querySelectorAll('.reader-index-heading').length;
+
+        for (var i = 0; i < headingNum; i++) {
+            var currentHeading = document.querySelector(`h2[data-index='${i}']`);
+            var nextHeading = document.querySelector(`h2[data-index='${i+1}']`);
+
+            if (!currentHeading) continue; // 跳过不存在的元素
+
+            var currentTop = currentHeading.offsetTop - 200;
+            var nextTop = nextHeading ? nextHeading.offsetTop - 200 : Infinity;
+
+            if (container.scrollTop >= currentTop && container.scrollTop < nextTop) {
+                document.querySelectorAll('.reader-index-heading').forEach(heading => {
+                    heading.classList.remove('active');
+                })
+                document.querySelector(`.reader-index-heading[data-index='${i}']`).classList.add('active');
+            }
+        }
+    });
+}
+
+//设置
+
+var readerFontSize = parseFloat(getComputedStyle(document.querySelector(':root')).getPropertyValue('--reader_fontSize'));
+var readerPadding = parseFloat(getComputedStyle(document.querySelector(':root')).getPropertyValue('--reader_padding'));
+var readerContainerWidth = parseFloat(getComputedStyle(document.querySelector(':root')).getPropertyValue('--readerContainer_width'));
+var fontSizeInput = document.querySelector('.reader-setting-size');
+var paddingInput = document.querySelector('.reader-setting-padding'); //padding存储时全部使用vw值，显示及输入时使用%
+
+fontSizeInput.value = readerFontSize;
+paddingInput.value = Math.round(readerPadding / readerContainerWidth * 100);
+
+if (localStorage.getItem('reader_font_size')) {
+    body.style.setProperty('--reader_fontSize', localStorage.getItem('reader_font_size') + 'px');
+    fontSizeInput.value = localStorage.getItem('reader_font_size');
+}
+if (localStorage.getItem('reader_padding')) {
+    body.style.setProperty('--reader_padding', localStorage.getItem('reader_padding') + 'vw');
+    paddingInput.value = Math.round(localStorage.getItem('reader_padding') / readerContainerWidth * 100);
+}
+
+document.querySelectorAll('.reader-input').forEach(input => {
+    input.addEventListener('blur', function () {
+        switch (input.dataset.setId) {
+            case '1':
+                localStorage.setItem('reader_font_size', input.value);
+                body.style.setProperty('--reader_fontSize', input.value + 'px');
+                break;
+
+            case '2':
+                localStorage.setItem('reader_padding', (input.value / 100) * readerContainerWidth);
+                body.style.setProperty('--reader_padding', (input.value / 100) * readerContainerWidth + 'vw');
+
+                break;
+
+            default:
+                break;
+        }
+    });
+
+    input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            this.blur();
+        }
+    });
+})
+
+document.querySelector('.reader-setting-default').addEventListener('click', function () {
+    localStorage.clear();
+    body.style.setProperty('--reader_fontSize', '18px');
+    body.style.setProperty('--reader_padding', '3vw');
+    fontSizeInput.value = '18';
+    paddingInput.value = '5';
 })
