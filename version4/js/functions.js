@@ -17,6 +17,7 @@ console.log('%c%s',
 const urlParams = new URLSearchParams(window.location.search);
 const body = document.querySelector("body");
 
+
 //移动端适配
 
 var vw = document.documentElement.clientWidth;
@@ -27,7 +28,7 @@ if ((vw / vh) <= 1.2) {
 }
 
 function visionMobilise() {
-    body.style.setProperty('--start_btn_width', '30vw');
+    body.style.setProperty('--start_btn_width', '40vw');
     body.style.setProperty('--box_width', '80vw');
     body.style.setProperty('--box_left', '10vw');
     body.style.setProperty('--page_width', '70vw');
@@ -39,12 +40,14 @@ function visionMobilise() {
     body.style.setProperty('--pages_columncount', '1');
     body.style.setProperty('--navbtn_fontsize', '2.1vh');
     body.style.setProperty('--navbtn_padding', '2vw');
-    body.style.setProperty('--musicSelectorBox_width', '60vw');
+    body.style.setProperty('--musicSelectorBox_width', '70vw');
     body.style.setProperty('--artiitemgo_right', '5vw');
-    body.style.setProperty('--linkitemgo_right', '5vw');     
+    body.style.setProperty('--linkitemgo_right', '5vw');
     body.style.setProperty('--item_after_width', '10vw');
     document.querySelector(".nav").style.left = '5vw';
-    document.querySelector(".music").style.left = '5vw';
+    document.querySelector(".music").style.left = '10vw';
+    document.querySelector(".info2").style.left = 'calc(10vw + 5vw + (var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2))';
+    document.querySelector('.info2').style.width = 'calc(80vw - 5vw - (var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2))';
     document.querySelector('.nav').style.top = 'calc(var(--padding_top) + 5vh)';
     document.querySelector('.info1').style.top = '15vh';
     document.querySelector('.time').style.left = '25vw';
@@ -72,16 +75,35 @@ document.querySelector('.showInfo').addEventListener('click', function () {
         show(document.querySelector('.info'));
         hide(document.querySelector('.pages'));
         hide(document.querySelector('.nav'));
-        hide(document.querySelector('.music'));
+        show(document.querySelector('.music'));
         is_info_show = true;
     } else {
         hide(document.querySelector('.info'));
         show(document.querySelector('.pages'));
         show(document.querySelector('.nav'));
-        show(document.querySelector('.music'));
+        hide(document.querySelector('.music'));
         is_info_show = false;
     }
 })
+
+//夜间模式
+
+function nightMode() {
+    document.querySelector('.background').style.background = 'url(/version4/images/background_night.jpg)';
+    body.style.setProperty('--color_basic', 'rgba(200, 200, 200, .95)');
+    body.style.setProperty('--color_grey', 'rgba(170, 170, 170, .95)');
+    body.style.setProperty('--color_box', 'rgba(150, 150, 170, .4)');
+    body.style.setProperty('--color_box_hover', 'rgba(140, 140, 160, .5)');
+    body.style.setProperty('--color_pagebox', 'rgba(150, 150, 180, .4)');
+    body.style.setProperty('--color_pagebox_hover', 'rgba(140, 140, 170, .5)');
+}
+
+
+var getdate = new Date();
+if (getdate.getHours() <= 6 || getdate.getHours() >= 22) {
+    // nightMode();
+}
+
 
 //开始
 
@@ -92,6 +114,7 @@ function start() {
         document.querySelector(".home").style.animation = 'public_show ease .5s both';
         document.querySelector(".start").style.display = 'none';
     }, 300)
+    playMusic();
 }
 
 function quickstart() {
@@ -259,7 +282,7 @@ function pauseMusic() {
         bgmSelector[curPlaying].pause();
         playBtn.style.display = 'block';
         pauseBtn.style.display = 'none';
-        document.querySelector('.music-title').style.color = 'black';
+        document.querySelector('.music-title').style.color = 'var(--color_basic)';
     }
 }
 
@@ -295,10 +318,40 @@ playBtn.addEventListener('click', playMusic)
 
 pauseBtn.addEventListener('click', pauseMusic)
 
-//加载文章
+//加载说说
+
+async function loadTalks() {
+    try {
+        const response = await fetch('/version4/talks.json');
+        const talks = await response.json();
+        displayTalks(talks);
+    } catch (error) {
+        console.error('加载说说失败 ', error);
+        document.querySelector(".talk").innerHTML = "加载说说列表失败，请联系我<br>" + error;
+    }
+}
+
+function displayTalks(talks) {
+    const container = document.querySelector(".talk");
+
+    talks.forEach(talks => {
+        const talkElement = document.createElement('div');
+        talkElement.className = 'pageitem talk-item';
+        talkElement.innerHTML = `
+            <div class="talk-item-time"><span style="font-family: 'icomoon';"></span> ${talks.time}</div>
+            <div class="talk-item-content">${talks.content}</div>
+        `;
+        container.appendChild(talkElement);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', loadTalks);
+
+
+//加载文章列表
 async function loadArticles() {
     try {
-        const response = await fetch('../version4/articles/articles.json');
+        const response = await fetch('/version4/articles/articles.json');
         const articles = await response.json();
         displayArticles(articles);
     } catch (error) {
@@ -311,9 +364,9 @@ function displayArticles(articles) {
     const container = document.querySelector(".article");
 
     articles.forEach(article => {
-        const articleElement = document.createElement('a');
+        const articleElement = document.createElement('div');
         articleElement.className = 'pageitem arti-item';
-        articleElement.href = `${article.href}`;
+        articleElement.dataset.artiId = `${article.artiID}`;
         articleElement.innerHTML = `
             <div class="arti-item-time"><span style="font-family: 'icomoon';"></span> ${article.time} &emsp14; <span style="font-family: 'icomoon';font-weight:700; "></span> ${article.author} </div>
             <div class="arti-item-title">${article.title}</div>
@@ -325,3 +378,9 @@ function displayArticles(articles) {
 }
 
 document.addEventListener('DOMContentLoaded', loadArticles);
+
+//文章阅读器
+
+document.querySelector('.article').addEventListener('click', function (event) {
+    alert(event.target.closest('.arti-item').dataset.artiId);
+})

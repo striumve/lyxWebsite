@@ -168,7 +168,7 @@
 .yiyan {
     height: 25vh;
     top: 35vh;
-    color: black;
+    color: var(--color_basic);
     /* padding: 3vh; */
 }
 
@@ -185,7 +185,7 @@
     /* color: var(--basicColor_black_a100); */
     user-select: text;
     text-decoration: none;
-    color: black;
+    color: var(--color_basic);
     /* margin-right: 2vw; */
     /* margin-top: 3vh; */
     /* padding-top: 1vh; */
@@ -223,6 +223,7 @@
     height: 25vh;
     top: 67vh;
     font-family: 'consolas';
+    width: calc(var(--box_width) - (var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2) - 2vw);
 }
 
 .info2-talk {
@@ -268,9 +269,12 @@
 }
 
 .music {
-    top: calc(var(--padding_top) + 40vh);
+    top: 67vh;
     z-index: 15;
     padding-bottom: 2vh;
+    /* padding: 0; */
+    left: calc(var(--box_left) + var(--box_width) - (var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2));
+    height: 21vh;
 }
 
 .music-selectbox {
@@ -394,7 +398,7 @@
 .about-item {
     display: block;
     text-decoration: none;
-    color: black;
+    color: var(--color_basic);
     background-color: var(--color_pagebox);
     border-radius: 10px;
     backdrop-filter: blur(2px);
@@ -477,7 +481,7 @@
     position: relative;
     top: 2vh;
     font-size: 2vh;
-    color: grey;
+    color: var(--color_grey);
 }
 
 .link-item-name {
@@ -496,7 +500,7 @@
     top: .5vh;
     left: 0vw;
     font-size: 1.8vh;
-    color: rgb(100, 100, 100);
+    color: var(--color_grey);
 }
 
 .about-item-title {

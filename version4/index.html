@@ -38,6 +38,9 @@
 
 <body>
     <div class="main">
+        <audio src="./music/Peaceful Hike.mp3" class="bgm1" loop></audio>
+        <audio src="./music/晚安喵.mp3" class="bgm2" loop preload="none"></audio>
+
         <!-- 背景 -->
         <div class="background"></div>
 
@@ -82,6 +85,18 @@
                         _zzmxqsm_sp_ysyyrps
                     </div>
                 </div>
+
+                <div class="music" style="font-family: 'icomoon';">
+                    <p style="font-family: 'icomoon';text-align: center;font-size: 2vh;margin: .5vh;"></p>
+                    <p class="music-title">音乐</p><br>
+                    <p class="music-btn music-btn-select"></p>
+                    <p class="music-btn music-btn-play"></p>
+                    <p class="music-btn music-btn-pause" style="display: none;"></p>
+                    <div class="music-selectbox">
+                        <p class="music-selector music-selector1 active">Peaceful Hike 山风拂萝衣 - 陈致逸</p>
+                        <p class="music-selector music-selector2">晚安喵 (原版伴奏) - 艾索</p>
+                    </div>
+                </div>
             </div>
 
             <!-- 移动端按键 -->
@@ -99,59 +114,14 @@
                 <button class="nav-btn nav-btn-about">关于</button>
             </div>
 
-            <audio src="./music/Peaceful Hike.mp3" class="bgm1" loop></audio>
-            <audio src="./music/晚安喵.mp3" class="bgm2" loop></audio>
-
-            <div class="music" style="font-family: 'icomoon';">
-                <p style="font-family: 'icomoon';text-align: center;font-size: 2vh;margin: .5vh;"></p>
-                <p class="music-title">音乐</p><br>
-                <p class="music-btn music-btn-select"></p>
-                <p class="music-btn music-btn-play"></p>
-                <p class="music-btn music-btn-pause" style="display: none;"></p>
-                <div class="music-selectbox">
-                    <p class="music-selector music-selector1 active">Peaceful Hike 山风拂萝衣 - 陈致逸</p>
-                    <p class="music-selector music-selector2">晚安喵 (原版伴奏) - 艾索</p>
-                </div>
-            </div>
-
-
             <!-- 中间 -->
             <!-- <div class="test"
             style="width: 100px;height: 2000px;background-color: #fff;position: absolute;top: 100px;left: 500px;"></div> -->
 
             <div class="pages">
-                <div class="page talk" style="opacity: 1;">
-                    <div class="pageitem talk-item">
-                        <div class="talk-item-time"><span style="font-family: 'icomoon';"></span> 2025/12/06 - 21:21
-                        </div>
-                        <div class="talk-item-content">做网站怎么这么累。好吧是我自己不用框架纯手搓导致的</div>
-                    </div>
-                    <div class="pageitem talk-item">
-                        <div class="talk-item-time"><span style="font-family: 'icomoon';"></span> 2025/12/03 - 22:51
-                        </div>
-                        <div class="talk-item-content">我今天才知道世界上还有CloudFlare Pages这么一个东西。。<br>CloudFlare无敌</div>
-                    </div>
-                    <div class="pageitem talk-item">
-                        <div class="talk-item-time"><span style="font-family: 'icomoon';"></span> 2025/12/01 - 00:09
-                        </div>
-                        <div class="talk-item-content">十二月快乐！<br><img src="./images/mugi_square.png" alt=""
-                                loading="lazy">
-                        </div>
-                    </div>
-                    <div class="pageitem talk-item">
-                        <div class="talk-item-time"><span style="font-family: 'icomoon';"></span> 2025/11/30 - 23:29
-                        </div>
-                        <div class="talk-item-content">马上就要十二月了吗，时间过得好快</div>
-                    </div>
-                    <div class="pageitem talk-item">
-                        <div class="talk-item-time"><span style="font-family: 'icomoon';"></span> 2025/11/30 - 17:06
-                        </div>
-                        <div class="talk-item-content">第一条说说</div>
-                    </div>
-                </div>
+                <div class="page talk" style="opacity: 1;"></div>
 
-                <div class="page article" style="opacity: 0;display: none;">
-                </div>
+                <div class="page article" style="opacity: 0;display: none;"></div>
 
                 <div class="page link" style="opacity: 0;display: none;">
                     <a class="pageitem link-item" href="../welcome.html">
@@ -232,6 +202,15 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- 文章阅读器 -->
+            <div class="reader">
+                <div class="reader-container"></div>
+                <div class="reader-info"></div>
+                <div class="reader-nav"></div>
+                <div class="reader-index"></div>
+                <div class="reader-setting"></div>
             </div>
 
         </div>
