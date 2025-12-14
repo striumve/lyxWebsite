@@ -299,10 +299,13 @@ var curPlaying = 1;
 var musicBox = document.querySelector('.music-selectbox');
 var playBtn = document.querySelector('.music-btn-play');
 var pauseBtn = document.querySelector('.music-btn-pause');
+var musicNum = 4;
 const bgm1 = document.querySelector('.bgm1');
 const bgm2 = document.querySelector('.bgm2');
-const bgmSelector = [0, bgm1, bgm2];
-const musicSelectorP = [0, document.querySelector('.music-selector1'), document.querySelector('.music-selector2')];
+const bgm3 = document.querySelector('.bgm3');
+const bgm4 = document.querySelector('.bgm4');
+const bgmSelector = [0, bgm1, bgm2, bgm3, bgm4];
+const musicSelectorP = [0, document.querySelector('.music-selector1'), document.querySelector('.music-selector2'), document.querySelector('.music-selector3'), document.querySelector('.music-selector4')];
 
 function playMusic() {
     if (!is_playing) {
@@ -336,19 +339,16 @@ document.querySelector('.music-btn-select').addEventListener('click', function (
     }
 })
 
-musicSelectorP[1].addEventListener('click', function () {
-    pauseMusic();
-    curPlaying = 1;
-    musicSelectorP[2].classList.remove('active');
-    this.classList.add('active');
-})
-
-musicSelectorP[2].addEventListener('click', function () {
-    pauseMusic();
-    curPlaying = 2;
-    musicSelectorP[1].classList.remove('active');
-    this.classList.add('active');
-})
+for (i = 1; i <= musicNum; i++) {
+    musicSelectorP[i].addEventListener('click', function () {
+        pauseMusic();
+        curPlaying = i;
+        for (j = 1; j <= musicNum; j++) {
+            musicSelectorP[j].classList.remove('active');
+        }
+        this.classList.add('active');
+    })
+}
 
 playBtn.addEventListener('click', playMusic)
 

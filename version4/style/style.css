@@ -273,7 +273,7 @@
 
 .music {
     top: 67vh;
-    z-index: 15;
+    z-index: 100;
     padding-bottom: 2vh;
     /* padding: 0; */
     left: calc(var(--box_left) + var(--box_width) - (var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2));
@@ -284,7 +284,7 @@
     z-index: 15;
     position: absolute;
     left: calc(var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2 + 1vw);
-    top: 10vh;
+    top: 0vh;
     width: var(--musicSelectorBox_width);
     text-align: left;
     background-color: var(--color_box_solid);
@@ -434,6 +434,7 @@
 .arti-item-time {
     position: absolute;
     top: 2vh;
+    font-size: 1.5vh;
     color: palevioletred;
 }
 
@@ -573,7 +574,7 @@
 
 .reader-container > h3 {
     text-align: center;
-    font-size: var(--reader_fontSize);
+    font-size: calc(var(--reader_fontSize) * 0.8);
     font-weight: 400;
 }
 
