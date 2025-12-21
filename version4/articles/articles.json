@@ -1,5 +1,15 @@
 [
     {
+        "artiID" : "3",
+        "title" : "本站使用的部分技术及实现", 
+        "href" : "./articles/article3.html",
+        "time" : "2025/12/15", 
+        "author" : "芒蹊",
+        "tag": "技术", 
+        "tagNum": "2",
+        "preview" : "介绍了该个人网站中部分功能和技术的原理及实现方法"
+    }, 
+    {
         "artiID" : "1",
         "title" : "滕王阁序", 
         "href" : "./articles/article1.html",

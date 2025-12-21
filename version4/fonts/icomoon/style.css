@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?3wz66v');
-  src:  url('fonts/icomoon.eot?3wz66v#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?3wz66v') format('truetype'),
-    url('fonts/icomoon.woff?3wz66v') format('woff'),
-    url('fonts/icomoon.svg?3wz66v#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?4isqys');
+  src:  url('fonts/icomoon.eot?4isqys#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?4isqys') format('truetype'),
+    url('fonts/icomoon.woff?4isqys') format('woff'),
+    url('fonts/icomoon.svg?4isqys#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,51 +25,26 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-play:before {
-  content: "\e90b";
+.icon-checkmark1:before {
+  content: "\e903";
 }
-.icon-cloudflare:before {
-  content: "\e907";
-  color: #f38020;
-}
-.icon-read_more:before {
-  content: "\e908";
-}
-.icon-play1:before {
-  content: "\e90c";
-}
-.icon-chevron-right:before {
-  content: "\e909";
+.icon-headphones1:before {
+  content: "\e902";
 }
 .icon-user:before {
   content: "\e906";
 }
-.icon-more-vertical:before {
-  content: "\e902";
+.icon-read_more:before {
+  content: "\e908";
 }
-.icon-more-horizontal:before {
-  content: "\e903";
+.icon-pause:before {
+  content: "\e90a";
 }
-.icon-question1:before {
-  content: "\e905";
-}
-.icon-headphones1:before {
-  content: "\e900";
-}
-.icon-music1:before {
-  content: "\e901";
-}
-.icon-headphones:before {
-  content: "\e910";
-}
-.icon-music:before {
-  content: "\e911";
+.icon-play:before {
+  content: "\e90b";
 }
 .icon-file-text:before {
   content: "\e922";
-}
-.icon-file-text2:before {
-  content: "\e926";
 }
 .icon-stack:before {
   content: "\e92e";
@@ -77,47 +52,8 @@
 .icon-clock:before {
   content: "\e94e";
 }
-.icon-clock2:before {
-  content: "\e94f";
-}
-.icon-calendar:before {
-  content: "\e953";
-}
-.icon-undo:before {
-  content: "\e965";
-}
-.icon-redo:before {
-  content: "\e966";
-}
-.icon-quotes-left:before {
-  content: "\e977";
-}
-.icon-quotes-right:before {
-  content: "\e978";
-}
-.icon-spinner8:before {
-  content: "\e981";
-}
-.icon-spinner11:before {
-  content: "\e984";
-}
-.icon-equalizer:before {
-  content: "\e992";
-}
-.icon-cog:before {
-  content: "\e994";
-}
-.icon-briefcase:before {
-  content: "\e9ae";
-}
 .icon-link:before {
   content: "\e9cb";
-}
-.icon-bookmark:before {
-  content: "\e9d2";
-}
-.icon-bookmarks:before {
-  content: "\e9d3";
 }
 .icon-sun:before {
   content: "\e9d4";
@@ -128,74 +64,8 @@
 .icon-brightness-contrast:before {
   content: "\e9d6";
 }
-.icon-plus:before {
-  content: "\ea0a";
-}
-.icon-minus:before {
-  content: "\ea0b";
-}
-.icon-info:before {
-  content: "\ea0c";
-}
-.icon-cancel-circle:before {
-  content: "\ea0d";
-}
-.icon-blocked:before {
-  content: "\ea0e";
-}
-.icon-cross:before {
-  content: "\ea0f";
-}
 .icon-checkmark:before {
   content: "\ea10";
-}
-.icon-play2:before {
-  content: "\ea15";
-}
-.icon-pause1:before {
-  content: "\ea16";
-}
-.icon-stop:before {
-  content: "\ea17";
-}
-.icon-previous:before {
-  content: "\ea18";
-}
-.icon-next:before {
-  content: "\ea19";
-}
-.icon-backward:before {
-  content: "\ea1a";
-}
-.icon-forward2:before {
-  content: "\ea1b";
-}
-.icon-play3:before {
-  content: "\ea1c";
-}
-.icon-pause2:before {
-  content: "\ea1d";
-}
-.icon-stop2:before {
-  content: "\ea1e";
-}
-.icon-volume-medium:before {
-  content: "\ea27";
-}
-.icon-volume-low:before {
-  content: "\ea28";
-}
-.icon-volume-mute:before {
-  content: "\ea29";
-}
-.icon-volume-mute2:before {
-  content: "\ea2a";
-}
-.icon-volume-increase:before {
-  content: "\ea2b";
-}
-.icon-volume-decrease:before {
-  content: "\ea2c";
 }
 .icon-arrow-up-left2:before {
   content: "\ea39";
@@ -230,15 +100,12 @@
 .icon-radio-unchecked:before {
   content: "\ea56";
 }
-.icon-embed:before {
-  content: "\ea7f";
+.icon-tags:before {
+  content: "\e900";
 }
-.icon-embed2:before {
-  content: "\ea80";
+.icon-tag:before {
+  content: "\e901";
 }
-.icon-pause:before {
-  content: "\e90a";
-}
-.icon-question:before {
-  content: "\e904";
+.icon-copy:before {
+  content: "\e92c";
 }

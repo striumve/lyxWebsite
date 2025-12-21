@@ -1,0 +1,69 @@
+<br>
+<h1>本站使用的部分技术及实现</h1>
+<h6><span style="font-family: 'icomoon'; font-weight: 400;"></span> 2025/12/15 &emsp14; <span style="font-family: 'icomoon';"></span> 芒蹊 &emsp14; # 技术</h6>
+
+<h2>1.单页应用</h2>
+<h3>1.1.介绍</h3>
+<p>单页应用（SPA, Single Page Application），是一种 Web 应用架构模式。它的核心思想是：
+整个网站只有一个 HTML 页面，用户在浏览不同内容时，不会重新加载整个页面，而是通过 JavaScript 动态地更新页面内容。
+<p>在传统的 MPA（多页应用）中，每次点击链接都会重新向服务器发送请求并加载一个新的页面。而在 SPA 中，仅在初次访问时加载 HTML、CSS、JS，之后所有内容变化都通过 JavaScript 控制，用户在跳转页面时不会引发整个页面刷新。</p>
+<p>例如，当用户访问 home 页面时，SPA 会加载对应组件；而点击跳转 about 页面时，SPA 只会在当前页面中更新部分内容，浏览器地址栏会改变，但整个页面不会重新加载。</p>
+
+<h3>1.2.本站实现</h3>
+<p>以加载文章列表为例。</p>
+<p>文件夹结构：</p>
+<pre><code class="language-plaintext">root
+|index.html         // 主页
+|articles           
+ -articles.json     // 存放文章列表
+ -article1.html     // 文章内容
+|app.js             // js文件
+</code></pre>
+<p>index.html</p>
+<pre><code class="language-html">&lt;div class="article-list"&gt;
+    &lt;!-- 将在此处加载文章列表 --&gt;
+&lt;/div&gt;
+</code></pre>
+<p>articles.json</p>
+<pre><code class="language-json">[
+    {
+        "artiID" : "1",
+        "title" : "我的文章标题", 
+        "href" : "/articles/article1.html",
+        "time" : "2025/12/15", 
+        "author" : "芒蹊",
+        "tag": "标签", 
+        "tagNum": "1",
+        "preview" : "文章预览，显示在列表中"
+    }
+]
+</code></pre>
+<p>app.js</p>
+<pre><code class="language-javascript">// 加载文章列表
+async function loadArticleList() {
+    try {
+        // 使用fetch获取文章列表
+        const response = await fetch('/articles/articles.json');
+        const articleList = await response.json();
+        const container = document.querySelector(".article-list");
+
+        // 根据列表内容生成元素
+        articleList.forEach(list => {
+            const listElement = document.createElement('div');
+            listElement.className = 'article-list-item';
+            listElement.dataset.artiId = `${list.artiID}`;
+            listElement.innerHTML = `
+            &lt;div>${list.time} ${list.author} ${list.tag}&lt;/div&gt;
+            &lt;div>${list.title}&lt;/div&gt;
+            &lt;div>${list.preview}&lt;/div&gt;
+            `;
+            container.appendChild(listElement);
+        });
+    } catch (error) {
+        console.error(error);
+        document.querySelector(".article-list").innerHTML = "加载文章列表失败" + error;
+    }
+}
+// DOM加载完成后加载文章列表
+document.addEventListener('DOMContentLoaded', loadArticleList);
+</code></pre>

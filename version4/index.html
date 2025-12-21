@@ -17,7 +17,7 @@
     <meta property="og:url" content="https://lyxlyx.pages.dev">
     <link rel="stylesheet" href="./style/style.css">
     <link rel="stylesheet" href="./style/publicStyle.css">
-    <link rel="stylesheet" href="./style/dark.min.css">
+    <link rel="stylesheet" href="./style/night-owl.min.css">
     <!-- Source Han Serif SC VF -->
     <!-- <link href="https://cdn.jsdelivr.net/npm/@wc1font/source-han-serif-sc-vf@1.0.6/font.min.css" rel="stylesheet"> -->
     <style>
@@ -100,7 +100,7 @@
                 </div>
 
                 <div class="music" style="font-family: 'icomoon';">
-                    <p style="font-family: 'icomoon';text-align: center;font-size: 2vh;margin: .5vh;"></p>
+                    <p style="font-family: 'icomoon';text-align: center;font-size: 2vh;margin: .5vh;"></p>
                     <p class="music-title">音乐</p><br>
                     <p class="music-btn music-btn-select"></p>
                     <p class="music-btn music-btn-play"></p>
@@ -212,12 +212,12 @@
                             最开始是2022年网课期间，上课摸鱼的时候就开始做网站<br>
                             最初的版本其实很粗糙，就是想放什么放什么，然后一点一点变成现在这样，现在更像一个个人博客<br>
                             现在的这个版本是高三的时候才开始做的<br><br>
-                            网站中所有内容都是本人手敲出来的，没有用WordPress一类的工具（因为之前根本不知道<br>
+                            网站中所有内容都是本人手搓出来的，没有用WordPress一类的工具<br>
                             使用服务：<br>
                             <img src="./images/CFLogoCut.png" alt=""
-                                style="height: 3vh;margin-bottom: 1vh; vertical-align: middle;">
+                                style="height: 2vh;margin-bottom: 1vh; vertical-align: middle;">
                             CloudFlare Workers & Pages <br>
-                            <img src="./images/jsDelivrLogo.svg" alt="" style="height: 5vh;vertical-align: middle;">
+                            <img src="./images/jsDelivrLogo.svg" alt="" style="height: 4vh;vertical-align: middle;">
                             jsDelivr CDN
                         </div>
                     </div>
@@ -260,6 +260,14 @@
                             <td><p>页边距&emsp14;</p></td>
                             <td><input type="number" min="0" max="40" maxlength="2" class="reader-setting-padding reader-input" data-set-id="2"> %</td>
                         </tr>
+                        <tr>
+                            <td><p>行高&emsp14;</p></td>
+                            <td><input type="number" min="0" max="50" maxlength="2" class="reader-setting-lnheight reader-input" data-set-id="3"> px</td>
+                        </tr>
+                        <tr>
+                            <td><p>首行缩进&emsp14;</p></td>
+                            <td><input type="number" min="0" max="10" maxlength="2" class="reader-setting-indent reader-input" data-set-id="4"> 字符</td>
+                        </tr>
                     </table>
                     <br>
                     <button class="reader-setting-default">恢复默认</button>
@@ -272,7 +280,8 @@
 <script src="./js/functions.js"></script>
 <script src="./js/highlight.min.js"></script>
 <script src="./js/highlight-line.min.js"></script>
-<script>hljs.highlightAll();</script>
+<script src="./js/highlightjs-badge.min.js"></script>
+<!-- <script>hljs.highlightAll();</script> -->
 <script>
     // 鼠标右键菜单
     window.oncontextmenu = function (e) {

@@ -5,7 +5,6 @@
     --color_bodyBackground: rgb(57, 197, 99);
     --color_basic: rgba(0, 0, 0, 1);
     --color_textSelected: rgba(57, 197, 99, .6);
-    --color_grey: rgba(150, 150, 150, 1);
     --color_box: rgba(230, 255, 230, .55);
     --color_box_hover: rgba(230, 255, 230, .65);
     --color_box_solid: rgba(225, 250, 225, .9);
@@ -16,9 +15,11 @@
     --color_input: rgba(240, 255, 240, .8);
     --color_input_hover: rgba(245, 255, 245, .9);
 
+    --color_theme: rgba(1, 150, 47, 1);
     --color_purple: rgba(100, 100, 255, 1);
     --color_blue: rgba(1, 47, 255, 1);
-    --color_theme: rgba(1, 150, 47, 1);
+    --color_grey: rgba(150, 150, 150, 1);
+    --color_darkgrey: rgba(100, 100, 100, 1);
 
     --start_btn_width: 15vw;
     --box_width: 20vw;
@@ -49,6 +50,8 @@
     --readerBtn_padding: 1.5vw;
     --readerCtrl_left: 57vw;
     --readerCtrl_width: 10vw;
+    --reader_lnheight: 28px;
+    --reader_indent: 2em;
 }
 
 /* 最小页面宽 */
@@ -72,12 +75,16 @@ body {
 }
 
 button {
-    cursor: url(../../public/cursor/normal.cur), default;
+    cursor: url(/public/cursor/normal.cur), default;
     color: var(--color_basic);
 }
 
 a {
-    cursor: url(../../public/cursor/link.cur), default;
+    cursor: url(/public/cursor/link.cur), default;
+}
+
+input {
+    cursor: url(/public/cursor/text.cur), default;
 }
 
 ::selection {
@@ -95,16 +102,18 @@ a {
     overflow: auto;
 }
 
-div::-webkit-scrollbar {
+div::-webkit-scrollbar, 
+code::-webkit-scrollbar {
     /*滚动条整体样式*/
     width: 10px;
     /*高宽分别对应横竖滚动条的尺寸*/
     height: 10px;
     /* scrollbar-arrow-color: red; */
-    cursor: url(../../public/cursor/diagonal1.cur), default;
+    cursor: url(/public/cursor/normal.cur), default;
 }
 
-div::-webkit-scrollbar-thumb {
+div::-webkit-scrollbar-thumb, 
+code::-webkit-scrollbar-thumb {
     /*滚动条里面小方块*/
     /* width: 5px;
     height: 5px; */
@@ -113,14 +122,17 @@ div::-webkit-scrollbar-thumb {
     background: rgba(50, 150, 50, .3);
     /* scrollbar-arrow-color: red; */
     transition: .3s;
+    cursor: url(/public/cursor/normal.cur), default;
 }
 
-div::-webkit-scrollbar-thumb:hover {
+div::-webkit-scrollbar-thumb:hover, 
+code::-webkit-scrollbar-thumb:hover {
     background: rgba(50, 150, 50, 0.7);
     /* animation: scroll_bar ease .3s both; */
 }
 
-div::-webkit-scrollbar-track {
+div::-webkit-scrollbar-track, 
+code::-webkit-scrollbar-track {
     /*滚动条里面轨道*/
     /* box-shadow: inset 0 0 5px rgba(0, 0, 0, 0); */
     border-radius: 15px;
@@ -166,8 +178,8 @@ div::-webkit-scrollbar-track {
 
 @font-face {
     font-family: 'siyuan';
-    /* src: url('../../public/fonts/SourceHanSerifCN-Regular-1.otf'); */
-    src: url(https://cdn.jsdelivr.net/gh/striumve/lyxWebsite@main/public/fonts/SourceHanSerifCN-Regular-1.otf);
+    src: url('../../public/fonts/SourceHanSerifCN-Regular-1.otf');
+    /* src: url(https://cdn.jsdelivr.net/gh/striumve/lyxWebsite@main/public/fonts/SourceHanSerifCN-Regular-1.otf); */
     font-weight: normal;
     font-style: normal;
     font-display: block;

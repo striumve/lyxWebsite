@@ -16,6 +16,7 @@ console.log('%c%s',
 var url = new URL(window.location.href);
 var urlParams = new URLSearchParams(url.search);
 const body = document.querySelector("body");
+const root = document.querySelector(':root');
 
 
 //移动端适配
@@ -30,33 +31,33 @@ if ((vw / vh) <= 1.2) {
 }
 
 function visionMobilise() {
-    body.style.setProperty('--start_btn_width', '40vw');
-    body.style.setProperty('--box_width', '80vw');
-    body.style.setProperty('--box_left', '10vw');
-    body.style.setProperty('--page_width', '70vw');
-    body.style.setProperty('--pages_left', '23vw');
-    body.style.setProperty('--yiyan_margin', '5vw');
-    body.style.setProperty('--padding_top', '7vh');
-    body.style.setProperty('--padding_top_minus', '4vh');
-    body.style.setProperty('--padding_top_plus', '11vh');
-    body.style.setProperty('--pages_columncount', '1');
-    body.style.setProperty('--navbtn_fontsize', '2.1vh');
-    body.style.setProperty('--navbtn_padding', '2vw');
+    root.style.setProperty('--start_btn_width', '40vw');
+    root.style.setProperty('--box_width', '80vw');
+    root.style.setProperty('--box_left', '10vw');
+    root.style.setProperty('--page_width', '70vw');
+    root.style.setProperty('--pages_left', '23vw');
+    root.style.setProperty('--yiyan_margin', '5vw');
+    root.style.setProperty('--padding_top', '7vh');
+    root.style.setProperty('--padding_top_minus', '4vh');
+    root.style.setProperty('--padding_top_plus', '11vh');
+    root.style.setProperty('--pages_columncount', '1');
+    root.style.setProperty('--navbtn_fontsize', '2.1vh');
+    root.style.setProperty('--navbtn_padding', '2vw');
 
-    body.style.setProperty('--musicSelectorBox_width', '70vw');
-    body.style.setProperty('--artiitemgo_right', '5vw');
-    body.style.setProperty('--linkitemgo_right', '5vw');
-    body.style.setProperty('--item_after_width', '10vw');
+    root.style.setProperty('--musicSelectorBox_width', '70vw');
+    root.style.setProperty('--artiitemgo_right', '5vw');
+    root.style.setProperty('--linkitemgo_right', '5vw');
+    root.style.setProperty('--item_after_width', '10vw');
 
 
-    body.style.setProperty('--reader_width', '90vw');
-    body.style.setProperty('--readerContainer_width', '90vw');
-    body.style.setProperty('--reader_padding', '10vw');
-    body.style.setProperty('--reader_top', '10vh');
-    body.style.setProperty('--reader_bottom', '3vh');
-    body.style.setProperty('--readerBtn_padding', '3vw');
-    body.style.setProperty('--readerCtrl_left', '10vw');
-    body.style.setProperty('--readerCtrl_width', '60vw');
+    root.style.setProperty('--reader_width', '90vw');
+    root.style.setProperty('--readerContainer_width', '90vw');
+    root.style.setProperty('--reader_padding', '10vw');
+    root.style.setProperty('--reader_top', '10vh');
+    root.style.setProperty('--reader_bottom', '3vh');
+    root.style.setProperty('--readerBtn_padding', '3vw');
+    root.style.setProperty('--readerCtrl_left', '10vw');
+    root.style.setProperty('--readerCtrl_width', '60vw');
 
     document.querySelector(".nav").style.left = '5vw';
     document.querySelector(".music").style.left = '10vw';
@@ -122,16 +123,16 @@ document.querySelector('.showInfo').addEventListener('click', function () {
 
 function nightMode() {
     document.querySelector('.background').style.background = 'url(/version4/images/background_night.jpg)';
-    body.style.setProperty('--color_basic', 'rgba(220, 220, 220, .95)');
-    body.style.setProperty('--color_grey', 'rgba(170, 170, 170, .95)');
-    body.style.setProperty('--color_theme', 'rgb(2, 179, 58)');
-    body.style.setProperty('--color_box', 'rgba(150, 150, 170, .4)');
-    body.style.setProperty('--color_box_hover', 'rgba(140, 140, 160, .5)');
-    body.style.setProperty('--color_box_solid', 'rgba(150, 150, 170, .6)');
-    body.style.setProperty('--color_box_solid_hover', 'rgba(140, 140, 160, .7)');
-    body.style.setProperty('--color_pagebox', 'rgba(150, 150, 180, .4)');
-    body.style.setProperty('--color_pagebox_hover', 'rgba(140, 140, 170, .5)');
-    body.style.setProperty('--color_reader', 'rgba(150, 150, 170, .4)');
+    root.style.setProperty('--color_basic', 'rgba(220, 220, 220, .95)');
+    root.style.setProperty('--color_grey', 'rgba(170, 170, 170, .95)');
+    root.style.setProperty('--color_theme', 'rgb(2, 179, 58)');
+    root.style.setProperty('--color_box', 'rgba(150, 150, 170, .4)');
+    root.style.setProperty('--color_box_hover', 'rgba(140, 140, 160, .5)');
+    root.style.setProperty('--color_box_solid', 'rgba(150, 150, 170, .6)');
+    root.style.setProperty('--color_box_solid_hover', 'rgba(140, 140, 160, .7)');
+    root.style.setProperty('--color_pagebox', 'rgba(150, 150, 180, .4)');
+    root.style.setProperty('--color_pagebox_hover', 'rgba(140, 140, 170, .5)');
+    root.style.setProperty('--color_reader', 'rgba(150, 150, 170, .4)');
 }
 
 
@@ -443,6 +444,10 @@ async function openReader(id) {
     is_reader_open = true;
     hljs.highlightAll();
     hljs.initLineNumbersOnLoad();
+    window.highlightJsBadge({
+        copyIconContent: "",
+        checkIconContent: ""
+    });
 }
 
 function closeReader() {
@@ -453,6 +458,7 @@ function closeReader() {
         document.querySelector('.pages').style.display = 'block';
         document.querySelector('.nav').style.animation = 'public_show ease .3s both';
         document.querySelector('.nav').style.display = 'block';
+        document.querySelector(".reader-container").innerHTML = '正在加载文章……';
     }, 200);
 
     urlParams.delete('reading_id');
@@ -545,7 +551,7 @@ readerBtnSet.addEventListener('click', function () {
 
 //加载目录
 function loadIndex() {
-    var headings = document.querySelectorAll(".reader-container>h2");
+    var headings = document.querySelectorAll(".reader-container>h2, .reader-container>h3");
     var container = document.querySelector('.reader-container');
 
     document.querySelector('.reader-index').innerHTML = '';
@@ -556,6 +562,15 @@ function loadIndex() {
         var headingLine = document.createElement('p');
         headingLine.innerHTML = heading.textContent;
         headingLine.classList.add('reader-index-heading');
+        if (heading.tagName == 'H2') {
+            headingLine.classList.add('reader-index-h2');
+            headingLine.dataset.headType = 'h2';
+        }
+        if (heading.tagName == 'H3') {
+            headingLine.classList.add('reader-index-h3');
+            headingLine.dataset.headType = 'h3';
+        }
+
         if (index === 0) {
             headingLine.classList.add('active');
         }
@@ -572,19 +587,26 @@ function loadIndex() {
         })
         event.target.classList.add('active');
         // alert(container.scrollTop);
-        container.scrollTo({
-            top: document.querySelector(`h2[data-index='${event.target.dataset.index}']`).offsetTop - 50,
-            behavior: 'smooth'
-        });
+        if (event.target.dataset.headType == 'h2') {
+            container.scrollTo({
+                top: document.querySelector(`h2[data-index='${event.target.dataset.index}']`).offsetTop - 50,
+                behavior: 'smooth'
+            });
+        } else if (event.target.dataset.headType == 'h3') {
+            container.scrollTo({
+                top: document.querySelector(`h3[data-index='${event.target.dataset.index}']`).offsetTop - 50,
+                behavior: 'smooth'
+            });
+        }
     })
 
     //自动高亮
-    container.addEventListener('scroll', function () {
+    container.addEventListener('scroll', function (event) {
         var headingNum = document.querySelectorAll('.reader-index-heading').length;
 
         for (var i = 0; i < headingNum; i++) {
-            var currentHeading = document.querySelector(`h2[data-index='${i}']`);
-            var nextHeading = document.querySelector(`h2[data-index='${i+1}']`);
+            var currentHeading = document.querySelector(`h2[data-index='${i}'], h3[data-index='${i}']`);
+            var nextHeading = document.querySelector(`h2[data-index='${i+1}'], h3[data-index='${i+1}']`);
 
             if (!currentHeading) continue; // 跳过不存在的元素
 
@@ -605,34 +627,61 @@ function loadIndex() {
 
 var readerFontSize = parseFloat(getComputedStyle(document.querySelector(':root')).getPropertyValue('--reader_fontSize'));
 var readerPadding = parseFloat(getComputedStyle(document.querySelector(':root')).getPropertyValue('--reader_padding'));
+var readerLnheight = parseFloat(getComputedStyle(document.querySelector(':root')).getPropertyValue('--reader_lnheight'));
+var readerIndent = parseFloat(getComputedStyle(document.querySelector(':root')).getPropertyValue('--reader_indent'));
 var readerContainerWidth = parseFloat(getComputedStyle(document.querySelector(':root')).getPropertyValue('--readerContainer_width'));
 var fontSizeInput = document.querySelector('.reader-setting-size');
 var paddingInput = document.querySelector('.reader-setting-padding'); //padding存储时全部使用vw值，显示及输入时使用%
+var lnheightInput = document.querySelector('.reader-setting-lnheight');
+var indentInput = document.querySelector('.reader-setting-indent');
+
+if (localStorage.getItem('reader_font_size')) {
+    root.style.setProperty('--reader_fontSize', localStorage.getItem('reader_font_size') + 'px');
+    fontSizeInput.value = localStorage.getItem('reader_font_size');
+    readerFontSize = localStorage.getItem('reader_font_size');
+}
+if (localStorage.getItem('reader_padding')) {
+    root.style.setProperty('--reader_padding', localStorage.getItem('reader_padding') + 'vw');
+    paddingInput.value = Math.round(localStorage.getItem('reader_padding') / readerContainerWidth * 100);
+    readerPadding = localStorage.getItem('reader_padding');
+}
+if (localStorage.getItem('reader_lnheight')) {
+    root.style.setProperty('--reader_lnheight', localStorage.getItem('reader_lnheight') + 'px');
+    lnheightInput.value = localStorage.getItem('reader_lnheight');
+    readerLnheight = localStorage.getItem('reader_lnheight');
+}
+if (localStorage.getItem('reader_indent')) {
+    root.style.setProperty('--reader_indent', localStorage.getItem('reader_indent') + 'em');
+    indentInput.value = localStorage.getItem('reader_indent');
+    readerIndent = localStorage.getItem('reader_indent');
+}
 
 fontSizeInput.value = readerFontSize;
 paddingInput.value = Math.round(readerPadding / readerContainerWidth * 100);
-
-if (localStorage.getItem('reader_font_size')) {
-    body.style.setProperty('--reader_fontSize', localStorage.getItem('reader_font_size') + 'px');
-    fontSizeInput.value = localStorage.getItem('reader_font_size');
-}
-if (localStorage.getItem('reader_padding')) {
-    body.style.setProperty('--reader_padding', localStorage.getItem('reader_padding') + 'vw');
-    paddingInput.value = Math.round(localStorage.getItem('reader_padding') / readerContainerWidth * 100);
-}
+lnheightInput.value = readerLnheight;
+indentInput.value = readerIndent;
 
 document.querySelectorAll('.reader-input').forEach(input => {
     input.addEventListener('blur', function () {
         switch (input.dataset.setId) {
             case '1':
                 localStorage.setItem('reader_font_size', input.value);
-                body.style.setProperty('--reader_fontSize', input.value + 'px');
+                root.style.setProperty('--reader_fontSize', input.value + 'px');
                 break;
 
             case '2':
                 localStorage.setItem('reader_padding', (input.value / 100) * readerContainerWidth);
-                body.style.setProperty('--reader_padding', (input.value / 100) * readerContainerWidth + 'vw');
+                root.style.setProperty('--reader_padding', (input.value / 100) * readerContainerWidth + 'vw');
+                break;
 
+            case '3':
+                localStorage.setItem('reader_lnheight', input.value);
+                root.style.setProperty('--reader_lnheight', input.value + 'px');
+                break;
+
+            case '4':
+                localStorage.setItem('reader_indent', input.value);
+                root.style.setProperty('--reader_indent', input.value + 'em');
                 break;
 
             default:
@@ -649,8 +698,12 @@ document.querySelectorAll('.reader-input').forEach(input => {
 
 document.querySelector('.reader-setting-default').addEventListener('click', function () {
     localStorage.clear();
-    body.style.setProperty('--reader_fontSize', '18px');
-    body.style.setProperty('--reader_padding', '3vw');
+    root.style.setProperty('--reader_fontSize', '18px');
+    root.style.setProperty('--reader_padding', '3vw');
+    root.style.setProperty('--reader_lnheight', '28px');
+    root.style.setProperty('--reader_indent', '2em');
     fontSizeInput.value = '18';
     paddingInput.value = '5';
+    lnheightInput.value = '28';
+    indentInput.value = '2';
 })
