@@ -1,5 +1,14 @@
 [
     {
+        "artiID" : "4",
+        "title" : "使用Electron制作桌面应用", 
+        "href" : "./articles/article4.html",
+        "time" : "2025/12/21", 
+        "author" : "芒蹊",
+        "tag": "技术", 
+        "tagNum": "2",
+        "preview" : "介绍了Electron以及如何利用其制作一个简单的桌面应用"
+    },{
         "artiID" : "3",
         "title" : "本站使用的部分技术及实现", 
         "href" : "./articles/article3.html",

@@ -1,0 +1,83 @@
+<br>
+<h1>使用Electron制作桌面应用</h1>
+<h6><span style="font-family: 'icomoon'; font-weight: 400;"></span> 2025/12/21 &emsp14; <span
+        style="font-family: 'icomoon';"></span> 芒蹊 &emsp14; # 技术</h6>
+
+<h2>0.介绍</h2>
+<p>Electron是一个使用 JavaScript、HTML 和 CSS 构建桌面应用程序的框架。 嵌入 Chromium 和 Node.js 到二进制的 Electron 允许您保持一个 JavaScript
+    代码代码库并创建在Windows上运行的跨平台应用 macOS和Linux——不需要本地开发经验。</p>
+<p>简而言之，使用Electron可以让你只使用前端三件套就能构建一个桌面应用，而不需要C、C++或Python知识。</p>
+<p><a href="https://www.electronjs.org/zh/docs/latest/" target="_blank">官方文档</a></p>
+
+<h2>1.准备</h2>
+<p>基本的前端技术，一个文本编辑器（推荐使用Microsoft VS Code），以及<a href="https://nodejs.org/zh-cn/download" target="_blank">Node.js</a></p>
+
+<h2>2.开始</h2>
+<p>Electron 应用基于 npm 搭建，以 package.json 文件作为入口点。首先创建一个文件夹（这里以my-electron-app为例），然后在其中执行 <span class="inline-code">npm
+        init</span> ，根据引导进行初始化项目。可以使用Windows默认的 命令提示符或PowerShell 命令行工具。这将创建并配置package.json。</p>
+<pre><code class="language-shell">cd my-electron-app
+npm init</code></pre>
+<p>然后，将 Electron 安装为您项目的 devDependencies，即仅在开发环境需要的额外依赖。</p>
+<pre><code class="language-shell">npm install electron --save-dev</code></pre>
+<p>完成以后，目录中的package.json应当形如：</p>
+<pre><code class="language-json">{
+    "name": "my-electron-app",
+    "version": "1.0.0",
+    "description": "Hello World!",
+    "main": "main.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Jane Doe",
+    "license": "MIT",
+    "devDependencies": {
+        "electron": "23.1.3"
+    }
+}</code></pre>
+<p>在根目录中创建main.js，这将控制主程序(main process)，它运行在 Node.js 环境里，负责控制应用的生命周期、显示原生界面、执行特殊操作并管理渲染器进程 (renderer processes)。</p>
+<pre><code class="language-javascript">console.log('Hello from Electron! ')</code></pre>
+<p>要执行这个脚本，需要在 package.json 的 scripts 字段中添加一个 start 命令，内容为 <span class="inline-code">electron .</span> 。 这个命令会告诉 Electron
+    在当前目录下寻找主脚本，并以开发模式运行它。</p>
+<pre><code class="language-json">...
+"scripts": {
+  "start": "electron .",
+  "test": "echo \"Error: no test specified\" && exit 1"
+}
+...</code></pre>
+<p>最后，在终端中执行以下命令，来运行脚本。</p>
+<pre><code class="language-shell">npm run start</code></pre>
+<p>若运行正常，终端应该输出：</p>
+<pre><code class="language-plaintext">Hello from Electron! </code></pre>
+
+<h2>3.装载网页</h2>
+<p>接下来，将制作好的web页面装载至Electron应用中。</p>
+<p>编辑html页面。以index.html为例：</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;meta charset="UTF-8" /&gt;
+        &lt;title>My first Electron app&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Hello from Electron renderer!&lt;/h1&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p>在main.js加入以下脚本：</p>
+<pre><code class="language-javascript">const { app, BrowserWindow } = require('electron') // 导入Electron模块
+
+const createWindow = () => {
+    const win = new BrowserWindow({ // 窗口预设
+        width: 800,
+        height: 600,                // 窗口大小
+        x: 500,                     
+        y: 200,                     // 窗口位置
+        autoHideMenuBar: true       // 隐藏菜单栏
+    })
+    win.loadFile('index.html')      // 装载html文件
+}
+
+app.whenReady().then(() => {
+    createWindow()                  // 创建窗口
+})</code></pre>
+<p>运行 <span class="inline-code">start</span> 命令，桌面上将出现一个包含网页内容的窗口。</p>
+<p>接下来，即可以添加更多功能，制作自己的桌面端应用。</p>
