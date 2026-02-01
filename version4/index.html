@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>首页 - 竹芒雨蹊</title>
+    <title>竹芒雨蹊</title>
     <link rel="icon" href="/public/images/logo.jpg" sizes="32x32">
     <meta name="description" itemprop="description" content="欢迎分享">
     <meta itemprop="name" content="lyx的个人网站">
@@ -45,14 +45,10 @@
     <div class="main">
         <!-- <audio src="./music/Peaceful Hike.mp3" class="bgm1" loop></audio>
         <audio src="./music/晚安喵.mp3" class="bgm2" loop preload="none"></audio> -->
-        <audio src="./music/Peaceful Hike.mp3" class="bgm1"
-            loop preload="none"></audio>
-        <audio src="./music/晚安喵.mp3" class="bgm2" loop
-            preload="none"></audio>
-        <audio src="./music/Time Flows Ever Onward.mp3" class="bgm3" loop
-            preload="none"></audio>
-        <audio src="./music/三葉のテーマ.mp3" class="bgm4" loop
-            preload="none"></audio>
+        <audio src="./music/Peaceful Hike.mp3" class="bgm1" loop preload="none"></audio>
+        <audio src="./music/晚安喵.mp3" class="bgm2" loop preload="none"></audio>
+        <audio src="./music/Time Flows Ever Onward.mp3" class="bgm3" loop preload="none"></audio>
+        <audio src="./music/三葉のテーマ.mp3" class="bgm4" loop preload="none"></audio>
 
         <!-- 背景 -->
         <div class="background"></div>
@@ -185,17 +181,27 @@
                     <div class="pageitem tool-item">
                         <div class="tool-item-title">二维码生成器</div>
                         <div class="tool-qr-main">
-                            <p class="tool-qr-p">请输入二维码要包含的内容</p>
-                            <textarea class="tool-qr-ta" draggable="false" placeholder="Content" ></textarea>
-                            <button class="tool-qr-btn">生成</button>
-                            <button class="tool-qr-dl">下载</button>
+                            <div class="tool-qr-left">
+                                <p class="tool-qr-p">请输入二维码要包含的内容</p>
+                                <textarea class="tool-qr-ta" draggable="false" placeholder="文本或网址"></textarea>
+                                <button class="tool-qr-btn">生成</button>
+                                <button class="tool-qr-dl">下载</button>
+                            </div>
                             <div class="tool-qr-output"></div>
                         </div>
                     </div>
                 </div>
 
                 <div class="page other" style="opacity: 0;display: none;">
-                    功能正在开发中
+                    <div class="pageitem other-item">
+                        <div class="other-item-title">主题</div>
+                        <form action="">
+                            <select name="" id="" class="other-mode-select">
+                                <option value="0" class="other-mode-option-0">日间模式</option>
+                                <option value="1" class="other-mode-option-1">夜间模式</option>
+                            </select>
+                        </form>
+                    </div>
                 </div>
 
                 <div class="page about" style="opacity: 0;display: none;">
@@ -263,19 +269,29 @@
                             <td>
                                 <p>字号&emsp14;</p>
                             </td>
-                            <td><input type="number" min="0" max="255" maxlength="3" class="reader-setting-size reader-input" data-set-id="1"> px</td>
+                            <td><input type="number" min="0" max="255" maxlength="3"
+                                    class="reader-setting-size reader-input" data-set-id="1"> px</td>
                         </tr>
                         <tr>
-                            <td><p>页边距&emsp14;</p></td>
-                            <td><input type="number" min="0" max="40" maxlength="2" class="reader-setting-padding reader-input" data-set-id="2"> %</td>
+                            <td>
+                                <p>页边距&emsp14;</p>
+                            </td>
+                            <td><input type="number" min="0" max="40" maxlength="2"
+                                    class="reader-setting-padding reader-input" data-set-id="2"> %</td>
                         </tr>
                         <tr>
-                            <td><p>行高&emsp14;</p></td>
-                            <td><input type="number" min="0" max="50" maxlength="2" class="reader-setting-lnheight reader-input" data-set-id="3"> px</td>
+                            <td>
+                                <p>行高&emsp14;</p>
+                            </td>
+                            <td><input type="number" min="0" max="50" maxlength="2"
+                                    class="reader-setting-lnheight reader-input" data-set-id="3"> px</td>
                         </tr>
                         <tr>
-                            <td><p>首行缩进&emsp14;</p></td>
-                            <td><input type="number" min="0" max="10" maxlength="2" class="reader-setting-indent reader-input" data-set-id="4"> 字符</td>
+                            <td>
+                                <p>首行缩进&emsp14;</p>
+                            </td>
+                            <td><input type="number" min="0" max="10" maxlength="2"
+                                    class="reader-setting-indent reader-input" data-set-id="4"> 字符</td>
                         </tr>
                     </table>
                     <br>

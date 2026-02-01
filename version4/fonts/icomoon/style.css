@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?4isqys');
-  src:  url('fonts/icomoon.eot?4isqys#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?4isqys') format('truetype'),
-    url('fonts/icomoon.woff?4isqys') format('woff'),
-    url('fonts/icomoon.svg?4isqys#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?o71kpe');
+  src:  url('fonts/icomoon.eot?o71kpe#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?o71kpe') format('truetype'),
+    url('fonts/icomoon.woff?o71kpe') format('woff'),
+    url('fonts/icomoon.svg?o71kpe#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,6 +25,30 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-cheveron-down:before {
+  content: "\e904";
+}
+.icon-cheveron-left:before {
+  content: "\e905";
+}
+.icon-cheveron-right:before {
+  content: "\e907";
+}
+.icon-cheveron-up:before {
+  content: "\e909";
+}
+.icon-close:before {
+  content: "\e90c";
+}
+.icon-exclamation-outline:before {
+  content: "\e90d";
+}
+.icon-information-outline:before {
+  content: "\e90e";
+}
+.icon-navigation-more:before {
+  content: "\e90f";
+}
 .icon-checkmark1:before {
   content: "\e903";
 }
@@ -36,6 +60,9 @@
 }
 .icon-read_more:before {
   content: "\e908";
+}
+.icon-chevron-right:before {
+  content: "\e910";
 }
 .icon-pause:before {
   content: "\e90a";

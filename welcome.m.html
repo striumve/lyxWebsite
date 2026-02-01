@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=yes">
     <title>Welcome!</title>
-    <link rel="icon" href="./images/logo.jpg" sizes="32x32">
-    <link rel="stylesheet" href="./style/fontFace.css">
+    <link rel="icon" href="./public/images/logo.jpg" sizes="32x32">
+    <link rel="stylesheet" href="./version3/style/fontFace.css">
     <script src="./public/javascript/publicData.js"></script>
     <style>
         html {
@@ -210,7 +210,7 @@
     <script>
         //移动端适配
         if (deviceFlag === 1) {
-            window.location = "welcome.html";
+            // window.location = "welcome.html";
         }
     </script>
     <div class="lang">
@@ -222,14 +222,13 @@
     <div class="bg"></div>
     <h1>Welcome!<br>lyx<span style="font-family: 'pingfang'; letter-spacing: 10px;">的<br>个人网站</span></h1>
     <p class="notice"><span class="notice-unchangeable">注：第一次打开页面需要下载字体<br>请耐心等待页面加载完成。<br>这可能需要一二十秒钟……</span><span class="percent">0%</span></p>
-    
-    <a href="./version4/index.html" class="option1">网站主页 →</a>
+    <a href="./version4/index.html" class="option1">「竹芒雨蹊」 →</a>
     <br>
     <p class="more">更多</p>
     <br>
     <a href="./version2/index.html" class="option2">主页v2 →</a>
     <br>
-    <a href="eason.html" class="option3">陈奕迅的歌 →</a>
+    <a href="./version2/eason.html" class="option3">陈奕迅的歌 →</a>
     <br>
     <a href="./version3/index.html" class="option4">win11主页[已弃项] →</a>
     <br>
@@ -268,7 +267,7 @@
         }
 
         document.styleSheets[1].addRule('.option1::after', 'content: "' + currentVersion + " (" + latestUpdateTime + ")" + '"');
-        document.querySelector(".option4").href = 'lyxWebsiteSourceCode_' + currentVersion + '.zip';
+        document.querySelector(".option6").href = 'lyxWebsiteSourceCode_' + currentVersion + '.zip';
         var notice = document.querySelector(".notice");
         var percent = document.querySelector(".percent");
         var i = 0;
@@ -327,7 +326,7 @@
                 } else {
                     document.querySelector('.notice-unchangeable').innerHTML = '注：第一次打开页面需要下载字体，<br>请耐心等待页面加载完成。<br>这可能需要一二十秒钟……';
                 }
-                document.querySelector('.option1').innerHTML = '网站主页 →';
+                document.querySelector('.option1').innerHTML = '「竹芒雨蹊」 →';
                 document.querySelector('.more').innerHTML = '更多';
                 document.querySelector('.option2').innerHTML = '主页v2 →';
                 document.querySelector('.option3').innerHTML = '陈奕迅的歌 →';
@@ -351,7 +350,7 @@
                 } else {
                     document.querySelector('.notice-unchangeable').innerHTML = '註：第一次打開頁面需要下載字體，<br>請耐心等待頁面加載完成。<br>這可能需要一二十秒鐘……';
                 }
-                document.querySelector('.option1').innerHTML = '網站主頁 →';
+                document.querySelector('.option1').innerHTML = '「竹芒雨蹊」 →';
                 document.querySelector('.more').innerHTML = '更多';
                 document.querySelector('.option2').innerHTML = '主頁v2 →';
                 document.querySelector('.option3').innerHTML = '陳奕迅的歌 →';
@@ -375,7 +374,7 @@
                 } else {
                     document.querySelector('.notice-unchangeable').innerHTML = 'notice: We should download the font. <br>Please wait for a monent. <br>It may take around 20 sec……';
                 }
-                document.querySelector('.option1').innerHTML = 'Home Page →';
+                document.querySelector('.option1').innerHTML = '「Jade Raintrail」 →';
                 document.querySelector('.more').innerHTML = 'More';
                 document.querySelector('.option2').innerHTML = 'Version 2 →';
                 document.querySelector('.option3').innerHTML = 'Eason\'s songs →';

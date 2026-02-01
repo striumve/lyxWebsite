@@ -58,6 +58,7 @@ function visionMobilise() {
     root.style.setProperty('--readerBtn_padding', '3vw');
     root.style.setProperty('--readerCtrl_left', '10vw');
     root.style.setProperty('--readerCtrl_width', '60vw');
+    root.style.setProperty('--tool_btn_width', '40%');
 
     document.querySelector(".nav").style.left = '5vw';
     document.querySelector(".music").style.left = '10vw';
@@ -74,6 +75,13 @@ function visionMobilise() {
     document.querySelector('.reader-nav').style.top = '4vh';
     // document.querySelector('.reader-ctrl').style.width = '60vw';
     // document.querySelector('.reader-ctrl').style.top = '10vh';
+
+    document.querySelector('.tool-qr-left').style.width = '100%';
+    document.querySelector('.tool-qr-output').style.top = '40vh';
+    document.querySelector('.tool-qr-output').style.right = '5vh';
+    document.querySelector('.tool-qr-main').style.height = '35vh';
+
+
 
     document.querySelector(".info").style.display = 'none';
     document.querySelector(".info").style.opacity = '0';
@@ -120,26 +128,65 @@ document.querySelector('.showInfo').addEventListener('click', function () {
 })
 
 //夜间模式
-
-function nightMode() {
-    document.querySelector('.background').style.background = 'url(/version4/images/background_night.jpg)';
-    root.style.setProperty('--color-basic', 'rgba(220, 220, 220, .95)');
-    root.style.setProperty('--color-grey', 'rgba(170, 170, 170, .95)');
-    root.style.setProperty('--color-theme', 'rgb(2, 179, 58)');
-    root.style.setProperty('--color-box', 'rgba(150, 150, 170, .4)');
-    root.style.setProperty('--color-box_hover', 'rgba(140, 140, 160, .5)');
-    root.style.setProperty('--color-box_solid', 'rgba(150, 150, 170, .6)');
-    root.style.setProperty('--color-box_solid_hover', 'rgba(140, 140, 160, .7)');
-    root.style.setProperty('--color-pagebox', 'rgba(150, 150, 180, .4)');
-    root.style.setProperty('--color-pagebox_hover', 'rgba(140, 140, 170, .5)');
-    root.style.setProperty('--color-reader', 'rgba(150, 150, 170, .4)');
+// scheme 0 = bright, 1 = night
+let scheme;
+if (localStorage.scheme != undefined) {
+    scheme = localStorage.scheme;
+} else {
+    scheme = 0;
+    localStorage.setItem('scheme', scheme);
 }
 
+function switchMode(mode) {
+    if (mode == 1) {
+        scheme = 1;
+        localStorage.setItem('scheme', scheme);
+        document.querySelector('.background').style.background = 'url(/version4/images/bg_night.jpg)';
+        document.querySelector('.background').style.backgroundSize = 'cover';
+        document.querySelector('.other-mode-option-1').selected = true;
+        root.style.setProperty('--color-basic', 'rgba(220, 220, 220, .95)');
+        root.style.setProperty('--color-grey', 'rgba(170, 170, 170, .95)');
+        root.style.setProperty('--color-theme', 'rgb(2, 179, 58)');
+        root.style.setProperty('--color-box', 'rgba(150, 150, 170, .55)');
+        root.style.setProperty('--color-box_hover', 'rgba(140, 140, 160, .65)');
+        root.style.setProperty('--color-box_solid', 'rgba(150, 150, 170, .6)');
+        root.style.setProperty('--color-box_solid_hover', 'rgba(140, 140, 160, .7)');
+        root.style.setProperty('--color-pagebox', 'rgba(150, 150, 180, .55)');
+        root.style.setProperty('--color-pagebox_hover', 'rgba(140, 140, 170, .65)');
+        root.style.setProperty('--color-reader', 'rgba(150, 150, 170, .55)');
+        root.style.setProperty('--color-input', 'rgba(190, 190, 220, .55)');
+        root.style.setProperty('--color-input_hover', 'rgba(180, 180, 210, .6)');
+    } else if (mode == 0) {
+        scheme = 0;
+        localStorage.setItem('scheme', scheme);
+        document.querySelector('.background').style.background = 'url(/version4/images/background.png)';
+        document.querySelector('.background').style.backgroundSize = 'cover';
+        document.querySelector('.other-mode-option-0').selected = true;
+        root.style.removeProperty('--color-basic');
+        root.style.removeProperty('--color-grey');
+        root.style.removeProperty('--color-theme');
+        root.style.removeProperty('--color-box');
+        root.style.removeProperty('--color-box_hover');
+        root.style.removeProperty('--color-box_solid');
+        root.style.removeProperty('--color-box_solid_hover');
+        root.style.removeProperty('--color-pagebox');
+        root.style.removeProperty('--color-pagebox_hover');
+        root.style.removeProperty('--color-reader');
+        root.style.removeProperty('--color-input');
+        root.style.removeProperty('--color-input_hover');
+    }
+}
 
 var getdate = new Date();
-if (getdate.getHours() <= 6 || getdate.getHours() >= 22) {
-    // nightMode();
+if (scheme == 1) {
+    switchMode(1);
 }
+
+let selectedMode = document.querySelector('.other-mode-select').value;
+document.querySelector('.other-mode-select').addEventListener('blur', function () {
+    selectedMode = document.querySelector('.other-mode-select').value;
+    switchMode(selectedMode);
+})
 
 
 //开始
@@ -711,8 +758,11 @@ document.querySelector('.reader-setting-default').addEventListener('click', func
 // 工具
 // 二维码生成器
 let qrcode = new QRCode(document.querySelector('.tool-qr-output'), {
+    // width: vh * 0.2, 
+    // height: vh * 0.2,
     colorDark: "#003300",
-    colorLight: "#DDF9D6"
+    colorLight: "#DDF9D6",
+    text: "Jade Raintrail"
 })
 
 document.querySelector('.tool-qr-btn').addEventListener('click', function () {
@@ -726,3 +776,6 @@ document.querySelector('.tool-qr-dl').addEventListener('click', function () {
     link.href = document.querySelector('.tool-qr-output > img').src;
     link.click();
 })
+
+// document.querySelector('.tool-qr-output > canvas').width = vh * 0.2;
+// document.querySelector('.tool-qr-output > canvas').height = vh * 0.2;

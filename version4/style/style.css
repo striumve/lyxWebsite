@@ -2,6 +2,7 @@
     height: 100%;
     width: 100%;
     background: url(../images/background.png);
+    /* background: url(../images/bg_night.jpg); */
     overflow: hidden;
     background-repeat: no-repeat;
     background-size: cover;
@@ -392,14 +393,17 @@
 }
 
 .talk-item,
-.link-item {
+.link-item,
+.tool-item {
     break-inside: none;
 }
 
 .talk-item,
 .arti-item,
 .link-item,
-.about-item {
+.about-item,
+.tool-item,
+.other-item {
     display: block;
     text-decoration: none;
     color: var(--color-basic);
@@ -425,7 +429,9 @@
 .talk-item:hover,
 .arti-item:hover,
 .link-item:hover,
-.about-item:hover {
+.about-item:hover,
+.tool-item:hover,
+.other-item:hover {
     background-color: var(--color-pagebox_hover);
     box-shadow: 0px 0px 5px 6px rgba(0, 0, 0, 0.2);
 }
@@ -454,6 +460,12 @@
     position: relative;
     top: 2vh;
     font-size: 2.2vh;
+}
+
+.tool-item-title {
+    position: relative;
+    top: 0;
+    font-size: 2.5vh;
 }
 
 .arti-item-go,
@@ -508,6 +520,148 @@
     color: var(--color-grey);
 }
 
+.tool-qr-main {
+    width: 100%;
+    height: 25vh;
+}
+
+.tool-qr-left {
+    width: 50%;
+    /* position: absolute; */
+    /* left: 0; */
+    /* bottom: 0; */
+}
+
+.tool-qr-p {
+    font-size: 2vh;
+    color: var(--color-theme);
+}
+
+.tool-qr-ta {
+    outline: none;
+    border: none;
+    border-bottom: 2px solid rgba(0, 0, 0, 0);
+    width: 100%;
+    height: 12.5vh;
+    font-size: 2vh;
+    font-family: 'consolas', 'siyuan';
+    transition: .2s;
+    background-color: var(--color-input);
+    padding: 1vh;
+}
+
+.tool-qr-ta:focus {
+    border-bottom: 2px solid var(--color-theme);
+    background-color: var(--color-input_hover);
+}
+
+.tool-qr-btn,
+.tool-qr-dl {
+    outline: none;
+    border: none;
+    background-color: var(--color-btn);
+    font-size: 2vh;
+    width: var(--tool_btn_width);
+    height: 5vh;
+    text-align: center;
+    line-height: 5vh;
+    margin-top: 2vh;
+    margin-right: 2vh;
+    transition: .2s;
+    color: black;
+}
+
+.tool-qr-btn:hover,
+.tool-qr-dl:hover {
+    background-color: var(--color-btn_hover);
+}
+
+.tool-qr-output {
+    width: 30vh;
+    height: 30vh;
+    position: absolute;
+    right: 10vh;
+    top: 7.5vh;
+    overflow: auto;
+    /* padding: 1vh; */
+}
+
+.other-item-title {
+    position: relative;
+    top: -1vh;
+    font-size: 2.5vh;
+    margin-bottom: 2vh;
+}
+
+/* 定制select样式 https://www.zhangxinxu.com/wordpress/2025/07/css-checkmark-select-customizable/ */
+
+select,
+::picker(select) {
+    appearance: base-select;
+    border: none;
+}
+
+.other-mode-select {
+    outline: none;
+    border: none;
+    font-family: 'pingfang', 'siyuan';
+    font-size: 2.2vh;
+    background-color: var(--color-input);
+    color: var(--color-basic);
+    padding: 1vh;
+    padding-right: 3vh;
+    padding-left: 3vh;
+    border-radius: 1vh;
+    transition: .2s;
+    width: 100%;
+    cursor: url(/public/cursor/link.cur), default;
+    border-bottom: 2px solid rgba(0, 0, 0, 0);
+    transition: .2s;
+}
+
+.other-mode-select:hover {
+    appearance: base-select;
+    background-color: var(--color-input_hover);
+}
+
+.other-mode-select option {
+    background-color: var(--color-box);
+    transition: .2s;
+}
+
+.other-mode-select option:hover {
+    background-color: var(--color-box_solid_hover);
+}
+
+.other-mode-select::picker-icon {
+    content: '';
+    font-family: 'icomoon';
+    font-size: 2.2vh;
+    /* line-height: 4vh; */
+}
+
+.other-mode-select option::checkmark {
+    content: '';
+    font-family: 'icomoon';
+    font-size: 1.8vh;
+    color: var(--color-theme);
+}
+
+.other-mode-select::picker(select) {
+    opacity: 0;
+    transition: .2s allow-discrete;
+}
+
+.other-mode-select::picker(select):popover-open {
+    opacity: 1;
+}
+
+@starting-style {
+    .other-mode-select::picker(select):popover-open {
+        opacity: 0;
+    }
+}
+
 .about-item-title {
     position: relative;
     top: -1vh;
@@ -552,7 +706,7 @@
 }
 
 .reader-container>p,
-.reader-container>a, 
+.reader-container>a,
 .reader-container>h1,
 .reader-container>h2,
 .reader-container>h6,

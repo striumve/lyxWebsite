@@ -16,6 +16,8 @@
     --color-reader: rgba(220, 245, 220, .65);
     --color-input: rgba(240, 255, 240, .8);
     --color-input_hover: rgba(245, 255, 245, .9);
+    --color-btn: rgba(99, 194, 129, .5);
+    --color-btn_hover: rgba(99, 194, 129, .8);
 
     --color-theme: rgba(1, 150, 47, 1);
     --color-purple: rgba(100, 100, 255, 1);
@@ -42,6 +44,7 @@
     --artiitemgo_right: 5vw;
     --linkitemgo_right: 3vw;
     --item_after_width: 5vw;
+    --tool_btn_width: 20%;
 
     --reader_width: 65vw;
     --readerContainer_width: 55vw;
@@ -94,6 +97,11 @@ textarea {
     cursor: url(/public/cursor/text.cur), default;
 }
 
+*:focus-visible {
+    outline: 2px solid var(--color-theme);
+    outline-offset: -2px;
+}
+
 ::selection {
     background-color: var(--color-textSelected);
     /* background-color: linear-gradient(45deg, #ff6b6b, #4ecdc4); */
@@ -110,7 +118,8 @@ textarea {
 }
 
 div::-webkit-scrollbar, 
-code::-webkit-scrollbar {
+code::-webkit-scrollbar, 
+textarea::-webkit-scrollbar {
     /*滚动条整体样式*/
     width: 10px;
     /*高宽分别对应横竖滚动条的尺寸*/
@@ -120,7 +129,8 @@ code::-webkit-scrollbar {
 }
 
 div::-webkit-scrollbar-thumb, 
-code::-webkit-scrollbar-thumb {
+code::-webkit-scrollbar-thumb, 
+textarea::-webkit-scrollbar-thumb {
     /*滚动条里面小方块*/
     /* width: 5px;
     height: 5px; */
@@ -128,18 +138,20 @@ code::-webkit-scrollbar-thumb {
     /* box-shadow: inset 0 0 5px rgba(50, 50, 250, .3); */
     background: rgba(50, 150, 50, .3);
     /* scrollbar-arrow-color: red; */
-    transition: .3s;
+    transition: .2s;
     cursor: url(/public/cursor/normal.cur), default;
 }
 
 div::-webkit-scrollbar-thumb:hover, 
-code::-webkit-scrollbar-thumb:hover {
+code::-webkit-scrollbar-thumb:hover, 
+textarea::-webkit-scrollbar-thumb:hover {
     background: rgba(50, 150, 50, 0.7);
     /* animation: scroll_bar ease .3s both; */
 }
 
 div::-webkit-scrollbar-track, 
-code::-webkit-scrollbar-track {
+code::-webkit-scrollbar-track, 
+textarea::-webkit-scrollbar-track {
     /*滚动条里面轨道*/
     /* box-shadow: inset 0 0 5px rgba(0, 0, 0, 0); */
     border-radius: 15px;
