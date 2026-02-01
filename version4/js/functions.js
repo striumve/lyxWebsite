@@ -759,7 +759,7 @@ document.querySelector('.reader-setting-default').addEventListener('click', func
 
 // 工具
 // 二维码生成器
-new QRCode(document.querySelector('.tool-qr-output'), {
+let qrcode = new QRCode(document.querySelector('.tool-qr-output'), {
     // width: vh * 0.2, 
     // height: vh * 0.2,
     colorDark: "#003300",
