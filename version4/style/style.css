@@ -54,7 +54,7 @@
     padding-bottom: 2vh; */
     height: 8vh;
     line-height: 8vh;
-    background-color: var(--color_box);
+    background-color: var(--color-box);
     transition: .3s;
 }
 
@@ -62,7 +62,7 @@
     content: '';
     width: 2px;
     height: 0vh;
-    background-color: var(--color_theme);
+    background-color: var(--color-theme);
     position: absolute;
     bottom: 0;
     left: 0;
@@ -73,7 +73,7 @@
     content: '';
     width: 2px;
     height: 0vh;
-    background-color: var(--color_theme);
+    background-color: var(--color-theme);
     position: absolute;
     bottom: 0;
     left: var(--start_btn_width);
@@ -81,7 +81,7 @@
 }
 
 .start-btn:hover {
-    background-color: var(--color_box_hover);
+    background-color: var(--color-box_hover);
 }
 
 .start-btn:hover::before,
@@ -97,7 +97,7 @@
 
 .box {
     position: fixed;
-    background-color: var(--color_box);
+    background-color: var(--color-box);
     border-radius: 10px;
     /* backdrop-filter: blur(2px); */
 
@@ -112,7 +112,7 @@
 }
 
 .box:hover {
-    background-color: var(--color_box_hover);
+    background-color: var(--color-box_hover);
     box-shadow: 0px 0px 5px 6px rgba(0, 0, 0, 0.2);
 }
 
@@ -164,13 +164,13 @@
     left: 5vh;
     bottom: 3vh;
     font-size: 2.5vh;
-    color: var(--color_blue);
+    color: var(--color-blue);
 }
 
 .yiyan {
     height: 25vh;
     top: 35vh;
-    color: var(--color_basic);
+    color: var(--color-basic);
     /* padding: 3vh; */
 }
 
@@ -184,10 +184,10 @@
     font-size: 2vh;
     z-index: 0;
     /* background-color: rgba(200, 200, 200, .4); */
-    /* color: var(--basicColor_black_a100); */
+    /* color: var(--basiccolor-black_a100); */
     user-select: text;
     text-decoration: none;
-    color: var(--color_basic);
+    color: var(--color-basic);
     /* margin-right: 2vw; */
     /* margin-top: 3vh; */
     /* padding-top: 1vh; */
@@ -241,7 +241,7 @@
     left: 5vw;
     top: 3vh;
     font-size: 2vh;
-    background-color: var(--color_box);
+    background-color: var(--color-box);
     padding-top: 2vh;
     padding-bottom: 2vh;
     border-radius: 1vh;
@@ -261,7 +261,7 @@
     left: 27vw;
     top: var(--padding_top);
     font-size: 2vh;
-    background-color: var(--color_box);
+    background-color: var(--color-box);
     padding-top: 2vh;
     padding-bottom: 3vh;
     border-radius: 1vh;
@@ -287,7 +287,7 @@
     top: 0vh;
     width: var(--musicSelectorBox_width);
     text-align: left;
-    background-color: var(--color_box_solid);
+    background-color: var(--color-box_solid);
     border-radius: 1vh;
     /* backdrop-filter: blur(5px); */
     animation: 'blur_5'ease .1s both;
@@ -304,7 +304,7 @@
 .showInfo:hover,
 .music:hover,
 .music-selectbox:hover {
-    background-color: var(--color_box_solid_hover);
+    background-color: var(--color-box_solid_hover);
     box-shadow: 0px 0px 5px 6px rgba(0, 0, 0, 0.2);
 }
 
@@ -313,7 +313,7 @@
 }
 
 .music-selector:hover {
-    color: var(--color_theme);
+    color: var(--color-theme);
 }
 
 .nav-btn,
@@ -347,7 +347,7 @@
 .nav-btn.active,
 .music-btn:hover,
 .music-selector.active {
-    color: var(--color_theme);
+    color: var(--color-theme);
 }
 
 /* Page */
@@ -402,8 +402,8 @@
 .about-item {
     display: block;
     text-decoration: none;
-    color: var(--color_basic);
-    background-color: var(--color_pagebox);
+    color: var(--color-basic);
+    background-color: var(--color-pagebox);
     border-radius: 10px;
     animation: blur_2 ease .5s both;
     /* x 偏移量 | y 偏移量 | 阴影模糊半径 | 阴影扩散半径 | 阴影颜色 */
@@ -426,7 +426,7 @@
 .arti-item:hover,
 .link-item:hover,
 .about-item:hover {
-    background-color: var(--color_pagebox_hover);
+    background-color: var(--color-pagebox_hover);
     box-shadow: 0px 0px 5px 6px rgba(0, 0, 0, 0.2);
 }
 
@@ -486,7 +486,7 @@
     position: relative;
     top: 2vh;
     font-size: 2vh;
-    color: var(--color_grey);
+    color: var(--color-grey);
 }
 
 .link-item-name {
@@ -505,7 +505,7 @@
     top: .5vh;
     left: 0vw;
     font-size: 1.8vh;
-    color: var(--color_grey);
+    color: var(--color-grey);
 }
 
 .about-item-title {
@@ -539,7 +539,7 @@
     top: var(--reader_top);
     overflow: auto;
     font-size: var(--reader_fontSize);
-    background-color: var(--color_reader);
+    background-color: var(--color-reader);
     padding-left: var(--reader_padding);
     padding-right: var(--reader_padding);
     border-radius: 10px;
@@ -548,7 +548,7 @@
     transition: .4s;
     user-select: text;
     font-family: 'siyuan';
-    color: var(--color_basic);
+    color: var(--color-basic);
 }
 
 .reader-container>p,
@@ -568,7 +568,7 @@
 
 .reader-container a {
     text-decoration: underline;
-    color: var(--color_basic);
+    color: var(--color-basic);
 }
 
 .reader-container>h1 {
@@ -581,12 +581,12 @@
     display: inline-block;
     width: 0.5vh;
     height: 1.5vh;
-    background-color: var(--color_theme);
+    background-color: var(--color-theme);
     position: relative;
     right: 0.75em;
     vertical-align: middle;
     top: 0vh;
-    /* background-color: var(--color_darkgrey); */
+    /* background-color: var(--color-darkgrey); */
     border-radius: 2px;
 }
 
@@ -602,7 +602,7 @@
     text-align: center;
     font-size: calc(var(--reader_fontSize) * 0.8);
     font-weight: 400;
-    color: var(--color_darkgrey);
+    color: var(--color-darkgrey);
 }
 
 .reader-container>pre>code {
@@ -611,7 +611,7 @@
 }
 
 .hljs-ln-numbers {
-    color: var(--color_grey);
+    color: var(--color-grey);
 }
 
 .code-badge-language {
@@ -632,8 +632,8 @@
     padding-right: 0.5em;
     /* padding: 0.5em; */
     border-radius: 5px;
-    background: var(--color_box_solid_hover);
-    color: var(--color_basic);
+    background: var(--color-box_solid_hover);
+    color: var(--color-basic);
     padding-top: calc((var(--reader_lnheight) - var(--reader_fontSize)) / 2);
     padding-bottom: calc((var(--reader_lnheight) - var(--reader_fontSize)) / 2);
 }
@@ -643,18 +643,18 @@
     left: calc(var(--readerContainer_width) + 2vw);
     top: calc(var(--reader_top));
     font-size: 2vh;
-    background-color: var(--color_box);
+    background-color: var(--color-box);
     line-height: 4vh;
     padding-left: var(--readerBtn_padding);
     padding-right: var(--readerBtn_padding);
     border-radius: 5px;
     transition: .3s;
-    color: var(--color_basic);
+    color: var(--color-basic);
 }
 
 .reader-back:hover {
-    background-color: var(--color_box_hover);
-    color: var(--color_theme);
+    background-color: var(--color-box_hover);
+    color: var(--color-theme);
 }
 
 .reader-nav {
@@ -675,21 +675,21 @@
     padding-left: calc(var(--navbtn_padding) / 2);
     padding-right: calc(var(--navbtn_padding) / 2);
     /* padding-right: var(--navbtn_padding); */
-    color: var(--color_basic);
+    color: var(--color-basic);
     transition: .3s;
     border-bottom: 2px solid transparent;
 }
 
 .reader-btn:hover,
 .reader-setting-default:hover {
-    color: var(--color_theme);
+    color: var(--color-theme);
     /* text-decoration: underline; */
-    /* background-color: var(--color_box_hover); */
+    /* background-color: var(--color-box_hover); */
 }
 
 .reader-btn.active {
-    border-bottom: 2px solid var(--color_theme);
-    color: var(--color_theme);
+    border-bottom: 2px solid var(--color-theme);
+    color: var(--color-theme);
 }
 
 .reader-ctrl {
@@ -699,7 +699,7 @@
     left: var(--readerCtrl_left);
     top: calc(var(--reader_top) + 4vh + 2vh);
     font-size: 1.8vh;
-    background-color: var(--color_box);
+    background-color: var(--color-box);
     /* line-height: 4vh; */
     padding-left: var(--navbtn_padding);
     padding-right: var(--navbtn_padding);
@@ -708,14 +708,14 @@
     /* padding: var(--navbtn_padding); */
     border-radius: 5px;
     transition: .3s;
-    color: var(--color_basic);
+    color: var(--color-basic);
     margin: 0;
 }
 
 .reader-index-h2 {
     font-size: 1.8vh;
     line-height: 2.5vh;
-    color: var(--color_basic);
+    color: var(--color-basic);
     transition: .3s;
     margin-bottom: 1vh;
 }
@@ -728,7 +728,7 @@
 .reader-index-h3 {
     font-size: 1.8vh;
     line-height: 2vh;
-    color: var(--color_basic);
+    color: var(--color-basic);
     transition: .3s;
     margin-left: 1.5em;
     margin-top: 1vh;
@@ -744,7 +744,7 @@
     right: 1em;
     vertical-align: middle;
     top: -0.75vh;
-    /* background-color: var(--color_darkgrey); */
+    /* background-color: var(--color-darkgrey); */
     border-radius: 2px;
 }
 
@@ -752,7 +752,7 @@
 .reader-index-h2.active,
 .reader-index-h3:hover,
 .reader-index-h3.active {
-    color: var(--color_theme);
+    color: var(--color-theme);
 }
 
 .reader-setting>table {
@@ -770,7 +770,7 @@ input {
     outline: none;
     width: 6vh;
     padding: 1vh;
-    background-color: var(--color_input);
+    background-color: var(--color-input);
     font-family: 'consolas';
     font-size: 2vh;
     transition: .3s;
@@ -779,9 +779,9 @@ input {
 
 input:hover,
 input:focus {
-    background-color: var(--color_input_hover);
+    background-color: var(--color-input_hover);
 }
 
 input:focus {
-    border-bottom: 2px solid var(--color_theme);
+    border-bottom: 2px solid var(--color-theme);
 }

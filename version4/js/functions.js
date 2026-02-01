@@ -123,16 +123,16 @@ document.querySelector('.showInfo').addEventListener('click', function () {
 
 function nightMode() {
     document.querySelector('.background').style.background = 'url(/version4/images/background_night.jpg)';
-    root.style.setProperty('--color_basic', 'rgba(220, 220, 220, .95)');
-    root.style.setProperty('--color_grey', 'rgba(170, 170, 170, .95)');
-    root.style.setProperty('--color_theme', 'rgb(2, 179, 58)');
-    root.style.setProperty('--color_box', 'rgba(150, 150, 170, .4)');
-    root.style.setProperty('--color_box_hover', 'rgba(140, 140, 160, .5)');
-    root.style.setProperty('--color_box_solid', 'rgba(150, 150, 170, .6)');
-    root.style.setProperty('--color_box_solid_hover', 'rgba(140, 140, 160, .7)');
-    root.style.setProperty('--color_pagebox', 'rgba(150, 150, 180, .4)');
-    root.style.setProperty('--color_pagebox_hover', 'rgba(140, 140, 170, .5)');
-    root.style.setProperty('--color_reader', 'rgba(150, 150, 170, .4)');
+    root.style.setProperty('--color-basic', 'rgba(220, 220, 220, .95)');
+    root.style.setProperty('--color-grey', 'rgba(170, 170, 170, .95)');
+    root.style.setProperty('--color-theme', 'rgb(2, 179, 58)');
+    root.style.setProperty('--color-box', 'rgba(150, 150, 170, .4)');
+    root.style.setProperty('--color-box_hover', 'rgba(140, 140, 160, .5)');
+    root.style.setProperty('--color-box_solid', 'rgba(150, 150, 170, .6)');
+    root.style.setProperty('--color-box_solid_hover', 'rgba(140, 140, 160, .7)');
+    root.style.setProperty('--color-pagebox', 'rgba(150, 150, 180, .4)');
+    root.style.setProperty('--color-pagebox_hover', 'rgba(140, 140, 170, .5)');
+    root.style.setProperty('--color-reader', 'rgba(150, 150, 170, .4)');
 }
 
 
@@ -313,7 +313,7 @@ function playMusic() {
         bgmSelector[curPlaying].play();
         playBtn.style.display = 'none';
         pauseBtn.style.display = 'block';
-        document.querySelector('.music-title').style.color = 'var(--color_theme)';
+        document.querySelector('.music-title').style.color = 'var(--color-theme)';
     }
 }
 
@@ -322,7 +322,7 @@ function pauseMusic() {
         bgmSelector[curPlaying].pause();
         playBtn.style.display = 'block';
         pauseBtn.style.display = 'none';
-        document.querySelector('.music-title').style.color = 'var(--color_basic)';
+        document.querySelector('.music-title').style.color = 'var(--color-basic)';
     }
 }
 
@@ -706,4 +706,23 @@ document.querySelector('.reader-setting-default').addEventListener('click', func
     paddingInput.value = '5';
     lnheightInput.value = '28';
     indentInput.value = '2';
+})
+
+// 工具
+// 二维码生成器
+let qrcode = new QRCode(document.querySelector('.tool-qr-output'), {
+    colorDark: "#003300",
+    colorLight: "#DDF9D6"
+})
+
+document.querySelector('.tool-qr-btn').addEventListener('click', function () {
+    qrcode.clear();
+    qrcode.makeCode(document.querySelector('.tool-qr-ta').value);
+})
+
+document.querySelector('.tool-qr-dl').addEventListener('click', function () {
+    let link = document.createElement('a');
+    link.download = `Jadetrail_QRCode_${Date.now()}.png`;
+    link.href = document.querySelector('.tool-qr-output > img').src;
+    link.click();
 })

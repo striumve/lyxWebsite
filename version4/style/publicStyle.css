@@ -2,24 +2,26 @@
     user-select: none;
     cursor: url(../../public/cursor/normal.cur), default;
 
-    --color_bodyBackground: rgb(57, 197, 99);
-    --color_basic: rgba(0, 0, 0, 1);
-    --color_textSelected: rgba(57, 197, 99, .6);
-    --color_box: rgba(230, 255, 230, .55);
-    --color_box_hover: rgba(230, 255, 230, .65);
-    --color_box_solid: rgba(225, 250, 225, .9);
-    --color_box_solid_hover: rgba(225, 250, 225, .95);
-    --color_pagebox: rgba(230, 245, 230, .75);
-    --color_pagebox_hover: rgba(230, 245, 230, .85);
-    --color_reader: rgba(220, 245, 220, .65);
-    --color_input: rgba(240, 255, 240, .8);
-    --color_input_hover: rgba(245, 255, 245, .9);
+    --color-bodyBackground: rgb(57, 197, 99);
+    --color-stdHead: rgba(69, 164, 99, .5);
+    --color-stdHead_hover: rgba(69, 164, 99, .8);
+    --color-basic: rgba(0, 0, 0, 1);
+    --color-textSelected: rgba(57, 197, 99, .6);
+    --color-box: rgba(230, 255, 230, .55);
+    --color-box_hover: rgba(230, 255, 230, .65);
+    --color-box_solid: rgba(241, 255, 241, 0.8);
+    --color-box_solid_hover: rgba(217, 252, 217, 0.85);
+    --color-pagebox: rgba(230, 245, 230, .75);
+    --color-pagebox_hover: rgba(230, 245, 230, .85);
+    --color-reader: rgba(220, 245, 220, .65);
+    --color-input: rgba(240, 255, 240, .8);
+    --color-input_hover: rgba(245, 255, 245, .9);
 
-    --color_theme: rgba(1, 150, 47, 1);
-    --color_purple: rgba(100, 100, 255, 1);
-    --color_blue: rgba(1, 47, 255, 1);
-    --color_grey: rgba(150, 150, 150, 1);
-    --color_darkgrey: rgba(100, 100, 100, 1);
+    --color-theme: rgba(1, 150, 47, 1);
+    --color-purple: rgba(100, 100, 255, 1);
+    --color-blue: rgba(1, 47, 255, 1);
+    --color-grey: rgba(150, 150, 150, 1);
+    --color-darkgrey: rgba(100, 100, 100, 1);
 
     --start_btn_width: 15vw;
     --box_width: 20vw;
@@ -67,16 +69,16 @@ body {
     margin: 0;
     padding: 0;
     /* position: relative; */
-    background-color: var(--color_bodyBackground);
+    background-color: var(--color-bodyBackground);
     cursor: url(../../public/cursor/normal.cur), default;
     /* cursor: url(../../../../../../coding/鼠标样式文件/naibai-cus_7234/牛奶蓝光标/diagonal1.cur), default; */
     overflow: auto;
-    color: var(--color_basic);
+    color: var(--color-basic);
 }
 
 button {
     cursor: url(/public/cursor/normal.cur), default;
-    color: var(--color_basic);
+    color: var(--color-basic);
 }
 
 a {
@@ -87,8 +89,13 @@ input {
     cursor: url(/public/cursor/text.cur), default;
 }
 
+textarea {
+    resize: none;
+    cursor: url(/public/cursor/text.cur), default;
+}
+
 ::selection {
-    background-color: var(--color_textSelected);
+    background-color: var(--color-textSelected);
     /* background-color: linear-gradient(45deg, #ff6b6b, #4ecdc4); */
     /* transition: .2s; */
 }

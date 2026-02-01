@@ -182,7 +182,16 @@
                 </div>
 
                 <div class="page tool" style="opacity: 0;display: none;">
-                    功能正在开发中
+                    <div class="pageitem tool-item">
+                        <div class="tool-item-title">二维码生成器</div>
+                        <div class="tool-qr-main">
+                            <p class="tool-qr-p">请输入二维码要包含的内容</p>
+                            <textarea class="tool-qr-ta" draggable="false" placeholder="Content" ></textarea>
+                            <button class="tool-qr-btn">生成</button>
+                            <button class="tool-qr-dl">下载</button>
+                            <div class="tool-qr-output"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="page other" style="opacity: 0;display: none;">
@@ -277,10 +286,11 @@
         </div>
     </div>
 </body>
-<script src="./js/functions.js"></script>
+<script src="./js/qrcode.min.js"></script>
 <script src="./js/highlight.min.js"></script>
 <script src="./js/highlight-line.min.js"></script>
 <script src="./js/highlightjs-badge.min.js"></script>
+<script src="./js/functions.js"></script>
 <!-- <script>hljs.highlightAll();</script> -->
 <script>
     // 鼠标右键菜单
