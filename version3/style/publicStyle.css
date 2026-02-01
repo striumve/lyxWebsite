@@ -80,8 +80,8 @@ textarea {
     cursor: url(../../public/cursor/text.cur), text;
 }
 
-input:focus,
-textarea:focus {
+input:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible) {
     /* background-color: rgba(106, 90, 255, 0.5); */
     /* box-shadow: 3px 3px 4px 2px rgba(0, 0, 0, .2); */
     border-bottom: 4px solid var(--basicColor_inputFocus);

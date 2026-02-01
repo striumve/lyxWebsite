@@ -156,6 +156,7 @@ function switchMode(mode) {
         root.style.setProperty('--color-reader', 'rgba(150, 150, 170, .55)');
         root.style.setProperty('--color-input', 'rgba(190, 190, 220, .55)');
         root.style.setProperty('--color-input_hover', 'rgba(180, 180, 210, .6)');
+        root.style.setProperty('--color-item_time', 'rgba(69, 164, 99, 1)');
     } else if (mode == 0) {
         scheme = 0;
         localStorage.setItem('scheme', scheme);
@@ -174,6 +175,7 @@ function switchMode(mode) {
         root.style.removeProperty('--color-reader');
         root.style.removeProperty('--color-input');
         root.style.removeProperty('--color-input_hover');
+        root.style.removeProperty('--color-item_time');
     }
 }
 
@@ -757,11 +759,13 @@ document.querySelector('.reader-setting-default').addEventListener('click', func
 
 // 工具
 // 二维码生成器
-let qrcode = new QRCode(document.querySelector('.tool-qr-output'), {
+new QRCode(document.querySelector('.tool-qr-output'), {
     // width: vh * 0.2, 
     // height: vh * 0.2,
     colorDark: "#003300",
     colorLight: "#DDF9D6",
+    // colorDark: scheme == 0 ? "#003300" : "#000033",
+    // colorLight: scheme == 0 ? "#DDF9D6" : "#DDD6F9",
     text: "Jade Raintrail"
 })
 

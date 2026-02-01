@@ -18,6 +18,7 @@
     --color-input_hover: rgba(245, 255, 245, .9);
     --color-btn: rgba(99, 194, 129, .5);
     --color-btn_hover: rgba(99, 194, 129, .8);
+    --color-item_time: rgba(216, 112, 147, 1);
 
     --color-theme: rgba(1, 150, 47, 1);
     --color-purple: rgba(100, 100, 255, 1);
@@ -97,7 +98,7 @@ textarea {
     cursor: url(/public/cursor/text.cur), default;
 }
 
-*:focus-visible {
+*:not(input):not(textarea):focus-visible {
     outline: 2px solid var(--color-theme);
     outline-offset: -2px;
 }
@@ -115,6 +116,10 @@ textarea {
     top: 0px;
     left: 0px;
     overflow: auto;
+}
+
+input::-webkit-inner-spin-button {
+    cursor: url(/public/cursor/normal.cur), default;
 }
 
 div::-webkit-scrollbar, 
