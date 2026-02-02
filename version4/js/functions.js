@@ -144,6 +144,7 @@ function switchMode(mode) {
         document.querySelector('.background').style.background = 'url(/version4/images/bg_night.jpg)';
         document.querySelector('.background').style.backgroundSize = 'cover';
         document.querySelector('.other-mode-option-1').selected = true;
+        root.style.setProperty('--color-bodyBackground', 'rgb(118, 140, 206)');
         root.style.setProperty('--color-basic', 'rgba(220, 220, 220, .95)');
         root.style.setProperty('--color-grey', 'rgba(170, 170, 170, .95)');
         root.style.setProperty('--color-theme', 'rgb(2, 179, 58)');
@@ -163,6 +164,7 @@ function switchMode(mode) {
         document.querySelector('.background').style.background = 'url(/version4/images/background.png)';
         document.querySelector('.background').style.backgroundSize = 'cover';
         document.querySelector('.other-mode-option-0').selected = true;
+        root.style.removeProperty('--color-bodyBackground');
         root.style.removeProperty('--color-basic');
         root.style.removeProperty('--color-grey');
         root.style.removeProperty('--color-theme');

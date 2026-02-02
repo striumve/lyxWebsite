@@ -2,7 +2,7 @@
     user-select: none;
     cursor: url(../../public/cursor/normal.cur), default;
 
-    --color-bodyBackground: rgb(57, 197, 99);
+    --color-bodyBackground: rgb(195, 219, 194);
     --color-stdHead: rgba(69, 164, 99, .5);
     --color-stdHead_hover: rgba(69, 164, 99, .8);
     --color-basic: rgba(0, 0, 0, 1);
@@ -202,8 +202,8 @@ textarea::-webkit-scrollbar-track {
 
 @font-face {
     font-family: 'siyuan';
-    src: url('../../public/fonts/SourceHanSerifCN-Regular-1.otf');
-    /* src: url(https://cdn.jsdelivr.net/gh/striumve/lyxWebsite@main/public/fonts/SourceHanSerifCN-Regular-1.otf); */
+    src: url('../../public/fonts/SourceHanSerifCN-Regular-1-subset.woff2');
+    /* src: url(https://cdn.jsdelivr.net/gh/striumve/lyxWebsite@main/public/fonts/SourceHanSerifCN-Regular-1-subset.woff2); */
     font-weight: normal;
     font-style: normal;
     font-display: block;

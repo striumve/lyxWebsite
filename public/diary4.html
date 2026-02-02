@@ -44,6 +44,7 @@
             height: 50px;
             background-color: var(--color-stdHead);
             z-index: 100;
+            color: var(--color-basic);
         }
 
         .head-name {
@@ -61,7 +62,7 @@
             top: 0;
             right: 0;
             text-decoration: none;
-            color: black;
+            color: var(--color-basic);
             font-size: 20px;
             line-height: 50px;
             margin-right: 20px;
@@ -189,7 +190,25 @@
             <p class="right">制作了工具-二维码生成功能<br>使用QRCode.js</p>
             <p class="right">制作了夜间模式</p>
         </div>
+        <div class="item">
+            <p class="left">2026.02.02 v4.2.1</p>
+            <p class="right">大幅优化了字体加载速度<br>使用字体子集</p>
+            <p class="right">优化了背景色显示</p>
+            <p class="right">为错误页、日志页制作夜间模式</p>
+        </div>
     </div>
 </body>
+
+<script>
+    const root = document.querySelector(':root');
+    if (localStorage.scheme == 1) {
+        document.querySelector("body").style.background = 'url(/version4/images/bg_night.jpg)';
+        root.style.setProperty('--itemColor', 'rgba(190, 190, 220, .7)');
+        root.style.setProperty('--itemColor-hover', 'rgba(126, 148, 218, 0.7)');
+        root.style.setProperty('--color-stdHead', 'rgba(69, 99, 164, .5)');
+        root.style.setProperty('--color-stdHead_hover', 'rgba(69, 99, 164, .8)');
+        root.style.setProperty('--color-basic', 'rgba(220, 220, 220, .95)');
+    }
+</script>
 
 </html>
