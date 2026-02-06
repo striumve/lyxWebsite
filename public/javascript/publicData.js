@@ -1,6 +1,6 @@
 var deviceFlag = 1; // 1: PC; 2: mobile
 var languageFlag = 1; //1: Chinese; 2: English
-var body = document.querySelector('body');
+// var body = document.querySelector('body');
 const currentVersion = 'v4.2.1';
 const latestUpdateTime = '2026.02.02';
 

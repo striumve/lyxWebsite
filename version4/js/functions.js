@@ -18,7 +18,6 @@ var urlParams = new URLSearchParams(url.search);
 const body = document.querySelector("body");
 const root = document.querySelector(':root');
 
-
 //移动端适配
 
 var vw = document.documentElement.clientWidth;
@@ -211,7 +210,19 @@ function quickstart() {
     document.querySelector(".home").style.animation = 'public_show ease .3s both';
 }
 
+function close() {
+    document.querySelector(".home").style.animation = 'public_hide ease .5s both';
+    setTimeout(function () {
+        document.querySelector(".start").style.display = 'block';
+        document.querySelector(".start").style.animation = 'public_show ease .5s both';
+        document.querySelector(".home").style.display = 'none';
+    }, 300)
+    playMusic();
+}
+
 document.querySelector(".start-btn").addEventListener("click", start);
+
+document.querySelector('.info1-msg').addEventListener("click", close);
 
 if (urlParams.get('start') == 1) {
     quickstart();
@@ -268,6 +279,8 @@ document.querySelector(".yiyan-new").addEventListener("click", function () {
     // alert(1);
     getSentence();
 });
+
+document.querySelector('.info2-talk-ver').innerHTML = `<span style="font-family: 'siyuan';">版本</span>：${currentVersion}`;
 
 //页面切换
 
@@ -422,6 +435,8 @@ async function loadTalks() {
 function displayTalks(talks) {
     const container = document.querySelector(".talk");
 
+    container.innerHTML = '';
+
     talks.forEach(talks => {
         const talkElement = document.createElement('div');
         talkElement.className = 'pageitem talk-item';
@@ -443,6 +458,8 @@ async function loadArticleList() {
         const articles = await response.json();
         // displayArticleList(articles);
         const container = document.querySelector(".article");
+
+        container.innerHTML = '';
 
         articles.forEach(article => {
             const articleElement = document.createElement('div');
@@ -516,6 +533,8 @@ function closeReader() {
     urlParams.toString();
     history.pushState(null, "", '?' + urlParams.toString());
     changePage(curPage, 2, pageSelector[curPage], pageSelector[2]);
+
+    loadArticleList();
 
     is_reader_open = false;
 }
