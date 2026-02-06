@@ -223,8 +223,12 @@
 <body>
     <script>
         //移动端适配
-        if (deviceFlag === 2) {
-            // window.location = "welcome.m.html";
+
+        var vw = document.documentElement.clientWidth;
+        var vh = document.documentElement.clientHeight;
+        var is_mobile = false;
+        if ((vw / vh) <= 1.2) {
+            window.location = 'welcome.m.html';
         }
     </script>
     <!--
@@ -236,10 +240,11 @@
     </div>
     -->
     <div class="bg"></div>
-    <!-- <h1>Welcome to <br> lyx's personal website!</h1> -->
-    <h1><br><span style="font-family: 'pingfang'; letter-spacing: 10px;">欢迎</span>!<br>lyx<span style="font-family: 'pingfang'; letter-spacing: 10px;">的个人网站</span></h1>
+    <h1><br><span style="font-family: 'pingfang'; letter-spacing: 10px;">欢迎</span>!<br>lyx<span
+            style="font-family: 'pingfang'; letter-spacing: 10px;">的个人网站</span></h1>
     <br>
-    <p class="notice"><span class="notice-unchangeable">注：第一次打开页面需要下载字体，请耐心等待页面加载完成。<br>这大约需要十秒钟……</span><span class="percent">0%</span></p>
+    <p class="notice"><span class="notice-unchangeable">注：第一次打开页面需要下载字体，请耐心等待页面加载完成。<br>这大约需要十秒钟……</span><span
+            class="percent">0%</span></p>
     <a href="./version4/index.html" class="option1" style="font-weight: 800; height: 100px;">「竹芒雨蹊」 →</a>
     <br>
     <a href="https://github.com/striumve/lyxWebsite" class="option6" target="_blank">GitHub项目仓库 →</a>
@@ -276,7 +281,7 @@
     <script>
         document.styleSheets[1].addRule('.option1::after', 'content: "' + currentVersion + " (" + latestUpdateTime +
             ")" + '"');
-        
+
         /*
         var cnS = document.querySelector('.lang-cn-s');
         var cnT = document.querySelector('.lang-cn-t');
@@ -296,7 +301,7 @@
         var percent = document.querySelector(".percent");
         var i = 0;
         var interval = setInterval(function loading() {
-                percent.innerHTML = i + "%";
+            percent.innerHTML = i + "%";
             i += 1;
             if (i >= 98) {
                 clearInterval(interval);
@@ -306,18 +311,12 @@
         window.onload = function () {
             clearInterval(interval);
             loadFlag = 1;
-                percent.innerHTML = "100%";
+            percent.innerHTML = "100%";
             setTimeout(() => {
                 notice.style.color = "rgba(0, 0, 0, 0)";
                 setTimeout(() => {
                     notice.style.color = "rgba(0, 0, 0, 1)";
-                    if (language === '1') {
-                        notice.innerHTML = "页面加载完成。<br>欢迎浏览。";
-                    } else if (language === '3') {
-                        notice.innerHTML = "頁面加載完成。<br>歡迎瀏覽。";
-                    } else {
-                        notice.innerHTML = "Successfully done. <br>Welcome. ";
-                    }
+                    notice.innerHTML = "页面加载完成。<br>欢迎浏览。";
                     setTimeout(() => {
                         notice.style.color = "rgba(0, 0, 0, 0)";
                     }, 2000);

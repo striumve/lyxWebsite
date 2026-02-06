@@ -213,16 +213,13 @@
             // window.location = "welcome.html";
         }
     </script>
-    <div class="lang">
-        <p class="lang-cn-s" style="color: rgba(00, 00, 00, .9);border-bottom: 1px solid rgba(00, 00, 00, .9);">简体中文</p>
-        &emsp;
-        <p class="lang-cn-t">繁體</p>&emsp;
-        <p class="lang-en" style="font-family: 'Din';">En</p>
-    </div>
     <div class="bg"></div>
-    <h1>Welcome!<br>lyx<span style="font-family: 'pingfang'; letter-spacing: 10px;">的<br>个人网站</span></h1>
+    <h1><br><span style="font-family: 'pingfang'; letter-spacing: 10px;">欢迎</span>!<br>lyx<span
+            style="font-family: 'pingfang'; letter-spacing: 10px;">的个人网站</span></h1>
+    <br>
     <p class="notice"><span class="notice-unchangeable">注：第一次打开页面需要下载字体<br>请耐心等待页面加载完成。<br>这大约需要十秒钟……</span><span class="percent">0%</span></p>
-    <a href="./version4/index.html" class="option1">「竹芒雨蹊」 →</a>
+    <a href="./version4/index.html" class="option1">「竹芒雨蹊」 →</a><br>
+    <a href="https://github.com/striumve/lyxWebsite" class="option6" target="_blank">GitHub项目仓库 →</a>
     <br>
     <p class="more">更多</p>
     <br>
@@ -233,8 +230,6 @@
     <a href="./version3/index.html" class="option4">win11主页[已弃项] →</a>
     <br>
     <a href="./version1/index.html" class="option5">初版网站主页 →</a>
-    <br>
-    <a href="https://github.com/striumve/lyxWebsite" class="option6">网页源码 →</a>
     <div class="footer">
         <p class="ft-title">联系我</p>
         <table>
@@ -256,29 +251,29 @@
     </div>
 
     <script>
+        document.styleSheets[1].addRule('.option1::after', 'content: "' + currentVersion + " (" + latestUpdateTime +
+            ")" + '"');
+        
+        /*
         var cnS = document.querySelector('.lang-cn-s');
         var cnT = document.querySelector('.lang-cn-t');
         var en = document.querySelector('.lang-en');
-        var language = '1';
-        var loadFlag = 0;
         if (localStorage.language != undefined) {
             language = localStorage.language;
             changeLang();
         }
 
-        document.styleSheets[1].addRule('.option1::after', 'content: "' + currentVersion + " (" + latestUpdateTime + ")" + '"');
-        document.querySelector(".option6").href = 'lyxWebsiteSourceCode_' + currentVersion + '.zip';
+        */
+
+        var language = '1';
+        var loadFlag = 0;
+
+        // document.querySelector(".option6").href = 'lyxWebsiteSourceCode_' + currentVersion + '.zip';
         var notice = document.querySelector(".notice");
         var percent = document.querySelector(".percent");
         var i = 0;
         var interval = setInterval(function loading() {
-            if (language === '1') {
                 percent.innerHTML = i + "%";
-            } else if (language === '3') {
-                percent.innerHTML = i + "%";
-            } else {
-                percent.innerHTML = i + "%";
-            }
             i += 1;
             if (i >= 98) {
                 clearInterval(interval);
@@ -288,30 +283,21 @@
         window.onload = function () {
             clearInterval(interval);
             loadFlag = 1;
-            if (language === '1') {
                 percent.innerHTML = "100%";
-            } else if (language === '3') {
-                percent.innerHTML = "100%";
-            } else {
-                percent.innerHTML = "100%";
-            }
             setTimeout(() => {
                 notice.style.color = "rgba(0, 0, 0, 0)";
                 setTimeout(() => {
                     notice.style.color = "rgba(0, 0, 0, 1)";
-                    if (language === '1') {
-                        notice.innerHTML = "页面加载完成。";
-                    } else if (language === '3') {
-                        notice.innerHTML = "頁面加載完成。";
-                    } else {
-                        notice.innerHTML = "Successfully done. ";
-                    }
+                        notice.innerHTML = "页面加载完成。<br>欢迎浏览";
                     setTimeout(() => {
                         notice.style.color = "rgba(0, 0, 0, 0)";
                     }, 2000);
                 }, 300);
             }, 500);
         }
+
+        /*
+
         function changeLang() {
             if (language === '1') { // simplified Chinese
                 cnS.style.color = 'rgba(00, 00, 00, .9)';
@@ -403,6 +389,8 @@
             localStorage.setItem("language", language);
             changeLang();
         })
+
+        */
     </script>
 </body>
 
