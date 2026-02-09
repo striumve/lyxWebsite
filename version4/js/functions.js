@@ -29,58 +29,72 @@ if ((vw / vh) <= 1.2) {
     visionMobilise();
 }
 
+// root.style.fontSize = (vw / 1912) * 10 + 'px';
+var root_rem_0 = (vw / 1912) <= (vh / 948) ? (vw / 1912) * 10 + 'px' : (vh / 948) * 10 + 'px';
+var root_rem_1 = (vw / 1000) <= (vh / 2000) ? (vw / 1000) * 10 + 'px' : (vh / 2000) * 10 + 'px';
+root.style.fontSize = is_mobile ? root_rem_1 : root_rem_0;
+
 function visionMobilise() {
-    root.style.setProperty('--start_btn_width', '40vw');
-    root.style.setProperty('--box_width', '80vw');
-    root.style.setProperty('--box_left', '10vw');
-    root.style.setProperty('--page_width', '70vw');
-    root.style.setProperty('--pages_left', '23vw');
-    root.style.setProperty('--yiyan_margin', '5vw');
-    root.style.setProperty('--padding_top', '7vh');
-    root.style.setProperty('--padding_top_minus', '4vh');
-    root.style.setProperty('--padding_top_plus', '11vh');
+    root.style.setProperty('--start_btn_width', '80rem');
+    root.style.setProperty('--box_width', '80rem');
+    root.style.setProperty('--box_left', '15rem');
+    root.style.setProperty('--page_width', '140rem');
+    root.style.setProperty('--pages_left', '35rem');
+    root.style.setProperty('--yiyan_margin', '10rem');
+    root.style.setProperty('--padding_top', '7rem');
+    root.style.setProperty('--padding_top_minus', '4rem');
+    root.style.setProperty('--padding_top_plus', '11rem');
     root.style.setProperty('--pages_columncount', '1');
-    root.style.setProperty('--navbtn_fontsize', '2.1vh');
-    root.style.setProperty('--navbtn_padding', '2vw');
+    root.style.setProperty('--navbtn_fontsize', '3rem');
+    root.style.setProperty('--navbtn_padding', '5rem');
+    root.style.setProperty('--navbtn_height', '6rem');
 
-    root.style.setProperty('--musicSelectorBox_width', '70vw');
-    root.style.setProperty('--artiitemgo_right', '5vw');
-    root.style.setProperty('--linkitemgo_right', '5vw');
-    root.style.setProperty('--item_after_width', '10vw');
+    root.style.setProperty('--musicSelectorBox_width', '140rem');
+    root.style.setProperty('--artiitemgo_right', '10rem');
+    root.style.setProperty('--linkitemgo_right', '10rem');
+    root.style.setProperty('--item_after_width', '20rem');
 
-
-    root.style.setProperty('--reader_width', '90vw');
-    root.style.setProperty('--readerContainer_width', '90vw');
-    root.style.setProperty('--reader_padding', '10vw');
-    root.style.setProperty('--reader_top', '10vh');
-    root.style.setProperty('--reader_bottom', '3vh');
-    root.style.setProperty('--readerBtn_padding', '3vw');
-    root.style.setProperty('--readerCtrl_left', '10vw');
-    root.style.setProperty('--readerCtrl_width', '60vw');
+    root.style.setProperty('--reader_width', '100rem');
+    root.style.setProperty('--readerContainer_width', '80rem');
+    root.style.setProperty('--reader_padding', '10rem');
+    root.style.setProperty('--reader_top', '20rem');
+    root.style.setProperty('--reader_bottom', '3rem');
+    root.style.setProperty('--readerBtn_padding', '6rem');
+    root.style.setProperty('--readerCtrl_left', '7rem');
+    root.style.setProperty('--readerCtrl_width', '60rem');
+    root.style.setProperty('--readerCtrl_fs', '3rem');
     root.style.setProperty('--tool_btn_width', '40%');
+    root.style.setProperty('--input_fs', '3rem');
 
-    document.querySelector(".nav").style.left = '5vw';
-    document.querySelector(".music").style.left = '10vw';
-    document.querySelector(".info2").style.left = 'calc(10vw + 5vw + (var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2))';
-    document.querySelector('.info2').style.width = 'calc(80vw - 5vw - (var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2))';
-    document.querySelector('.nav').style.top = 'calc(var(--padding_top) + 5vh)';
-    document.querySelector('.info1').style.top = '15vh';
-    document.querySelector('.time').style.left = '25vw';
+    document.querySelector(".nav").style.left = '10rem';
+    document.querySelector('.yiyan').style.top = '45rem';
+    document.querySelector(".music").style.left = '20rem';
+    document.querySelector(".info2").style.left = 'calc(20rem + 10rem + (var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2))';
+    document.querySelector('.info2').style.width = 'calc(160rem - 10rem - (var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2))';
+    document.querySelector('.nav').style.top = 'calc(var(--padding_top) + 20rem)';
+    document.querySelector('.nav-title').style.fontSize = '3rem';
+    document.querySelector('.info1').style.top = '25rem';
+    document.querySelector('.time').style.left = '50rem';
 
-    document.querySelector('.reader').style.left = '5vw';
-    document.querySelector('.reader-back').style.left = '20vw';
-    document.querySelector('.reader-back').style.top = '4vh';
-    document.querySelector('.reader-nav').style.left = 'calc(26vw + 4vh + 5vw)';
-    document.querySelector('.reader-nav').style.top = '4vh';
+    document.querySelector('.reader').style.left = '10rem';
+    document.querySelector('.reader-back').style.left = '20rem';
+    document.querySelector('.reader-back').style.top = '7rem';
+    document.querySelector('.reader-back').style.fontSize = '3rem';
+    document.querySelector('.reader-back').style.lineHeight = '7rem';
+    document.querySelector('.reader-nav-index').style.fontSize = '3rem';
+    document.querySelector('.reader-nav-index').style.lineHeight = '7rem';
+    document.querySelector('.reader-nav-setting').style.fontSize = '3rem';
+    document.querySelector('.reader-nav-setting').style.lineHeight = '7rem';
+    document.querySelector('.reader-setting-default').style.fontSize = '3rem';
+    document.querySelector('.reader-nav').style.left = 'calc(25rem + 4rem + 10rem)';
+    document.querySelector('.reader-nav').style.top = '7rem';
     // document.querySelector('.reader-ctrl').style.width = '60vw';
     // document.querySelector('.reader-ctrl').style.top = '10vh';
 
     document.querySelector('.tool-qr-left').style.width = '100%';
-    document.querySelector('.tool-qr-output').style.top = '40vh';
-    document.querySelector('.tool-qr-output').style.right = '5vh';
-    document.querySelector('.tool-qr-main').style.height = '35vh';
-
-
+    document.querySelector('.tool-qr-output').style.top = '40rem';
+    document.querySelector('.tool-qr-output').style.right = '5rem';
+    document.querySelector('.tool-qr-main').style.height = '35rem';
 
     document.querySelector(".info").style.display = 'none';
     document.querySelector(".info").style.opacity = '0';
@@ -156,6 +170,7 @@ function switchMode(mode) {
         root.style.setProperty('--color-reader', 'rgba(150, 150, 170, .55)');
         root.style.setProperty('--color-input', 'rgba(190, 190, 220, .55)');
         root.style.setProperty('--color-input_hover', 'rgba(180, 180, 210, .6)');
+        root.style.setProperty('--color-link', 'rgb(187, 160, 255)');
         root.style.setProperty('--color-item_time', 'rgba(69, 164, 99, 1)');
     } else if (mode == 0) {
         scheme = 0;
@@ -176,6 +191,7 @@ function switchMode(mode) {
         root.style.removeProperty('--color-reader');
         root.style.removeProperty('--color-input');
         root.style.removeProperty('--color-input_hover');
+        root.style.removeProperty('--color-link');
         root.style.removeProperty('--color-item_time');
     }
 }
@@ -280,7 +296,8 @@ document.querySelector(".yiyan-new").addEventListener("click", function () {
     getSentence();
 });
 
-document.querySelector('.info2-talk-ver').innerHTML = `<span style="font-family: 'siyuan';">版本</span>：${currentVersion}`;
+document.querySelector('.info2-talk-ver').innerHTML = `<span style="font-family: 'siyuan', '宋体';">版本号：</span>${currentVersion}`;
+document.querySelector('.info2-talk-vertime').innerHTML = `<span style="font-family: 'siyuan', '宋体';">更新日期：</span>${latestUpdateTime}`;
 
 //页面切换
 
@@ -299,6 +316,9 @@ var toolBtn = document.querySelector(".nav-btn-tool");
 var curPage = 1;
 var pageSelector = [0, talkPage, artiPage, linkPage, toolPage, othePage, abouPage];
 var btnSelector = [0, talkBtn, artiBtn, linkBtn, toolBtn, otheBtn, abouBtn];
+
+var is_linkpage_has_shown = 0;
+// 用于记录link page是否已经至少在界面上显示过一次。在display为none时加载瀑布流会出错。
 
 function changePage(fromNum, toNum, fromPage, toPage) {
     // 页面代码1,2,3,4
@@ -337,6 +357,10 @@ artiBtn.addEventListener("click", function () {
 
 linkBtn.addEventListener("click", function () {
     changePage(curPage, 3, pageSelector[curPage], pageSelector[3]);
+    if (!is_linkpage_has_shown) {
+        linkWaterfall();
+        is_linkpage_has_shown = 1;
+    }
 })
 
 toolBtn.addEventListener("click", function () {
@@ -355,6 +379,10 @@ abouBtn.addEventListener("click", function () {
 var openPage = urlParams.get('page');
 if (openPage) {
     changePage(curPage, openPage, pageSelector[curPage], pageSelector[openPage]);
+    if (openPage == 3 && !is_linkpage_has_shown) {
+        linkWaterfall();
+        is_linkpage_has_shown = 1;
+    }
 }
 
 //音乐
@@ -446,9 +474,19 @@ function displayTalks(talks) {
         `;
         container.appendChild(talkElement);
     });
-}
 
-document.addEventListener('DOMContentLoaded', loadTalks);
+    // window.addEventListener('load', function() {
+    // setTimeout(function() {
+    imagesLoaded(document.querySelector('.talk'), () => {
+        new Masonry('.talk', {
+            itemSelector: '.talk-item',
+            columnWidth: '.talk-item'
+        })
+    })
+
+    // }, 5000)
+    // })
+}
 
 
 //加载文章列表
@@ -479,9 +517,6 @@ async function loadArticleList() {
     }
 }
 
-
-document.addEventListener('DOMContentLoaded', loadArticleList);
-
 //文章阅读器
 
 var curReading = 0;
@@ -489,9 +524,11 @@ var curReading = 0;
 async function openReader(id) {
     document.querySelector('.pages').style.animation = 'public_hide ease .3s both';
     document.querySelector('.nav').style.animation = 'public_hide ease .3s both';
+    document.querySelector('.music').style.animation = 'public_hide ease .3s both';
     setTimeout(function () {
         document.querySelector('.nav').style.display = 'none';
         document.querySelector('.pages').style.display = 'none';
+        document.querySelector('.music').style.display = 'none';
         document.querySelector('.reader').style.display = 'block';
         document.querySelector('.reader').style.animation = 'public_show ease .3s both';
     }, 200);
@@ -516,6 +553,7 @@ async function openReader(id) {
         copyIconContent: "",
         checkIconContent: ""
     });
+    document.title = '文章 - 竹芒雨蹊';
 }
 
 function closeReader() {
@@ -526,20 +564,24 @@ function closeReader() {
         document.querySelector('.pages').style.display = 'block';
         document.querySelector('.nav').style.animation = 'public_show ease .3s both';
         document.querySelector('.nav').style.display = 'block';
-        document.querySelector(".reader-container").innerHTML = '正在加载文章……';
+        document.querySelector('.music').style.animation = 'public_show ease .3s both';
+        document.querySelector('.music').style.display = 'block';
+        document.querySelector(".reader-container").innerHTML = '<br>正在加载文章……';
+        document.querySelector('.reader-index').innerHTML = '<br>正在加载目录……';
     }, 200);
 
     urlParams.delete('reading_id');
     urlParams.toString();
     history.pushState(null, "", '?' + urlParams.toString());
     changePage(curPage, 2, pageSelector[curPage], pageSelector[2]);
-
     loadArticleList();
 
     is_reader_open = false;
+    document.title = '竹芒雨蹊';
 }
 
 if (urlParams.get('reading_id')) {
+    quickstart();
     openReader(urlParams.get('reading_id'));
 }
 
@@ -777,6 +819,21 @@ document.querySelector('.reader-setting-default').addEventListener('click', func
     lnheightInput.value = '28';
     indentInput.value = '2';
 })
+
+// DOM流加载完成后：加载说说；加载文章列表；加载link瀑布流布局
+function linkWaterfall() {
+    new Masonry('.link', {
+        itemSelector: '.link-item-grid',
+        // columnWidth: '.link-item'
+        columnWidth: '.link-item-grid'
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadTalks(); //talks瀑布流布局包含在函数中
+    loadArticleList();
+    linkWaterfall();
+});
 
 // 工具
 // 二维码生成器

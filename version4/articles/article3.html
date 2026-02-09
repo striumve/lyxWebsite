@@ -120,10 +120,11 @@ var is_mobile = false;
 if ((vw / vh) <= 1.2) {
     is_mobile = true;
 }</code></pre>
-<p>判断为移动端页面后，修改css变量以适应移动端的界面。</p>
-<pre><code class="language-javascript">const root = document.querySelector(':root');
-root.style.setProperty('--start_btn_width', '40vw');
-root.style.setProperty('--box_width', '80vw');
-root.style.setProperty('--box_left', '10vw');
-root.style.setProperty('--page_width', '70vw');
-root.style.setProperty('--padding_top', '7vh');</code></pre>
+<p>判断为移动端页面后，修改rem以及css变量以适应移动端的界面。</p>
+<pre><code class="language-javascript">var root_rem_mobile = (vw / 1000) <= (vh / 2000) ? (vw / 1000) * 10 + 'px' : (vh / 2000) * 10 + 'px';
+root.style.fontSize = is_mobile ? root_rem_mobile : root_rem_pc;
+const root = document.querySelector(':root');
+root.style.setProperty('--start_btn_width', '80rem');
+root.style.setProperty('--box_left', '20rem');
+root.style.setProperty('--page_width', '100rem');
+root.style.setProperty('--padding_top', '7rem');</code></pre>

@@ -6,11 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../version4/style/publicStyle.css">
+    <link rel="icon" href="/public/images/logo.jpg" sizes="32x32">
     <!-- <script src="./javascript/jQuery.js"></script> -->
     <title>开发日志 - 竹芒雨蹊</title>
     <style>
         @media screen and (max-width: 500px) {
-
             /* 最小页面宽适配 */
             body {
                 width: 500px;
@@ -24,7 +24,7 @@
             --textColor: rgba(0, 0, 0, 1);
             --itemColor: rgba(200, 230, 200, .7);
             --itemColor-hover: rgba(126, 218, 148, 0.7);
-
+            font-size: 10px;
         }
 
         body {
@@ -47,7 +47,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            height: 50px;
+            height: 5rem;
             background-color: var(--color-stdHead);
             z-index: 100;
             color: var(--color-basic);
@@ -57,9 +57,9 @@
             position: absolute;
             top: 0;
             left: 0;
-            font-size: 20px;
-            line-height: 50px;
-            margin-left: 20px;
+            font-size: 2rem;
+            line-height: 5rem;
+            margin-left: 2rem;
             font-family: 'siyuan';
         }
 
@@ -69,13 +69,13 @@
             right: 0;
             text-decoration: none;
             color: var(--color-basic);
-            font-size: 20px;
-            line-height: 50px;
-            margin-right: 20px;
+            font-size: 2rem;
+            line-height: 5rem;
+            margin-right: 2rem;
             font-family: 'pingfang';
             transition: .3s;
-            padding-left: 20px;
-            padding-right: 20px;
+            padding-left: 2rem;
+            padding-right: 2rem;
         }
 
         .head-back:hover {
@@ -84,7 +84,7 @@
 
         .title {
             text-align: center;
-            font-size: 3vh;
+            font-size: 3rem;
             color: var(--textColor);
         }
 
@@ -92,10 +92,10 @@
             width: 90vw;
             height: auto;
             background-color: var(--itemColor);
-            border-radius: 2vh;
+            border-radius: 2rem;
             position: relative;
             left: 4vw;
-            margin-bottom: 2vh;
+            margin-bottom: 2rem;
             padding: 1vw;
             transition: .5s;
             color: var(--textColor);
@@ -111,15 +111,16 @@
             position: absolute;
             /* left: 1vw; */
             top: 0vh;
-            font-size: 2.5vh;
+            font-size: 2.2rem;
             /* margin-left: 1vw; */
             font-family: 'consolas';
             margin-bottom: 0;
+            /* color: var(--color-theme); */
         }
 
         .right {
             /* display: inline-block; */
-            font-size: 2vh;
+            font-size: 2rem;
             /* position: absolute; */
             /* right: 1vw; */
             text-align: right;
@@ -128,9 +129,9 @@
 
         .container {
             width: 100%;
-            height: calc(100vh - 50px);
+            height: calc(100vh - 5rem);
             position: fixed;
-            top: 50px;
+            top: 5rem;
             overflow: auto;
         }
     </style>
@@ -143,51 +144,28 @@
         <a href="/version4/index.html?page=3&start=1" class="head-back">返回主页</a>
     </div>
     <div class="container">
-        <div class="placeholder" style="height: 50px; "> </div>
+        <div class="placeholder" style="height: 5rem; "> </div>
         <div class="item">
-            <p class="left">2025.11.30 v4.0.0</p>
-            <p class="right">开始制作新版网页</p>
-            <p class="right">制作了基本页面，制作了说说、文章列表、链接页面</p>
-            <p class="right">第2版网页开发日志请前往<a href="./diary.html" target="_blank">这里</a></p>
-        </div>
-        <div class="item">
-            <p class="left">2025.12.01 v4.0.1</p>
-            <p class="right">制作并填写了关于页面</p>
-        </div>
-        <div class="item">
-            <p class="left">2025.12.06 v4.0.2</p>
-            <p class="right">制作了启动页面</p>
-            <p class="right">制作了文章浏览页面</p>
-            <p class="right">进行了移动端适配</p>
-        </div>
-        <div class="item">
-            <p class="left">2025.12.06 v4.0.3</p>
-            <p class="right">添加了播放音乐功能</p>
-            <p class="right">重制了404页面</p>
-        </div>
-        <div class="item">
-            <p class="left">2025.12.12 v4.0.4</p>
-            <p class="right">使用jsDelivr以优化加载</p>
-        </div>
-        <div class="item">
-            <p class="left">2025.12.14 v4.1.0</p>
-            <p class="right">制作了文章阅读器<br>- 使用单页应用<br>- 制作了目录显示及设置功能<br>- 使用highlight.js高亮代码块</p>
-        </div>
-        <div class="item">
-            <p class="left">2025.12.14 v4.1.1</p>
+            <p class="left">2026.02.10 v4.3.0</p>
+            <p class="right">重构了布局系统</p>
+            <p class="right">重制了说说和链接页瀑布流<br>使用masonry.js</p>
+            <p class="right">修复了部分页面无法正确跳转的bug</p>
             <p class="right">优化了字体显示</p>
-            <p class="right">修复了部分页面层叠次序错误的问题</p>
-            <p class="right">添加了2首背景音乐</p>
+            <p class="right">将音乐控件移动至nav栏下方</p>
+            <p class="right">更改了日志页排序</p>
         </div>
         <div class="item">
-            <p class="left">2025.12.16 v4.1.2</p>
-            <p class="right">优化了画面显示</p>
-            <p class="right">优化了文章阅读器</p>
-            <p class="right">增加了2个阅读器设置</p>
+            <p class="left">2026.02.07 v4.2.2</p>
+            <p class="right">启用了域名lyxlyx.top</p>
+            <p class="right">优化了移动端部分页面显示</p>
+            <p class="right">优化了移动端欢迎页</p>
+            <p class="right">修复了关闭阅读器时无法加载文章列表的bug<br>（其实并没有）</p>
         </div>
         <div class="item">
-            <p class="left">2025.12.21 v4.1.3</p>
-            <p class="right">优化了画面显示</p>
+            <p class="left">2026.02.02 v4.2.1</p>
+            <p class="right">大幅优化了字体加载速度<br>使用字体子集</p>
+            <p class="right">优化了背景色显示</p>
+            <p class="right">为错误页、日志页制作夜间模式</p>
         </div>
         <div class="item">
             <p class="left">2026.02.01 v4.2.0</p>
@@ -198,17 +176,49 @@
             <p class="right">制作了夜间模式</p>
         </div>
         <div class="item">
-            <p class="left">2026.02.02 v4.2.1</p>
-            <p class="right">大幅优化了字体加载速度<br>使用字体子集</p>
-            <p class="right">优化了背景色显示</p>
-            <p class="right">为错误页、日志页制作夜间模式</p>
+            <p class="left">2025.12.21 v4.1.3</p>
+            <p class="right">优化了画面显示</p>
         </div>
         <div class="item">
-            <p class="left">2026.02.07 v4.3.0</p>
-            <p class="right">启用了域名lyxlyx.top</p>
-            <p class="right">优化了移动端部分页面显示</p>
-            <p class="right">优化了移动端欢迎页</p>
-            <p class="right">修复了关闭阅读器时无法加载文章列表的bug</p>
+            <p class="left">2025.12.16 v4.1.2</p>
+            <p class="right">优化了画面显示</p>
+            <p class="right">优化了文章阅读器</p>
+            <p class="right">增加了2个阅读器设置</p>
+        </div>
+        <div class="item">
+            <p class="left">2025.12.14 v4.1.1</p>
+            <p class="right">优化了字体显示</p>
+            <p class="right">修复了部分页面层叠次序错误的问题</p>
+            <p class="right">添加了2首背景音乐</p>
+        </div>
+        <div class="item">
+            <p class="left">2025.12.14 v4.1.0</p>
+            <p class="right">制作了文章阅读器<br>- 使用单页应用<br>- 制作了目录显示及设置功能<br>- 使用highlight.js高亮代码块</p>
+        </div>
+        <div class="item">
+            <p class="left">2025.12.12 v4.0.4</p>
+            <p class="right">使用jsDelivr以优化加载</p>
+        </div>
+        <div class="item">
+            <p class="left">2025.12.06 v4.0.3</p>
+            <p class="right">添加了播放音乐功能</p>
+            <p class="right">重制了404页面</p>
+        </div>
+        <div class="item">
+            <p class="left">2025.12.06 v4.0.2</p>
+            <p class="right">制作了启动页面</p>
+            <p class="right">制作了文章浏览页面</p>
+            <p class="right">进行了移动端适配</p>
+        </div>
+        <div class="item">
+            <p class="left">2025.12.01 v4.0.1</p>
+            <p class="right">制作并填写了关于页面</p>
+        </div>
+        <div class="item">
+            <p class="left">2025.11.30 v4.0.0</p>
+            <p class="right">开始制作新版网页</p>
+            <p class="right">制作了基本页面，制作了说说、文章列表、链接页面</p>
+            <p class="right">第2版网页开发日志请前往<a href="./diary.html" target="_blank">这里</a></p>
         </div>
     </div>
 </body>

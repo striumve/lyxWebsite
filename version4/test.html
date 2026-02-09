@@ -1,15 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .grid-item {
+            width: 200px;
+            height: auto;
+            background-color: pink;
+            border: 2px solid black;
+            margin-left: 50px;
+            margin-bottom: 20px;
+            /* padding: 300px; */
+        }
+        .grid-item2 {
+            width: 200px;
+            height: auto;
+            background-color: pink;
+            border: 2px solid black;
+            margin-left: 50px;
+        }
+    </style>
 </head>
+
 <body>
-    <div id="qrcode"></div>
+    <!-- <div id="qrcode"></div> -->
+    <div class="grid">
+        <div class="grid-item grid-item2">1 <br>2</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item grid-item2">1 <br>2</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item grid-item2">1 <br>2</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item grid-item2">1 <br>2</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item grid-item2">1 <br>2</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item grid-item2">1 <br>2</div>
+        <div class="grid-item grid-item2">1 <br>2</div>
+        <div class="grid-item grid-item2">1 <br>2</div>
+        <div class="grid-item grid-item2">1 <br>2</div>
+        <div class="grid-item grid-item2">1 <br>2</div>
+        <div class="grid-item grid-item2">1 <br>2</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item grid-item2">1 <br>2</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item grid-item2">1 <br>2</div>
+        <div class="grid-item grid-item2">1 <br>2</div>
+        <div class="grid-item grid-item2">1 <br>2</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item grid-item2">1 <br>2</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+        <div class="grid-item">1</div>
+    </div>
 </body>
 <script src="./js/qrcode.min.js"></script>
-    <script>
-        new QRCode(document.getElementById("qrcode"), "123")
-    </script>
+<script src="./js/masonry.min.js"></script>
+<script>
+    // new QRCode(document.getElementById("qrcode"), "123")
+    new Masonry('.grid', {
+        // options
+        itemSelector: '.grid-item',
+        columnWidth: '.grid-item'
+    });
+</script>
+
 </html>

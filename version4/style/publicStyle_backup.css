@@ -2,8 +2,7 @@
     user-select: none;
     cursor: url(../../public/cursor/normal.cur), default;
 
-    font-size: 10px;
-    /* 1rem = 10px */
+    font-size: 62.5%;   /* 16px的62.5% = 10px */
 
     --color-bodyBackground: rgb(195, 219, 194);
     --color-stdHead: rgba(69, 164, 99, .5);
@@ -19,59 +18,56 @@
     --color-reader: rgba(220, 245, 220, .65);
     --color-input: rgba(240, 255, 240, .8);
     --color-input_hover: rgba(245, 255, 245, .9);
-    --color-link: rgba(101, 40, 255, 1);
     --color-btn: rgba(99, 194, 129, .5);
     --color-btn_hover: rgba(99, 194, 129, .8);
     --color-item_time: rgba(216, 112, 147, 1);
 
     --color-theme: rgba(1, 150, 47, 1);
-    --color-purple: rgb(101, 40, 255);
-    --color-darkpurple: rgb(61, 20, 165);
+    --color-purple: rgba(100, 100, 255, 1);
     --color-blue: rgba(1, 47, 255, 1);
     --color-grey: rgba(150, 150, 150, 1);
     --color-darkgrey: rgba(100, 100, 100, 1);
 
-    /* vw -> rem : *2 ;  vh -> rem : *1 */
-
-    --start_btn_width: 30rem;
-    --box_width: 40rem;
+    --start_btn_width: 15vw;
+    --box_width: 20vw;
     --nav_width: 101px;
-    --navbtn_height: 4rem;
-    --box_left: 6rem;
-    --page_width: 120rem;
-    --pages_left: 65rem;
-    --padding_top: 10rem;
-    --padding_top_minus: 5rem;
-    --padding_top_plus: 15rem;
+    --box_left: 5vw;
+    --page_width: 60vw;
+    --pages_left: 35vw;
+    --padding_top: 10vh;
+    --padding_top_minus: 5vh;
+    --padding_top_plus: 15vh;
 
-    --yiyan_margin: 4rem;
+    --yiyan_margin: 2vw;
     --pages_columncount: 2;
-    --navbtn_fontsize: 2.3rem;
-    --navbtn_padding: 3rem;
-    --musicbtn_fontsize: 3rem;
-    --musicSelectorBox_width: 40rem;
-    --artiitemgo_right: 10rem;
-    --linkitemgo_right: 6rem;
-    --item_after_width: 10rem;
+    --navbtn_fontsize: 2.3vh;
+    --navbtn_padding: 1.5vw;
+    --musicbtn_fontsize: 2.8vh;
+    --musicSelectorBox_width: 20vw;
+    --artiitemgo_right: 5vw;
+    --linkitemgo_right: 3vw;
+    --item_after_width: 5vw;
     --tool_btn_width: 20%;
 
-    --reader_width: 130rem;
-    --readerContainer_width: 100rem;
+    --reader_width: 65vw;
+    --readerContainer_width: 55vw;
     --reader_fontSize: 18px;
-    --reader_padding: 6rem;
-    --reader_top: 3rem;
-    --reader_bottom: 3rem;
-    --readerBtn_padding: 3rem;
-    --readerCtrl_left: 105rem;
-    --readerCtrl_width: 25rem;
-    --readerCtrl_fs: 1.8rem;
+    --reader_padding: 3vw;
+    --reader_top: 3vh;
+    --reader-bottom: 3vh;
+    --readerBtn_padding: 1.5vw;
+    --readerCtrl_left: 57vw;
+    --readerCtrl_width: 10vw;
     --reader_lnheight: 28px;
     --reader_indent: 2em;
-    --input_fs: 2rem;
 }
 
 /* 最小页面宽 */
-@media screen and (max-width: 1600px) {}
+@media screen and (max-width: 1600px) {
+    body {
+        width: 1600px;
+    }
+}
 
 body {
     /* width: 100vw;
@@ -83,7 +79,6 @@ body {
     cursor: url(../../public/cursor/normal.cur), default;
     /* cursor: url(../../../../../../coding/鼠标样式文件/naibai-cus_7234/牛奶蓝光标/diagonal1.cur), default; */
     overflow: auto;
-    /* overflow: hidden; */
     color: var(--color-basic);
 }
 
@@ -94,17 +89,6 @@ button {
 
 a {
     cursor: url(/public/cursor/link.cur), default;
-    text-decoration: underline;
-    /* color: var(--color-basic); */
-    color: var(--color-link);
-    transition: .2s;
-    /* border-bottom: 0.2rem solid var(--color-purple); */
-    text-underline-offset: 0.2rem;
-}
-
-a:hover {
-    /* color: var(--color-darkpurple); */
-    text-underline-offset: 0.5rem;
 }
 
 input {
@@ -140,8 +124,8 @@ input::-webkit-inner-spin-button {
     cursor: url(/public/cursor/normal.cur), default;
 }
 
-div::-webkit-scrollbar,
-code::-webkit-scrollbar,
+div::-webkit-scrollbar, 
+code::-webkit-scrollbar, 
 textarea::-webkit-scrollbar {
     /*滚动条整体样式*/
     width: 10px;
@@ -151,8 +135,8 @@ textarea::-webkit-scrollbar {
     cursor: url(/public/cursor/normal.cur), default;
 }
 
-div::-webkit-scrollbar-thumb,
-code::-webkit-scrollbar-thumb,
+div::-webkit-scrollbar-thumb, 
+code::-webkit-scrollbar-thumb, 
 textarea::-webkit-scrollbar-thumb {
     /*滚动条里面小方块*/
     /* width: 5px;
@@ -165,15 +149,15 @@ textarea::-webkit-scrollbar-thumb {
     cursor: url(/public/cursor/normal.cur), default;
 }
 
-div::-webkit-scrollbar-thumb:hover,
-code::-webkit-scrollbar-thumb:hover,
+div::-webkit-scrollbar-thumb:hover, 
+code::-webkit-scrollbar-thumb:hover, 
 textarea::-webkit-scrollbar-thumb:hover {
     background: rgba(50, 150, 50, 0.7);
-    /* animation: scroll_bar_trans ease .3s both; */
+    /* animation: scroll_bar ease .3s both; */
 }
 
-div::-webkit-scrollbar-track,
-code::-webkit-scrollbar-track,
+div::-webkit-scrollbar-track, 
+code::-webkit-scrollbar-track, 
 textarea::-webkit-scrollbar-track {
     /*滚动条里面轨道*/
     /* box-shadow: inset 0 0 5px rgba(0, 0, 0, 0); */
@@ -250,7 +234,7 @@ textarea::-webkit-scrollbar-track {
 @keyframes musicbox_hide {
     0% {
         opacity: 1;
-        left: calc(var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2 + 2rem);
+        left: calc(var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2 + 1vw);
     }
 
     100% {
@@ -267,7 +251,7 @@ textarea::-webkit-scrollbar-track {
 
     100% {
         opacity: 1;
-        left: calc(var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2 + 2rem);
+        left: calc(var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2 + 1vw);
     }
 }
 
@@ -341,7 +325,7 @@ textarea::-webkit-scrollbar-track {
 
 @keyframes readerCtrl_show_toleft {
     0% {
-        left: calc(var(--readerCtrl_left) + 2rem);
+        left: calc(var(--readerCtrl_left) + 1vw);
         opacity: 0;
     }
 
@@ -353,7 +337,7 @@ textarea::-webkit-scrollbar-track {
 
 @keyframes readerCtrl_show_toright {
     0% {
-        left: calc(var(--readerCtrl_left) - 2rem);
+        left: calc(var(--readerCtrl_left) - 1vw);
         opacity: 0;
     }
 
@@ -370,7 +354,7 @@ textarea::-webkit-scrollbar-track {
     }
 
     100% {
-        left: calc(var(--readerCtrl_left) - 2rem);
+        left: calc(var(--readerCtrl_left) - 1vw);
         opacity: 0;
     }
 }
@@ -383,11 +367,10 @@ textarea::-webkit-scrollbar-track {
     }
 
     100% {
-        left: calc(var(--readerCtrl_left) + 2rem);
+        left: calc(var(--readerCtrl_left) + 1vw);
         opacity: 0;
     }
 }
-
 @keyframes blur_5 {
     0% {
         backdrop-filter: blur(5px);
