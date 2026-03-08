@@ -39,6 +39,7 @@
             height: 5rem;
             background-color: var(--color-stdHead);
             color: var(--color-basic);
+            backdrop-filter: blur(1rem);
         }
 
         .head-name {
@@ -98,7 +99,7 @@
 <script>
     const root = document.querySelector(':root');
     if (localStorage.scheme == 1) {
-        document.querySelector(".bg").style.background = 'url(/version4/images/bg_night.jpg)';
+        document.querySelector(".bg").style.background = 'url(/version4/images/bg_night.png)';
         root.style.setProperty('--color-stdHead', 'rgba(69, 99, 164, .5)');
         root.style.setProperty('--color-stdHead_hover', 'rgba(69, 99, 164, .8)');
         root.style.setProperty('--color-basic', 'rgba(220, 220, 220, .95)');

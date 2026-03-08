@@ -154,7 +154,7 @@ function switchMode(mode) {
     if (mode == 1) {
         scheme = 1;
         localStorage.setItem('scheme', scheme);
-        document.querySelector('.background').style.background = 'url(/version4/images/bg_night.jpg)';
+        document.querySelector('.background').style.background = 'url(/version4/images/bg_night.png)';
         document.querySelector('.background').style.backgroundSize = 'cover';
         document.querySelector('.other-mode-option-1').selected = true;
         root.style.setProperty('--color-bodyBackground', 'rgb(118, 140, 206)');
@@ -307,18 +307,22 @@ var linkPage = document.querySelector(".link");
 var abouPage = document.querySelector(".about");
 var othePage = document.querySelector(".other");
 var toolPage = document.querySelector(".tool");
+var zeroPage = document.querySelector(".zero");
 var talkBtn = document.querySelector(".nav-btn-talk");
 var artiBtn = document.querySelector(".nav-btn-article");
 var linkBtn = document.querySelector(".nav-btn-link");
 var abouBtn = document.querySelector(".nav-btn-about");
 var otheBtn = document.querySelector(".nav-btn-other");
 var toolBtn = document.querySelector(".nav-btn-tool");
-var curPage = 1;
-var pageSelector = [0, talkPage, artiPage, linkPage, toolPage, othePage, abouPage];
-var btnSelector = [0, talkBtn, artiBtn, linkBtn, toolBtn, otheBtn, abouBtn];
+var zeroBtn = document.querySelector(".nav-title");
+var curPage = 0;
+var pageSelector = [zeroPage, talkPage, artiPage, linkPage, toolPage, othePage, abouPage];
+//                  0         1         2         3         4         5         6
+var btnSelector = [zeroBtn, talkBtn, artiBtn, linkBtn, toolBtn, otheBtn, abouBtn];
 
 var is_linkpage_has_shown = 0;
-// 用于记录link page是否已经至少在界面上显示过一次。在display为none时加载瀑布流会出错。
+var is_talkpage_has_shown = 0;
+// 用于记录该page是否已经至少在界面上显示过一次。在display为none时加载瀑布流会出错。
 
 function changePage(fromNum, toNum, fromPage, toPage) {
     // 页面代码1,2,3,4
@@ -347,8 +351,16 @@ function changePage(fromNum, toNum, fromPage, toPage) {
     }
 }
 
+zeroBtn.addEventListener("click", function () {
+    changePage(curPage, 0, pageSelector[curPage], pageSelector[0]);
+})
+
 talkBtn.addEventListener("click", function () {
     changePage(curPage, 1, pageSelector[curPage], pageSelector[1]);
+    if (!is_talkpage_has_shown) {
+        loadWaterfall(1);
+        is_talkpage_has_shown = 1;
+    }
 })
 
 artiBtn.addEventListener("click", function () {
@@ -358,7 +370,7 @@ artiBtn.addEventListener("click", function () {
 linkBtn.addEventListener("click", function () {
     changePage(curPage, 3, pageSelector[curPage], pageSelector[3]);
     if (!is_linkpage_has_shown) {
-        linkWaterfall();
+        loadWaterfall(3);
         is_linkpage_has_shown = 1;
     }
 })
@@ -380,8 +392,12 @@ var openPage = urlParams.get('page');
 if (openPage) {
     changePage(curPage, openPage, pageSelector[curPage], pageSelector[openPage]);
     if (openPage == 3 && !is_linkpage_has_shown) {
-        linkWaterfall();
+        loadWaterfall(3);
         is_linkpage_has_shown = 1;
+    }
+    if (openPage == 1 && !is_linkpage_has_shown) {
+        loadWaterfall(1);
+        is_talkpage_has_shown = 1;
     }
 }
 
@@ -821,18 +837,33 @@ document.querySelector('.reader-setting-default').addEventListener('click', func
 })
 
 // DOM流加载完成后：加载说说；加载文章列表；加载link瀑布流布局
-function linkWaterfall() {
-    new Masonry('.link', {
-        itemSelector: '.link-item-grid',
-        // columnWidth: '.link-item'
-        columnWidth: '.link-item-grid'
-    });
+function loadWaterfall(pageNum) {
+    switch (pageNum) {
+        case 3:
+            new Masonry('.link', {
+                itemSelector: '.link-item-grid',
+                columnWidth: '.link-item-grid'
+                // itemSelector: '.pageitem',
+                // columnWidth: '.pageitem'
+            });
+            break;
+        case 1:
+            new Masonry('.talk', {
+                itemSelector: '.talk-item',
+                columnWidth: '.talk-item'
+                // itemSelector: '.pageitem',
+                // columnWidth: '.pageitem'
+            });
+            break;
+        default:
+            break;
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     loadTalks(); //talks瀑布流布局包含在函数中
     loadArticleList();
-    linkWaterfall();
+    loadWaterfall(3);
 });
 
 // 工具

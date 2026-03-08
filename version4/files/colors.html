@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div style="width: 50px; margin-left: 200px;" class="a"></div>
+
+</body>
+<script>
+    let a = document.querySelector('.a');
+    for (i = 1; i <= 250; i += 5) {
+        for (j = 1; j <= 250; j+= 5) {
+            for (k = 1; k <= 250; k += 5) {
+                let item = document.createElement('div');
+                item.style.backgroundColor = `rgb(${i}, ${j}, ${k})`;
+                item.style.width = '1px';
+                item.style.height = '1px';
+                item.style.display = 'inline-block';
+                a.appendChild(item);
+                console.log(i, j, k, '\n');
+            }
+        }
+    }
+</script>
+
+</html>

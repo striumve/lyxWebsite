@@ -51,6 +51,7 @@
             background-color: var(--color-stdHead);
             z-index: 100;
             color: var(--color-basic);
+            backdrop-filter: blur(1rem);
         }
 
         .head-name {
@@ -146,6 +147,12 @@
     <div class="container">
         <div class="placeholder" style="height: 5rem; "> </div>
         <div class="item">
+            <p class="left">2026.03.08 v4.3.1</p>
+            <p class="right">添加了Zero页面</p>
+            <p class="right">优化了思源宋体粗体显示</p>
+            <p class="right">更改了夜间模式背景</p>
+        </div>
+        <div class="item">
             <p class="left">2026.02.10 v4.3.0</p>
             <p class="right">重构了布局系统</p>
             <p class="right">重制了说说和链接页瀑布流<br>使用masonry.js</p>
@@ -226,11 +233,11 @@
 <script>
     const root = document.querySelector(':root');
     if (localStorage.scheme == 1) {
-        document.querySelector(".bg").style.background = 'url(/version4/images/bg_night.jpg)';
+        document.querySelector(".bg").style.background = 'url(/version4/images/bg_night.png)';
         document.querySelector(".bg").style.backgroundSize = 'cover';
         document.querySelector(".bg").style.backgroundRepeat = 'no-repeat';
-        root.style.setProperty('--itemColor', 'rgba(190, 190, 220, .7)');
-        root.style.setProperty('--itemColor-hover', 'rgba(126, 148, 218, 0.7)');
+        root.style.setProperty('--itemColor', 'rgba(170, 170, 200, .5)');
+        root.style.setProperty('--itemColor-hover', 'rgba(126, 148, 218, 0.5)');
         root.style.setProperty('--color-stdHead', 'rgba(69, 99, 164, .5)');
         root.style.setProperty('--color-stdHead_hover', 'rgba(69, 99, 164, .8)');
         root.style.setProperty('--color-basic', 'rgba(220, 220, 220, .95)');
