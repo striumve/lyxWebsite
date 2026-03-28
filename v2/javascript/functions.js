@@ -112,37 +112,6 @@ function eat() {
     }, 2000);
 }
 
-// 拖动窗口
-var mx = 0,
-    my = 0; //鼠标x、y轴坐标（相对于left，top）
-var dx = 0,
-    dy = 0; //对话框坐标（同上）
-var isDraging = false; //不可拖动
-var pageDragged;
-function dragPage_1(page) {
-    pageDragged = document.querySelector(page);
-}
-function dragPage_2(e) {
-    var e = e || window.event;
-    mx = e.pageX; //点击时鼠标X坐标
-    my = e.pageY; //点击时鼠标Y坐标
-    dx = pageDragged.offsetLeft;
-    dy = pageDragged.offsetTop;
-    isDraging = true; //标记对话框可拖动
-
-    document.onmousemove = function (e) {
-        var e = e || window.event;
-        var x = e.pageX; //移动时鼠标X坐标
-        var y = e.pageY; //移动时鼠标Y坐标
-        if (isDraging) { //判断对话框能否拖动
-            var moveX = dx + x - mx; //移动后对话框新的left值
-            var moveY = dy + y - my; //移动后对话框新的top值
-            pageDragged.style.left = moveX + 'px'; //重新设置对话框的left
-            pageDragged.style.top = moveY + 'px'; //重新设置对话框的top
-        };
-    };
-}
-
 // 弹出提示
 function alertBox(content) {
     // 询问是否跳转
@@ -163,7 +132,7 @@ function alertBox(content) {
 }
 
 // 禁用F12
-document.addEventListener("keyup", function (event) {
+document.addEventListener("keyup", function(event) {
     if (event.keyCode === 123) {
         // console.log(1);
         // event.preventDefault();
@@ -171,8 +140,70 @@ document.addEventListener("keyup", function (event) {
     }
 })
 
-document.addEventListener("visibilitychange", function () {
+document.addEventListener("visibilitychange", function() {
     // alert(1)
+})
+
+//信息框
+var logo = document.querySelector('.logo');
+var info = document.querySelector('.info');
+var infoOff = document.querySelector('.infoOff');
+var infoVersion = document.querySelector(".info-version");
+var infoUpdate = document.querySelector(".info-update");
+
+if (languageFlag === 1) {
+    infoVersion.innerHTML = "当前版本：" + currentVersion;
+    infoUpdate.innerHTML = "更新时间：" + latestUpdateTime;
+} else if (languageFlag === 2) {
+    infoVersion.innerHTML = "current version: " + currentVersion;
+    infoUpdate.innerHTML = "update time: " + latestUpdateTime;
+}
+
+function infoOutFrame() {
+    info.style.animation = 'infoOut ease .3s both';
+    setTimeout(function () {
+        info.style.display = 'none';
+    }, 150)
+    infoFlag = 0;
+}
+infoOff.addEventListener("click", function () {
+    infoOutFrame();
+})
+
+if (deviceFlag === 1) {
+    logo.addEventListener("mouseover", function () {
+        info.style.display = 'block';
+        info.style.animation = 'infoCome ease .3s both';
+        infoFlag = 1;
+    })
+} else if (deviceFlag === 2) {
+    logo.addEventListener("click", function () {
+        info.style.display = 'block';
+        info.style.animation = 'infoCome ease .3s both';
+        infoFlag = 1;
+    })
+}
+
+//收起与展开nav栏
+var nav = document.querySelector('.nav');
+var navBtn = document.querySelector('.navBtn');
+var weatherBox = document.querySelector(".weather");
+var newSenBtn = document.querySelector(".newSen");
+var navFlag = 0;
+navBtn.addEventListener("click", function () {
+    if (navFlag === 0) {
+        nav.style.animation = 'navUpFrame ease .2s both';
+        navBtn.style.animation = 'navBtnDown linear .2s both';
+        weatherBox.style.animation = 'public_hide ease .2s both';
+        newSenBtn.style.animation = 'public_hide ease .2s both';
+        navFlag = 1;
+    } else if (navFlag === 1) {
+        nav.style.animation = 'navDownFrame ease .2s both';
+        navBtn.style.animation = 'navBtnUp linear .2s both';
+        weatherBox.style.animation = 'public_show ease .2s both';
+        newSenBtn.style.animation = 'public_show ease .2s both';
+        navFlag = 0;
+    }
 })
 
 //nav栏按钮点击后弹出对应界面
@@ -191,12 +222,12 @@ var flagC = 0;
 var infoFlag = 0;
 
 function pageOut(name, btn) {
+    main.style.animation = 'pageOut-main ease .5s both';
     name.style.animation = 'pageOut ease .5s both';
-    setTimeout(() => {
-        name.style.zIndex = '-1';
-    }, 500);
     hitokotoDiv.style.animation = 'hitokotoCome ease .5s both';
     btn.style.fontWeight = '100';
+    // sentenceA.style.animation = 'senCome linear .2s both';
+    // sentenceB.style.animation = 'senCome2 linear .2s both';
     if (name === webPage) {
         flagA = 0;
     }
@@ -209,10 +240,8 @@ function pageOut(name, btn) {
 }
 
 function pageCome(name, btn) {
+    main.style.animation = 'pageCome-main ease .5s both';
     name.style.animation = 'pageCome ease .5s both';
-    setTimeout(() => {
-        name.style.zIndex = '100';
-    }, 0);
     hitokotoDiv.style.animation = 'hitokotoOut ease .5s both';
     btn.style.fontWeight = '700';
     if (name === webPage) {
@@ -227,21 +256,21 @@ function pageCome(name, btn) {
 }
 
 webBtn.addEventListener("click", function () {
-    // if (infoFlag === 1) {
-    //     infoOutFrame();
-    // }
-    // if (flagB === 1) {
-    //     pageOut(toolPage, toolBtn);
-    // }
-    // if (flagC === 1) {
-    //     pageOut(setPage, setBtn);
-    // }
+    if (infoFlag === 1) {
+        infoOutFrame();
+    }
+    if (flagB === 1) {
+        pageOut(toolPage, toolBtn);
+    }
+    if (flagC === 1) {
+        pageOut(setPage, setBtn);
+    }
 
-    // if (flagA === 0) {
-    //     pageCome(webPage, webBtn);
-    // } else if (flagA === 1) {
-    //     pageOut(webPage, webBtn);
-    // }
+    if (flagA === 0) {
+        pageCome(webPage, webBtn);
+    } else if (flagA === 1) {
+        pageOut(webPage, webBtn);
+    }
 })
 
 toolBtn.addEventListener("click", function () {
@@ -483,7 +512,80 @@ if (languageFlag === 1) {
         // getWeather();
     })
 
-    function getWeather() {}
+    function getWeather() {
+        fetch('https://geoapi.qweather.com/v2/city/lookup?&location=' + weather_location_text + '&key=f187e32108ce415bb12408e9a4d33e81')
+            .then(response => response.json())
+            .then(data => {
+                if (data.code === '400') {
+                    errorSound.play();
+                    alertBox('获取数据失败：400<br>错误的请求参数');
+                } else if (data.code === '401') {
+                    errorSound.play();
+                    alertBox('获取数据失败：401<br>错误的key/数字签名/key类型<br>请联系我：QQ:1041095264');
+                } else if (data.code === '402') {
+                    errorSound.play();
+                    alertBox('获取数据失败：402<br>请求次数过多，请于第二天重试<br>我使用的是免费订阅版本的API，<br>若想要提供支持，请联系我：QQ:1041095264');
+                } else if (data.code === '403') {
+                    errorSound.play();
+                    alertBox('获取数据失败：403<br>无访问权限');
+                } else if (data.code === '404') {
+                    errorSound.play();
+                    alertBox('获取数据失败：404<br>查询的数据或地区不存在');
+                } else if (data.code === '429') {
+                    errorSound.play();
+                    alertBox('获取数据失败：429<br>请求过于频繁，请一分钟后重试');
+                } else if (data.code === '500') {
+                    errorSound.play();
+                    alertBox('获取数据失败：500<br>无响应或超时');
+                } else if (data.code === '204') {
+                    errorSound.play();
+                    alertBox('获取数据失败：204<br>该地区暂无数据');
+                }
+                if (data.location[0].adm2 === data.location[0].name) {
+                    weather_city.innerHTML = data.location[0].name;
+                } else {
+                    weather_city.innerHTML = data.location[0].adm2 + data.location[0].name;
+                }
+                fetch('https://devapi.qweather.com/v7/weather/3d?location=' + data.location[0].id + '&key=f187e32108ce415bb12408e9a4d33e81')
+                    .then(response => response.json())
+                    .then(data => {
+                        var weather_tempMax = document.querySelector('.weather-tempMax');
+                        var weather_tempMin = document.querySelector('.weather-tempMin');
+                        var weather_textDay = document.querySelector('.weather-textDay');
+                        var weather_textNight = document.querySelector('.weather-textNight');
+                        var weather_precip = document.querySelector('.weather-precip');
+                        var weather_sunrise = document.querySelector('.weather-sunrise');
+                        var weather_sunset = document.querySelector('.weather-sunset');
+                        var weather_moonrise = document.querySelector('.weather-moonrise');
+                        var weather_moonset = document.querySelector('.weather-moonset');
+                        var weather_moonPhase = document.querySelector('.weather-moonPhase');
+                        var weather_windDirDay = document.querySelector('.weather-windDirDay');
+                        var weather_windScaleDay = document.querySelector('.weather-windScaleDay');
+                        var weather_windDirNight = document.querySelector('.weather-windDirNight');
+                        var weather_windScaleNight = document.querySelector('.weather-windScaleNight');
+                        var weather_vis = document.querySelector('.weather-vis');
+                        var weather_humidity = document.querySelector('.weather-humidity');
+                        weather_tempMax.innerText = data.daily[0].tempMax + '°C';
+                        weather_tempMin.innerText = data.daily[0].tempMin + '°C';
+                        weather_textDay.innerText = data.daily[0].textDay;
+                        weather_textNight.innerText = data.daily[0].textNight;
+                        weather_precip.innerText = data.daily[0].precip + 'mm';
+                        weather_sunrise.innerText = data.daily[0].sunrise;
+                        weather_sunset.innerText = data.daily[0].sunset;
+                        weather_moonrise.innerText = data.daily[0].moonrise;
+                        weather_moonset.innerText = data.daily[0].moonset;
+                        weather_moonPhase.innerText = data.daily[0].moonPhase;
+                        weather_windDirDay.innerText = data.daily[0].windDirDay;
+                        weather_windScaleDay.innerText = data.daily[0].windScaleDay + '级';
+                        weather_windDirNight.innerText = data.daily[0].windDirNight;
+                        weather_windScaleNight.innerText = data.daily[0].windScaleNight + '级';
+                        weather_vis.innerText = data.daily[0].vis + 'km';
+                        weather_humidity.innerText = data.daily[0].humidity + '%';
+                    })
+                    .catch(console.error)
+            })
+            .catch(console.error)
+    }
 
     function getLocation() {
         if (navigator.geolocation) {
@@ -783,12 +885,10 @@ var infoName = document.querySelector('.info-qqname');
 var captchaCode = '';
 var inputCaptcha = document.querySelector('.inputCaptcha').value;
 var captchaCanvas = document.querySelector(".captcha");
-var captchaCanvasWidth;
+var captchaCanvasWidth = parseInt(document.querySelector(".tool-table-right").getBoundingClientRect().width);
 var qqName = '';
 var qqPhotoUrl = '';
 window.onload = function () {
-    // captchaCanvas ;
-    captchaCanvasWidth = parseInt(document.querySelector(".tool-table-right").getBoundingClientRect().width);
     captchaCanvas.width = captchaCanvasWidth;
     captchaCanvas.height = captchaCanvasWidth / 4;
     newCaptcha();
@@ -827,10 +927,10 @@ function tryLogIn() {
         tool8_login = parseInt(istool8_loginNaN);
         if (istool8_loginNaN === '') {
             if (languageFlag === 1) {
-                alertSound.play();
+                noticeSound.play();
                 alertBox('您已退出登录');
             } else if (languageFlag === 2) {
-                alertSound.play();
+                noticeSound.play();
                 alertBox('You have logged out');
             }
             if (languageFlag === 1) {
@@ -851,10 +951,10 @@ function tryLogIn() {
             infoLogo.style.backgroundSize = 'cover';
             infoNum.innerHTML = tool8_login;
             if (languageFlag === 1) {
-                alertSound.play();
+                noticeSound.play();
                 alertBox("&emsp;登录成功&emsp;");
             } else if (languageFlag === 2) {
-                alertSound.play();
+                noticeSound.play();
                 alertBox("Successfully sign in")
             }
             localStorage.setItem("signin", tool8_login);
@@ -960,7 +1060,7 @@ function set1_langChange() {
             languageFlag = 2;
             window.location = "index.en.html";
         } else if (set1_lang === '3') {
-            window.location = '../public/error/403.html';
+            window.location = '/error/403.html';
         }
     } else if (deviceFlag === 2) {
         if (set1_lang === '1') {
@@ -970,7 +1070,7 @@ function set1_langChange() {
             languageFlag = 2;
             window.location = "index.m.en.html";
         } else if (set1_lang === '3') {
-            window.location = "../public/error/403.html";
+            window.location = "/error/403.html";
         }
     }
 
@@ -1072,15 +1172,8 @@ set4_themeCheck.addEventListener("click", function () {
 })
 
 function setBackground_day1() {
-    main.style.background = 'url(./images/bg_mslight.jpg)';
+    main.style.background = 'url(./images/background.jpg)';
     main.style.backgroundSize = 'cover';
-    if (languageFlag === 1) {
-        set3_backgroundOpt1.innerHTML = '背景1(Windows 11主题)';
-        set3_backgroundOpt2.innerHTML = '背景2(电影 你的名字。)';
-    } else if (languageFlag === 2) {
-        set3_backgroundOpt1.innerHTML = 'background1(Windows 11 Theme)';
-        set3_backgroundOpt2.innerHTML = 'background2(film: Your Name.)';
-    }
     set3_backgroundOpt1.selected = true;
     set3_backgroundOpt2.selected = false;
 }
@@ -1088,27 +1181,13 @@ function setBackground_day1() {
 function setBackground_day2() {
     main.style.background = 'url(./images/background2.jpg)';
     main.style.backgroundSize = 'cover';
-    if (languageFlag === 1) {
-        set3_backgroundOpt1.innerHTML = '背景1(Windows 11主题)';
-        set3_backgroundOpt2.innerHTML = '背景2(电影 你的名字。)';
-    } else if (languageFlag === 2) {
-        set3_backgroundOpt1.innerHTML = 'background1(Windows 11 Theme)';
-        set3_backgroundOpt2.innerHTML = 'background2(film: Your Name.)';
-    }
     set3_backgroundOpt1.selected = false;
     set3_backgroundOpt2.selected = true;
 }
 
 function setBackground_night1() {
-    main.style.background = 'url(./images/bg_msnight.jpg)';
+    main.style.background = 'url(./images/background_night.jpg)';
     main.style.backgroundSize = 'cover';
-    if (languageFlag === 1) {
-        set3_backgroundOpt1.innerHTML = '背景1(Windows 11主题)';
-        set3_backgroundOpt2.innerHTML = '背景2(知乎@爱做饭的程序员)';
-    } else if (languageFlag === 2) {
-        set3_backgroundOpt1.innerHTML = 'background1(Windows 11 Theme)';
-        set3_backgroundOpt2.innerHTML = 'background2(Zhihu@爱做饭的程序员)';
-    }
     set3_backgroundOpt1.selected = true;
     set3_backgroundOpt2.selected = false;
 }
@@ -1116,13 +1195,6 @@ function setBackground_night1() {
 function setBackground_night2() {
     main.style.background = 'url(./images/background_night2.jpg)';
     main.style.backgroundSize = 'cover';
-    if (languageFlag === 1) {
-        set3_backgroundOpt1.innerHTML = '背景1(Windows 11主题)';
-        set3_backgroundOpt2.innerHTML = '背景2(知乎@爱做饭的程序员)';
-    } else if (languageFlag === 2) {
-        set3_backgroundOpt1.innerHTML = 'background1(Windows 11 Theme)';
-        set3_backgroundOpt2.innerHTML = 'background2(Zhihu@爱做饭的程序员)';
-    }
     set3_backgroundOpt1.selected = false;
     set3_backgroundOpt2.selected = true;
 }
@@ -1148,7 +1220,7 @@ function changeTheme() {
             body.style.setProperty('--basicColor_purple_a060', 'rgba(150, 150, 255, 0.6)');
             body.style.setProperty('--basicColor_btnHover', 'rgba(106, 90, 255, 0.7)');
             body.style.setProperty('--basicColor_nav', 'rgba(40, 75, 225, 0.6)');
-            body.style.setProperty('--basicColor_info', 'rgba(255, 255, 255, .8)');
+            body.style.setProperty('--basicColor_info', 'rgba(179, 255, 257, .8)');
             body.style.setProperty('--basicColor_bodyBackground', 'rgb(150, 150, 255)');
             body.style.setProperty('--basicColor_cyan_a050', 'rgba(129, 216, 207, 0.5)');
             body.style.setProperty('--basicColor_white_a030', 'rgba(255, 255, 255, 0.3)');
@@ -1157,6 +1229,13 @@ function changeTheme() {
             body.style.setProperty('--basicColor_white_a100', 'rgba(255, 255, 255, 1)');
             body.style.setProperty('--basicColor_black_a100', 'rgba(0, 0, 0, 1)');
             main.style.backgroundSize = 'cover';
+            if (languageFlag === 1) {
+                set3_backgroundOpt1.innerHTML = '背景1(知乎@世尊逛人间)';
+                set3_backgroundOpt2.innerHTML = '背景2(电影 你的名字。)';
+            } else if (languageFlag === 2) {
+                set3_backgroundOpt1.innerHTML = 'background1(Zhihu@世尊逛人间)';
+                set3_backgroundOpt2.innerHTML = 'background2(film: Your Name.)';
+            }
             break;
         case '2': // 暗夜黑
             localStorage.setItem("set4_theme", '2');
@@ -1187,6 +1266,13 @@ function changeTheme() {
             body.style.setProperty('--basicColor_white_a100', 'rgba(50, 50, 50, 1)');
             body.style.setProperty('--basicColor_black_a100', 'rgba(255, 255, 255, .7)');
             main.style.backgroundSize = 'cover';
+            if (languageFlag === 1) {
+                set3_backgroundOpt1.innerHTML = '背景1(知乎@马梦李)';
+                set3_backgroundOpt2.innerHTML = '背景2(知乎@爱做饭的程序员)';
+            } else if (languageFlag === 2) {
+                set3_backgroundOpt1.innerHTML = 'background1(Zhihu@马梦李)';
+                set3_backgroundOpt2.innerHTML = 'background2(Zhihu@爱做饭的程序员)';
+            }
             break;
         case '3': // 少女粉
             localStorage.setItem("set4_theme", '3');
@@ -1216,6 +1302,13 @@ function changeTheme() {
             body.style.setProperty('--basicColor_white_a100', 'rgba(255, 255, 255, 1)');
             body.style.setProperty('--basicColor_black_a100', 'rgba(0, 0, 0, 1)');
             main.style.backgroundSize = 'cover';
+            if (languageFlag === 1) {
+                set3_backgroundOpt1.innerHTML = '背景1(知乎@世尊逛人间)';
+                set3_backgroundOpt2.innerHTML = '背景2(电影 你的名字。)';
+            } else if (languageFlag === 2) {
+                set3_backgroundOpt1.innerHTML = 'background1(Zhihu@世尊逛人间)';
+                set3_backgroundOpt2.innerHTML = 'background2(film: Your Name.)';
+            }
             break;
         case '4': // 地中海蓝
             localStorage.setItem("set4_theme", '4');
@@ -1245,6 +1338,13 @@ function changeTheme() {
             body.style.setProperty('--basicColor_white_a100', 'rgba(255, 255, 255, 1)');
             body.style.setProperty('--basicColor_black_a100', 'rgba(0, 0, 0, 1)');
             main.style.backgroundSize = 'cover';
+            if (languageFlag === 1) {
+                set3_backgroundOpt1.innerHTML = '背景1(知乎@世尊逛人间)';
+                set3_backgroundOpt2.innerHTML = '背景2(电影 你的名字。)';
+            } else if (languageFlag === 2) {
+                set3_backgroundOpt1.innerHTML = 'background1(Zhihu@世尊逛人间)';
+                set3_backgroundOpt2.innerHTML = 'background2(film: Your Name.)';
+            }
             break;
         case '5': // 麦浪金
             localStorage.setItem("set4_theme", '5');
@@ -1274,6 +1374,13 @@ function changeTheme() {
             body.style.setProperty('--basicColor_white_a100', 'rgba(255, 255, 255, 1)');
             body.style.setProperty('--basicColor_black_a100', 'rgba(0, 0, 0, 1)');
             main.style.backgroundSize = 'cover';
+            if (languageFlag === 1) {
+                set3_backgroundOpt1.innerHTML = '背景1(知乎@世尊逛人间)';
+                set3_backgroundOpt2.innerHTML = '背景2(电影 你的名字。)';
+            } else if (languageFlag === 2) {
+                set3_backgroundOpt1.innerHTML = 'background1(Zhihu@世尊逛人间)';
+                set3_backgroundOpt2.innerHTML = 'background2(film: Your Name.)';
+            }
             break;
 
         default:

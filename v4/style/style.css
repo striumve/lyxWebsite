@@ -22,7 +22,7 @@
 /* 启动页 */
 
 .start {
-    z-index: 5;
+    z-index: 200;
     width: 100%;
     height: 100%;
     opacity: 1;
@@ -33,10 +33,12 @@
 }
 
 .start-title {
-    font-family: 'siyuan';
+    font-family: 'siyuan', '宋体';
     font-size: 3rem;
-    position: absolute;
-    top: 35rem;
+    /* position: relative; */
+    /* top: 35%; */
+    /* margin-top: calc((100vh - (3rem + 3.5rem + 8rem + 3rem)) / 2); */
+    margin-top: 35vh;
     width: 100%;
     text-align: center;
 }
@@ -44,11 +46,11 @@
 .start-btn {
     outline: none;
     border: none;
-    font-family: 'siyuan';
+    font-family: 'siyuan', '宋体';
     font-size: 3rem;
-    position: absolute;
-    top: 55rem;
-    left: calc(50vw - var(--start_btn_width) / 2);
+    /* position: relative; */
+    /* top: 10rem; */
+    /* left: calc(50vw - var(--start_btn_width) / 2); */
     width: var(--start_btn_width);
     text-align: center;
     /* padding-top: 2rem;
@@ -65,8 +67,8 @@
     height: 0rem;
     background-color: var(--color-theme);
     position: absolute;
-    bottom: 0;
-    left: 0;
+    bottom: calc(100vh - (35vh + 3.5rem + 3rem + 13.9rem));
+    left: calc((100vw - var(--start_btn_width)) / 2);
     transition: .3s;
 }
 
@@ -76,8 +78,9 @@
     height: 0rem;
     background-color: var(--color-theme);
     position: absolute;
-    bottom: 0;
-    left: var(--start_btn_width);
+    position: absolute;
+    bottom: calc(100vh - (35vh + 3.5rem + 3rem + 13.9rem));
+    right: calc((100vw - var(--start_btn_width)) / 2);
     transition: .3s;
 }
 
@@ -94,15 +97,26 @@
     z-index: 0;
 }
 
+/* Zero Page */
+.zero-p {
+    font-family: 'siyuan';
+    font-size: 5rem;
+    line-height: 10rem;
+    letter-spacing: 1rem;
+    font-weight: 700;
+    color: var(--color-themeDark);
+    margin-top: 15rem;
+    margin-left: 25rem;
+    text-shadow: 0 0 5px rgba(0, 134, 43, 0.6);
+}
+
 /* 左侧信息栏 */
 
 .box {
     position: fixed;
     background-color: var(--color-box);
-    border-radius: 10px;
+    border-radius: 1rem;
     /* backdrop-filter: blur(2px); */
-
-    animation: blur_2 ease .5s both;
     /* x 偏移量 | y 偏移量 | 阴影模糊半径 | 阴影扩散半径 | 阴影颜色 */
     box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
     transition: .4s;
@@ -122,7 +136,7 @@
 }
 
 .time {
-    left: 7vw;
+    left: 10rem;
     top: 3rem;
     font-size: 2rem;
     position: fixed;
@@ -226,7 +240,7 @@
     height: 25rem;
     top: 67rem;
     font-family: 'consolas';
-    width: calc(var(--box_width) - (var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2) - 2vw);
+    /* width: calc(var(--box_width) - (var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2) - 4rem); */
 }
 
 .info2-talk {
@@ -239,27 +253,29 @@
 .showInfo {
     font-family: 'icomoon';
     position: fixed;
-    left: 5vw;
-    top: 3rem;
-    font-size: 2rem;
+    left: 10rem;
+    top: 5rem;
     background-color: var(--color-box);
     padding-top: 2rem;
     padding-bottom: 2rem;
     border-radius: 1rem;
     box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
     transition: .4s;
-    width: 12vw;
+    width: 13rem;
+    height: 10rem;
     text-align: center;
-    font-size: var(--navbtn_fontsize);
+    /* font-size: var(--navbtn_fontsize); */
+    font-size: 4rem;
     display: none;
     z-index: 50;
+    line-height: 10rem;
 }
 
 .nav,
 .music {
     /* position: fixed; */
     position: fixed;
-    left: 27vw;
+    left: 50rem;
     top: var(--padding_top);
     font-size: 2rem;
     background-color: var(--color-box);
@@ -270,6 +286,7 @@
     transition: .4s;
     font-family: 'pingfang';
     text-align: center;
+    z-index: 100;
 }
 
 .music {
@@ -277,12 +294,12 @@
     z-index: 100;
     padding-bottom: 2rem;
     /* padding: 0; */
-    left: calc(var(--box_left) + var(--box_width) - (var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2));
+    /* left: calc(var(--box_left) + var(--box_width) - (var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2)); */
     height: 21rem;
 }
 
 .music-selectbox {
-    z-index: 15;
+    z-index: 500;
     position: absolute;
     left: calc(var(--navbtn_fontsize) * 2 + var(--navbtn_padding) * 2 + 1vw);
     top: 0rem;
@@ -290,12 +307,12 @@
     text-align: left;
     background-color: var(--color-box_solid);
     border-radius: 1rem;
-    /* backdrop-filter: blur(5px); */
+    backdrop-filter: blur(5px);
     animation: 'blur_5'ease .1s both;
     box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
     transition: .4s;
-    padding-left: 1vw;
-    padding-right: 1vw;
+    padding-left: 2rem;
+    padding-right: 2rem;
     /* word-break:keep-all;
     overflow-wrap:normal; */
     display: none;
@@ -307,6 +324,7 @@
 .music-selectbox:hover {
     background-color: var(--color-box_solid_hover);
     box-shadow: 0px 0px 5px 6px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
 }
 
 .music-selector {
@@ -324,7 +342,7 @@
     border: none;
     background-color: rgba(0, 0, 0, 0);
     font-size: var(--navbtn_fontsize);
-    height: 4rem;
+    height: var(--navbtn_height);
     padding-left: var(--navbtn_padding);
     padding-right: var(--navbtn_padding);
     transition: .3s;
@@ -335,7 +353,7 @@
 
 .music-title {
     margin: 0;
-    z-index: 15;
+    z-index: 500;
 }
 
 .music-btn {
@@ -345,7 +363,7 @@
 }
 
 .nav-btn:hover,
-.nav-btn.active,
+.active,
 .music-btn:hover,
 .music-selector.active {
     color: var(--color-theme);
@@ -368,7 +386,9 @@
 }
 
 .page {
-    width: var(--page_width);
+    /* width: var(--page_width); */
+    /* width: calc(100vw - var(--box_left) - var(--box_width) - var(--nav_width)); */
+    width: calc(100vw - var(--pages_left) - 5rem);
     height: auto;
     position: absolute;
     left: var(--pages_left);
@@ -381,26 +401,26 @@
 
 .pageitem {
     z-index: 1;
-    animation: blur_2 ease .5s both;
+    /* backdrop-filter: blur(2); */
     font-family: 'pingfang';
     position: relative;
 }
 
-.talk,
-.link {
-    column-count: var(--pages_columncount);
-    column-gap: 5vw;
-}
-
-.talk-item,
-.link-item,
-.tool-item {
+.talk-item {
     break-inside: none;
+    /* width: 50rem; */
+    width: 40rem;
+    height: auto;
+    /* float: left; */
+}
+
+.talk-item:nth-child(odd) {
+    margin-right: 10rem;
 }
 
 .talk-item,
-.arti-item,
 .link-item,
+.arti-item,
 .about-item,
 .tool-item,
 .other-item {
@@ -409,7 +429,7 @@
     color: var(--color-basic);
     background-color: var(--color-pagebox);
     border-radius: 10px;
-    animation: blur_2 ease .5s both;
+    /* backdrop-filter: blur(2); */
     /* x 偏移量 | y 偏移量 | 阴影模糊半径 | 阴影扩散半径 | 阴影颜色 */
     box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
     transition: .4s;
@@ -422,12 +442,13 @@
 }
 
 .link-item {
-    padding: 3rem;
-    line-clamp: 1;
+    text-decoration: none;
+    color: var(--color-basic);
+    /* background-color: rgba(0, 0, 0, 0); */
 }
 
 .talk-item:hover,
-.arti-item:hover,
+.arti-item:hover, 
 .link-item:hover,
 .about-item:hover,
 .tool-item:hover,
@@ -462,14 +483,21 @@
     font-size: 2.2rem;
 }
 
-.tool-item-title {
+.tool-item-title, 
+.link-item-title {
     position: relative;
     top: 0;
     font-size: 2.5rem;
 }
 
-.arti-item-go,
-.link-item-go {
+.link-item-a {
+    position: relative;
+    top: 1rem;
+    font-size: 2.2rem;
+    line-height: 4rem;
+}
+
+.arti-item-go {
     font-family: 'icomoon';
     font-size: 2.2rem;
     position: absolute;
@@ -478,16 +506,8 @@
     transition: .3s;
 }
 
-.link-item-go {
-    right: var(--linkitemgo_right);
-}
-
 .arti-item:hover .arti-item-go {
-    right: calc(var(--artiitemgo_right) - 1vw);
-}
-
-.link-item:hover .link-item-go {
-    right: calc(var(--linkitemgo_right) - 1vw);
+    right: calc(var(--artiitemgo_right) - 2rem);
 }
 
 .talk-item-content>img {
@@ -498,25 +518,6 @@
     position: relative;
     top: 2rem;
     font-size: 2rem;
-    color: var(--color-grey);
-}
-
-.link-item-name {
-    display: block;
-    width: auto;
-    position: relative;
-    top: -0.5rem;
-    left: 0vw;
-    font-size: 2.2rem;
-}
-
-.link-item-link {
-    display: block;
-    width: auto;
-    position: relative;
-    top: .5rem;
-    left: 0vw;
-    font-size: 1.8rem;
     color: var(--color-grey);
 }
 
@@ -679,7 +680,7 @@ select,
     position: fixed;
     width: var(--reader_width);
     height: 100rem;
-    left: calc(var(--box_left) + var(--box_width) + 2.5vw);
+    left: calc(var(--box_left) + var(--box_width) + 5rem);
     /* background-color: black; */
     padding: 0;
     z-index: 15;
@@ -687,7 +688,7 @@ select,
 
 .reader-container {
     width: calc(var(--readerContainer_width) - var(--reader_padding) * 2);
-    height: calc(100rem - var(--reader_top) - var(--reader-bottom));
+    height: calc(100vh - var(--reader_top) - var(--reader_bottom));
     position: absolute;
     left: 0;
     top: var(--reader_top);
@@ -701,7 +702,7 @@ select,
     box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
     transition: .4s;
     user-select: text;
-    font-family: 'siyuan';
+    font-family: 'siyuan', '宋体';
     color: var(--color-basic);
 }
 
@@ -722,7 +723,7 @@ select,
 
 .reader-container a {
     text-decoration: underline;
-    color: var(--color-basic);
+    color: var(--color-purple);
 }
 
 .reader-container>h1 {
@@ -741,7 +742,7 @@ select,
     vertical-align: middle;
     top: 0rem;
     /* background-color: var(--color-darkgrey); */
-    border-radius: 2px;
+    border-radius: .2rem;
 }
 
 .reader-container>h2 {
@@ -756,7 +757,7 @@ select,
     text-align: center;
     font-size: calc(var(--reader_fontSize) * 0.8);
     font-weight: 400;
-    color: var(--color-darkgrey);
+    /* color: var(--color-darkgrey); */
 }
 
 .reader-container>pre>code {
@@ -785,7 +786,7 @@ select,
     padding-left: 0.5em;
     padding-right: 0.5em;
     /* padding: 0.5em; */
-    border-radius: 5px;
+    border-radius: 0.5rem;
     background: var(--color-box_solid_hover);
     color: var(--color-basic);
     padding-top: calc((var(--reader_lnheight) - var(--reader_fontSize)) / 2);
@@ -794,14 +795,14 @@ select,
 
 .reader-back {
     position: absolute;
-    left: calc(var(--readerContainer_width) + 2vw);
+    left: calc(var(--readerContainer_width) + 5rem);
     top: calc(var(--reader_top));
     font-size: 2rem;
     background-color: var(--color-box);
     line-height: 4rem;
     padding-left: var(--readerBtn_padding);
     padding-right: var(--readerBtn_padding);
-    border-radius: 5px;
+    border-radius: .5rem;
     transition: .3s;
     color: var(--color-basic);
 }
@@ -813,9 +814,9 @@ select,
 
 .reader-nav {
     position: absolute;
-    left: calc(var(--readerContainer_width) + var(--readerBtn_padding) * 2 + 2vw + 4rem + 2rem);
+    left: calc(var(--readerContainer_width) + var(--readerBtn_padding) * 2 + 5rem + 4rem + 2rem);
     top: calc(var(--reader_top));
-    width: 50vw;
+    width: 100rem;
 }
 
 .reader-btn,
@@ -852,7 +853,7 @@ select,
     position: absolute;
     left: var(--readerCtrl_left);
     top: calc(var(--reader_top) + 4rem + 2rem);
-    font-size: 1.8rem;
+    font-size: var(--readerCtrl_fs);
     background-color: var(--color-box);
     /* line-height: 4rem; */
     padding-left: var(--navbtn_padding);
@@ -867,8 +868,8 @@ select,
 }
 
 .reader-index-h2 {
-    font-size: 1.8rem;
-    line-height: 2.5rem;
+    font-size: var(--readerCtrl_fs);
+    line-height: calc(var(--readerCtrl_fs) * 1.5);
     color: var(--color-basic);
     transition: .3s;
     margin-bottom: 1rem;
@@ -922,11 +923,11 @@ select,
 input {
     border: none;
     outline: none;
-    width: 6rem;
+    width: calc(var(--input_fs) * 3);
     padding: 1rem;
     background-color: var(--color-input);
     font-family: 'consolas';
-    font-size: 2rem;
+    font-size: var(--input_fs);
     transition: .3s;
     border-bottom: 2px solid transparent;
 }

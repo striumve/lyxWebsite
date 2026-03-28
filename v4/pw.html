@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/public/images/logo.jpg" sizes="32x32">
+    <link rel="stylesheet" href="/v4/style/publicStyle.css">
+    <title>密码 - 竹芒雨蹊</title>
+    <style>
+        :root {
+            user-select: none;
+            cursor: url(../../public/cursor/normal.cur), default;
+            --input_fs: 2rem;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+            /* background-color:blanchedalmond; */
+        }
+
+        input {
+            border: none;
+            outline: none;
+            width: calc(var(--input_fs) * 30);
+            padding: 1rem;
+            background-color: var(--color-input);
+            font-family: 'consolas';
+            font-size: var(--input_fs);
+            transition: .3s;
+            border-bottom: 2px solid transparent;
+        }
+
+        input:hover,
+        input:focus {
+            background-color: var(--color-input_hover);
+            /* outline: none; */
+        }
+
+        input:focus {
+            border-bottom: 2px solid var(--color-theme);
+            outline: none !important;
+        }
+
+        .bg {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: url(/v4/images/background.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: -999;
+        }
+
+        .head {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 5rem;
+            background-color: var(--color-stdHead);
+            color: var(--color-basic);
+            backdrop-filter: blur(1rem);
+        }
+
+        .head-name {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 2rem;
+            line-height: 5rem;
+            margin-left: 2rem;
+            font-family: 'siyuan';
+        }
+
+        .head-back {
+            position: absolute;
+            top: 0;
+            right: 0;
+            text-decoration: none;
+            color: var(--color-basic);
+            font-size: 2rem;
+            line-height: 5rem;
+            margin-right: 2rem;
+            font-family: 'pingfang';
+            transition: .3s;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .head-back:hover {
+            background-color: var(--color-stdHead_hover);
+        }
+
+        table {
+            display: block;
+            border-spacing: 2em;
+        }
+
+        .box {
+            /* text-align: center; */
+            margin-left: 20rem;
+            margin-top: 20rem;
+            font-size: 2rem;
+            font-family: 'pingfang';
+        }
+
+        .btn {
+            outline: none;
+            border: none;
+            background-color: var(--color-btn);
+            font-size: 2rem;
+            width: var(--tool_btn_width);
+            height: 5rem;
+            text-align: center;
+            line-height: 5rem;
+            margin-top: 2rem;
+            margin-right: 2rem;
+            margin-left: 6em;
+            transition: .2s;
+            color: black;
+        }
+
+        .btn:hover {
+            background-color: var(--color-btn_hover);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg"></div>
+    <div class="head">
+        <div class="head-name">竹芒雨蹊 | <span style="font-family: 'pingfang';">输入密码</span></div>
+        <a href="/v4/index.html" class="head-back">返回主页</a>
+    </div>
+    <div class="placeholder" style="height: 5rem;"> </div>
+
+    <div class="box">
+        <table>
+            <tr>
+                <td>密码</td>
+                <td><input type="password" id="pw"></td>
+            </tr>
+            <tr>
+                <td>Salt</td>
+                <td><input type="password" id="salt"></td>
+            </tr>
+        </table>
+        <button class="btn">验证</button>
+    </div>
+</body>
+
+<script>
+    const root = document.querySelector(':root');
+    if (localStorage.scheme == 1) {
+        document.querySelector(".bg").style.background = 'url(/v4/images/bg_night.png)';
+        root.style.setProperty('--color-stdHead', 'rgba(69, 99, 164, .5)');
+        root.style.setProperty('--color-stdHead_hover', 'rgba(69, 99, 164, .8)');
+        root.style.setProperty('--color-basic', 'rgba(220, 220, 220, .95)');
+    }
+
+    async function sha256(message) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(message);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    async function verify(pw, salt) {
+        const saltedInput = `${pw}${salt}`;
+
+        // 2. 生成基础哈希
+        const baseHash = await sha256(saltedInput);
+
+        // 4. 二次混淆：对哈希的部分内容进行置换（基于输入字符的简单变换）
+        let obfuscatedHash = '';
+        for (let i = 0; i < baseHash.length; i++) {
+            // 使用pw字符串的字符码作为偏移（循环使用）
+            const offset = pw.charCodeAt(i % pw.length) % 16;
+            const charCode = parseInt(baseHash[i], 16);
+            const newChar = (charCode + offset) % 16;
+            obfuscatedHash += newChar.toString(16);
+        }
+
+        // console.log(obfuscatedHash);
+        // console.log(baseHash);
+
+        if (obfuscatedHash === '5c781071dee9d7c2f1f3f232cf902bef5d67de171ab2b80b1d5d7251f366113a') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    async function check() {
+        let res = await verify(document.querySelector('#pw').value, document.querySelector('#salt').value);
+        console.log(res);
+        if(res == false) {
+            alert('false');
+        } else if(res == true) {
+            // alert('true');
+        }
+        return res;
+    }
+
+    document.querySelector('.btn').addEventListener('click', function() {
+        check();
+    });
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            check();
+        }
+    });
+</script>
+
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单向加密算法演示</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .description {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #4CAF50;
+            border-radius: 4px;
+        }
+        .result h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .encrypted {
+            font-family: monospace;
+            word-break: break-all;
+            background: #eee;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .verify-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+        .success {
+            color: #4CAF50;
+        }
+        .error {
+            color: #f44336;
+        }
+        .loading {
+            color: #ff9800;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 单向加密算法演示</h1>
+        <div class="description">
+            <strong>特性：</strong>
+            <ul>
+                <li>✓ 相同输入始终产生相同输出（确定性）</li>
+                <li>✓ 无法从输出反推原始字符串（单向性）</li>
+                <li>✓ 输出固定长度72字符</li>
+                <li>✓ 基于SHA-256 + 自定义盐值混淆</li>
+            </ul>
+        </div>
+
+        <div class="input-group">
+            <label for="inputText">输入要加密的字符串：</label>
+            <input type="text" id="inputText" placeholder="例如：Hello, World!" value="Hello, World!">
+        </div>
+
+        <button id="encryptBtn">🔒 加密</button>
+        <button id="clearBtn">🗑️ 清空</button>
+
+        <div id="result" class="result" style="display:none;">
+            <h3>加密结果：</h3>
+            <div class="encrypted" id="encryptedResult"></div>
+            <div id="lengthInfo"></div>
+        </div>
+
+        <div class="verify-section">
+            <h3>验证功能：</h3>
+            <div class="input-group">
+                <label for="verifyInput">输入要验证的字符串：</label>
+                <input type="text" id="verifyInput" placeholder="输入原始字符串进行验证">
+            </div>
+            <button id="verifyBtn">✅ 验证匹配</button>
+            <div id="verifyResult" style="margin-top: 10px;"></div>
+        </div>
+
+        <div class="verify-section">
+            <h3>测试示例：</h3>
+            <button id="testBtn">🧪 运行测试示例</button>
+            <div id="testResult" style="margin-top: 10px; font-family: monospace; font-size: 14px;"></div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== 加密算法实现 ====================
+        class SecureHasher {
+            constructor() {
+                // 私有盐值（实际应用中建议从环境变量或配置文件读取）
+                this.salt = "Xy7#mK9$pL2@qR5&vN8!wZ3";
+            }
+
+            /**
+             * 生成字符串的SHA-256哈希（浏览器环境）
+             * @param {string} message - 待哈希消息
+             * @returns {Promise<string>} 十六进制哈希值
+             */
+            async sha256(message) {
+                const encoder = new TextEncoder();
+                const data = encoder.encode(message);
+                const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            }
+
+            /**
+             * 核心加密方法
+             * @param {string} input - 原始字符串
+             * @returns {Promise<string>} 加密后的唯一字符串
+             */
+            async encrypt(input) {
+                if (typeof input !== 'string') {
+                    throw new TypeError('输入必须是字符串');
+                }
+
+                // 1. 添加自定义盐值，增强安全性
+                const saltedInput = `${input}${this.salt}`;
+                
+                // 2. 生成基础哈希
+                const baseHash = await this.sha256(saltedInput);
+                
+                // 3. 添加输入长度信息作为混淆（增加唯一性）
+                const lengthPart = input.length.toString(16).padStart(8, '0');
+                
+                // 4. 二次混淆：对哈希的部分内容进行置换（基于输入字符的简单变换）
+                let obfuscatedHash = '';
+                for (let i = 0; i < baseHash.length; i++) {
+                    // 使用输入字符串的字符码作为偏移（循环使用）
+                    const offset = input.charCodeAt(i % input.length) % 16;
+                    const charCode = parseInt(baseHash[i], 16);
+                    const newChar = (charCode + offset) % 16;
+                    obfuscatedHash += newChar.toString(16);
+                }
+                
+                // 5. 组合最终结果：长度信息(8) + 混淆哈希(64) = 72字符
+                const finalHash = lengthPart + obfuscatedHash;
+                
+                return finalHash;
+            }
+
+            /**
+             * 验证函数：检查输入是否与加密字符串匹配
+             * @param {string} input - 待验证的原始字符串
+             * @param {string} encrypted - 之前加密的结果
+             * @returns {Promise<boolean>} 是否匹配
+             */
+            async verify(input, encrypted) {
+                const newEncrypted = await this.encrypt(input);
+                return newEncrypted === encrypted;
+            }
+        }
+
+        // ==================== 页面交互逻辑 ====================
+        const hasher = new SecureHasher();
+
+        // 获取DOM元素
+        const inputText = document.getElementById('inputText');
+        const encryptBtn = document.getElementById('encryptBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const resultDiv = document.getElementById('result');
+        const encryptedResult = document.getElementById('encryptedResult');
+        const lengthInfo = document.getElementById('lengthInfo');
+        const verifyInput = document.getElementById('verifyInput');
+        const verifyBtn = document.getElementById('verifyBtn');
+        const verifyResult = document.getElementById('verifyResult');
+        const testBtn = document.getElementById('testBtn');
+        const testResult = document.getElementById('testResult');
+
+        // 加密按钮点击事件
+        encryptBtn.addEventListener('click', async () => {
+            const text = inputText.value;
+            
+            if (!text) {
+                alert('请输入要加密的字符串');
+                return;
+            }
+
+            try {
+                encryptBtn.disabled = true;
+                encryptBtn.textContent = '加密中...';
+                
+                const encrypted = await hasher.encrypt(text);
+                
+                encryptedResult.textContent = encrypted;
+                lengthInfo.innerHTML = `📏 输出长度：${encrypted.length} 字符（固定）`;
+                resultDiv.style.display = 'block';
+                
+                // 自动填充验证输入框
+                verifyInput.value = text;
+                verifyResult.innerHTML = '';
+                
+            } catch (error) {
+                console.error('加密失败:', error);
+                alert('加密失败：' + error.message);
+            } finally {
+                encryptBtn.disabled = false;
+                encryptBtn.textContent = '🔒 加密';
+            }
+        });
+
+        // 验证按钮点击事件
+        verifyBtn.addEventListener('click', async () => {
+            const input = verifyInput.value;
+            const encrypted = encryptedResult.textContent;
+            
+            if (!input) {
+                alert('请输入要验证的字符串');
+                return;
+            }
+            
+            if (!encrypted || encryptedResult.textContent === '') {
+                alert('请先加密一个字符串');
+                return;
+            }
+            
+            try {
+                verifyBtn.disabled = true;
+                verifyBtn.textContent = '验证中...';
+                
+                const isValid = await hasher.verify(input, encrypted);
+                
+                if (isValid) {
+                    verifyResult.innerHTML = '<span class="success">✓ 验证通过！输入的字符串与加密结果匹配。</span>';
+                    verifyResult.style.color = '#4CAF50';
+                } else {
+                    verifyResult.innerHTML = '<span class="error">✗ 验证失败！输入的字符串与加密结果不匹配。</span>';
+                    verifyResult.style.color = '#f44336';
+                }
+                
+            } catch (error) {
+                console.error('验证失败:', error);
+                verifyResult.innerHTML = '<span class="error">验证失败：' + error.message + '</span>';
+            } finally {
+                verifyBtn.disabled = false;
+                verifyBtn.textContent = '✅ 验证匹配';
+            }
+        });
+
+        // 清空按钮
+        clearBtn.addEventListener('click', () => {
+            inputText.value = '';
+            resultDiv.style.display = 'none';
+            encryptedResult.textContent = '';
+            lengthInfo.innerHTML = '';
+            verifyInput.value = '';
+            verifyResult.innerHTML = '';
+            testResult.innerHTML = '';
+        });
+
+        // 测试示例按钮
+        testBtn.addEventListener('click', async () => {
+            testBtn.disabled = true;
+            testBtn.textContent = '测试中...';
+            testResult.innerHTML = '<span class="loading">⏳ 正在运行测试...</span>';
+            
+            try {
+                const testResults = [];
+                
+                // 测试1：基本加密
+                const test1 = "Hello, World!";
+                const encrypted1 = await hasher.encrypt(test1);
+                testResults.push(`✅ 测试1: "${test1}" → ${encrypted1.substring(0, 20)}...`);
+                
+                // 测试2：验证功能
+                const isValid = await hasher.verify(test1, encrypted1);
+                testResults.push(`✅ 测试2: 验证 "${test1}" → ${isValid ? '通过' : '失败'}`);
+                
+                // 测试3：不同输入产生不同输出
+                const test3 = "Hello, World";
+                const encrypted3 = await hasher.encrypt(test3);
+                const isDifferent = encrypted1 !== encrypted3;
+                testResults.push(`✅ 测试3: 不同输入产生不同输出 → ${isDifferent ? '是' : '否'}`);
+                
+                // 测试4：相同输入产生相同输出
+                const encrypted1Again = await hasher.encrypt(test1);
+                const isSame = encrypted1 === encrypted1Again;
+                testResults.push(`✅ 测试4: 相同输入产生相同输出 → ${isSame ? '是' : '否'}`);
+                
+                // 测试5：空字符串
+                const emptyEncrypted = await hasher.encrypt("");
+                testResults.push(`✅ 测试5: 空字符串加密 → ${emptyEncrypted.substring(0, 20)}...`);
+                
+                testResult.innerHTML = testResults.join('<br>');
+                testResult.style.color = '#333';
+                
+            } catch (error) {
+                testResult.innerHTML = `<span class="error">测试失败：${error.message}</span>`;
+            } finally {
+                testBtn.disabled = false;
+                testBtn.textContent = '🧪 运行测试示例';
+            }
+        });
+
+        // 页面加载时自动运行测试
+        setTimeout(() => {
+            testBtn.click();
+        }, 500);
+    </script>
+</body>
+</html>

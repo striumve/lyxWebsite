@@ -70,8 +70,8 @@ document.addEventListener('DOMContentLoaded', loadArticleList);
 
 <h2>2.移动端适配</h2>
 <h3>2.1.原理</h3>
-<p>在version1和2版本中，我采用的方案是另外制作一个mobile页面，该页面的css样式专为移动端设计。这导致每次更新页面都需要改动多个文件，且跳转加载需要时间。</p>
-<p>version4（当前）版本则是采用另一个方案，即电脑和手机端都使用同一个页面，通过修改css变量的方式来更改样式布局。</p>
+<p>在v1和2版本中，我采用的方案是另外制作一个mobile页面，该页面的css样式专为移动端设计。这导致每次更新页面都需要改动多个文件，且跳转加载需要时间。</p>
+<p>v4（当前）版本则是采用另一个方案，即电脑和手机端都使用同一个页面，通过修改css变量的方式来更改样式布局。</p>
 <h3>2.2.实现</h3>
 <p>在style.css文件中存储css变量。例如：</p>
 <pre><code class="language-css">:root {
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', loadArticleList);
     --padding_top: 10vh;
 }</code></pre>
 <p>在js文件中，识别当前用户是否使用移动端设备。</p>
-<p>在version1和2版本中，我使用获取浏览器标识的方法：</p>
+<p>在v1和2版本中，我使用获取浏览器标识的方法：</p>
 <pre><code class="language-javascript">// 都是从网上复制粘贴来的，我也不知道原理是什么（小声
 var deviceFlag = 1;
 var thisOS = navigator.platform;

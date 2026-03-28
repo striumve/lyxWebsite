@@ -12,6 +12,7 @@ console.log('%c%s',
     |   \\________||     \\_//         /_//       \\_\\\\   \n\
     *-------------------------------------------------\n');
 
+console.log(`Welcome!\n版本：${currentVersion}\n更新日期：${latestUpdateTime}`);
 
 var url = new URL(window.location.href);
 var urlParams = new URLSearchParams(url.search);
@@ -154,7 +155,7 @@ function switchMode(mode) {
     if (mode == 1) {
         scheme = 1;
         localStorage.setItem('scheme', scheme);
-        document.querySelector('.background').style.background = 'url(/version4/images/bg_night.png)';
+        document.querySelector('.background').style.background = 'url(/v4/images/bg_night.png)';
         document.querySelector('.background').style.backgroundSize = 'cover';
         document.querySelector('.other-mode-option-1').selected = true;
         root.style.setProperty('--color-bodyBackground', 'rgb(118, 140, 206)');
@@ -175,7 +176,7 @@ function switchMode(mode) {
     } else if (mode == 0) {
         scheme = 0;
         localStorage.setItem('scheme', scheme);
-        document.querySelector('.background').style.background = 'url(/version4/images/background.png)';
+        document.querySelector('.background').style.background = 'url(/v4/images/background.png)';
         document.querySelector('.background').style.backgroundSize = 'cover';
         document.querySelector('.other-mode-option-0').selected = true;
         root.style.removeProperty('--color-bodyBackground');
@@ -217,7 +218,9 @@ function start() {
         document.querySelector(".home").style.animation = 'public_show ease .5s both';
         document.querySelector(".start").style.display = 'none';
     }, 300)
-    playMusic();
+    if (localStorage.getItem('debug_stopAutoMusicPlay') == undefined || localStorage.getItem('debug_stopAutoMusicPlay') != 1) {
+        playMusic();
+    }
 }
 
 function quickstart() {
@@ -233,7 +236,9 @@ function close() {
         document.querySelector(".start").style.animation = 'public_show ease .5s both';
         document.querySelector(".home").style.display = 'none';
     }, 300)
-    playMusic();
+    if (localStorage.getItem('debug_stopAutoMusicPlay') == undefined || localStorage.getItem('debug_stopAutoMusicPlay') != 1) {
+        playMusic();
+    }
 }
 
 document.querySelector(".start-btn").addEventListener("click", start);
@@ -320,7 +325,6 @@ var pageSelector = [zeroPage, talkPage, artiPage, linkPage, toolPage, othePage, 
 //                  0         1         2         3         4         5         6
 var btnSelector = [zeroBtn, talkBtn, artiBtn, linkBtn, toolBtn, otheBtn, abouBtn];
 
-var is_linkpage_has_shown = 0;
 var is_talkpage_has_shown = 0;
 // 用于记录该page是否已经至少在界面上显示过一次。在display为none时加载瀑布流会出错。
 
@@ -369,10 +373,6 @@ artiBtn.addEventListener("click", function () {
 
 linkBtn.addEventListener("click", function () {
     changePage(curPage, 3, pageSelector[curPage], pageSelector[3]);
-    if (!is_linkpage_has_shown) {
-        loadWaterfall(3);
-        is_linkpage_has_shown = 1;
-    }
 })
 
 toolBtn.addEventListener("click", function () {
@@ -391,11 +391,7 @@ abouBtn.addEventListener("click", function () {
 var openPage = urlParams.get('page');
 if (openPage) {
     changePage(curPage, openPage, pageSelector[curPage], pageSelector[openPage]);
-    if (openPage == 3 && !is_linkpage_has_shown) {
-        loadWaterfall(3);
-        is_linkpage_has_shown = 1;
-    }
-    if (openPage == 1 && !is_linkpage_has_shown) {
+    if (openPage == 1 && !is_talkpage_has_shown) {
         loadWaterfall(1);
         is_talkpage_has_shown = 1;
     }
@@ -467,7 +463,7 @@ pauseBtn.addEventListener('click', pauseMusic)
 
 async function loadTalks() {
     try {
-        const response = await fetch('/version4/talks.json');
+        const response = await fetch('/v4/talks.json');
         const talks = await response.json();
         displayTalks(talks);
     } catch (error) {
@@ -508,7 +504,7 @@ function displayTalks(talks) {
 //加载文章列表
 async function loadArticleList() {
     try {
-        const response = await fetch('/version4/articles/articles.json');
+        const response = await fetch('/v4/articles/articles.json');
         const articles = await response.json();
         // displayArticleList(articles);
         const container = document.querySelector(".article");
@@ -551,7 +547,7 @@ async function openReader(id) {
 
 
     try {
-        const response = await fetch('/version4/articles/article' + id + '.html');
+        const response = await fetch('/v4/articles/article' + id + '.html');
         const articles = await response.text();
         // displayArticleList(articles);
         const container = document.querySelector(".reader-container");
@@ -840,12 +836,6 @@ document.querySelector('.reader-setting-default').addEventListener('click', func
 function loadWaterfall(pageNum) {
     switch (pageNum) {
         case 3:
-            new Masonry('.link', {
-                itemSelector: '.link-item-grid',
-                columnWidth: '.link-item-grid'
-                // itemSelector: '.pageitem',
-                // columnWidth: '.pageitem'
-            });
             break;
         case 1:
             new Masonry('.talk', {
@@ -863,7 +853,7 @@ function loadWaterfall(pageNum) {
 document.addEventListener('DOMContentLoaded', () => {
     loadTalks(); //talks瀑布流布局包含在函数中
     loadArticleList();
-    loadWaterfall(3);
+    // loadWaterfall(3);
 });
 
 // 工具
