@@ -1,0 +1,47 @@
+<br>
+<h1>nginx服务器+Node.js后端配置</h1>
+<h6><span style="font-family: 'icomoon'; font-weight: 400;"></span> 2026/03/29 &emsp14; <span
+        style="font-family: 'icomoon';"></span> 芒蹊 &emsp14; # 技术</h6>
+
+<h2>0.准备</h2>
+<p>这里以Windows系统为例。首先安装所需的软件或环境：<a href="https://nodejs.org/zh-cn/download" target="_blank">Node.js</a>，<a href="https://nginx.org/en/download.html" target="_blank">nginx</a></p>
+
+<h2>1.配置Node.js</h2>
+<p>在网站根目录下新建<span class="inline-code">app.js</span>文件，写入以下内容</p>
+<pre><code>const http = require('http');
+
+const server = http.createServer((req, res) => {
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    // 在此处处理后端服务
+    res.end('Hello World');
+});
+
+const port = process.env.PORT || 3000;   // Node.js默认监听端口为3000
+server.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});</code></pre>
+<p>在终端中打开该根目录，运行Node.js</p>
+<pre><code class="language-shell">node app.js</code></pre>
+
+<h2>2.配置反向代理</h2>
+<p>在nginx.conf中加入以下配置</p>
+<pre><code>location /api/ {
+    proxy_pass http://127.0.0.1:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+}</code></pre>
+<p>这可以把所有以hostname/api/开头的请求转交给Node.js来处理，此处即由app.js处理。</p>
+
+<h2>3.设置开机自启动</h2>
+<p>在Windows环境中，可以使用任务计划程序来配置开机自启动。使用快捷键<span class="inline-code">Win + R</span>打开运行框，输入<span class="inline-code">taskschd.msc</span>并回车，打开任务计划程序窗口。</p>
+<p>点击“创建基本任务”，按照提示操作：输入任务名称，设置任务运行时间（计算机启动时），选择类型为“启动程序”，然后选择nginx.exe。</p>
+<p>对于Node.js，需要使用<a href="https://pm2.node.org.cn/" target="_blank">pm2进程管理器</a>：</p>
+<pre><code class="language-shell">npm install pm2 -g</code></pre>
+<p>-g参数意味global全局安装。接下来，app.js所在目录中打开终端，输入以下命令</p>
+<pre><code class="language-shell">pm2 start app.js
+pm2 save
+pm2 startup</code></pre>
+<p>对于Windows系统，无法使用startup命令来设置开机自启动。我们仍然使用任务计划程序，选择启动程序为<span class="inline-code">C:\Users\user\AppData\Roaming\npm\pm2.cmd</span>即可。</p>

@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>竹芒雨蹊</title>
+    <title>竹芒云蹊</title>
     <link rel="icon" href="/public/images/logo.jpg" sizes="32x32">
     <meta name="description" itemprop="description" content="欢迎分享">
     <meta itemprop="name" content="lyx的个人网站">
     <meta itemprop="image" content="/public/images/logo.jpg">
-    <meta name="description" content="竹芒雨蹊">
-    <meta property="og:title" content="竹芒雨蹊">
+    <meta name="description" content="竹芒云蹊">
+    <meta property="og:title" content="竹芒云蹊">
     <meta property="og:description" content="lyx的个人网站">
     <meta property="og:image" content="/public/images/logo.jpg">
     <meta property="og:url" content="http://lyxlyx.top">
@@ -23,6 +23,7 @@
     <style>
         .menu {
             width: 200px;
+            height: 200px;
             /* padding: 10px; */
             /* border: 1px solid #ddd; */
             background-color: rgba(248, 149, 136, 0);
@@ -30,6 +31,7 @@
             opacity: 0;
             position: absolute;
             top: 0;
+            left: 0;
             /* border-radius: 5px; */
             z-index: 1000;
             /* box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2); */
@@ -42,6 +44,10 @@
 </head>
 
 <body>
+    <div class="menu">
+        <!-- <div class="menu-item">&emsp;&emsp;ヾ(^▽^*))) &emsp;&emsp;</div> -->
+        <img src="images/bocchi.png" alt="ヾ(^▽^*)))">
+    </div>
     <div class="main">
         <!-- <audio src="./music/Peaceful Hike.mp3" class="bgm1" loop></audio>
         <audio src="./music/晚安喵.mp3" class="bgm2" loop preload="none"></audio> -->
@@ -54,17 +60,13 @@
         <div class="background"></div>
 
         <!-- 鼠标右键菜单 -->
-        <div class="menu">
-            <!-- <div class="menu-item">&emsp;&emsp;ヾ(^▽^*))) &emsp;&emsp;</div> -->
-            <img src="images/bocchi.png" alt="ヾ(^▽^*)))">
-        </div>
 
         <!-- 占位 -->
         <!-- <div class="pageHold"></div> -->
 
         <!-- 启动页 -->
         <div class="start" style="opacity: 1;display: block;">
-            <p class="start-title"><span style="font-size: 3.5rem">竹芒雨蹊</span><br>Jade Raintrail</p>
+            <p class="start-title"><span class="start-title-ch">竹芒云蹊</span><br>Jade Cloudtrail</p>
             <button class="start-btn">进入空间</button>
         </div>
 
@@ -76,8 +78,8 @@
                 <div class="time"></div>
                 <div class="box info1">
                     <div class="info1-logo"></div>
-                    <div class="info1-msg" style="font-family: siyuan;font-size: 2.5rem; "><span>竹芒雨蹊</span><br><span
-                            style="font-size: 2.2rem;">Jade Raintrail</span></div>
+                    <div class="info1-msg" style="font-family: siyuan;font-size: 2.5rem; "><span>竹芒云蹊</span><br><span
+                            style="font-size: 2.2rem;">Jade Cloudtrail</span></div>
                     <!-- <div class="info1-welcome">欢迎来到lyx的个人网站！</div> -->
                 </div>
 
@@ -117,6 +119,7 @@
                 <button class="nav-btn nav-btn-tool">工具</button>
                 <button class="nav-btn nav-btn-other">其他</button>
                 <button class="nav-btn nav-btn-about">关于</button>
+                <button class="nav-btn nav-btn-cmnt">留言</button>
             </div>
 
             <div class="music" style="font-family: 'icomoon';">
@@ -152,16 +155,19 @@
                         <a href="/public/diary4.html" class="link-item-a">网页开发日志</a><br>
                         <a href="/welcome.html" class="link-item-a">欢迎页</a><br>
                         <a href="/error/403.html" class="link-item-a">陈奕迅的歌</a><br>
+                        <a href="pw.html" class="link-item-a">自用</a><br>
                     </div>
                     <div class="pageitem link-item">
                         <div class="link-item-title">个人主页</div>
-                        <a href="https://github.com/striumve/lyxWebsite" class="link-item-a" target="_blank">GitHub主页</a><br>
-                        <a href="https://space.bilibili.com/1353555452" class="link-item-a" target="_blank">Bilibili主页</a><br>
+                        <a href="https://github.com/striumve/lyxWebsite" class="link-item-a"
+                            target="_blank">GitHub主页</a><br>
+                        <a href="https://space.bilibili.com/1353555452" class="link-item-a"
+                            target="_blank">Bilibili主页</a><br>
                     </div>
                     <div class="pageitem link-item">
                         <div class="link-item-title">其他</div>
                         <a href="https://www.cloudflare-cn.com/" class="link-item-a" target="_blank">CloudFlare</a><br>
-                        <a href="https://www.jsdelivr.com/" class="link-item-a" target="_blank">jsDelivr</a><br>
+                        <a href="https://node.org.cn/en" class="link-item-a" target="_blank">Node.js</a><br>
                     </div>
                 </div>
 
@@ -171,11 +177,45 @@
                         <div class="tool-qr-main">
                             <div class="tool-qr-left">
                                 <p class="tool-qr-p">请输入二维码要包含的内容</p>
-                                <textarea class="tool-qr-ta" draggable="false" placeholder="文本或网址"></textarea>
+                                <textarea class="tool-qr-ta" draggable="false" placeholder="文本或网址"></textarea><br>
                                 <button class="tool-qr-btn">生成</button>
                                 <button class="tool-qr-dl">下载</button>
                             </div>
                             <div class="tool-qr-output"></div>
+                        </div>
+                    </div>
+                    <div class="pageitem tool-item">
+                        <div class="tool-item-title">调色盘</div> <!-- 调色盘：palette -->
+                        <div class="tool-plt-flex">
+                            <div class="tool-plt-left">
+                                <div class="tool-plt-rgb">
+                                    <p class="tool-plt-subtitle">RGB</p>
+                                    <label>R <input type="number" class="tool-plt-rgb-r" max="255" min="0" step="1"
+                                            value="1"></label>
+                                    <label>G <input type="number" class="tool-plt-rgb-g" max="255" min="0" step="1"
+                                            value="150"></label>
+                                    <label>B <input type="number" class="tool-plt-rgb-b" max="255" min="0" step="1"
+                                            value="47"></label>
+                                </div>
+                                <div class="tool-plt-hex">
+                                    <p class="tool-plt-subtitle">HEX</p>
+                                    <label># <input type="text" class="tool-plt-hex" id="tool-plt-hex" value="01962F"
+                                            style="width: 10em;"></label>
+
+                                </div>
+                                <div class="tool-plt-hsl">
+                                    <p class="tool-plt-subtitle">HSL</p>
+                                    <label>H <input type="number" class="tool-plt-hsl-h" max="360" min="0" step="1"
+                                            value="139"></label>
+                                    <label>S <input type="number" class="tool-plt-hsl-s" max="100" min="0" step="0.1"
+                                            value="98.7"></label>
+                                    <label>L <input type="number" class="tool-plt-hsl-l" max="100" min="0" step="0.1"
+                                            value="29.6"></label>
+                                </div>
+                            </div>
+                            <div class="tool-plt-right">
+                                <div class="tool-plt-view"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -202,10 +242,11 @@
                         </div>
                     </div>
                     <div class="pageitem about-item">
-                        <div class="about-item-title">「芒蹊」</div>
+                        <div class="about-item-title">「芒蹊」与「竹芒云蹊」</div>
                         <div class="about-item-content">
                             “芒”是来自苏轼的“竹杖芒鞋轻胜马，谁怕？一蓑烟雨任平生”<br>
                             “蹊”是来自“桃李不言，下自成蹊”<br>
+                            “云”：“去留无意，漫随天外云卷云舒”<br>
                             只要做好自己，不必在意世界纷繁扰攘
                         </div>
                     </div>
@@ -232,21 +273,24 @@
                                         <td><a href="https://masonry.desandro.com/" target="_blank">官方网站</a></td>
                                         <td><a href="https://github.com/desandro/masonry" target="_blank">GitHub仓库</a>
                                         </td>
-                                        <td><a href="https://desandro.mit-license.org/">MIT License</a></td>
+                                        <td><a href="https://desandro.mit-license.org/" target="_blank">MIT License</a>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>imagesLoaded</td>
                                         <td><a href="https://imagesloaded.desandro.com/" target="_blank">官方网站</a></td>
                                         <td><a href="https://github.com/desandro/imagesloaded"
                                                 target="_blank">GitHub仓库</a></td>
-                                        <td><a href="https://desandro.mit-license.org/">MIT License</a></td>
+                                        <td><a href="https://desandro.mit-license.org/" target="_blank">MIT License</a>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>highlight.js</td>
                                         <td><a href="https://highlightjs.org/" target="_blank">官方网站</a></td>
                                         <td><a href="https://github.com/highlightjs/highlight.js"
                                                 target="_blank">GitHub仓库</a></td>
-                                        <td><a href="https://github.com/highlightjs/highlight.js/blob/main/LICENSE">BSD
+                                        <td><a href="https://github.com/highlightjs/highlight.js/blob/main/LICENSE"
+                                                target="_blank">BSD
                                                 3-Clause License</a></td>
                                     </tr>
                                     <tr>
@@ -254,14 +298,16 @@
                                         <td> </td>
                                         <td><a href="https://github.com/yauhenipakala/highlightjs-line-numbers.js"
                                                 target="_blank">GitHub仓库</a></td>
-                                        <td><a href="https://desandro.mit-license.org/">MIT License</a></td>
+                                        <td><a href="https://desandro.mit-license.org/" target="_blank">MIT License</a>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>highlightjs-badge</td>
                                         <td> </td>
                                         <td><a href="https://github.com/RickStrahl/highlightjs-badge"
                                                 target="_blank">GitHub仓库</a></td>
-                                        <td><a href="https://desandro.mit-license.org/">MIT License</a></td>
+                                        <td><a href="https://desandro.mit-license.org/" target="_blank">MIT License</a>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>QRCode.js</td>
@@ -269,7 +315,8 @@
                                         </td>
                                         <td><a href="https://github.com/davidshimjs/qrcodejs"
                                                 target="_blank">GitHub仓库</a></td>
-                                        <td><a href="https://desandro.mit-license.org/">MIT License</a></td>
+                                        <td><a href="https://desandro.mit-license.org/" target="_blank">MIT License</a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -287,6 +334,31 @@
                             邮箱: <span
                                 style="user-select: all;cursor: url(../public/cursor/text.cur), default;">1041095264@qq.com</span><br>
                         </div>
+                    </div>
+                </div>
+
+                <div class="page cmnt" style="opacity: 0;display: none;">
+                    <div class="pageitem cmnt-make">
+                        <div class="cmnt-make-title">写留言</div>
+                        <table>
+                            <tr>
+                                <td>昵称</td>
+                                <td><input type="text" class="cmnt-input-name"></td>
+                            </tr>
+                            <tr>
+                                <td>留言</td>
+                                <td><textarea name="" class="cmnt-input-cont"></textarea></td>
+                            </tr>
+                        </table>
+                        <button class="cmnt-input-btn">发布</button>
+                    </div>
+                    <div class="cmnt-container">
+                        <div class="pageitem cmnt-item">
+                            <div class="cmnt-item-name">测试用户</div>
+                            <div class="cmnt-item-time">0000/00/00 00:00:00</div>
+                            <div class="cmnt-item-cont">这是一条测试留言</div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -357,26 +429,19 @@
         e.preventDefault(); //取消默认的浏览器自带右键 
         var evt = window.event || arguments[0];
         var menu = document.querySelector('.menu'); //获取右键菜单
-        var container = document.querySelector('body'); //获取区域
         /*获取当前鼠标右键按下后的位置，据此定义菜单显示的位置*/
-        var rightedge = container.clientWidth - evt.clientX;
-        var bottomedge = container.clientHeight - evt.clientY;
-        // console.log(container.clientHeight);
-        /*如果从鼠标位置到容器右边的空间小于菜单的宽度，就定位菜单的左坐标（Left）为当前鼠标位置向左一个菜单宽度*/
-        if (rightedge < menu.offsetWidth) {
-            menu.style.left = container.scrollLeft + evt.clientX - menu.offsetWidth + "px";
+        var leftedge = evt.clientX;
+        var topedge = evt.clientY;
+        if (leftedge >= window.innerWidth - 200) {
+            menu.style.left = leftedge - 220 + 'px';
         } else {
-            /*否则，就定位菜单的左坐标为当前鼠标位置*/
-            menu.style.left = container.scrollLeft + evt.clientX + "px";
+            menu.style.left = leftedge + 'px';
         }
-        /*如果从鼠标位置到容器下边的空间小于菜单的高度，就定位菜单的上坐标（Top）为当前鼠标位置向上一个菜单高度*/
-        if (bottomedge < menu.offsetHeight) {
-            menu.style.top = container.scrollTop + evt.clientY - menu.offsetHeight + "px";
+        if (topedge >= window.innerHeight - 200) {
+            menu.style.top = topedge - 220 + 'px';
         } else {
-            /*否则，就定位菜单的上坐标为当前鼠标位置*/
-            menu.style.top = container.scrollTop + evt.clientY + "px";
+            menu.style.top = topedge + 'px';
         }
-        /*设置菜单可见*/
         menu.style.visibility = 'visible';
         menu.style.animation = 'public_show ease .2s both';
     }

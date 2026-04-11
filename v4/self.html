@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/public/images/logo.jpg" sizes="32x32">
     <link rel="stylesheet" href="/v4/style/publicStyle.css">
-    <title>自用 - 竹芒雨蹊</title>
+    <title>自用 - 竹芒云蹊</title>
     <style>
         :root {
             user-select: none;
@@ -76,7 +76,7 @@
 <body>
     <div class="bg"></div>
     <div class="head">
-        <div class="head-name">竹芒雨蹊 | <span style="font-family: 'pingfang';">自用</span></div>
+        <div class="head-name">竹芒云蹊 | <span style="font-family: 'pingfang';">自用</span></div>
         <a href="/v4/index.html" class="head-back">返回主页</a>
     </div>
     <div class="placeholder" style="height: 5rem;"> </div>
@@ -88,6 +88,7 @@
     const root = document.querySelector(':root');
     if (localStorage.scheme == 1) {
         document.querySelector(".bg").style.background = 'url(/v4/images/bg_night.png)';
+        document.querySelector(".bg").style.backgroundSize = 'cover';
         root.style.setProperty('--color-stdHead', 'rgba(69, 99, 164, .5)');
         root.style.setProperty('--color-stdHead_hover', 'rgba(69, 99, 164, .8)');
         root.style.setProperty('--color-basic', 'rgba(220, 220, 220, .95)');

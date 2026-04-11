@@ -35,6 +35,9 @@
     /* vw -> rem : *2 ;  vh -> rem : *1 */
 
     --start_btn_width: 30rem;
+    --start_btn_height: 8rem;
+    --start_btn_line_bottom: 0;
+    --start_btn_fs: 3rem;
     --box_width: 40rem;
     --nav_width: 101px;
     --navbtn_height: 4rem;
@@ -44,6 +47,7 @@
     --padding_top: 10rem;
     --padding_top_minus: 5rem;
     --padding_top_plus: 15rem;
+    --talk_item_width: calc((100vw - var(--pages_left) - 5rem) / 2 - 20rem);
 
     --yiyan_margin: 4rem;
     --pages_columncount: 2;

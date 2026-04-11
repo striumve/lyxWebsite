@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/public/images/logo.jpg" sizes="32x32">
     <link rel="stylesheet" href="/v4/style/publicStyle.css">
-    <title>密码 - 竹芒雨蹊</title>
+    <title>密码 - 竹芒云蹊</title>
     <style>
         :root {
             user-select: none;
@@ -132,7 +132,7 @@
 <body>
     <div class="bg"></div>
     <div class="head">
-        <div class="head-name">竹芒雨蹊 | <span style="font-family: 'pingfang';">输入密码</span></div>
+        <div class="head-name">竹芒云蹊 | <span style="font-family: 'pingfang';">输入密码</span></div>
         <a href="/v4/index.html" class="head-back">返回主页</a>
     </div>
     <div class="placeholder" style="height: 5rem;"> </div>
@@ -143,10 +143,6 @@
                 <td>密码</td>
                 <td><input type="password" id="pw"></td>
             </tr>
-            <tr>
-                <td>Salt</td>
-                <td><input type="password" id="salt"></td>
-            </tr>
         </table>
         <button class="btn">验证</button>
     </div>
@@ -156,61 +152,31 @@
     const root = document.querySelector(':root');
     if (localStorage.scheme == 1) {
         document.querySelector(".bg").style.background = 'url(/v4/images/bg_night.png)';
+        document.querySelector(".bg").style.backgroundSize = 'cover';
         root.style.setProperty('--color-stdHead', 'rgba(69, 99, 164, .5)');
         root.style.setProperty('--color-stdHead_hover', 'rgba(69, 99, 164, .8)');
         root.style.setProperty('--color-basic', 'rgba(220, 220, 220, .95)');
     }
 
-    async function sha256(message) {
-        const encoder = new TextEncoder();
-        const data = encoder.encode(message);
-        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-    }
-
-    async function verify(pw, salt) {
-        const saltedInput = `${pw}${salt}`;
-
-        // 2. 生成基础哈希
-        const baseHash = await sha256(saltedInput);
-
-        // 4. 二次混淆：对哈希的部分内容进行置换（基于输入字符的简单变换）
-        let obfuscatedHash = '';
-        for (let i = 0; i < baseHash.length; i++) {
-            // 使用pw字符串的字符码作为偏移（循环使用）
-            const offset = pw.charCodeAt(i % pw.length) % 16;
-            const charCode = parseInt(baseHash[i], 16);
-            const newChar = (charCode + offset) % 16;
-            obfuscatedHash += newChar.toString(16);
-        }
-
-        // console.log(obfuscatedHash);
-        // console.log(baseHash);
-
-        if (obfuscatedHash === '5c781071dee9d7c2f1f3f232cf902bef5d67de171ab2b80b1d5d7251f366113a') {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     async function check() {
-        let res = await verify(document.querySelector('#pw').value, document.querySelector('#salt').value);
-        console.log(res);
-        if(res == false) {
-            alert('false');
-        } else if(res == true) {
-            // alert('true');
+        let res;
+        let pw = document.querySelector('#pw').value;
+        let response = await fetch(`/api/pw?verify=${pw}`)
+        res = await response.json();
+        console.log(res.verify);
+        if (res.verify == 'false') {
+            alert('密码错误');
+        } else if (res.verify == 'true') {
+            window.location.href = `${res.location}`;
         }
         return res;
     }
 
-    document.querySelector('.btn').addEventListener('click', function() {
+    document.querySelector('.btn').addEventListener('click', function () {
         check();
     });
 
-    document.addEventListener('keydown', function(event) {
+    document.addEventListener('keydown', function (event) {
         if (event.key === 'Enter') {
             check();
         }

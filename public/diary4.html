@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="../v4/style/publicStyle.css">
     <link rel="icon" href="/public/images/logo.jpg" sizes="32x32">
     <!-- <script src="./javascript/jQuery.js"></script> -->
-    <title>开发日志 - 竹芒雨蹊</title>
+    <title>开发日志 - 竹芒云蹊</title>
     <style>
         @media screen and (max-width: 500px) {
+
             /* 最小页面宽适配 */
             body {
                 width: 500px;
@@ -25,6 +26,8 @@
             --itemColor: rgba(200, 230, 200, .7);
             --itemColor-hover: rgba(126, 218, 148, 0.7);
             font-size: 10px;
+
+            --five-em: 5em;
         }
 
         body {
@@ -90,17 +93,21 @@
         }
 
         .item {
-            width: 90vw;
+            width: 60vw;
             height: auto;
             background-color: var(--itemColor);
             border-radius: 2rem;
             position: relative;
-            left: 4vw;
+            left: calc((40vw - var(--five-em) *2) /2);
             margin-bottom: 2rem;
-            padding: 1vw;
+            /* padding: 10rem; */
             transition: .5s;
             color: var(--textColor);
             z-index: 10;
+            padding-left: 5em;
+            padding-right: 5em;
+            padding-top: 7em;
+            padding-bottom: 2em;
         }
 
         .item:hover {
@@ -111,11 +118,12 @@
             display: inline-block;
             position: absolute;
             /* left: 1vw; */
-            top: 0vh;
+            top: 1em;
             font-size: 2.2rem;
             /* margin-left: 1vw; */
             font-family: 'consolas';
             margin-bottom: 0;
+            /* margin-bottom: 5em; */
             /* color: var(--color-theme); */
         }
 
@@ -124,8 +132,17 @@
             font-size: 2rem;
             /* position: absolute; */
             /* right: 1vw; */
-            text-align: right;
+            /* text-align: right; */
             /* margin: 2vh; */
+            margin-left: 2em;
+        }
+
+        .right::before {
+            content: '>';
+            font-family: 'consolas';
+            position: absolute;
+            left: 3.5em;
+            margin-top: 0.25em;
         }
 
         .container {
@@ -141,16 +158,28 @@
 <body>
     <div class="bg"></div>
     <div class="head">
-        <div class="head-name">竹芒雨蹊 | <span style="font-family: 'pingfang';">日志</span></div>
+        <div class="head-name">竹芒云蹊 | <span style="font-family: 'pingfang';">日志</span></div>
         <a href="/v4/index.html?page=3&start=1" class="head-back">返回主页</a>
     </div>
     <div class="container">
         <div class="placeholder" style="height: 5rem; "> </div>
         <div class="item">
+            <p class="left">2026.04.12 v4.4.1</p>
+            <p class="right">制作了调色盘工具</p>
+            <p class="right">修改了日志页布局</p>
+            <p class="right">修复了鼠标右键菜单会随页面滚动的bug</p>
+        </div>
+        <div class="item">
+            <p class="left">2026.03.29 v4.4.0</p>
+            <p class="right">制作了留言界面</p>
+            <p class="right">优化了移动端界面</p>
+        </div>
+        <div class="item">
             <p class="left">2026.03.28 v4.3.2</p>
             <p class="right">修改了链接页样式</p>
             <p class="right">修改了页面模糊效果</p>
             <p class="right">更改了文件夹命名</p>
+            <p class="right">引入了Node.js后端</p>
         </div>
         <div class="item">
             <p class="left">2026.03.08 v4.3.1</p>
@@ -238,6 +267,17 @@
 
 <script>
     const root = document.querySelector(':root');
+    // root.style.fontSize = (vw / 1912) * 10 + 'px';
+    var vw = document.documentElement.clientWidth;
+    var vh = document.documentElement.clientHeight;
+    var is_mobile = false;
+    if ((vw / vh) <= 1.2) {
+        is_mobile = true;
+    }
+    // root.style.fontSize = (vw / 1912) * 10 + 'px';
+    var root_rem_0 = (vw / 1912) <= (vh / 948) ? (vw / 1912) * 10 + 'px' : (vh / 948) * 10 + 'px';
+    var root_rem_1 = (vw / 1000) <= (vh / 2000) ? (vw / 1000) * 10 + 'px' : (vh / 2000) * 10 + 'px';
+    root.style.fontSize = is_mobile ? root_rem_1 : root_rem_0;
     if (localStorage.scheme == 1) {
         document.querySelector(".bg").style.background = 'url(/v4/images/bg_night.png)';
         document.querySelector(".bg").style.backgroundSize = 'cover';
