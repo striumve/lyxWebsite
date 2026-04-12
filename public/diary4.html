@@ -28,6 +28,9 @@
             font-size: 10px;
 
             --five-em: 5em;
+            --bg: url(/v4/images/background.png);
+            --cover: cover;
+            --no-repeat: no-repeat;
         }
 
         body {
@@ -41,9 +44,9 @@
             z-index: -999;
             width: 100%;
             height: 100%;
-            background: url(/v4/images/background.png);
-            background-size: cover;
-            background-repeat: no-repeat;
+            background: var(--bg);
+            background-size: var(--cover);
+            background-repeat: var(--no-repeat);
         }
 
         .head {
@@ -153,6 +156,31 @@
             overflow: auto;
         }
     </style>
+
+    <script>
+        const root = document.querySelector(':root');
+        // root.style.fontSize = (vw / 1912) * 10 + 'px';
+        var vw = document.documentElement.clientWidth;
+        var vh = document.documentElement.clientHeight;
+        var is_mobile = false;
+        if ((vw / vh) <= 1.2) {
+            is_mobile = true;
+        }
+        // root.style.fontSize = (vw / 1912) * 10 + 'px';
+        var root_rem_0 = (vw / 1912) <= (vh / 948) ? (vw / 1912) * 10 + 'px' : (vh / 948) * 10 + 'px';
+        var root_rem_1 = (vw / 1000) <= (vh / 2000) ? (vw / 1000) * 10 + 'px' : (vh / 2000) * 10 + 'px';
+        root.style.fontSize = is_mobile ? root_rem_1 : root_rem_0;
+        if (localStorage.scheme == 1) {
+            root.style.setProperty('--bg', 'url(/v4/images/bg_night.png)');
+            root.style.setProperty('--cover', 'cover');
+            root.style.setProperty('--no-repeat', 'no-repeat');
+            root.style.setProperty('--itemColor', 'rgba(170, 170, 200, .5)');
+            root.style.setProperty('--itemColor-hover', 'rgba(126, 148, 218, 0.5)');
+            root.style.setProperty('--color-stdHead', 'rgba(69, 99, 164, .5)');
+            root.style.setProperty('--color-stdHead_hover', 'rgba(69, 99, 164, .8)');
+            root.style.setProperty('--color-basic', 'rgba(220, 220, 220, .95)');
+        }
+    </script>
 </head>
 
 <body>
@@ -168,6 +196,7 @@
             <p class="right">制作了调色盘工具</p>
             <p class="right">修改了日志页布局</p>
             <p class="right">修复了鼠标右键菜单会随页面滚动的bug</p>
+            <p class="right">修复了夜间模式切换页面时背景闪烁的bug</p>
         </div>
         <div class="item">
             <p class="left">2026.03.29 v4.4.0</p>
@@ -264,30 +293,5 @@
         </div>
     </div>
 </body>
-
-<script>
-    const root = document.querySelector(':root');
-    // root.style.fontSize = (vw / 1912) * 10 + 'px';
-    var vw = document.documentElement.clientWidth;
-    var vh = document.documentElement.clientHeight;
-    var is_mobile = false;
-    if ((vw / vh) <= 1.2) {
-        is_mobile = true;
-    }
-    // root.style.fontSize = (vw / 1912) * 10 + 'px';
-    var root_rem_0 = (vw / 1912) <= (vh / 948) ? (vw / 1912) * 10 + 'px' : (vh / 948) * 10 + 'px';
-    var root_rem_1 = (vw / 1000) <= (vh / 2000) ? (vw / 1000) * 10 + 'px' : (vh / 2000) * 10 + 'px';
-    root.style.fontSize = is_mobile ? root_rem_1 : root_rem_0;
-    if (localStorage.scheme == 1) {
-        document.querySelector(".bg").style.background = 'url(/v4/images/bg_night.png)';
-        document.querySelector(".bg").style.backgroundSize = 'cover';
-        document.querySelector(".bg").style.backgroundRepeat = 'no-repeat';
-        root.style.setProperty('--itemColor', 'rgba(170, 170, 200, .5)');
-        root.style.setProperty('--itemColor-hover', 'rgba(126, 148, 218, 0.5)');
-        root.style.setProperty('--color-stdHead', 'rgba(69, 99, 164, .5)');
-        root.style.setProperty('--color-stdHead_hover', 'rgba(69, 99, 164, .8)');
-        root.style.setProperty('--color-basic', 'rgba(220, 220, 220, .95)');
-    }
-</script>
 
 </html>

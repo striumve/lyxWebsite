@@ -32,7 +32,9 @@
     --color-grey: rgba(150, 150, 150, 1);
     --color-darkgrey: rgba(100, 100, 100, 1);
 
-    /* vw -> rem : *2 ;  vh -> rem : *1 */
+    --bg: url(/v4/images/background.png);
+    --cover: cover;
+    --no-repeat: no-repeat;
 
     --start_btn_width: 30rem;
     --start_btn_height: 8rem;
@@ -75,7 +77,7 @@
     --input_fs: 2rem;
 }
 
-/* 最小页面宽 */
+/* 移动端适配 */
 @media screen and (max-width: 1600px) {}
 
 body {

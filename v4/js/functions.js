@@ -17,7 +17,7 @@ console.log(`Welcome!\n版本：${currentVersion}\n更新日期：${latestUpdate
 var url = new URL(window.location.href);
 var urlParams = new URLSearchParams(url.search);
 const body = document.querySelector("body");
-const root = document.querySelector(':root');
+// const root = document.querySelector(':root');  // 此处root声明已移动至html页面
 
 //debug_stopAutoMusicPlay
 
@@ -29,7 +29,7 @@ var is_mobile = false;
 if ((vw / vh) <= 1.2) {
     document.querySelector('.showInfo').style.display = 'block';
     is_mobile = true;
-    visionMobilise();
+    // visionMobilise();
 }
 
 // root.style.fontSize = (vw / 1912) * 10 + 'px';
@@ -154,7 +154,7 @@ document.querySelector('.showInfo').addEventListener('click', function () {
 
 //夜间模式
 // scheme 0 = bright, 1 = night
-let scheme;
+// let scheme;  // 此处的scheme定义移动至html文件<style>后方的script中
 if (localStorage.scheme != undefined) {
     scheme = localStorage.scheme;
 } else {
@@ -208,7 +208,6 @@ function switchMode(mode) {
     }
 }
 
-var getdate = new Date();
 if (scheme == 1) {
     switchMode(1);
 }

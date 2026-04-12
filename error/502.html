@@ -81,6 +81,18 @@
             font-size: 2rem;
         }
     </style>
+
+    <script>
+        const root = document.querySelector(':root');
+        if (localStorage.scheme == 1) {
+            root.style.setProperty('--bg', 'url(/v4/images/bg_night.png)');
+            root.style.setProperty('--cover', 'cover');
+            root.style.setProperty('--no-repeat', 'no-repeat');
+            root.style.setProperty('--color-stdHead', 'rgba(69, 99, 164, .5)');
+            root.style.setProperty('--color-stdHead_hover', 'rgba(69, 99, 164, .8)');
+            root.style.setProperty('--color-basic', 'rgba(220, 220, 220, .95)');
+        }
+    </script>
 </head>
 
 <body>
@@ -91,20 +103,10 @@
     </div>
     <div class="placeholder" style="height: 5rem;"> </div>
     <div class="msg">
-        <h1 style="font-family: 'Din';"><br><span style="font-family: 'pingfang';">: (</span> <br><br>502 Bad Gateway</h1>
+        <h1 style="font-family: 'Din';"><br><span style="font-family: 'pingfang';">: (</span> <br><br>502 Bad Gateway
+        </h1>
         <h1 style="font-family: 'pingfang';">无效的响应</h1>
     </div>
 </body>
-
-<script>
-    const root = document.querySelector(':root');
-    if (localStorage.scheme == 1) {
-        document.querySelector(".bg").style.background = 'url(/v4/images/bg_night.png)';
-        document.querySelector(".bg").style.backgroundSize = 'cover';
-        root.style.setProperty('--color-stdHead', 'rgba(69, 99, 164, .5)');
-        root.style.setProperty('--color-stdHead_hover', 'rgba(69, 99, 164, .8)');
-        root.style.setProperty('--color-basic', 'rgba(220, 220, 220, .95)');
-    }
-</script>
 
 </html>

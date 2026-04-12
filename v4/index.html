@@ -41,6 +41,38 @@
             width: 100%;
         }
     </style>
+    <script>
+        // 在此初步调整夜间模式界面，防止闪烁
+        let scheme;
+        const root = document.querySelector(':root');
+        if (localStorage.scheme != undefined) {
+            scheme = localStorage.scheme;
+        } else {
+            scheme = 0;
+            localStorage.setItem('scheme', scheme);
+        }
+
+        if (scheme == 1) {
+            root.style.setProperty('--bg', 'url(/v4/images/bg_night.png)');
+            root.style.setProperty('--cover', 'cover');
+            root.style.setProperty('--no-repeat', 'no-repeat');
+            root.style.setProperty('--color-bodyBackground', 'rgb(118, 140, 206)');
+            root.style.setProperty('--color-basic', 'rgba(220, 220, 220, .95)');
+            root.style.setProperty('--color-grey', 'rgba(170, 170, 170, .95)');
+            root.style.setProperty('--color-theme', 'rgb(2, 179, 58)');
+            root.style.setProperty('--color-box', 'rgba(150, 150, 170, .55)');
+            root.style.setProperty('--color-box_hover', 'rgba(140, 140, 160, .65)');
+            root.style.setProperty('--color-box_solid', 'rgba(150, 150, 170, .6)');
+            root.style.setProperty('--color-box_solid_hover', 'rgba(140, 140, 160, .7)');
+            root.style.setProperty('--color-pagebox', 'rgba(150, 150, 180, .55)');
+            root.style.setProperty('--color-pagebox_hover', 'rgba(140, 140, 170, .65)');
+            root.style.setProperty('--color-reader', 'rgba(150, 150, 170, .55)');
+            root.style.setProperty('--color-input', 'rgba(190, 190, 220, .55)');
+            root.style.setProperty('--color-input_hover', 'rgba(180, 180, 210, .6)');
+            root.style.setProperty('--color-link', 'rgb(187, 160, 255)');
+            root.style.setProperty('--color-item_time', 'rgba(69, 164, 99, 1)');
+        }
+    </script>
 </head>
 
 <body>
