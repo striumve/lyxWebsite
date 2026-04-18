@@ -87,7 +87,7 @@ body {
     padding: 0;
     /* position: relative; */
     background-color: var(--color-bodyBackground);
-    cursor: url(../../public/cursor/normal.cur), default;
+    cursor: url(/public/cursor/normal.cur), default;
     /* cursor: url(../../../../../../coding/鼠标样式文件/naibai-cus_7234/牛奶蓝光标/diagonal1.cur), default; */
     overflow: auto;
     /* overflow: hidden; */
@@ -191,11 +191,11 @@ textarea::-webkit-scrollbar-track {
 @font-face {
     /* 字体声明  */
     font-family: 'icomoon';
-    src: url('../fonts/icomoon/fonts/icomoon.eot');
-    src: url('../fonts/icomoon/fonts/icomoon.eot') format('embedded-opentype'),
-        url('../fonts/icomoon/fonts/icomoon.ttf') format('truetype'),
-        url('../fonts/icomoon/fonts/icomoon.woff') format('woff'),
-        url('../fonts/icomoon/fonts/icomoon.svg') format('svg');
+    src: url('/v4/fonts/icomoon/fonts/icomoon.eot');
+    src: url('/v4/fonts/icomoon/fonts/icomoon.eot') format('embedded-opentype'),
+        url('/v4/fonts/icomoon/fonts/icomoon.ttf') format('truetype'),
+        url('/v4/fonts/icomoon/fonts/icomoon.woff') format('woff'),
+        url('/v4/fonts/icomoon/fonts/icomoon.svg') format('svg');
     font-weight: normal;
     font-style: normal;
     font-display: block;
@@ -203,7 +203,7 @@ textarea::-webkit-scrollbar-track {
 
 @font-face {
     font-family: 'consolas';
-    src: url('../../public/fonts/consolas.ttf');
+    src: url('/public/fonts/consolas.ttf');
     font-weight: normal;
     font-style: normal;
     font-display: block;
@@ -211,7 +211,7 @@ textarea::-webkit-scrollbar-track {
 
 @font-face {
     font-family: 'Din';
-    src: url('../../public/fonts/DIN-Regular-2.otf');
+    src: url('/public/fonts/DIN-Regular-2.otf');
     font-weight: normal;
     font-style: normal;
     font-display: block;
@@ -219,7 +219,7 @@ textarea::-webkit-scrollbar-track {
 
 @font-face {
     font-family: 'Din-Heavy';
-    src: url('../../public/fonts/DIN-Medium-2.otf');
+    src: url('/public/fonts/DIN-Medium-2.otf');
     font-weight: normal;
     font-style: normal;
     font-display: block;
@@ -227,8 +227,7 @@ textarea::-webkit-scrollbar-track {
 
 @font-face {
     font-family: 'siyuan';
-    src: url('../../public/fonts/SourceHanSerifCN-Regular-1-subset.woff2');
-    /* src: url(https://cdn.jsdelivr.net/gh/striumve/lyxWebsite@main/public/fonts/SourceHanSerifCN-Regular-1-subset.woff2); */
+    src: url('/public/fonts/SourceHanSerifCN-Regular-1-subset.woff2');
     font-weight: normal;
     font-style: normal;
     font-display: block;
@@ -236,7 +235,7 @@ textarea::-webkit-scrollbar-track {
 
 @font-face {
     font-family: 'siyuan';
-    src: url('../fonts/siyuan_bold_subset.woff');
+    src: url('/v4/fonts/siyuan_bold_subset.woff');
     /* src: url(https://cdn.jsdelivr.net/gh/striumve/lyxWebsite@main/public/fonts/SourceHanSerifCN-Regular-1-subset.woff2); */
     font-weight: 700;
     font-style: normal;
@@ -245,7 +244,7 @@ textarea::-webkit-scrollbar-track {
 
 @font-face {
     font-family: 'pingfang';
-    src: url('../../public/fonts/PingFangSC-Regular.woff2');
+    src: url('/public/fonts/PingFangSC-Regular.woff2');
     font-weight: normal;
     font-style: normal;
     font-display: block;

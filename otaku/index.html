@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>二次元 - 芒蹊</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="/public/images/logo_otaku.png" sizes="32x32">
+</head>
+<body>
+    <div class="bg"></div>
+    <div class="nav">
+        <p class="nav-btn active" data-btn="1">&ensp;基本&ensp;</p>
+        <p class="nav-btn" data-btn="2">&ensp;我推&ensp;</p>
+        <p class="nav-btn" data-btn="3">&ensp;我看&ensp;</p>
+        <p class="nav-btn" data-btn="4">&ensp;我玩&ensp;</p>
+        <p class="nav-btn" data-btn="5">&ensp;其他&ensp;</p>
+    </div>
+    <div class="page-container">
+        <div class="page basic" data-page="1">1</div>
+        <div class="page oshi" data-page="2">
+            <div class="oshi-nav">
+                <p class="oshi-nav-btn" data-oshi-btn="1"></p> <!-- 芙宁娜 -->
+                <p class="oshi-nav-btn" data-oshi-btn="2"></p> <!-- 无限 -->
+                <p class="oshi-nav-btn" data-oshi-btn="3"></p> <!-- 琴吹紬 -->
+                <p class="oshi-nav-btn" data-oshi-btn="4"></p> <!-- 芙莉莲 -->
+                <p class="oshi-nav-btn" data-oshi-btn="5"></p> <!-- 井芹仁菜 -->
+            </div>
+            <div class="oshi-page" data-oshi-page="1">
+                <div class="oshi-page-name">芙宁娜</div>
+                <div class="oshi-page-intro">被大家所爱的，这歌剧院唯一的主角…<br>
+                    孤独也好，无助也好，痛苦也好，悲伤也好，<br>即便是将世间的苦难都聚于一身…<br>
+                    守护枫丹所有人类的心，从来没有改变。</div>
+                <img src="./test/芙宁娜立绘.png" alt="" class="oshi-page-1-img">
+            </div>
+            <div class="oshi-page" data-oshi-page="2"></div>
+            <div class="oshi-page" data-oshi-page="3"></div>
+            <div class="oshi-page" data-oshi-page="4"></div>
+            <div class="oshi-page" data-oshi-page="5"></div>
+        </div>
+        <div class="page watch" data-page="3">3</div>
+        <div class="page play" data-page="4">4</div>
+        <div class="page other" data-page="5">5</div>
+    </div>
+</body>
+
+<script src="./functions.js"></script>
+</html>

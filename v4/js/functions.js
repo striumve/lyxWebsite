@@ -29,7 +29,7 @@ var is_mobile = false;
 if ((vw / vh) <= 1.2) {
     document.querySelector('.showInfo').style.display = 'block';
     is_mobile = true;
-    // visionMobilise();
+    visionMobilise();
 }
 
 // root.style.fontSize = (vw / 1912) * 10 + 'px';

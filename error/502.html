@@ -11,7 +11,7 @@
         :root {
             user-select: none;
             cursor: url(../../public/cursor/normal.cur), default;
-
+            --head-height: 50px;
         }
 
         body {
@@ -36,19 +36,19 @@
             position: fixed;
             top: 0;
             width: 100%;
-            height: 5rem;
+            height: var(--head-height);
             background-color: var(--color-stdHead);
             color: var(--color-basic);
-            backdrop-filter: blur(1rem);
+            backdrop-filter: blur(10px);
         }
 
         .head-name {
             position: absolute;
             top: 0;
             left: 0;
-            font-size: 2rem;
-            line-height: 5rem;
-            margin-left: 2rem;
+            font-size: 20px;
+            line-height: var(--head-height);
+            margin-left: 20px;
             font-family: 'siyuan';
         }
 
@@ -58,13 +58,13 @@
             right: 0;
             text-decoration: none;
             color: var(--color-basic);
-            font-size: 2rem;
-            line-height: 5rem;
-            margin-right: 2rem;
+            font-size: 20px;
+            line-height: var(--head-height);
+            margin-right: 20px;
             font-family: 'pingfang';
             transition: .3s;
-            padding-left: 2rem;
-            padding-right: 2rem;
+            padding-left: 20px;
+            padding-right: 20px;
         }
 
         .head-back:hover {
@@ -78,7 +78,13 @@
             padding-right: 20vw;
             /* line-height: 4rem; */
             /* font-size: 200%; */
-            font-size: 2rem;
+            font-size: 20px;
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --head-height: 40px;
+            }
         }
     </style>
 
@@ -101,10 +107,9 @@
         <div class="head-name">竹芒云蹊 | <span style="font-family: 'pingfang';">错误</span></div>
         <a href="/v4/index.html" class="head-back">返回主页</a>
     </div>
-    <div class="placeholder" style="height: 5rem;"> </div>
+    <div class="placeholder" style="height: var(--head-height);"> </div>
     <div class="msg">
-        <h1 style="font-family: 'Din';"><br><span style="font-family: 'pingfang';">: (</span> <br><br>502 Bad Gateway
-        </h1>
+        <h1 style="font-family: 'Din';"><br><span style="font-family: 'pingfang';">: (</span> <br><br>502 Bad Gateway</h1>
         <h1 style="font-family: 'pingfang';">无效的响应</h1>
     </div>
 </body>

@@ -11,7 +11,6 @@
     <title>开发日志 - 竹芒云蹊</title>
     <style>
         @media screen and (max-width: 500px) {
-
             /* 最小页面宽适配 */
             body {
                 width: 500px;
@@ -31,6 +30,7 @@
             --bg: url(/v4/images/background.png);
             --cover: cover;
             --no-repeat: no-repeat;
+            --head-height: 50px;
         }
 
         body {
@@ -53,20 +53,20 @@
             position: fixed;
             top: 0;
             width: 100%;
-            height: 5rem;
+            height: var(--head-height);
             background-color: var(--color-stdHead);
             z-index: 100;
             color: var(--color-basic);
-            backdrop-filter: blur(1rem);
+            backdrop-filter: blur(10px);
         }
 
         .head-name {
             position: absolute;
             top: 0;
             left: 0;
-            font-size: 2rem;
-            line-height: 5rem;
-            margin-left: 2rem;
+            font-size: 20px;
+            line-height: var(--head-height);
+            margin-left: 20px;
             font-family: 'siyuan';
         }
 
@@ -76,13 +76,13 @@
             right: 0;
             text-decoration: none;
             color: var(--color-basic);
-            font-size: 2rem;
-            line-height: 5rem;
-            margin-right: 2rem;
+            font-size: 20px;
+            line-height: var(--head-height);
+            margin-right: 20px;
             font-family: 'pingfang';
             transition: .3s;
-            padding-left: 2rem;
-            padding-right: 2rem;
+            padding-left: 20px;
+            padding-right: 20px;
         }
 
         .head-back:hover {
@@ -91,26 +91,28 @@
 
         .title {
             text-align: center;
-            font-size: 3rem;
+            font-size: 30px;
             color: var(--textColor);
         }
 
         .item {
             width: 60vw;
+            width: clamp(200px, 60vw, 1800px);
             height: auto;
             background-color: var(--itemColor);
-            border-radius: 2rem;
+            border-radius: 20px;
             position: relative;
-            left: calc((40vw - var(--five-em) *2) /2);
-            margin-bottom: 2rem;
+            /* left: calc((40vw - var(--five-em) *2) /2); */
+            margin: auto;
+            margin-bottom: 20px;
             /* padding: 10rem; */
             transition: .5s;
             color: var(--textColor);
             z-index: 10;
-            padding-left: 5em;
-            padding-right: 5em;
-            padding-top: 7em;
-            padding-bottom: 2em;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 45px;
+            padding-bottom: 20px;
         }
 
         .item:hover {
@@ -121,8 +123,10 @@
             display: inline-block;
             position: absolute;
             /* left: 1vw; */
-            top: 1em;
-            font-size: 2.2rem;
+            top: 5px;
+            left: 30px;
+            /* font-size: 22px; */
+            font-size: clamp(18px, 4vw, 22px);
             /* margin-left: 1vw; */
             font-family: 'consolas';
             margin-bottom: 0;
@@ -132,44 +136,48 @@
 
         .right {
             /* display: inline-block; */
-            font-size: 2rem;
+            /* font-size: 20px; */
+            font-size: clamp(16px, 4vw, 20px);
             /* position: absolute; */
             /* right: 1vw; */
             /* text-align: right; */
             /* margin: 2vh; */
-            margin-left: 2em;
+            margin-left: 50px;
         }
 
         .right::before {
             content: '>';
             font-family: 'consolas';
             position: absolute;
-            left: 3.5em;
-            margin-top: 0.25em;
+            left: 45px;
+            margin-top: 5px;
         }
 
         .container {
             width: 100%;
-            height: calc(100vh - 5rem);
+            height: calc(100vh - var(--head-height));
             position: fixed;
-            top: 5rem;
+            top: var(--head-height);
             overflow: auto;
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --head-height: 40px;
+            }
+
+            .right {
+                margin-left: 35px;
+            }
+
+            .right::before {
+                left: 30px;
+            }
         }
     </style>
 
     <script>
         const root = document.querySelector(':root');
-        // root.style.fontSize = (vw / 1912) * 10 + 'px';
-        var vw = document.documentElement.clientWidth;
-        var vh = document.documentElement.clientHeight;
-        var is_mobile = false;
-        if ((vw / vh) <= 1.2) {
-            is_mobile = true;
-        }
-        // root.style.fontSize = (vw / 1912) * 10 + 'px';
-        var root_rem_0 = (vw / 1912) <= (vh / 948) ? (vw / 1912) * 10 + 'px' : (vh / 948) * 10 + 'px';
-        var root_rem_1 = (vw / 1000) <= (vh / 2000) ? (vw / 1000) * 10 + 'px' : (vh / 2000) * 10 + 'px';
-        root.style.fontSize = is_mobile ? root_rem_1 : root_rem_0;
         if (localStorage.scheme == 1) {
             root.style.setProperty('--bg', 'url(/v4/images/bg_night.png)');
             root.style.setProperty('--cover', 'cover');
@@ -190,7 +198,12 @@
         <a href="/v4/index.html?page=3&start=1" class="head-back">返回主页</a>
     </div>
     <div class="container">
-        <div class="placeholder" style="height: 5rem; "> </div>
+        <div class="placeholder" style="height: var(--head-height); "> </div>
+        <div class="item">
+            <p class="left">2026.04.18 v4.4.2</p>
+            <p class="right">重构了日志页布局系统</p>
+            <p class="right">重构了错误页布局系统</p>
+        </div>
         <div class="item">
             <p class="left">2026.04.12 v4.4.1</p>
             <p class="right">制作了调色盘工具</p>
