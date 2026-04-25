@@ -363,6 +363,10 @@
     text-align: center;
 }
 
+.nav-title {
+    transition: .3s;
+}
+
 .music-title {
     margin: 0;
     z-index: 500;
@@ -401,7 +405,7 @@
     /* width: var(--page_width); */
     /* width: calc(100vw - var(--box_left) - var(--box_width) - var(--nav_width)); */
     width: calc(100vw - var(--pages_left) - 5rem);
-    height: auto;
+    /* height: auto; */
     position: absolute;
     left: var(--pages_left);
     top: var(--padding_top);
@@ -755,6 +759,11 @@ select,
     top: 1rem;
     font-size: 2rem;
     /* color: grey; */
+}
+
+.about-item-content-table {
+    display: inline-block;
+    min-width: 7em;
 }
 
 .cmnt-make > table {

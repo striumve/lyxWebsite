@@ -1,6 +1,8 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const express = require('express');
+const session = require('express-session');
 
 const server = http.createServer((req, res) => {
     res.statusCode = 200;
@@ -22,8 +24,10 @@ const server = http.createServer((req, res) => {
         }
 
     } else if (url.pathname.startsWith('/api/comments') && req.method === 'POST') {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/plain');
+        // res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        console.log('api.comments');
+
 
         let body = '';
         req.on('data', chunk => {
@@ -37,28 +41,35 @@ const server = http.createServer((req, res) => {
                 name: parsedData.name,
                 time: parsedData.time
             }
-            fs.readFile('v4/comments.json', (err, original) => {
+            fs.readFile(path.join(__dirname, 'v4', 'comments.json'), (err, original) => {
                 if (err) {
-                    console.log(err);
-                    res.end('false');
+                    res.statusCode = 500;
+                    res.end(JSON.stringify({
+                        status: '500',
+                        redirect: '/error/500.html'
+                    }));
                     return;
-                } else {
-                    res.end('true');
                 }
                 const parsedOriginal = JSON.parse(original);
                 const output = [data, ...parsedOriginal];
-                // parsedOriginal[parsedOriginal.length] = data;
-                // parsedOriginal.unshift(data);
-                fs.writeFile('v4/comments.json', JSON.stringify(output), (err) => {
+                fs.writeFile(path.join(__dirname, 'v4', 'comments.json'), JSON.stringify(output), (err) => {
                     if (err) {
-                        console.log(err);
-                        res.end('false');
+                        res.statusCode = 500;
+                        res.end(JSON.stringify({
+                            status: '500',
+                            redirect: '/error/500.html'
+                        }));
                         return;
                     } else {
-                        res.end('true');
+                        res.statusCode = 200;
+                        res.end(JSON.stringify({
+                            status: '200',
+                            redirect: ''
+                        }));
                     }
                 })
             })
+
         })
 
     } else if (url.pathname.startsWith('/api/')) {

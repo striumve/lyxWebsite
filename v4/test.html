@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,30 +13,36 @@
             padding: 20px;
             background-color: #f5f5f5;
         }
+
         .container {
             background: white;
             border-radius: 8px;
             padding: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
+
         h1 {
             color: #333;
             margin-bottom: 10px;
         }
+
         .description {
             color: #666;
             margin-bottom: 30px;
             line-height: 1.6;
         }
+
         .input-group {
             margin-bottom: 20px;
         }
+
         label {
             display: block;
             margin-bottom: 8px;
             font-weight: bold;
             color: #555;
         }
+
         input {
             width: 100%;
             padding: 10px;
@@ -44,6 +51,7 @@
             font-size: 16px;
             box-sizing: border-box;
         }
+
         button {
             background-color: #4CAF50;
             color: white;
@@ -54,13 +62,16 @@
             font-size: 16px;
             margin-right: 10px;
         }
+
         button:hover {
             background-color: #45a049;
         }
+
         button:disabled {
             background-color: #ccc;
             cursor: not-allowed;
         }
+
         .result {
             margin-top: 20px;
             padding: 15px;
@@ -68,10 +79,12 @@
             border-left: 4px solid #4CAF50;
             border-radius: 4px;
         }
+
         .result h3 {
             margin-top: 0;
             color: #333;
         }
+
         .encrypted {
             font-family: monospace;
             word-break: break-all;
@@ -80,23 +93,30 @@
             border-radius: 4px;
             margin: 10px 0;
         }
+
         .verify-section {
             margin-top: 30px;
             padding-top: 20px;
             border-top: 2px solid #eee;
         }
+
         .success {
             color: #4CAF50;
         }
+
         .error {
             color: #f44336;
         }
+
         .loading {
             color: #ff9800;
         }
     </style>
 </head>
+
 <body>
+    <a href="/error/403.html">403</a>
+    <p class="test111">123123123</p>
     <div class="container">
         <h1>🔐 单向加密算法演示</h1>
         <div class="description">
@@ -173,13 +193,13 @@
 
                 // 1. 添加自定义盐值，增强安全性
                 const saltedInput = `${input}${this.salt}`;
-                
+
                 // 2. 生成基础哈希
                 const baseHash = await this.sha256(saltedInput);
-                
+
                 // 3. 添加输入长度信息作为混淆（增加唯一性）
                 const lengthPart = input.length.toString(16).padStart(8, '0');
-                
+
                 // 4. 二次混淆：对哈希的部分内容进行置换（基于输入字符的简单变换）
                 let obfuscatedHash = '';
                 for (let i = 0; i < baseHash.length; i++) {
@@ -189,10 +209,10 @@
                     const newChar = (charCode + offset) % 16;
                     obfuscatedHash += newChar.toString(16);
                 }
-                
+
                 // 5. 组合最终结果：长度信息(8) + 混淆哈希(64) = 72字符
                 const finalHash = lengthPart + obfuscatedHash;
-                
+
                 return finalHash;
             }
 
@@ -227,7 +247,7 @@
         // 加密按钮点击事件
         encryptBtn.addEventListener('click', async () => {
             const text = inputText.value;
-            
+
             if (!text) {
                 alert('请输入要加密的字符串');
                 return;
@@ -236,17 +256,17 @@
             try {
                 encryptBtn.disabled = true;
                 encryptBtn.textContent = '加密中...';
-                
+
                 const encrypted = await hasher.encrypt(text);
-                
+
                 encryptedResult.textContent = encrypted;
                 lengthInfo.innerHTML = `📏 输出长度：${encrypted.length} 字符（固定）`;
                 resultDiv.style.display = 'block';
-                
+
                 // 自动填充验证输入框
                 verifyInput.value = text;
                 verifyResult.innerHTML = '';
-                
+
             } catch (error) {
                 console.error('加密失败:', error);
                 alert('加密失败：' + error.message);
@@ -260,23 +280,23 @@
         verifyBtn.addEventListener('click', async () => {
             const input = verifyInput.value;
             const encrypted = encryptedResult.textContent;
-            
+
             if (!input) {
                 alert('请输入要验证的字符串');
                 return;
             }
-            
+
             if (!encrypted || encryptedResult.textContent === '') {
                 alert('请先加密一个字符串');
                 return;
             }
-            
+
             try {
                 verifyBtn.disabled = true;
                 verifyBtn.textContent = '验证中...';
-                
+
                 const isValid = await hasher.verify(input, encrypted);
-                
+
                 if (isValid) {
                     verifyResult.innerHTML = '<span class="success">✓ 验证通过！输入的字符串与加密结果匹配。</span>';
                     verifyResult.style.color = '#4CAF50';
@@ -284,7 +304,7 @@
                     verifyResult.innerHTML = '<span class="error">✗ 验证失败！输入的字符串与加密结果不匹配。</span>';
                     verifyResult.style.color = '#f44336';
                 }
-                
+
             } catch (error) {
                 console.error('验证失败:', error);
                 verifyResult.innerHTML = '<span class="error">验证失败：' + error.message + '</span>';
@@ -310,37 +330,37 @@
             testBtn.disabled = true;
             testBtn.textContent = '测试中...';
             testResult.innerHTML = '<span class="loading">⏳ 正在运行测试...</span>';
-            
+
             try {
                 const testResults = [];
-                
+
                 // 测试1：基本加密
                 const test1 = "Hello, World!";
                 const encrypted1 = await hasher.encrypt(test1);
                 testResults.push(`✅ 测试1: "${test1}" → ${encrypted1.substring(0, 20)}...`);
-                
+
                 // 测试2：验证功能
                 const isValid = await hasher.verify(test1, encrypted1);
                 testResults.push(`✅ 测试2: 验证 "${test1}" → ${isValid ? '通过' : '失败'}`);
-                
+
                 // 测试3：不同输入产生不同输出
                 const test3 = "Hello, World";
                 const encrypted3 = await hasher.encrypt(test3);
                 const isDifferent = encrypted1 !== encrypted3;
                 testResults.push(`✅ 测试3: 不同输入产生不同输出 → ${isDifferent ? '是' : '否'}`);
-                
+
                 // 测试4：相同输入产生相同输出
                 const encrypted1Again = await hasher.encrypt(test1);
                 const isSame = encrypted1 === encrypted1Again;
                 testResults.push(`✅ 测试4: 相同输入产生相同输出 → ${isSame ? '是' : '否'}`);
-                
+
                 // 测试5：空字符串
                 const emptyEncrypted = await hasher.encrypt("");
                 testResults.push(`✅ 测试5: 空字符串加密 → ${emptyEncrypted.substring(0, 20)}...`);
-                
+
                 testResult.innerHTML = testResults.join('<br>');
                 testResult.style.color = '#333';
-                
+
             } catch (error) {
                 testResult.innerHTML = `<span class="error">测试失败：${error.message}</span>`;
             } finally {
@@ -354,5 +374,44 @@
             testBtn.click();
         }, 500);
     </script>
+
+    <script>
+        function initGyro() {
+            const ua = navigator.userAgent;
+            const isiOS = /\(i[^;]+;( U;)? CPU.+Mac OS X/.test(ua);
+
+            function monitor() {
+                if (window.DeviceOrientationEvent) {
+                    window.addEventListener("deviceorientation", e => {
+                        console.log("alpha:", e.alpha, "beta:", e.beta, "gamma:", e.gamma);
+                        // 在此处理旋转数据，例如更新元素位置
+                    }, true);
+                } else {
+                    alert("设备不支持陀螺仪");
+                }
+            }
+
+            if (isiOS && window.DeviceOrientationEvent.requestPermission) {
+                window.DeviceOrientationEvent.requestPermission().then(state => {
+                    if (state === "granted") monitor();
+                    else alert("未授权访问陀螺仪");
+                });
+            } else {
+                monitor();
+            }
+        }
+
+        initGyro();
+        // 监听设备方向事件
+        window.addEventListener("deviceorientation", function (event) {
+            const alpha = event.alpha; // Z轴旋转角度 (0~360)
+            const beta = event.beta; // X轴旋转角度 (-180~180)
+            const gamma = event.gamma; // Y轴旋转角度 (-90~90)
+
+            console.log(`Alpha: ${alpha}, Beta: ${beta}, Gamma: ${gamma}`);
+            document.querySelector('.test111').innerHTML = `Alpha: ${alpha}, Beta: ${beta}, Gamma: ${gamma}`;
+        });
+    </script>
 </body>
+
 </html>

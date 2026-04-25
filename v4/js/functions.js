@@ -322,100 +322,45 @@ document.querySelector('.info2-talk-vertime').innerHTML = `<span style="font-fam
 
 //页面切换
 
-var talkPage = document.querySelector(".talk");
-var artiPage = document.querySelector(".article");
-var linkPage = document.querySelector(".link");
-var abouPage = document.querySelector(".about");
-var othePage = document.querySelector(".other");
-var toolPage = document.querySelector(".tool");
-var zeroPage = document.querySelector(".zero");
-var cmntPage = document.querySelector(".cmnt");
-var talkBtn = document.querySelector(".nav-btn-talk");
-var artiBtn = document.querySelector(".nav-btn-article");
-var linkBtn = document.querySelector(".nav-btn-link");
-var abouBtn = document.querySelector(".nav-btn-about");
-var otheBtn = document.querySelector(".nav-btn-other");
-var toolBtn = document.querySelector(".nav-btn-tool");
-var zeroBtn = document.querySelector(".nav-title");
-var cmntBtn = document.querySelector(".nav-btn-cmnt");
-var curPage = 0;
-var pageSelector = [zeroPage, talkPage, artiPage, linkPage, toolPage, othePage, abouPage, cmntPage];
-//                  0         1         2         3         4         5         6         7
-var btnSelector = [zeroBtn, talkBtn, artiBtn, linkBtn, toolBtn, otheBtn, abouBtn, cmntBtn];
+let curPage = 0;
+let is_talkPage_shown = 0;
 
-var is_talkpage_has_shown = 0;
-// 用于记录该page是否已经至少在界面上显示过一次。在display为none时加载瀑布流会出错。
+function changePage(from, to) {
+    curPage = to;
+    let fromPage = document.querySelector(`[data-page="${from}"]`);
+    let toPage = document.querySelector(`[data-page="${to}"]`);
+    document.querySelector(`[data-pagebtn="${from}"]`).classList.remove('active');
+    document.querySelector(`[data-pagebtn="${to}"]`).classList.add('active');
 
-function changePage(fromNum, toNum, fromPage, toPage) {
-    // 页面代码1,2,3,4
-    if (toNum != curPage) {
-        if (fromNum < toNum) {
-            toPage.style.opacity = 0;
-            toPage.style.display = 'block';
-            toPage.style.animation = 'page_show_totop ease .35s both';
-            fromPage.style.animation = 'page_hide_totop ease .35s both';
-            setTimeout(() => {
-                fromPage.style.display = 'none';
-            }, 200);
-        }
-        if (fromNum > toNum) {
-            toPage.style.opacity = 0;
-            toPage.style.display = 'block';
-            toPage.style.animation = 'page_show_tobottom ease .35s both';
-            fromPage.style.animation = 'page_hide_tobottom ease .35s both';
-            setTimeout(() => {
-                fromPage.style.display = 'none';
-            }, 200);
-        }
-        curPage = toNum;
-        btnSelector[fromNum].classList.remove('active');
-        btnSelector[curPage].classList.add('active');
+    fromPage.style.animation = from < to ? 'page_hide_totop .35s ease both' : 'page_hide_tobottom .35s ease both';
+    for (let i = 1; i <= 5; i++) {
+        document.querySelector(`[data-page="${i}"]`).style.visibility = 'hidden';
+        document.querySelector(`[data-page="${i}"]`).style.opacity = '0';
+    }
+    toPage.style.display = 'block';
+    toPage.style.animation = from < to ? 'page_show_totop .6s ease both' : 'page_show_tobottom .6s ease both';
+
+    setTimeout(function () {
+        fromPage.style.display = 'none';
+    }, 350)
+
+    if (to == 1) {
+        loadWaterfall(1);
+        is_talkPage_shown = 1;
     }
 }
 
-zeroBtn.addEventListener("click", function () {
-    changePage(curPage, 0, pageSelector[curPage], pageSelector[0]);
+document.querySelectorAll('[data-pagebtn]').forEach(btn => {
+    btn.addEventListener('click', () => {
+        changePage(curPage, btn.dataset.pagebtn);
+    })
 })
-
-talkBtn.addEventListener("click", function () {
-    changePage(curPage, 1, pageSelector[curPage], pageSelector[1]);
-    if (!is_talkpage_has_shown) {
-        loadWaterfall(1);
-        is_talkpage_has_shown = 1;
-    }
-})
-
-artiBtn.addEventListener("click", function () {
-    changePage(curPage, 2, pageSelector[curPage], pageSelector[2]);
-})
-
-linkBtn.addEventListener("click", function () {
-    changePage(curPage, 3, pageSelector[curPage], pageSelector[3]);
-})
-
-toolBtn.addEventListener("click", function () {
-    changePage(curPage, 4, pageSelector[curPage], pageSelector[4]);
-})
-
-otheBtn.addEventListener("click", function () {
-    changePage(curPage, 5, pageSelector[curPage], pageSelector[5]);
-})
-
-abouBtn.addEventListener("click", function () {
-    changePage(curPage, 6, pageSelector[curPage], pageSelector[6]);
-})
-
-cmntBtn.addEventListener("click", function () {
-    changePage(curPage, 7, pageSelector[curPage], pageSelector[7]);
-})
-
 
 var openPage = urlParams.get('page');
 if (openPage) {
-    changePage(curPage, openPage, pageSelector[curPage], pageSelector[openPage]);
-    if (openPage == 1 && !is_talkpage_has_shown) {
+    changePage(curPage, openPage);
+    if (openPage == 1 && !is_talkPage_shown) {
         loadWaterfall(1);
-        is_talkpage_has_shown = 1;
     }
 }
 
@@ -511,12 +456,6 @@ function displayTalks(talks) {
 
     // window.addEventListener('load', function() {
     // setTimeout(function() {
-    imagesLoaded(document.querySelector('.talk'), () => {
-        new Masonry('.talk', {
-            itemSelector: '.talk-item',
-            columnWidth: '.talk-item'
-        })
-    })
 
     // }, 5000)
     // })
@@ -877,7 +816,7 @@ function loadWaterfall(pageNum) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    loadTalks(); //talks瀑布流布局包含在函数中
+    loadTalks();
     loadArticleList();
     // loadWaterfall(3);
 });
@@ -1261,11 +1200,14 @@ async function postCmnt() {
                 body: JSON.stringify(postData),
             })
             .then((response) => {
-                // alert(response.text());
+                return response.json();
             })
-            .catch((error) => {
-                console.error("Error:", error);
-            });
+            .then((data) => {
+                if (data.status == 500) {
+                    alert(data.redirect);
+                    window.location = data.redirect;
+                } else {}
+            })
 
         timeLimitRecord_1 = timeLimitRecord_2;
     }

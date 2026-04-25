@@ -143,15 +143,15 @@
             <!-- 导航栏 -->
             <div class="nav">
                 <p style="font-family: 'icomoon';text-align: center;font-size: 2rem;margin: .5rem;"
-                    class="nav-title active">
+                    class="nav-title active" data-pagebtn="0">
                 </p>
-                <button class="nav-btn nav-btn-talk">说说</button>
-                <button class="nav-btn nav-btn-article">文章</button>
-                <button class="nav-btn nav-btn-link">链接</button>
-                <button class="nav-btn nav-btn-tool">工具</button>
-                <button class="nav-btn nav-btn-other">其他</button>
-                <button class="nav-btn nav-btn-about">关于</button>
-                <button class="nav-btn nav-btn-cmnt">留言</button>
+                <button class="nav-btn nav-btn-talk" data-pagebtn="1">说说</button>
+                <button class="nav-btn nav-btn-article" data-pagebtn="2">文章</button>
+                <button class="nav-btn nav-btn-link" data-pagebtn="3">链接</button>
+                <button class="nav-btn nav-btn-tool" data-pagebtn="4">工具</button>
+                <button class="nav-btn nav-btn-other" data-pagebtn="5">其他</button>
+                <button class="nav-btn nav-btn-about" data-pagebtn="6">关于</button>
+                <button class="nav-btn nav-btn-cmnt" data-pagebtn="7">留言</button>
             </div>
 
             <div class="music" style="font-family: 'icomoon';">
@@ -173,19 +173,20 @@
             style="width: 100px;height: 2000px;background-color: #fff;position: absolute;top: 100px;left: 500px;"></div> -->
 
             <div class="pages">
-                <div class="page zero" style="opacity: 1;display: block;">
+                <div class="page zero" style="opacity: 1; visibility: visible; display: block;" data-page="0">
                     <p class="zero-p">竹杖芒鞋轻胜马，<br>&emsp14;谁怕？<br>&emsp14;&emsp14;一蓑烟雨任平生。<br></p>
                 </div>
 
-                <div class="page talk" style="opacity: 0;display: none;"></div>
+                <div class="page talk" style="opacity: 0; visibility: hidden; display: none;" data-page="1"></div>
 
-                <div class="page article" style="opacity: 0;display: none;"></div>
+                <div class="page article" style="opacity: 0; visibility: hidden; display: none;" data-page="2"></div>
 
-                <div class="page link" style="opacity: 0;display: none;">
+                <div class="page link" style="opacity: 0; visibility: hidden; display: none;" data-page="3">
                     <div class="pageitem link-item">
                         <div class="link-item-title">站内</div>
                         <a href="/public/diary4.html" class="link-item-a">网页开发日志</a><br>
-                        <a href="/welcome.html" class="link-item-a">欢迎页</a><br>
+                        <a href="/" class="link-item-a">欢迎页</a><br>
+                        <a href="/otaku/" class="link-item-a">二次元属性页面</a><br>
                         <a href="/error/403.html" class="link-item-a">陈奕迅的歌</a><br>
                         <a href="pw.html" class="link-item-a">自用</a><br>
                     </div>
@@ -203,7 +204,7 @@
                     </div>
                 </div>
 
-                <div class="page tool" style="opacity: 0;display: none;">
+                <div class="page tool" style="opacity: 0; visibility: hidden; display: none;" data-page="4">
                     <div class="pageitem tool-item">
                         <div class="tool-item-title">二维码生成器</div>
                         <div class="tool-qr-main">
@@ -252,7 +253,7 @@
                     </div>
                 </div>
 
-                <div class="page other" style="opacity: 0;display: none;">
+                <div class="page other" style="opacity: 0; visibility: hidden; display: none;" data-page="5">
                     <div class="pageitem other-item">
                         <div class="other-item-title">主题</div>
                         <form action="">
@@ -264,7 +265,7 @@
                     </div>
                 </div>
 
-                <div class="page about" style="opacity: 0;display: none;">
+                <div class="page about" style="opacity: 0; visibility: hidden; display: none;" data-page="6">
                     <div class="pageitem about-item">
                         <div class="about-item-title">关于我</div>
                         <div class="about-item-content">
@@ -289,69 +290,69 @@
                             最初的版本其实很粗糙，就是想放什么放什么，然后一点一点变成现在这样，现在更像一个个人博客<br>
                             现在的这个版本是高三的时候才开始做的<br><br>
                             网站中所有内容都是本人手搓出来的，没有用WordPress一类的工具<br>
-                            使用服务：<br>
-                            <img src="./images/CFLogoCut.png" alt=""
-                                style="height: 2vh;margin-bottom: 1vh; vertical-align: middle;">
-                            CloudFlare Workers & Pages <br>
                         </div>
                     </div>
                     <div class="pageitem about-item">
-                        <div class="about-item-title">使用的JS库</div>
+                        <div class="about-item-title">本站使用</div>
+                        <div class="about-item-content">
+                            <a href="https://nodejs.org/" target="_blank">Node.js</a><br>
+                            <a href="https://nginx.org/" target="_blank">nginx</a><br>
+                            <a href="https://www.aliyun.com/" target="_blank">阿里云</a><br>
+                            <a href="https://pm2.keymetrics.io/" target="_blank">pm2</a><br>
+                            <a href="https://www.cloudflare.com/" target="_blank">CloudFlare</a>
+                        </div>
+                    </div>
+                    <div class="pageitem about-item">
+                        <div class="about-item-title">Javascript库</div>
                         <div class="about-item-content about-item-content-jslib">
-                            <table style="border-spacing: 1em;">
-                                <tbody>
-                                    <tr>
-                                        <td>Masonry</td>
-                                        <td><a href="https://masonry.desandro.com/" target="_blank">官方网站</a></td>
-                                        <td><a href="https://github.com/desandro/masonry" target="_blank">GitHub仓库</a>
-                                        </td>
-                                        <td><a href="https://desandro.mit-license.org/" target="_blank">MIT License</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>imagesLoaded</td>
-                                        <td><a href="https://imagesloaded.desandro.com/" target="_blank">官方网站</a></td>
-                                        <td><a href="https://github.com/desandro/imagesloaded"
-                                                target="_blank">GitHub仓库</a></td>
-                                        <td><a href="https://desandro.mit-license.org/" target="_blank">MIT License</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>highlight.js</td>
-                                        <td><a href="https://highlightjs.org/" target="_blank">官方网站</a></td>
-                                        <td><a href="https://github.com/highlightjs/highlight.js"
-                                                target="_blank">GitHub仓库</a></td>
-                                        <td><a href="https://github.com/highlightjs/highlight.js/blob/main/LICENSE"
-                                                target="_blank">BSD
-                                                3-Clause License</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>highlightjs-line-numbers.js</td>
-                                        <td> </td>
-                                        <td><a href="https://github.com/yauhenipakala/highlightjs-line-numbers.js"
-                                                target="_blank">GitHub仓库</a></td>
-                                        <td><a href="https://desandro.mit-license.org/" target="_blank">MIT License</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>highlightjs-badge</td>
-                                        <td> </td>
-                                        <td><a href="https://github.com/RickStrahl/highlightjs-badge"
-                                                target="_blank">GitHub仓库</a></td>
-                                        <td><a href="https://desandro.mit-license.org/" target="_blank">MIT License</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>QRCode.js</td>
-                                        <td><a href="https://davidshimjs.github.io/qrcodejs/" target="_blank">官方网站</a>
-                                        </td>
-                                        <td><a href="https://github.com/davidshimjs/qrcodejs"
-                                                target="_blank">GitHub仓库</a></td>
-                                        <td><a href="https://desandro.mit-license.org/" target="_blank">MIT License</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <span class="about-item-content-table">Masonry</span><br>&emsp;
+                            <span class="about-item-content-table"><a href="https://masonry.desandro.com/"
+                                    target="_blank">官方网站</a></span>
+                            <span class="about-item-content-table"><a href="https://github.com/desandro/masonry"
+                                    target="_blank">GitHub仓库</a></span>
+                            <span class="about-item-content-table"><a href="https://desandro.mit-license.org/"
+                                    target="_blank">MIT License</a></span><br>
+
+                            <span class="about-item-content-table">imagesLoaded</span><br>&emsp;
+                            <span class="about-item-content-table"><a href="https://imagesloaded.desandro.com/"
+                                    target="_blank">官方网站</a></span>
+                            <span class="about-item-content-table"><a href="https://github.com/desandro/imagesloaded"
+                                    target="_blank">GitHub仓库</a></span>
+                            <span class="about-item-content-table"><a href="https://desandro.mit-license.org/"
+                                    target="_blank">MIT License</a></span><br>
+
+                            <span class="about-item-content-table">highlight.js</span><br>&emsp;
+                            <span class="about-item-content-table"><a href="https://highlightjs.org/"
+                                    target="_blank">官方网站</a></span>
+                            <span class="about-item-content-table"><a href="https://github.com/highlightjs/highlight.js"
+                                    target="_blank">GitHub仓库</a></span>
+                            <span class="about-item-content-table"><a
+                                    href="https://github.com/highlightjs/highlight.js/blob/main/LICENSE"
+                                    target="_blank">BSD 3-Clause License</a></span><br>
+
+                            <span class="about-item-content-table">highlightjs-line-numbers.js</span><br>&emsp;
+                            <!-- <span class="about-item-content-table"></span> -->
+                            <span class="about-item-content-table"><a
+                                    href="https://github.com/yauhenipakala/highlightjs-line-numbers.js"
+                                    target="_blank">GitHub仓库</a></span>
+                            <span class="about-item-content-table"><a href="https://desandro.mit-license.org/"
+                                    target="_blank">MIT License</a></span><br>
+
+                            <span class="about-item-content-table">highlightjs-badge</span><br>&emsp;
+                            <!-- <span class="about-item-content-table"></span> -->
+                            <span class="about-item-content-table"><a
+                                    href="https://github.com/RickStrahl/highlightjs-badge"
+                                    target="_blank">GitHub仓库</a></span>
+                            <span class="about-item-content-table"><a href="https://desandro.mit-license.org/"
+                                    target="_blank">MIT License</a></span><br>
+
+                            <span class="about-item-content-table">QRCode.js</span><br>&emsp;
+                            <span class="about-item-content-table"><a href="https://davidshimjs.github.io/qrcodejs/"
+                                    target="_blank">官方网站</a></span>
+                            <span class="about-item-content-table"><a href="https://github.com/davidshimjs/qrcodejs"
+                                    target="_blank">GitHub仓库</a></span>
+                            <span class="about-item-content-table"><a href="https://desandro.mit-license.org/"
+                                    target="_blank">MIT License</a></span>
                         </div>
                     </div>
                     <div class="pageitem about-item">
@@ -369,7 +370,7 @@
                     </div>
                 </div>
 
-                <div class="page cmnt" style="opacity: 0;display: none;">
+                <div class="page cmnt" style="opacity: 0; visibility: hidden; display: none;" data-page="7">
                     <div class="pageitem cmnt-make">
                         <div class="cmnt-make-title">写留言</div>
                         <table>

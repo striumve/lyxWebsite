@@ -105,13 +105,22 @@
     <div class="bg"></div>
     <div class="head">
         <div class="head-name">竹芒云蹊 | <span style="font-family: 'pingfang';">错误</span></div>
-        <a href="/v4/index.html" class="head-back">返回主页</a>
+        <a class="head-back">返回主页</a>
     </div>
     <div class="placeholder" style="height: var(--head-height);"> </div>
     <div class="msg">
         <h1 style="font-family: 'Din';"><br><span style="font-family: 'pingfang';">: (</span> <br><br>500 Internal Server Error</h1>
         <h1 style="font-family: 'pingfang';">服务器错误</h1>
     </div>
+    <script>
+        document.querySelector('.head-back').addEventListener('click', () => {
+            if (document.referrer) {
+                window.location = document.referrer;
+            } else {
+                window.location = '/v4/';
+            }
+        })
+    </script>
 </body>
 
 </html>

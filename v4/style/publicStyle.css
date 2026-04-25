@@ -19,7 +19,8 @@
     --color-reader: rgba(220, 245, 220, .65);
     --color-input: rgba(240, 255, 240, .8);
     --color-input_hover: rgba(245, 255, 245, .9);
-    --color-link: rgba(101, 40, 255, 1);
+    /* --color-link: rgba(101, 40, 255, 1); */
+    --color-link: rgba(176, 102, 62, 1);
     --color-btn: rgba(99, 194, 129, .5);
     --color-btn_hover: rgba(99, 194, 129, .8);
     --color-item_time: rgba(216, 112, 147, 1);
@@ -49,6 +50,7 @@
     --padding_top: 10rem;
     --padding_top_minus: 5rem;
     --padding_top_plus: 15rem;
+    --padding_top_delta: 5rem;
     --talk_item_width: calc((100vw - var(--pages_left) - 5rem) / 2 - 20rem);
 
     --yiyan_margin: 4rem;
@@ -308,49 +310,69 @@ textarea::-webkit-scrollbar-track {
 
 @keyframes page_hide_totop {
     0% {
-        top: var(--padding_top);
+        transform: translateY(0);
         opacity: 1;
+        visibility: visible;
     }
 
     100% {
-        top: var(--padding_top_minus);
+        transform: translateY(calc(-1 * var(--padding_top_delta)));
         opacity: 0;
+        visibility: hidden;
     }
 }
 
 @keyframes page_hide_tobottom {
     0% {
-        top: var(--padding_top);
+        transform: translateY(0);
         opacity: 1;
+        visibility: visible;
     }
 
     100% {
-        top: var(--padding_top_plus);
+        transform: translateY(calc(var(--padding_top_delta)));
         opacity: 0;
+        visibility: hidden;
     }
 }
 
 @keyframes page_show_totop {
     0% {
-        top: var(--padding_top_plus);
+        transform: translateY(calc(var(--padding_top_delta)));
         opacity: 0;
+        visibility: hidden;
+    }
+
+    50% {
+        transform: translateY(calc(var(--padding_top_delta)));
+        opacity: 0;
+        visibility: hidden;
     }
 
     100% {
-        top: var(--padding_top);
+        transform: translateY(0);
         opacity: 1;
+        visibility: visible;
     }
 }
 
 @keyframes page_show_tobottom {
     0% {
-        top: var(--padding_top_minus);
+        transform: translateY(calc(-1 * var(--padding_top_delta)));
         opacity: 0;
+        visibility: hidden;
+    }
+
+    50% {
+        transform: translateY(calc(-1 * var(--padding_top_delta)));
+        opacity: 0;
+        visibility: hidden;
     }
 
     100% {
-        top: var(--padding_top);
+        transform: translateY(0);
         opacity: 1;
+        visibility: visible;
     }
 }
 
