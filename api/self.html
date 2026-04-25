@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/public/images/logo.jpg" sizes="32x32">
+    <link rel="stylesheet" href="/v4/style/publicStyle.css">
+    <title>自用 - 竹芒云蹊</title>
+    <style>
+        :root {
+            user-select: none;
+            cursor: url(../../public/cursor/normal.cur), default;
+
+            --bg: url(/v4/images/background.png);
+            --cover: cover;
+            --no-repeat: no-repeat;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+            /* background-color:blanchedalmond; */
+        }
+
+        .bg {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: url(/v4/images/background.png);
+            background-size: cover;
+            background-repeat: no-repeat;
+            z-index: -999;
+        }
+
+        .head {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 5rem;
+            background-color: var(--color-stdHead);
+            color: var(--color-basic);
+            backdrop-filter: blur(1rem);
+        }
+
+        .head-name {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 2rem;
+            line-height: 5rem;
+            margin-left: 2rem;
+            font-family: 'siyuan';
+        }
+
+        .head-back {
+            position: absolute;
+            top: 0;
+            right: 0;
+            text-decoration: none;
+            color: var(--color-basic);
+            font-size: 2rem;
+            line-height: 5rem;
+            margin-right: 2rem;
+            font-family: 'pingfang';
+            transition: .3s;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .head-back:hover {
+            background-color: var(--color-stdHead_hover);
+        }
+
+        /* 私有目录页面专属微调，不破坏原有框架结构 */
+        .private-container {
+            max-width: 1000px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+        }
+
+        .file-list {
+            background-color: var(--color-pagebox);
+            border-radius: 1.5rem;
+            box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+            overflow: hidden;
+            backdrop-filter: blur(2px);
+        }
+
+        .file-list:hover {
+            background-color: var(--color-pagebox_hover);
+            box-shadow: 0px 0px 5px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .file-header {
+            font-size: 2.2rem;
+            font-weight: 500;
+            padding: 2rem 2.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            font-family: 'siyuan', '宋体';
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .file-header span:first-child {
+            font-size: 2.6rem;
+        }
+
+        .file-items {
+            padding: 1rem 0;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            padding: 1.2rem 2.5rem;
+            transition: 0.2s;
+            border-left: 3px solid transparent;
+            font-family: 'pingfang', sans-serif;
+        }
+
+        .file-item:hover {
+            background-color: rgba(99, 194, 129, 0.15);
+            border-left-color: var(--color-theme);
+            transform: translateX(4px);
+        }
+
+        .file-icon {
+            font-family: 'icomoon';
+            font-size: 2.2rem;
+            width: 3.5rem;
+            text-align: center;
+            color: var(--color-theme);
+        }
+
+        .file-link {
+            flex: 1;
+            font-size: 1.9rem;
+            text-decoration: none;
+            color: var(--color-basic);
+            transition: 0.2s;
+            word-break: break-all;
+            padding: 0.2rem 0;
+        }
+
+        .file-link:hover {
+            color: var(--color-theme);
+            text-decoration: underline;
+            text-underline-offset: 0.3rem;
+        }
+
+        .file-meta {
+            font-size: 1.4rem;
+            color: var(--color-grey);
+            font-family: 'consolas';
+            margin-left: 1rem;
+            white-space: nowrap;
+        }
+
+        .empty-folder {
+            text-align: center;
+            padding: 4rem 2rem;
+            font-size: 1.8rem;
+            color: var(--color-grey);
+            font-family: 'pingfang';
+        }
+
+        .empty-folder span {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        /* 提示小卡片 */
+        .private-note {
+            margin-top: 2rem;
+            background-color: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(8px);
+            border-radius: 1rem;
+            padding: 1.2rem 2rem;
+            font-size: 1.5rem;
+            color: rgba(220, 220, 220, 0.9);
+            text-align: center;
+            font-family: 'pingfang';
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .private-note a {
+            color: #a3e0b0;
+            text-decoration: none;
+        }
+
+        .private-note a:hover {
+            text-decoration: underline;
+        }
+
+        /* 保持响应式 */
+        @media (max-width: 768px) {
+            .private-container {
+                margin: 2rem 1rem;
+                padding: 0 1rem;
+            }
+
+            .file-header {
+                font-size: 1.8rem;
+                padding: 1.5rem;
+            }
+
+            .file-item {
+                padding: 1rem 1.5rem;
+                flex-wrap: wrap;
+            }
+
+            .file-meta {
+                white-space: normal;
+                margin-left: 3.5rem;
+                width: 100%;
+                margin-top: 0.4rem;
+            }
+
+            .file-link {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+
+    <script>
+        const root = document.querySelector(':root');
+        if (localStorage.scheme == 1) {
+            root.style.setProperty('--bg', 'url(/v4/images/bg_night.png)');
+            root.style.setProperty('--cover', 'cover');
+            root.style.setProperty('--no-repeat', 'no-repeat');
+            root.style.setProperty('--color-stdHead', 'rgba(69, 99, 164, .5)');
+            root.style.setProperty('--color-stdHead_hover', 'rgba(69, 99, 164, .8)');
+            root.style.setProperty('--color-basic', 'rgba(220, 220, 220, .95)');
+        }
+    </script>
+</head>
+
+<body>
+    <div class="bg"></div>
+    <div class="head">
+        <div class="head-name">竹芒云蹊 | <span style="font-family: 'pingfang';">自用</span></div>
+        <a href="/v4/index.html" class="head-back">返回主页</a>
+    </div>
+    <div class="placeholder" style="height: 5rem;"> </div>
+
+    <div class="private-container">
+        <div class="file-list">
+            <div class="file-header">
+                <span>📁</span>
+                <span>私有文件储藏室</span>
+                <span style="font-size: 1.4rem; margin-left: auto; opacity: 0.7;">仅你可见 · 离线珍藏</span>
+            </div>
+            <div class="file-items" id="privateFileList">
+                <div class="empty-folder">
+                    <span>🔒</span>
+                    正在扫描目录 /private/ ...
+                </div>
+            </div>
+        </div>
+        <div class="private-note">
+            💡 提示：此处仅展示 <code
+                style="background:rgba(0,0,0,0.3); padding:0.2rem 0.5rem; border-radius:6px;">/private/</code>
+            目录下的文件。<br>
+            你可以通过FTP / 后端上传档案，所有链接均指向你服务器上的真实文件。
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            // --------------------------------------------------------------
+            // 私有文件清单 —— 完全由你手动维护，绝对安全且无需后端。
+            // 只要在下方 PRIVATE_FILES 数组里添加文件名及可选描述即可。
+            // 格式: { name: "文件名.后缀", desc: "简短备注(可选)", size: "大小(可选)" }
+            // 所有链接会自动指向 /private/文件名
+            // 示例：
+            // const PRIVATE_FILES = [
+            //   { name: "重要笔记.pdf", desc: "2024年度总结", size: "2.3 MB" },
+            //   { name: "身份证扫描件.jpg", desc: "加密备份", size: "512 KB" },
+            //   { name: "恢复码.txt", desc: "账号恢复密钥", size: "4 KB" }
+            // ];
+            // --------------------------------------------------------------
+            const PRIVATE_FILES = [
+                // ✨ 请在此处填入你的私有文件信息（文件名必须真实存在于 /private/ 目录）
+                // 示例条目 (已注释):
+                // { name: "个人档案.zip", desc: "历年重要文档", size: "18.4 MB" },
+                // { name: "日记_2025.md", desc: "加密草稿", size: "23 KB" },
+                // { name: "订阅清单.xlsx", desc: "自动续费管理", size: "89 KB" },
+                // { name: "ssh密钥对.zip", desc: "服务器密钥备份", size: "5 KB" },
+
+                // 🧩 默认展示两条友好的示例（实际你可以删除或替换成自己的真实文件）
+                {
+                    name: "README.txt",
+                    desc: "私有目录说明（可创建该文件作为备忘录）",
+                    size: "—"
+                },
+                {
+                    name: "备份示例.pdf",
+                    desc: "占位文件，请替换为你自己的资料",
+                    size: "—"
+                }
+            ];
+
+            // 获取文件图标 (根据扩展名简单匹配)
+            function getFileIcon(fileName) {
+                const ext = fileName.split('.').pop().toLowerCase();
+                const iconMap = {
+                    'pdf': '', // icomoon 中可用  代表文档类
+                    'jpg': '',
+                    'jpeg': '',
+                    'png': '',
+                    'gif': '',
+                    'webp': '',
+                    'txt': '',
+                    'md': '',
+                    'zip': '',
+                    'rar': '',
+                    '7z': '',
+                    'tar': '',
+                    'gz': '',
+                    'doc': '',
+                    'docx': '',
+                    'xls': '',
+                    'xlsx': '',
+                    'ppt': '',
+                    'pptx': '',
+                    'mp3': '',
+                    'wav': '',
+                    'flac': '',
+                    'mp4': '',
+                    'mkv': '',
+                    'mov': '',
+                    'html': '',
+                    'htm': '',
+                    'js': '',
+                    'css': '',
+                    'json': '',
+                    'py': '',
+                    'java': '',
+                    'c': '',
+                    'cpp': '',
+                };
+                return iconMap[ext] || ''; // 默认通用文件图标
+            }
+
+            // 获取友好的文件类型描述（备用）
+            function getFriendlyType(fileName) {
+                const ext = fileName.split('.').pop().toLowerCase();
+                const typeMap = {
+                    'pdf': 'PDF文档',
+                    'jpg': '图片',
+                    'jpeg': '图片',
+                    'png': '图片',
+                    'gif': '图片',
+                    'txt': '文本',
+                    'md': 'Markdown',
+                    'zip': '压缩包',
+                    'rar': '压缩包',
+                    '7z': '压缩包',
+                    'doc': 'Word',
+                    'docx': 'Word',
+                    'xls': 'Excel',
+                    'xlsx': 'Excel',
+                    'mp3': '音频',
+                    'mp4': '视频',
+                    'html': '网页',
+                    'js': '脚本',
+                    'py': '代码',
+                };
+                return typeMap[ext] || '文件';
+            }
+
+            // 渲染文件列表
+            function renderFileList(files) {
+                const container = document.getElementById('privateFileList');
+                if (!container) return;
+
+                if (!files || files.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-folder">
+                            <span>📭</span>
+                            暂无私有文件，请在 <code style="background:rgba(0,0,0,0.1); padding:0 5px;">/private/</code> 目录中上传档案<br>
+                            或修改页面内 PRIVATE_FILES 数组以添加索引。
+                        </div>
+                    `;
+                    return;
+                }
+
+                let itemsHtml = '';
+                for (let file of files) {
+                    if (!file.name) continue;
+                    const fileName = file.name;
+                    const filePath = `/private/${encodeURIComponent(fileName)}`;
+                    const icon = getFileIcon(fileName);
+                    const desc = file.desc || getFriendlyType(fileName);
+                    const sizeInfo = file.size ? `<span class="file-meta">${file.size}</span>` : '';
+                    // 安全性：添加 rel="noopener noreferrer" 以保护隐私页面
+                    itemsHtml += `
+                        <div class="file-item">
+                            <div class="file-icon">${icon}</div>
+                            <a href="${filePath}" class="file-link" target="_blank" rel="noopener noreferrer">${escapeHtml(fileName)}</a>
+                            <div class="file-meta">${escapeHtml(desc)}</div>
+                            ${sizeInfo}
+                        </div>
+                    `;
+                }
+                container.innerHTML = itemsHtml;
+            }
+
+            // 简易防XSS
+            function escapeHtml(str) {
+                if (!str) return '';
+                return str.replace(/[&<>]/g, function (m) {
+                    if (m === '&') return '&amp;';
+                    if (m === '<') return '&lt;';
+                    if (m === '>') return '&gt;';
+                    return m;
+                }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function (c) {
+                    return c;
+                });
+            }
+
+            renderFileList(PRIVATE_FILES);
+
+            // 可选: 在控制台输出提示，方便维护
+            console.log('[私人目录] 当前索引文件数: ' + PRIVATE_FILES.length + '，所有链接均指向 /private/ 目录，请确保文件真实存在。');
+        })();
+    </script>
+
+    <script>
+        (function applyTheme() {
+            const root = document.querySelector(':root');
+            const bgDiv = document.querySelector('.bg');
+            if (!root || !bgDiv) return;
+            if (localStorage.scheme == 1) {
+                bgDiv.style.background = 'url(/v4/images/bg_night.png)';
+                bgDiv.style.backgroundSize = 'cover';
+                bgDiv.style.backgroundRepeat = 'no-repeat';
+                root.style.setProperty('--color-stdHead', 'rgba(69, 99, 164, .5)');
+                root.style.setProperty('--color-stdHead_hover', 'rgba(69, 99, 164, .8)');
+                root.style.setProperty('--color-basic', 'rgba(220, 220, 220, .95)');
+                // 同时更新页面内可能继承的颜色变量（保持全局一致性）
+                root.style.setProperty('--color-pagebox', 'rgba(50, 70, 100, 0.65)');
+                root.style.setProperty('--color-pagebox_hover', 'rgba(65, 85, 120, 0.8)');
+                root.style.setProperty('--color-box', 'rgba(40, 60, 90, 0.6)');
+                root.style.setProperty('--color-box_solid', 'rgba(30, 50, 80, 0.85)');
+                root.style.setProperty('--color-input', 'rgba(35, 55, 85, 0.7)');
+                root.style.setProperty('--color-input_hover', 'rgba(55, 75, 105, 0.9)');
+            } else {
+                // 日间模式（默认）还原为原有清爽样式
+                bgDiv.style.background = 'url(/v4/images/background.png)';
+                bgDiv.style.backgroundSize = 'cover';
+                bgDiv.style.backgroundRepeat = 'no-repeat';
+                root.style.setProperty('--color-stdHead', 'rgba(69, 164, 99, .5)');
+                root.style.setProperty('--color-stdHead_hover', 'rgba(69, 164, 99, .8)');
+                root.style.setProperty('--color-basic', 'rgba(0, 0, 0, 1)');
+                root.style.setProperty('--color-pagebox', 'rgba(230, 245, 230, .75)');
+                root.style.setProperty('--color-pagebox_hover', 'rgba(230, 245, 230, .85)');
+                root.style.setProperty('--color-box', 'rgba(230, 255, 230, .55)');
+                root.style.setProperty('--color-box_solid', 'rgba(241, 255, 241, 0.8)');
+                root.style.setProperty('--color-input', 'rgba(240, 255, 240, .8)');
+                root.style.setProperty('--color-input_hover', 'rgba(245, 255, 245, .9)');
+            }
+        })();
+    </script>
+</body>
+
+</html>

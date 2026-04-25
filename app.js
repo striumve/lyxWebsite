@@ -4,79 +4,100 @@ const path = require('path');
 const express = require('express');
 const session = require('express-session');
 
-const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    const url = new URL(req.url, `http://${req.headers.host}`);
+const app = express();
+const server = http.createServer(app);
 
-    if (url.pathname.startsWith('/api/pw')) {
-        res.setHeader('Content-Type', 'application/json');
-        const pw = process.env.LYXWEB_PW || 'fail';
-        if (url.searchParams.get('verify') == pw) {
-            res.end(JSON.stringify({
-                verify: 'true',
-                location: 'self.html'
-            }));
-        } else {
-            res.end(JSON.stringify({
-                verify: 'false',
-                location: 'index.html'
-            }));
+// Express 中间件配置
+app.use(express.json());
+app.use(express.urlencoded({
+    extended: true
+}));
+app.use(session({
+    secret: '123456789' + Date.now(),
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 3600000
+    } // 1小时过期
+}));
+
+// 静态文件服务
+// app.use(express.static(path.join(__dirname)));
+
+// 验证中间件
+const verifyMiddleware = (req, res, next) => {
+    if (req.session.verified) {
+        return next();
+    }
+    res.sendFile(path.join(__dirname, 'api', 'pw.html'));
+};
+
+app.get('/api/self', verifyMiddleware, (req, res) => {
+    res.sendFile(path.join(__dirname, 'api', 'self.html'));
+});
+
+app.get('/api/pw', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    const pw = process.env.LYXWEB_PW || 'fail';
+    const verify = req.query.verify;
+
+    if (verify == pw) {
+        req.session.verified = true;
+        res.json({
+            verify: 'true',
+            location: '/api/self'
+        });
+    } else {
+        req.session.verified = false;
+        res.json({
+            verify: 'false',
+            location: '/v4/'
+        });
+    }
+});
+
+app.post('/api/comments', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    console.log('api.comments');
+
+    const parsedData = req.body;
+    let data = {
+        content: parsedData.content,
+        name: parsedData.name,
+        time: parsedData.time
+    };
+
+    fs.readFile(path.join(__dirname, 'v4', 'comments.json'), (err, original) => {
+        if (err) {
+            res.status(500).json({
+                status: '500',
+                redirect: '/error/500.html'
+            });
+            return;
         }
 
-    } else if (url.pathname.startsWith('/api/comments') && req.method === 'POST') {
-        // res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        console.log('api.comments');
+        const parsedOriginal = JSON.parse(original);
+        const output = [data, ...parsedOriginal];
 
-
-        let body = '';
-        req.on('data', chunk => {
-            body += chunk.toString();
-        });
-
-        req.on('end', () => {
-            let parsedData = JSON.parse(body);
-            let data = {
-                content: parsedData.content,
-                name: parsedData.name,
-                time: parsedData.time
+        fs.writeFile(path.join(__dirname, 'v4', 'comments.json'), JSON.stringify(output), (err) => {
+            if (err) {
+                res.status(500).json({
+                    status: '500',
+                    redirect: '/error/500.html'
+                });
+            } else {
+                res.status(200).json({
+                    status: '200',
+                    redirect: ''
+                });
             }
-            fs.readFile(path.join(__dirname, 'v4', 'comments.json'), (err, original) => {
-                if (err) {
-                    res.statusCode = 500;
-                    res.end(JSON.stringify({
-                        status: '500',
-                        redirect: '/error/500.html'
-                    }));
-                    return;
-                }
-                const parsedOriginal = JSON.parse(original);
-                const output = [data, ...parsedOriginal];
-                fs.writeFile(path.join(__dirname, 'v4', 'comments.json'), JSON.stringify(output), (err) => {
-                    if (err) {
-                        res.statusCode = 500;
-                        res.end(JSON.stringify({
-                            status: '500',
-                            redirect: '/error/500.html'
-                        }));
-                        return;
-                    } else {
-                        res.statusCode = 200;
-                        res.end(JSON.stringify({
-                            status: '200',
-                            redirect: ''
-                        }));
-                    }
-                })
-            })
+        });
+    });
+});
 
-        })
-
-    } else if (url.pathname.startsWith('/api/')) {
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'text/plain');
-        res.end('Hello World \n API is working');
-    }
+app.get('/api/', (req, res) => {
+    res.status = 200;
+    res.sendFile(path.join(__dirname, 'api', 'apistatus.html'));
 });
 
 const port = process.env.PORT || 3000;

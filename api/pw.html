@@ -12,6 +12,9 @@
             user-select: none;
             cursor: url(../../public/cursor/normal.cur), default;
             --input_fs: 2rem;
+            --bg: url(/v4/images/background.png);
+            --cover: cover;
+            --no-repeat: no-repeat;
         }
 
         body {
@@ -49,7 +52,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            background: url(/v4/images/background.png);
+            background: var(--bg);
             background-size: cover;
             background-repeat: no-repeat;
             z-index: -999;
@@ -127,6 +130,17 @@
             background-color: var(--color-btn_hover);
         }
     </style>
+    <script>
+        const root = document.querySelector(':root');
+        if (localStorage.scheme == 1) {
+            root.style.setProperty('--bg', 'url(/v4/images/bg_night.png)');
+            root.style.setProperty('--cover', 'cover');
+            root.style.setProperty('--no-repeat', 'no-repeat');
+            root.style.setProperty('--color-stdHead', 'rgba(69, 99, 164, .5)');
+            root.style.setProperty('--color-stdHead_hover', 'rgba(69, 99, 164, .8)');
+            root.style.setProperty('--color-basic', 'rgba(220, 220, 220, .95)');
+        }
+    </script>
 </head>
 
 <body>
@@ -149,19 +163,10 @@
 </body>
 
 <script>
-    const root = document.querySelector(':root');
-    if (localStorage.scheme == 1) {
-        document.querySelector(".bg").style.background = 'url(/v4/images/bg_night.png)';
-        document.querySelector(".bg").style.backgroundSize = 'cover';
-        root.style.setProperty('--color-stdHead', 'rgba(69, 99, 164, .5)');
-        root.style.setProperty('--color-stdHead_hover', 'rgba(69, 99, 164, .8)');
-        root.style.setProperty('--color-basic', 'rgba(220, 220, 220, .95)');
-    }
-
     async function check() {
         let res;
         let pw = document.querySelector('#pw').value;
-        let response = await fetch(`/api/pw?verify=${pw}`)
+        let response = await fetch(`/api/pw?verify=${pw}`);
         res = await response.json();
         console.log(res.verify);
         if (res.verify == 'false') {
