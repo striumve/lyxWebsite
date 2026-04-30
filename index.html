@@ -2,312 +2,177 @@
 <html lang="zh-hans">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>欢迎 - lyx的个人网站</title>
-	<link rel="icon" href="/public/images/logo.jpg" sizes="32x32">
-	<meta name="description" itemprop="description" content="欢迎分享">
-	<meta itemprop="name" content="lyx的个人网站">
-	<meta itemprop="image" content="/public/images/logo.jpg">
-	<meta name="description" content="竹芒云蹊">
-	<meta property="og:title" content="竹芒云蹊">
-	<meta property="og:description" content="lyx的个人网站">
-	<meta property="og:image" content="/public/images/logo.jpg">
-	<style>
-		@font-face {
-			font-family: 'Din';
-			src: url('/public/fonts/DIN-Regular-2.otf');
-			font-weight: normal;
-			font-style: normal;
-			font-display: block;
-		}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎 - lyx的个人网站</title>
+    <link rel="icon" href="/public/images/logo.jpg" sizes="32x32">
+    <meta name="description" itemprop="description" content="欢迎分享">
+    <meta itemprop="name" content="lyx的个人网站">
+    <meta itemprop="image" content="/public/images/logo.jpg">
+    <meta name="description" content="竹芒云蹊">
+    <meta property="og:title" content="竹芒云蹊">
+    <meta property="og:description" content="lyx的个人网站">
+    <meta property="og:image" content="/public/images/logo.jpg">
+    <style>
+        @font-face {
+            font-family: 'Din';
+            src: url('/public/fonts/DIN-Regular-2.otf');
+            font-weight: normal;
+            font-style: normal;
+            font-display: block;
+        }
 
-		@font-face {
-			font-family: 'siyuanhei';
-			src: url('/public/fonts/SourceHanSansSC-Medium-2.otf');
-			font-weight: medium;
-			font-style: normal;
-			font-display: block;
-		}
+        @font-face {
+            font-family: 'siyuanhei';
+            src: url('/public/fonts/SourceHanSansSC-Medium-2.otf');
+            font-weight: medium;
+            font-style: normal;
+            font-display: block;
+        }
 
-		@font-face {
-			font-family: 'siyuanhei';
-			src: url('/public/fonts/SourceHanSansSC-Regular-2.otf');
-			font-weight: normal;
-			font-style: normal;
-			font-display: block;
-		}
+        @font-face {
+            font-family: 'siyuanhei';
+            src: url('/public/fonts/SourceHanSansSC-Regular-2.otf');
+            font-weight: normal;
+            font-style: normal;
+            font-display: block;
+        }
 
-		@keyframes leftbar_in {
-			0% {
-				height: 0px;
-				background: linear-gradient(rgba(200, 225, 250, .3) 90%, transparent 100%);
-			}
+        @font-face {
+            font-family: 'siyuan';
+            src: url('/public/fonts/SourceHanSerifCN-Regular-1-subset.woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: block;
+        }
 
-			10% {
-				height: 0px;
-				background: linear-gradient(rgba(200, 225, 250, .3) 90%, transparent 100%);
-			}
+        @font-face {
+            font-family: 'consolas';
+            src: url('/public/fonts/consolas.ttf');
+            font-weight: normal;
+            font-style: normal;
+            font-display: block;
+        }
 
-			100% {
-				height: var(--leftbar-height);
-				/* background: rgba(200, 225, 250, .3); */
-				background: linear-gradient(rgba(200, 225, 250, .3) 90%, transparent 100%);
-			}
-		}
+        @keyframes link-in {
+            0% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
 
-		@keyframes box_in {
-			0% {
-				opacity: 0;
-			}
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
 
-			100% {
-				opacity: 1;
-			}
-		}
+        html {
+            cursor: url(/public/cursor/normal.cur), default;
+        }
 
-		html {
-			cursor: url(/public/cursor/normal.cur), default;
-		}
+        a {
+            cursor: url(/public/cursor/link.cur), default;
+        }
 
-		a {
-			cursor: url(/public/cursor/link.cur), default;
-		}
+        :root {
+            --title-fs: 80px;
+            --title-top: 60px;
+            --link-h: 50px
+        }
 
-		:root {
-			--leftbar-height: 580px;
-		}
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgb(10, 20, 45);
+            user-select: none;
+            /* transition: .3s; */
+        }
 
-		body {
-			margin: 0;
-			padding: 0;
-			overflow: hidden;
-			width: 100vw;
-			height: 100vh;
-			background-color: rgb(15, 25, 55);
-			user-select: none;
-			/* transition: .3s; */
-		}
+        .title {
+            font-family: 'Din';
+            font-size: var(--title-fs);
+            position: absolute;
+            left: clamp(20px, 18vw, 500px);
+            top: var(--title-top);
+            color: rgb(220, 220, 255);
+        }
 
-		.title {
-			color: rgb(210, 240, 255);
-			font-size: 60px;
-			position: fixed;
-			top: 8vh;
-			left: clamp(200px, 25vw, 800px);
-			font-family: 'Din';
-			opacity: 0;
-			animation: box_in 2s ease both;
-		}
-
-		.container .link:first-of-type::before {
-			content: '';
-			position: fixed;
-			top: -10px;
-			left: -25px;
-			/* top: clamp(50px, calc(8vh + 100px), 300px); */
-			width: 3px;
-			/* height: 540px; */
-			/* background-color: rgba(200, 225, 250, .3); */
-
-			animation: leftbar_in 2.4s ease both;
-		}
-
+        .subtitle {
+            font-family: 'consolas';
+            font-size: calc(var(--title-fs) * 0.45);
+            position: absolute;
+            left: clamp(20px, 18vw, 500px);
+            top: calc(var(--title-top) + var(--title-fs) * 1.4);
+            color: rgba(200, 200, 235, .6);
+        }
+        
 		.link {
 			display: block;
 			width: 350px;
-			height: 100px;
+			height: var(--link-h);
+            font-family: 'siyuan';
 			border-radius: 10px;
 			position: relative;
-			left: clamp(200px, 25vw, 800px);
 			margin-top: 40px;
-			background-color: rgba(200, 225, 250, .3);
-			backdrop-filter: blur(5px);
 			text-decoration: none;
 			color: rgba(200, 225, 250, .9);
 			font-size: 23px;
-			line-height: 100px;
-			padding-left: 50px;
+			line-height: var(--link-h);
+			/* padding-left: 50px; */
 			transition: .2s;
-			opacity: 0;
-			/* font-family: 'siyuanhei'; */
+			/* opacity: 0; */
 		}
 
-		.container {
-			overflow: visible;
-			/* 添加该属性才能使第一个link的margin-top生效 */
-		}
+        .container :nth-child(1) {
+            animation: 'link-in' .8s ease both;
+            animation-delay: 0ms;
+        }
 
-		.container .link:first-of-type {
-			margin-top: calc(8vh + 150px);
-		}
+        .container :nth-child(2) {
+            animation: 'link-in' .8s ease both;
+            animation-delay: 400ms;
+        }
 
-		.link:hover {
-			background-color: rgba(160, 160, 210, 0.5);
-			box-shadow: 0px 0px 15px rgba(50, 50, 100, .8);
-		}
+        .container :nth-child(3) {
+            animation: 'link-in' .8s ease both;
+            animation-delay: 800ms;
+        }
 
-		.svg {
-			position: fixed;
-			left: 0;
-			top: 0;
-		}
+        .container :nth-child(4) {
+            animation: 'link-in' .8s ease both;
+            animation-delay: 1200ms;
+        }
 
-		@media (max-width: 768px) {
-			[data-visible="2"] {
-				fill: none;
-				stroke: none;
-			}
-
-			:root {
-				--leftbar-height: 500px;
-			}
-
-			.title {
-				top: 5vh;
-				left: clamp(20px, 10vw, 500px);
-			}
-
-			.link {
-				left: clamp(20px, 12vw, 500px);
-				width: 250px;
-				height: 75px;
-				line-height: 75px;
-				font-size: 21px;
-			}
-
-			.container .link:first-of-type {
-				margin-top: calc(8vh + 100px);
-			}
-		}
-
-		@media (max-width: 1024px) {
-			[data-visible="1"] {
-				fill: none;
-				stroke: none;
-			}
-		}
-	</style>
+        .container {
+            position: absolute;
+            left: clamp(20px, 18vw, 500px);
+            top: calc(var(--title-top) + var(--title-fs) * 2.4);
+        }
+    </style>
 </head>
 
 <script>
-	// window.location.href = 'welcome.html';
 </script>
 
 <body>
-	<!-- <h2>正在跳转至主页……</h2> -->
-	<!-- <a href="welcome.html">如果未自动跳转，请点击此处</a> -->
-
-	<svg width="100%" height="100%" class="svg" style="z-index: -999;">
-		<defs>
-			<!-- 定义渐变，让颜色更丰富 -->
-			<linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-				<stop offset="0%" style="stop-color:#3900ac;stop-opacity:0.4" />
-				<stop offset="100%" style="stop-color:#7117be;stop-opacity:0.4" />
-			</linearGradient>
-			<linearGradient id="grad2" x1="0%" y1="100%" x2="100%" y2="0%">
-				<stop offset="0%" style="stop-color:#b64629;stop-opacity:0.3" />
-				<stop offset="100%" style="stop-color:#b37647;stop-opacity:0.3" />
-			</linearGradient>
-			<radialGradient id="grad3" cx="30%" cy="40%" r="50%">
-				<stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.25" />
-				<stop offset="100%" style="stop-color:#ffffff;stop-opacity:0.05" />
-			</radialGradient>
-		</defs>
-
-		<!-- layer: 1 - bottom, 5 - top. -->
-		<!-- data-visible: 1 - desktop only; 2 - pc and pad; 3 - all. -->
-
-		<!-- 大圆形 - 填充渐变 -->
-		<circle cx="75%" cy="50%" r="100" fill="url(#grad1)" data-layer="1" data-visible="1" />
-
-		<!-- 矩形 - 填充半透白 -->
-		<rect x="65%" y="10%" width="180" height="180" rx="12" fill="rgba(255,255,255,0.05)" data-layer="2" />
-
-		<!-- 小圆形 - 填充纯色 -->
-		<circle cx="85%" cy="75%" r="60" fill="rgba(180, 120, 255, 0.15)" data-layer="3" />
-
-		<!-- 圆角矩形 - 填充渐变 -->
-		<rect x="5%" y="70%" width="200" height="120" rx="20" fill="url(#grad2)" data-layer="2" data-visible="1" />
-
-		<!-- 小矩形块 -->
-		<rect x="45%" y="55%" width="80" height="80" fill="rgba(255, 200, 100, 0.1)" data-layer="2" />
-
-		<!-- 椭圆 -->
-		<ellipse cx="15%" cy="20%" rx="90" ry="50" fill="rgba(100, 200, 255, 0.08)" data-layer="2" />
-
-		<!-- 大圆形 - 细线轮廓 -->
-		<circle cx="80%" cy="15%" r="80" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" data-layer="3"
-			data-visible="2" />
-
-		<!-- 方形 - 虚线轮廓 -->
-		<rect x="10%" y="40%" width="150" height="150" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1"
-			stroke-dasharray="6 6" data-layer="1" data-visible="2" />
-
-		<!-- 圆角矩形 - 轮廓 -->
-		<rect x="50%" y="10%" width="60" height="40" rx="16" fill="none" stroke="rgba(200, 180, 255, 0.35)"
-			stroke-width="1" data-layer="2" />
-
-		<!-- 小圆形 -->
-		<circle cx="20%" cy="85%" r="30" fill="none" stroke="rgba(150, 220, 255, 0.4)" stroke-width="1.5"
-			data-layer="3" />
-
-		<!-- 十字交叉线（由两个矩形组成） -->
-		<rect x="50%" y="30%" width="40" height="2" fill="rgba(255,255,255,0.2)" data-layer="4" />
-		<rect x="50%" y="30%" width="2" height="40" fill="rgba(255,255,255,0.2)" data-layer="4" />
-
-		<!-- 大圆环 - 多层 -->
-		<circle cx="40%" cy="70%" r="140" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" data-layer="2" />
-		<circle cx="40%" cy="70%" r="160" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="0.5"
-			data-layer="2" />
-
-		<!-- 小圆点装饰（多个小圆形） -->
-		<circle cx="35%" cy="25%" r="3" fill="rgba(255,255,255,0.5)" data-layer="1" data-visible="2" />
-		<circle cx="55%" cy="18%" r="2" fill="rgba(255,255,255,0.4)" data-layer="2" />
-		<circle cx="70%" cy="45%" r="4" fill="rgba(255,255,255,0.3)" data-layer="3" data-visible="1" />
-		<circle cx="25%" cy="60%" r="2.5" fill="rgba(255,255,255,0.45)" data-layer="4" />
-		<circle cx="90%" cy="50%" r="3" fill="rgba(255,255,255,0.35)" data-layer="5" data-visible="2" />
-		<circle cx="12%" cy="50%" r="2" fill="rgba(255,255,255,0.4)" data-layer="3" />
-		<circle cx="48%" cy="88%" r="3.5" fill="rgba(255,255,255,0.3)" data-layer="4" data-visible="2" />
-		<circle cx="60%" cy="70%" r="5" fill="rgba(255,255,255,0.3)" data-layer="5" data-visible="2" />
-
-		<!-- 线条 -->
-		<line x1="15%" y1="60%" x2="20%" y2="30%" stroke="rgba(255,200,200,0.3)" stroke-width="1" data-layer="3" />
-	</svg>
-
-	<div class="title" style="z-index: 0;">Welcome</div>
-	<div class="container">
-		<a href="/v4/" class="link" data-i="0">竹芒云蹊</a>
-		<a href="https://github.com/striumve/lyxWebsite" class="link" target="_blank" data-i="1">GitHub</a>
-		<a href="/v2/" class="link" data-i="2">主页v2</a>
-		<a href="/otaku/" class="link" data-i="3">二次元</a>
-	</div>
+    <div class="title" style="z-index: 0;">Striumve</div>
+    <div class="subtitle">Strive. Triumph.</div>
+    <div class="container">
+        <a href="/v4/" class="link" data-i="0">&ensp;-&emsp;竹芒云蹊</a>
+        <a href="https://github.com/striumve/lyxWebsite" class="link" target="_blank" data-i="1">&ensp;-&emsp;GitHub</a>
+        <a href="/v2/" class="link" data-i="2">&ensp;-&emsp;历史版本</a>
+        <a href="/terminal/" class="link" data-i="3">&ensp;-&emsp;终端</a>
+    </div>
+    <div class="btn">更多</div>
+    <div class="more">
+        <a href=""></a>
+    </div>
 </body>
 
 <script>
-	if (window.matchMedia('(pointer: fine)').matches) {
-		document.addEventListener('mousemove', (e) => {
-			// 鼠标位置归一化到 [-1, 1] 范围
-			const mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-			const mouseY = (e.clientY / window.innerHeight) * 2 - 1;
-
-			const param = [1, 5, 10, 20, 30, 60];
-
-			for (let i = 1; i <= 5; i++) {
-				document.querySelectorAll(`[data-layer="${i}"]`).forEach(elem => {
-					elem.style.transform = `translate(${mouseX * param[i]}px, ${mouseY * param[i]}px)`;
-				})
-			}
-		});
-	}
-
-	let i = 0;
-	setInterval(() => {
-		if (i < 4) {
-			document.querySelector(`[data-i="${i}"]`).style.animation = 'box_in .6s ease both';
-			i++;
-		}
-	}, 300);
 </script>
 
 </html>
