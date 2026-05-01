@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome | Personal Space</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bg-color: #0f1115;
+            --accent-gold: #d4af37;
+            --accent-silver: #e2e8f0;
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--accent-silver);
+            font-family: 'Space Grotesk', 'Noto Serif SC', sans-serif;
+            overflow: hidden;
+            margin: 0;
+            height: 100vh;
+            width: 100vw;
+            perspective: 1000px; /* 核心：开启3D透视 */
+        }
+
+        /* --- 背景层 --- */
+        #universe {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            transform-style: preserve-3d;
+            pointer-events: none;
+        }
+
+        /* --- 几何体通用样式 --- */
+        .geo-shape {
+            position: absolute;
+            transform-style: preserve-3d;
+            will-change: transform;
+            opacity: 0.6;
+        }
+
+        /* 立方体构造 */
+        .cube {
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            transform-style: preserve-3d;
+        }
+        .cube-face {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 1px solid rgba(212, 175, 55, 0.3); /* 琥珀金边框 */
+            background: rgba(15, 17, 21, 0.4);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.05);
+        }
+        .cube-face:nth-child(1) { transform: rotateY(  0deg) translateZ(30px); }
+        .cube-face:nth-child(2) { transform: rotateY( 90deg) translateZ(30px); }
+        .cube-face:nth-child(3) { transform: rotateY(180deg) translateZ(30px); }
+        .cube-face:nth-child(4) { transform: rotateY(-90deg) translateZ(30px); }
+        .cube-face:nth-child(5) { transform: rotateX( 90deg) translateZ(30px); }
+        .cube-face:nth-child(6) { transform: rotateX(-90deg) translateZ(30px); }
+
+        /* 线框八面体 (模拟) */
+        .octahedron {
+            width: 0;
+            height: 0;
+            position: absolute;
+            transform-style: preserve-3d;
+        }
+        .octa-face {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 52px solid rgba(255, 255, 255, 0.05);
+            transform-origin: 50% 100%;
+        }
+
+        /* 悬浮光环 */
+        .ring {
+            border: 1px solid rgba(226, 232, 240, 0.15);
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: 0 0 20px rgba(226, 232, 240, 0.05);
+        }
+
+        /* --- 内容层 --- */
+        .content-layer {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            pointer-events: none; /* 让鼠标事件穿透到背景，或者只给子元素开启 */
+        }
+
+        .interactive-area {
+            pointer-events: auto;
+        }
+
+        /* --- 动画与过渡 --- */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .delay-1 { animation-delay: 0.5s; }
+        .delay-2 { animation-delay: 0.8s; }
+        .delay-3 { animation-delay: 1.1s; }
+        .delay-4 { animation-delay: 1.4s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 链接样式 */
+        .nav-link {
+            position: relative;
+            text-decoration: none;
+            color: rgba(226, 232, 240, 0.6);
+            transition: color 0.4s ease, letter-spacing 0.4s ease;
+            padding-bottom: 5px;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--accent-gold);
+            transition: width 0.4s ease, left 0.4s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-gold);
+            letter-spacing: 0.15em;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        /* 标题光晕 */
+        .hero-title {
+            background: linear-gradient(to bottom, #ffffff, #a0a0a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* 响应式微调 */
+        @media (max-width: 768px) {
+            .geo-shape { opacity: 0.4; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 3D 几何体容器 -->
+    <div id="universe">
+        <!-- 这里的元素将由 JS 动态生成或控制位置 -->
+        
+        <!-- 示例静态结构，JS会覆盖transform -->
+        <div class="geo-shape cube" id="cube-1" style="top: 20%; left: 15%;">
+            <div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div>
+            <div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div>
+        </div>
+
+        <div class="geo-shape cube" id="cube-2" style="top: 60%; left: 80%;">
+            <div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div>
+            <div class="cube-face"></div><div class="cube-face"></div><div class="cube-face"></div>
+        </div>
+
+        <div class="geo-shape ring" id="ring-1" style="width: 150px; height: 150px; top: 30%; left: 70%;"></div>
+        <div class="geo-shape ring" id="ring-2" style="width: 300px; height: 300px; top: 50%; left: 20%; border-color: rgba(212, 175, 55, 0.1);"></div>
+        
+        <!-- 更多装饰点 -->
+        <div class="geo-shape" id="dot-1" style="width: 4px; height: 4px; background: var(--accent-gold); border-radius: 50%; top: 40%; left: 40%; box-shadow: 0 0 10px var(--accent-gold);"></div>
+        <div class="geo-shape" id="dot-2" style="width: 2px; height: 2px; background: #fff; border-radius: 50%; top: 70%; left: 50%;"></div>
+        <div class="geo-shape" id="dot-3" style="width: 3px; height: 3px; background: var(--accent-gold); border-radius: 50%; top: 15%; left: 85%;"></div>
+    </div>
+
+    <!-- 主要内容 -->
+    <div class="content-layer">
+        <h1 class="hero-title text-5xl md:text-7xl lg:text-8xl font-bold mb-12 tracking-tight fade-up delay-1 interactive-area">
+            你好，探索者
+        </h1>
+        
+        <nav class="flex flex-col md:flex-row gap-8 md:gap-16 text-lg md:text-xl font-light fade-up delay-2 interactive-area">
+            <a href="#" class="nav-link">竹芒云蹊</a>
+            <a href="#" class="nav-link">GitHub个人主页</a>
+            <a href="#" class="nav-link">主页v2</a>
+        </nav>
+
+        <div class="absolute bottom-10 text-xs text-gray-600 tracking-widest fade-up delay-4">
+            SCROLL TO EXPLORE
+        </div>
+    </div>
+
+    <script>
+        /**
+         * 核心逻辑：视差引擎
+         * 我们不使用 heavy libraries，而是手写一个轻量级的物理循环
+         */
+        const universe = document.getElementById('universe');
+        const shapes = [
+            { el: document.getElementById('cube-1'), x: 15, y: 20, z: -100, speed: 0.02, rotSpeed: 0.2 },
+            { el: document.getElementById('cube-2'), x: 80, y: 60, z: -250, speed: 0.04, rotSpeed: -0.3 },
+            { el: document.getElementById('ring-1'), x: 70, y: 30, z: -50, speed: 0.01, rotSpeed: 0.1 },
+            { el: document.getElementById('ring-2'), x: 20, y: 50, z: -400, speed: 0.06, rotSpeed: 0.05 },
+            { el: document.getElementById('dot-1'), x: 40, y: 40, z: -20, speed: 0.03, rotSpeed: 0 },
+            { el: document.getElementById('dot-2'), x: 50, y: 70, z: -10, speed: 0.05, rotSpeed: 0 },
+            { el: document.getElementById('dot-3'), x: 85, y: 15, z: -150, speed: 0.04, rotSpeed: 0 }
+        ];
+
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetRotateX = 0;
+        let targetRotateY = 0;
+        let currentRotateX = 0;
+        let currentRotateY = 0;
+        
+        // 鼠标移动监听
+        document.addEventListener('mousemove', (e) => {
+            // 归一化坐标 -1 到 1
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+        });
+
+        // 陀螺仪监听 (移动设备)
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener('deviceorientation', (event) => {
+                if(event.beta && event.gamma) {
+                    // beta: 前后倾斜 (-180 to 180), gamma: 左右倾斜 (-90 to 90)
+                    // 限制角度范围以获得更好的体验
+                    const tiltX = Math.max(-30, Math.min(30, event.gamma)) / 30; 
+                    const tiltY = Math.max(-30, Math.min(30, event.beta - 45)) / 30; // 假设手机略微前倾
+                    
+                    mouseX = tiltX;
+                    mouseY = tiltY;
+                }
+            });
+        }
+
+        // 动画循环
+        function animate() {
+            // 平滑插值 (Lerp)
+            targetRotateY = mouseX * 15; // 最大旋转角度
+            targetRotateX = -mouseY * 15;
+
+            currentRotateX += (targetRotateX - currentRotateX) * 0.05;
+            currentRotateY += (targetRotateY - currentRotateY) * 0.05;
+
+            // 1. 整体容器随鼠标轻微倾斜 (宏观视差)
+            universe.style.transform = `rotateX(${currentRotateX}deg) rotateY(${currentRotateY}deg)`;
+
+            // 2. 各个几何体独立运动 (微观视差)
+            const time = Date.now() * 0.001;
+            
+            shapes.forEach((shape, index) => {
+                if (!shape.el) return;
+
+                // 基础悬浮动画 (正弦波)
+                const floatY = Math.sin(time + index) * 10;
+                const floatX = Math.cos(time * 0.5 + index) * 5;
+
+                // 鼠标视差位移
+                const parallaxX = mouseX * shape.speed * 1000; // 位移幅度
+                const parallaxY = mouseY * shape.speed * 1000;
+
+                // 旋转
+                const rot = time * shape.rotSpeed * 20;
+
+                // 组合变换
+                // 注意：Z轴位置决定了近大远小
+                shape.el.style.transform = `
+                    translate3d(
+                        calc(${shape.x}vw - 50% + ${parallaxX}px + ${floatX}px), 
+                        calc(${shape.y}vh - 50% + ${parallaxY}px + ${floatY}px), 
+                        ${shape.z}px
+                    )
+                    rotateX(${rot}deg)
+                    rotateY(${rot * 1.5}deg)
+                `;
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // 添加随机闪烁的小点 (氛围感)
+        function createParticles() {
+            const count = 20;
+            for(let i=0; i<count; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'geo-shape';
+                const size = Math.random() * 2 + 1;
+                dot.style.width = size + 'px';
+                dot.style.height = size + 'px';
+                dot.style.background = Math.random() > 0.5 ? 'rgba(212, 175, 55, 0.4)' : 'rgba(255,255,255,0.3)';
+                dot.style.borderRadius = '50%';
+                dot.style.boxShadow = `0 0 ${size*4}px currentColor`;
+                
+                // 随机初始位置
+                const x = Math.random() * 100;
+                const y = Math.random() * 100;
+                const z = Math.random() * -500;
+                
+                universe.appendChild(dot);
+                
+                // 动态添加到 shapes 数组以便参与动画
+                shapes.push({
+                    el: dot,
+                    x: x,
+                    y: y,
+                    z: z,
+                    speed: Math.random() * 0.05 + 0.01,
+                    rotSpeed: 0
+                });
+            }
+        }
+        
+        createParticles();
+
+    </script>
+</body>
+</html>

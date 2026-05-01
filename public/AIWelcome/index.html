@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>弃用的欢迎页 - lyx的个人网站</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: rgb(0, 0, 32);
+            user-select: none;
+            cursor: url(/public/cursor/normal.cur), default;
+        }
+
+        a {
+            cursor: url(/public/cursor/link.cur), default;
+            text-decoration: none;
+            color: rgb(200, 200, 255);
+        }
+
+        .list {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: calc(20vw - 4em);
+            height: 100vh;
+            color: rgb(250, 250, 255);
+            padding-left: 2em;
+            padding-right: 2em;
+            font-size: 20px;
+        }
+
+        .item {
+            margin-left: 0em;
+            transition: .3s;
+            cursor: url(/public/cursor/link.cur), default;
+        }
+
+        .item:hover {
+            color: rgb(240, 240, 250);
+        }
+
+        .active {
+            margin-left: 1em;
+        }
+
+        .iframe {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: calc(80vw - 2px);
+            height: calc(100vh - 2px);
+            border: 1px solid skyblue;
+        }
+
+        @media screen and (max-width: 768px) {
+            .iframe {
+                top: 20vh;
+                width: calc(100vw - 2px);
+                height: calc(80vh - 2px);
+            }
+
+            .list {
+                width: calc(100vw - 4em);
+                height: 20vh;
+                overflow: auto;
+                font-size: 18px;
+            }
+
+            .item {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="list">
+        <br>
+        <a href="/" class="back">返回</a>
+        <div class="title">这些是由AI制作的欢迎页版本，我都没有采用，最后发现还是自己做的好。点击下方按钮进行预览。</div>
+        <p class="item" data-page="kimi1">Kimi-K2.6</p>
+        <p class="item" data-page="kimi2">Kimi-K2.6（神秘动画）</p>
+        <p class="item" data-page="kimi3">Kimi-K2.6</p>
+        <p class="item" data-page="kimi4">Kimi-K2.6（最离谱）</p>
+        <p class="item" data-page="kimi5">Kimi-K2.6</p>
+        <p class="item" data-page="deepseek1">DeepSeek-v4</p>
+        <p class="item" data-page="deepseek2">DeepSeek-v4</p>
+        <p class="item" data-page="deepseek3">DeepSeek-v4</p>
+        <p class="item" data-page="qwen1">Qwen3.5-千问</p>
+        <p class="item" data-page="qwen2">Qwen3-Coder</p>
+    </div>
+    <iframe srcdoc="<h2 style='color: rgb(100, 100, 115);'>点击按钮以进行预览</h2>" frameborder="0" class="iframe" sandbox="allow-scripts"></iframe>
+</body>
+<script>
+    let show = document.querySelector('.iframe')
+    document.querySelectorAll('.item').forEach(btn => {
+        btn.addEventListener('click', () => {
+            show.removeAttribute('srcdoc');
+            show.src = `/public/AIWelcome/${btn.dataset.page}.html`;
+            document.querySelectorAll('.item').forEach(i => {
+                i.classList.remove('active');
+            })
+            btn.classList.add('active');
+        })
+    })
+</script>
+
+</html>

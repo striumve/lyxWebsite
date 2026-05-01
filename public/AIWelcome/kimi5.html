@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Striumve — LYX</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-deep: #0a0a0f;
+            --bg-surface: #12121a;
+            --text-primary: #e8e8f0;
+            --text-muted: #6b6b7b;
+            --accent-gold: #c9a96e;
+            --accent-ice: #8ecae6;
+            --border-subtle: rgba(255,255,255,0.06);
+        }
+
+        body {
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+        }
+
+        /* ===== 开场动画容器 ===== */
+        .intro-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: var(--bg-deep);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            animation: introFadeOut 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation-delay: 4.5s;
+        }
+
+        .intro-scene {
+            position: relative;
+            width: 400px;
+            height: 400px;
+        }
+
+        /* 几何构造：精密仪器感 */
+        .geo-ring {
+            position: absolute;
+            border: 1px solid rgba(201, 169, 110, 0.15);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .geo-ring:nth-child(1) {
+            width: 60px;
+            height: 60px;
+            animation: ringExpand 4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .geo-ring:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            border-color: rgba(142, 202, 230, 0.1);
+            animation: ringExpand 4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+        }
+
+        .geo-ring:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            border-color: rgba(201, 169, 110, 0.08);
+            animation: ringExpand 4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+        }
+
+        .geo-ring:nth-child(4) {
+            width: 300px;
+            height: 300px;
+            border-color: rgba(142, 202, 230, 0.05);
+            border-style: dashed;
+            animation: ringExpand 4s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards;
+        }
+
+        @keyframes ringExpand {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 0;
+                border-width: 2px;
+            }
+            30% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                border-width: 0.5px;
+            }
+        }
+
+        /* 中心粒子爆发 */
+        .particle-burst {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            top: 0;
+            left: 0;
+        }
+
+        /* 生成12个粒子 */
+        .particle:nth-child(1) { animation: particleFly 3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .particle:nth-child(2) { animation: particleFly 3s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards; }
+        .particle:nth-child(3) { animation: particleFly 3s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards; }
+        .particle:nth-child(4) { animation: particleFly 3s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards; }
+        .particle:nth-child(5) { animation: particleFly 3s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; }
+        .particle:nth-child(6) { animation: particleFly 3s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards; }
+        .particle:nth-child(7) { animation: particleFly 3s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards; }
+        .particle:nth-child(8) { animation: particleFly 3s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards; }
+        .particle:nth-child(9) { animation: particleFly 3s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; }
+        .particle:nth-child(10) { animation: particleFly 3s cubic-bezier(0.16, 1, 0.3, 1) 0.45s forwards; }
+        .particle:nth-child(11) { animation: particleFly 3s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards; }
+        .particle:nth-child(12) { animation: particleFly 3s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards; }
+
+        @keyframes particleFly {
+            0% {
+                transform: rotate(var(--angle)) translateX(0) scale(1);
+                opacity: 1;
+            }
+            60% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: rotate(var(--angle)) translateX(180px) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* 字母拆解动画 */
+        .letter-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            animation: lettersReveal 2s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
+        }
+
+        .letter {
+            font-size: 48px;
+            font-weight: 200;
+            letter-spacing: 0.2em;
+            color: transparent;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-ice));
+            -webkit-background-clip: text;
+            background-clip: text;
+            opacity: 0;
+            transform: translateY(30px) rotateX(-90deg);
+            animation: letterIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .letter:nth-child(1) { animation-delay: 1.3s; }
+        .letter:nth-child(2) { animation-delay: 1.45s; }
+        .letter:nth-child(3) { animation-delay: 1.6s; }
+        .letter:nth-child(4) { animation-delay: 1.75s; }
+        .letter:nth-child(5) { animation-delay: 1.9s; }
+        .letter:nth-child(6) { animation-delay: 2.05s; }
+        .letter:nth-child(7) { animation-delay: 2.2s; }
+        .letter:nth-child(8) { animation-delay: 2.35s; }
+
+        @keyframes letterIn {
+            to {
+                opacity: 1;
+                transform: translateY(0) rotateX(0);
+            }
+        }
+
+        @keyframes lettersReveal {
+            to { opacity: 1; }
+        }
+
+        /* 扫描线效果 */
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(142, 202, 230, 0.4), transparent);
+            top: 50%;
+            animation: scanMove 2s ease-in-out forwards;
+            animation-delay: 0.5s;
+            opacity: 0;
+        }
+
+        @keyframes scanMove {
+            0% {
+                top: 10%;
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                top: 90%;
+                opacity: 0;
+            }
+        }
+
+        @keyframes introFadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* ===== 主页面内容 ===== */
+        .main-content {
+            position: relative;
+            z-index: 1;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            animation: mainReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) 4.8s forwards;
+        }
+
+        @keyframes mainReveal {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 背景网格 */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* 浮动光点 */
+        .ambient-light {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.15;
+            pointer-events: none;
+            animation: ambientFloat 20s ease-in-out infinite;
+        }
+
+        .ambient-light:nth-child(1) {
+            background: var(--accent-gold);
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .ambient-light:nth-child(2) {
+            background: var(--accent-ice);
+            bottom: -100px;
+            right: -100px;
+            animation-delay: -10s;
+        }
+
+        @keyframes ambientFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, 30px) scale(1.1); }
+            66% { transform: translate(-30px, 50px) scale(0.9); }
+        }
+
+        /* 主标题区域 */
+        .hero-section {
+            text-align: center;
+            position: relative;
+        }
+
+        .monogram {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 5s forwards;
+        }
+
+        .main-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 200;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            opacity: 0;
+            animation: fadeSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 5.2s forwards;
+        }
+
+        .main-title .highlight {
+            font-weight: 400;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-ice));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            font-weight: 300;
+            opacity: 0;
+            animation: fadeSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 5.4s forwards;
+        }
+
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 分隔线 */
+        .divider {
+            width: 40px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+            margin: 48px auto;
+            opacity: 0;
+            animation: fadeSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 5.6s forwards;
+        }
+
+        /* 导航链接 */
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            opacity: 0;
+            animation: fadeSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 5.8s forwards;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 14px 32px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 300;
+            letter-spacing: 0.08em;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 4px;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 4px;
+            border: 1px solid transparent;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nav-link:hover {
+            color: var(--accent-gold);
+            transform: translateX(4px);
+        }
+
+        .nav-link:hover::before {
+            border-color: rgba(201, 169, 110, 0.2);
+            background: rgba(201, 169, 110, 0.03);
+        }
+
+        .nav-link .arrow {
+            display: inline-block;
+            margin-left: 8px;
+            opacity: 0;
+            transform: translateX(-4px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            color: var(--accent-gold);
+        }
+
+        .nav-link:hover .arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* 更多按钮 */
+        .more-btn {
+            margin-top: 32px;
+            padding: 12px 28px;
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            font-size: 13px;
+            letter-spacing: 0.15em;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            font-family: inherit;
+            opacity: 0;
+            animation: fadeSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 6s forwards;
+        }
+
+        .more-btn:hover {
+            border-color: rgba(142, 202, 230, 0.3);
+            color: var(--accent-ice);
+            background: rgba(142, 202, 230, 0.03);
+        }
+
+        /* 更多链接面板 */
+        .more-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+            opacity: 0;
+            margin-top: 0;
+        }
+
+        .more-panel.active {
+            max-height: 300px;
+            opacity: 1;
+            margin-top: 16px;
+        }
+
+        .more-link {
+            display: block;
+            padding: 10px 24px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 300;
+            letter-spacing: 0.06em;
+            transition: all 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .more-link:hover {
+            color: var(--text-primary);
+            background: rgba(255,255,255,0.03);
+        }
+
+        /* 底部信息 */
+        .footer {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            color: rgba(107, 107, 123, 0.5);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeSlideUp 1s cubic-bezier(0.16, 1, 0.3, 1) 6.5s forwards;
+        }
+
+        /* 响应式 */
+        @media (max-width: 640px) {
+            .intro-scene {
+                transform: scale(0.7);
+            }
+            .nav-link {
+                min-width: 180px;
+                padding: 12px 24px;
+            }
+        }
+
+        /* 减少动画偏好 */
+        @media (prefers-reduced-motion: reduce) {
+            .intro-overlay {
+                display: none;
+            }
+            .main-content {
+                opacity: 1;
+                animation: none;
+            }
+            .monogram, .main-title, .subtitle, .divider, .nav-links, .more-btn, .footer {
+                opacity: 1;
+                animation: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 开场动画 -->
+    <div class="intro-overlay">
+        <div class="intro-scene">
+            <!-- 扫描线 -->
+            <div class="scan-line"></div>
+            
+            <!-- 几何环 -->
+            <div class="geo-ring"></div>
+            <div class="geo-ring"></div>
+            <div class="geo-ring"></div>
+            <div class="geo-ring"></div>
+            
+            <!-- 粒子爆发 -->
+            <div class="particle-burst">
+                <div class="particle" style="--angle: 0deg;"></div>
+                <div class="particle" style="--angle: 30deg;"></div>
+                <div class="particle" style="--angle: 60deg;"></div>
+                <div class="particle" style="--angle: 90deg;"></div>
+                <div class="particle" style="--angle: 120deg;"></div>
+                <div class="particle" style="--angle: 150deg;"></div>
+                <div class="particle" style="--angle: 180deg;"></div>
+                <div class="particle" style="--angle: 210deg;"></div>
+                <div class="particle" style="--angle: 240deg;"></div>
+                <div class="particle" style="--angle: 270deg;"></div>
+                <div class="particle" style="--angle: 300deg;"></div>
+                <div class="particle" style="--angle: 330deg;"></div>
+            </div>
+            
+            <!-- 字母动画 -->
+            <div class="letter-container">
+                <span class="letter">S</span>
+                <span class="letter">T</span>
+                <span class="letter">R</span>
+                <span class="letter">I</span>
+                <span class="letter">U</span>
+                <span class="letter">M</span>
+                <span class="letter">V</span>
+                <span class="letter">E</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 背景效果 -->
+    <div class="bg-grid"></div>
+    <div class="ambient-light"></div>
+    <div class="ambient-light"></div>
+
+    <!-- 主内容 -->
+    <main class="main-content">
+        <div class="hero-section">
+            <div class="monogram">LYX / Striumve</div>
+            <h1 class="main-title">
+                Strive.<br>
+                <span class="highlight">Triumph.</span>
+            </h1>
+            <p class="subtitle">构建 · 探索 · 精进</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <nav class="nav-links">
+            <a href="#" class="nav-link">
+                竹芒云蹊
+                <span class="arrow">→</span>
+            </a>
+            <a href="#" class="nav-link">
+                GitHub主页
+                <span class="arrow">→</span>
+            </a>
+            <a href="#" class="nav-link">
+                主页v2
+                <span class="arrow">→</span>
+            </a>
+            
+            <div class="more-panel" id="morePanel">
+                <a href="#" class="more-link">Blog</a>
+                <a href="#" class="more-link">Projects</a>
+                <a href="#" class="more-link">About</a>
+                <a href="#" class="more-link">Contact</a>
+            </div>
+            
+            <button class="more-btn" id="moreBtn" onclick="toggleMore()">
+                <span id="moreText">更多</span>
+            </button>
+        </nav>
+    </main>
+
+    <footer class="footer">
+        Striumve · 2026
+    </footer>
+
+    <script>
+        function toggleMore() {
+            const panel = document.getElementById('morePanel');
+            const text = document.getElementById('moreText');
+            const isActive = panel.classList.contains('active');
+            
+            if (isActive) {
+                panel.classList.remove('active');
+                text.textContent = '更多';
+            } else {
+                panel.classList.add('active');
+                text.textContent = '收起';
+            }
+        }
+    </script>
+</body>
+</html>

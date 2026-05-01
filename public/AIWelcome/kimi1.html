@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;500;700&family=JetBrains+Mono:wght@300;400&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --ink: #0c0c0e;
+            --paper: #e8e2d8;
+            --stone: #8a8075;
+            --mist: rgba(200, 190, 175, 0.06);
+            --accent: #c4a882;
+        }
+        
+        body {
+            min-height: 100vh;
+            background: var(--ink);
+            color: var(--paper);
+            font-family: 'Noto Serif SC', serif;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* 多层背景纹理 */
+        .bg-layer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+        
+        .bg-noise {
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            opacity: 0.035;
+            z-index: 1;
+        }
+        
+        .bg-grid {
+            background-image: 
+                linear-gradient(rgba(200, 190, 175, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(200, 190, 175, 0.03) 1px, transparent 1px);
+            background-size: 80px 80px;
+            z-index: 2;
+        }
+        
+        /* 浮动几何体 */
+        .geometry {
+            position: absolute;
+            pointer-events: none;
+            z-index: 3;
+        }
+        
+        .geo-1 {
+            width: 280px;
+            height: 280px;
+            border: 1px solid rgba(196, 168, 130, 0.08);
+            border-radius: 50%;
+            top: 12%;
+            left: 8%;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        .geo-2 {
+            width: 180px;
+            height: 180px;
+            border: 1px solid rgba(196, 168, 130, 0.05);
+            top: 55%;
+            right: 10%;
+            transform: rotate(45deg);
+            animation: float 25s ease-in-out infinite reverse;
+        }
+        
+        .geo-3 {
+            width: 120px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(196, 168, 130, 0.15), transparent);
+            top: 30%;
+            right: 25%;
+            animation: drift 30s linear infinite;
+        }
+        
+        .geo-4 {
+            width: 60px;
+            height: 60px;
+            border: 1px solid rgba(196, 168, 130, 0.06);
+            border-radius: 50%;
+            bottom: 20%;
+            left: 15%;
+            animation: float 18s ease-in-out infinite 2s;
+        }
+        
+        /* 主光晕 */
+        .ambient-glow {
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(196, 168, 130, 0.07) 0%, rgba(120, 100, 80, 0.03) 40%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            animation: breathe 8s ease-in-out infinite;
+        }
+        
+        /* 主容器 */
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 3rem;
+            max-width: 520px;
+        }
+        
+        /* 顶部装饰 */
+        .top-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem;
+            margin-bottom: 3.5rem;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-out 0.2s forwards;
+        }
+        
+        .ornament-line {
+            width: 50px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.4;
+        }
+        
+        .ornament-dot {
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            opacity: 0.3;
+            transform: rotate(45deg);
+        }
+        
+        /* 主标题 */
+        .main-title {
+            font-size: 3.2rem;
+            font-weight: 300;
+            letter-spacing: 0.35em;
+            margin-bottom: 1.2rem;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeUp 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.6s forwards;
+            color: var(--paper);
+            text-shadow: 0 0 80px rgba(196, 168, 130, 0.12);
+        }
+        
+        /* 副标题/签名 */
+        .subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 300;
+            letter-spacing: 0.4em;
+            color: var(--stone);
+            margin-bottom: 4rem;
+            opacity: 0;
+            animation: fadeIn 1.2s ease-out 1.4s forwards;
+        }
+        
+        /* 中间分隔区域 */
+        .mid-section {
+            position: relative;
+            margin-bottom: 4rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1.8s forwards;
+        }
+        
+        .mid-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, rgba(196, 168, 130, 0.25), transparent);
+            margin: 0 auto;
+        }
+        
+        .mid-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            color: rgba(138, 128, 117, 0.4);
+            margin-top: 1rem;
+        }
+        
+        /* 链接区域 */
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+        
+        .link-item {
+            opacity: 0;
+            transform: translateY(25px);
+            animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        
+        .link-item:nth-child(1) { animation-delay: 2.2s; }
+        .link-item:nth-child(2) { animation-delay: 2.6s; }
+        .link-item:nth-child(3) { animation-delay: 3.0s; }
+        
+        .link-item a {
+            text-decoration: none;
+            color: #a0988a;
+            font-size: 1rem;
+            font-weight: 300;
+            letter-spacing: 0.18em;
+            padding: 1rem 2.5rem;
+            position: relative;
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            display: inline-block;
+            border: 1px solid transparent;
+        }
+        
+        .link-item a::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            transform: translateY(-50%);
+            opacity: 0.5;
+        }
+        
+        .link-item a::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: 0;
+            height: 1px;
+            background: linear-gradient(270deg, var(--accent), transparent);
+            transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            transform: translateY(-50%);
+            opacity: 0.5;
+        }
+        
+        .link-item a:hover {
+            color: #ddd5c8;
+            letter-spacing: 0.28em;
+            border-color: rgba(196, 168, 130, 0.1);
+            background: rgba(196, 168, 130, 0.03);
+        }
+        
+        .link-item a:hover::before,
+        .link-item a:hover::after {
+            width: 30px;
+        }
+        
+        /* 底部信息 */
+        .footer-area {
+            opacity: 0;
+            animation: fadeIn 1.5s ease-out 3.5s forwards;
+        }
+        
+        .footer-line {
+            width: 30px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            margin: 0 auto 1.5rem;
+            opacity: 0.3;
+        }
+        
+        .footer-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            color: rgba(138, 128, 117, 0.25);
+            letter-spacing: 0.15em;
+        }
+        
+        /* 角落装饰 */
+        .corner {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0;
+            animation: fadeIn 2s ease-out 4s forwards;
+        }
+        
+        .corner-tl {
+            top: 3rem;
+            left: 3rem;
+            border-top: 1px solid rgba(196, 168, 130, 0.12);
+            border-left: 1px solid rgba(196, 168, 130, 0.12);
+        }
+        
+        .corner-tr {
+            top: 3rem;
+            right: 3rem;
+            border-top: 1px solid rgba(196, 168, 130, 0.12);
+            border-right: 1px solid rgba(196, 168, 130, 0.12);
+        }
+        
+        .corner-bl {
+            bottom: 3rem;
+            left: 3rem;
+            border-bottom: 1px solid rgba(196, 168, 130, 0.12);
+            border-left: 1px solid rgba(196, 168, 130, 0.12);
+        }
+        
+        .corner-br {
+            bottom: 3rem;
+            right: 3rem;
+            border-bottom: 1px solid rgba(196, 168, 130, 0.12);
+            border-right: 1px solid rgba(196, 168, 130, 0.12);
+        }
+        
+        /* 动画 */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-15px) rotate(2deg); }
+            66% { transform: translateY(10px) rotate(-1deg); }
+        }
+        
+        @keyframes drift {
+            0% { transform: translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(200px); opacity: 0; }
+        }
+        
+        @keyframes breathe {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.08); opacity: 0.8; }
+        }
+        
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .main-title {
+                font-size: 2.2rem;
+                letter-spacing: 0.25em;
+            }
+            .corner {
+                width: 25px;
+                height: 25px;
+            }
+            .geo-1 { width: 180px; height: 180px; }
+            .geo-2 { width: 120px; height: 120px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 背景层 -->
+    <div class="bg-layer bg-noise"></div>
+    <div class="bg-layer bg-grid"></div>
+    <div class="ambient-glow"></div>
+    
+    <!-- 浮动几何体 -->
+    <div class="geometry geo-1"></div>
+    <div class="geometry geo-2"></div>
+    <div class="geometry geo-3"></div>
+    <div class="geometry geo-4"></div>
+    
+    <!-- 角落装饰 -->
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+    
+    <!-- 主内容 -->
+    <div class="container">
+        <div class="top-ornament">
+            <div class="ornament-line"></div>
+            <div class="ornament-dot"></div>
+            <div class="ornament-line"></div>
+        </div>
+        
+        <h1 class="main-title">欢迎</h1>
+        <p class="subtitle">PERSONAL SPACE</p>
+        
+        <div class="mid-section">
+            <div class="mid-line"></div>
+            <p class="mid-text">NAVIGATION</p>
+        </div>
+        
+        <div class="links">
+            <div class="link-item">
+                <a href="#" target="_blank">竹芒云蹊</a>
+            </div>
+            <div class="link-item">
+                <a href="#" target="_blank">GitHub 个人主页</a>
+            </div>
+            <div class="link-item">
+                <a href="#" target="_blank">主页 v2</a>
+            </div>
+        </div>
+        
+        <div class="footer-area">
+            <div class="footer-line"></div>
+            <p class="footer-text">EST. 2024</p>
+        </div>
+    </div>
+</body>
+</html>

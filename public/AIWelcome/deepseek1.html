@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="zh-hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎 - lyx的个人网站</title>
+    <link rel="icon" href="/public/images/logo.jpg" sizes="32x32">
+    <meta name="description" content="lyx的个人网站 - 竹芒云蹊">
+    <meta property="og:title" content="竹芒云蹊">
+    <meta property="og:description" content="lyx的个人网站">
+    <meta property="og:image" content="/public/images/logo.jpg">
+    <style>
+        @font-face {
+            font-family: 'Din';
+            src: url('/public/fonts/DIN-Regular-2.otf');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Din';
+            src: url('/public/fonts/DIN-Medium-2.otf');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'siyuanhei';
+            src: url('/public/fonts/SourceHanSansSC-Medium-2.otf');
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'siyuanhei';
+            src: url('/public/fonts/SourceHanSansSC-Regular-2.otf');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* ============ CSS 变量 ============ */
+        :root {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #111827;
+            --accent-1: #6366f1;
+            --accent-2: #8b5cf6;
+            --accent-3: #06b6d4;
+            --accent-glow: rgba(99, 102, 241, 0.3);
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --glass-hover: rgba(255, 255, 255, 0.06);
+            --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --leftbar-height: 580px;
+            --transition-smooth: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        /* ============ 基础重置 ============ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            cursor: url(/public/cursor/normal.cur), default;
+            font-size: 10px;
+        }
+
+        a {
+            cursor: url(/public/cursor/link.cur), default;
+            text-decoration: none;
+        }
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: var(--bg-primary);
+            user-select: none;
+            font-family: 'siyuanhei', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            position: relative;
+        }
+
+        /* ============ 粒子背景画布 ============ */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ============ 网格背景 ============ */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.4;
+            background-image:
+                linear-gradient(rgba(99, 102, 241, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.08) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 70%);
+        }
+
+        /* ============ 几何装饰 ============ */
+        .geometric-decor {
+            position: fixed;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .geo-circle {
+            position: fixed;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            pointer-events: none;
+        }
+
+        .geo-circle-1 {
+            width: 600px;
+            height: 600px;
+            top: -200px;
+            right: -150px;
+            border-color: rgba(99, 102, 241, 0.15);
+        }
+
+        .geo-circle-2 {
+            width: 400px;
+            height: 400px;
+            bottom: -100px;
+            left: -100px;
+            border-color: rgba(139, 92, 246, 0.12);
+        }
+
+        .geo-circle-3 {
+            width: 250px;
+            height: 250px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-color: rgba(6, 182, 212, 0.08);
+            border-width: 2px;
+            border-style: dashed;
+        }
+
+        .geo-line {
+            position: fixed;
+            pointer-events: none;
+        }
+
+        .geo-line-1 {
+            width: 1px;
+            height: 200px;
+            background: linear-gradient(to bottom, transparent, rgba(99, 102, 241, 0.2), transparent);
+            top: 15%;
+            right: 20%;
+        }
+
+        .geo-line-2 {
+            width: 300px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(139, 92, 246, 0.15), transparent);
+            bottom: 25%;
+            left: 15%;
+        }
+
+        /* ============ 主容器 ============ */
+        .main-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: clamp(3rem, 5vh, 6rem);
+            padding: 2rem;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        /* ============ 标题区域 ============ */
+        .title-section {
+            text-align: center;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .title-main {
+            font-family: 'Din', sans-serif;
+            font-size: clamp(4rem, 8vw, 8rem);
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            color: var(--text-primary);
+            line-height: 1.2;
+            background: linear-gradient(135deg, #e2e8f0 0%, #6366f1 40%, #8b5cf6 60%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 30px rgba(99, 102, 241, 0.3));
+            margin-bottom: 1rem;
+        }
+
+        .title-subtitle {
+            font-family: 'siyuanhei', sans-serif;
+            font-size: clamp(1.4rem, 2vw, 1.8rem);
+            color: var(--text-secondary);
+            letter-spacing: 0.3em;
+            font-weight: normal;
+        }
+
+        /* ============ 左侧装饰线 ============ */
+        .left-accent {
+            position: fixed;
+            left: clamp(5vw, 15vw, 200px);
+            top: calc(50% - var(--leftbar-height) / 2);
+            width: 2px;
+            height: var(--leftbar-height);
+            background: linear-gradient(to bottom,
+                    transparent,
+                    rgba(99, 102, 241, 0.5) 10%,
+                    rgba(139, 92, 246, 0.3) 50%,
+                    rgba(6, 182, 212, 0.2) 90%,
+                    transparent);
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0;
+            animation: accentGrow 1.5s ease 0.5s both;
+        }
+
+        @keyframes accentGrow {
+            0% {
+                height: 0;
+                opacity: 0;
+            }
+
+            100% {
+                height: var(--leftbar-height);
+                opacity: 1;
+            }
+        }
+
+        /* ============ 链接卡片 ============ */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(1.5rem, 3vh, 2.5rem);
+            width: 100%;
+            max-width: 450px;
+            padding-left: clamp(0rem, 5vw, 4rem);
+        }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem 3rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            color: var(--text-primary);
+            font-size: clamp(1.6rem, 2.2vw, 2rem);
+            letter-spacing: 0.05em;
+            transition: var(--transition-smooth);
+            cursor: url(/public/cursor/link.cur), default;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.03),
+                    transparent);
+            transition: left 0.6s ease;
+        }
+
+        .link-card:hover {
+            background: var(--glass-hover);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow:
+                0 8px 32px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(99, 102, 241, 0.2) inset,
+                0 0 60px rgba(99, 102, 241, 0.08);
+            transform: translateX(5px) scale(1.02);
+        }
+
+        .link-card:hover::before {
+            left: 100%;
+        }
+
+        .link-card .link-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-1);
+            flex-shrink: 0;
+            transition: var(--transition-smooth);
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.6);
+        }
+
+        .link-card:hover .link-indicator {
+            background: var(--accent-3);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.8);
+            transform: scale(1.5);
+        }
+
+        .link-card .link-arrow {
+            margin-left: auto;
+            font-family: 'siyuanhei', sans-serif;
+            color: var(--text-secondary);
+            transition: var(--transition-smooth);
+            font-size: 1.4rem;
+        }
+
+        .link-card:hover .link-arrow {
+            color: var(--accent-1);
+            transform: translateX(5px);
+        }
+
+        /* ============ 更多按钮 ============ */
+        .more-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 1.5rem 3rem;
+            background: transparent;
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            color: var(--text-secondary);
+            font-size: clamp(1.4rem, 1.8vw, 1.6rem);
+            letter-spacing: 0.08em;
+            cursor: url(/public/cursor/link.cur), default;
+            transition: var(--transition-smooth);
+            font-family: 'siyuanhei', sans-serif;
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .more-btn:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            color: var(--accent-1);
+            background: rgba(99, 102, 241, 0.05);
+            box-shadow: 0 0 40px rgba(99, 102, 241, 0.1);
+        }
+
+        .more-btn .more-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .more-btn .more-dots span {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: currentColor;
+            transition: var(--transition-smooth);
+        }
+
+        .more-btn:hover .more-dots span {
+            background: var(--accent-1);
+            animation: dotPulse 0.6s ease infinite;
+        }
+
+        .more-btn .more-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .more-btn .more-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes dotPulse {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+
+            50% {
+                transform: scale(1.8);
+                opacity: 1;
+            }
+        }
+
+        /* ============ 隐藏链接面板 ============ */
+        .extra-links-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 450px;
+            padding-left: clamp(0rem, 5vw, 4rem);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.4s ease,
+                margin-top 0.5s ease;
+            opacity: 0;
+            margin-top: 0;
+        }
+
+        .extra-links-panel.open {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: 1rem;
+        }
+
+        .extra-link-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem 2.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            color: var(--text-secondary);
+            font-size: clamp(1.3rem, 1.6vw, 1.5rem);
+            letter-spacing: 0.05em;
+            transition: var(--transition-smooth);
+            cursor: url(/public/cursor/link.cur), default;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .extra-link-item:hover {
+            background: var(--glass-hover);
+            border-color: rgba(139, 92, 246, 0.3);
+            color: var(--text-primary);
+            transform: translateX(5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .extra-link-item .mini-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--accent-2);
+            flex-shrink: 0;
+            opacity: 0.7;
+        }
+
+        /* ============ 底部状态 ============ */
+        .bottom-bar {
+            position: fixed;
+            bottom: 3rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            opacity: 0;
+            animation: fadeIn 1s ease 1.5s both;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 10px rgba(34, 197, 94, 0.6);
+            animation: statusPulse 2s ease infinite;
+        }
+
+        @keyframes statusPulse {
+            0%,
+            100% {
+                box-shadow: 0 0 10px rgba(34, 197, 94, 0.6);
+            }
+
+            50% {
+                box-shadow: 0 0 25px rgba(34, 197, 94, 0.9);
+            }
+        }
+
+        .bottom-text {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.1em;
+        }
+
+        /* ============ 动画 ============ */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ============ 响应式 ============ */
+
+        /* 移动端: ≤768px */
+        @media (max-width: 768px) {
+            :root {
+                --leftbar-height: 400px;
+            }
+
+            .left-accent {
+                left: 3vw;
+            }
+
+            .links-container {
+                max-width: 85vw;
+                padding-left: 8vw;
+                gap: 1.5rem;
+            }
+
+            .link-card {
+                padding: 1.5rem 2rem;
+                font-size: 1.6rem;
+                border-radius: 12px;
+            }
+
+            .title-main {
+                font-size: clamp(3rem, 10vw, 5rem);
+            }
+
+            .geo-circle-1 {
+                width: 300px;
+                height: 300px;
+                top: -100px;
+                right: -100px;
+            }
+
+            .geo-circle-2 {
+                width: 200px;
+                height: 200px;
+            }
+
+            .geo-circle-3 {
+                width: 150px;
+                height: 150px;
+            }
+
+            .extra-links-panel {
+                max-width: 85vw;
+                padding-left: 8vw;
+            }
+
+            .bottom-bar {
+                bottom: 2rem;
+            }
+        }
+
+        /* 平板: 768px-1200px */
+        @media (min-width: 769px) and (max-width: 1200px) {
+            .links-container {
+                max-width: 500px;
+            }
+
+            .left-accent {
+                left: 10vw;
+            }
+        }
+
+        /* 超宽屏: >1800px */
+        @media (min-width: 1800px) {
+            :root {
+                --leftbar-height: 700px;
+            }
+
+            .content-wrapper {
+                max-width: 1000px;
+            }
+
+            .links-container {
+                max-width: 550px;
+            }
+
+            .link-card {
+                padding: 2.5rem 4rem;
+                font-size: 2.2rem;
+            }
+
+            .grid-bg {
+                background-size: 80px 80px;
+            }
+        }
+
+        /* 超高屏: >2560px */
+        @media (min-width: 2560px) {
+            :root {
+                --leftbar-height: 800px;
+            }
+
+            .content-wrapper {
+                gap: 8rem;
+            }
+
+            .links-container {
+                max-width: 650px;
+                gap: 3rem;
+            }
+
+            .link-card {
+                padding: 3rem 5rem;
+                font-size: 2.4rem;
+                border-radius: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 粒子背景画布 -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- 网格背景 -->
+    <div class="grid-bg"></div>
+
+    <!-- 几何装饰 -->
+    <div class="geo-circle geo-circle-1"></div>
+    <div class="geo-circle geo-circle-2"></div>
+    <div class="geo-circle geo-circle-3"></div>
+    <div class="geo-line geo-line-1"></div>
+    <div class="geo-line geo-line-2"></div>
+
+    <!-- 左侧装饰线 -->
+    <div class="left-accent"></div>
+
+    <!-- 主容器 -->
+    <div class="main-container">
+        <div class="content-wrapper">
+            <!-- 标题 -->
+            <div class="title-section">
+                <h1 class="title-main">Welcome</h1>
+                <p class="title-subtitle">lyx的个人空间</p>
+            </div>
+
+            <!-- 主要链接 -->
+            <div class="links-container" id="mainLinks">
+                <a href="#" class="link-card" data-i="0">
+                    <span class="link-indicator"></span>
+                    竹芒云蹊
+                    <span class="link-arrow">→</span>
+                </a>
+                <a href="#" class="link-card" target="_blank" data-i="1">
+                    <span class="link-indicator"></span>
+                    GitHub
+                    <span class="link-arrow">→</span>
+                </a>
+                <a href="#" class="link-card" data-i="2">
+                    <span class="link-indicator"></span>
+                    主页v2
+                    <span class="link-arrow">→</span>
+                </a>
+                <a href="#" class="link-card" data-i="3">
+                    <span class="link-indicator"></span>
+                    二次元
+                    <span class="link-arrow">→</span>
+                </a>
+            </div>
+
+            <!-- 更多按钮 -->
+            <button class="more-btn" id="moreBtn" data-i="4">
+                <span class="more-dots">
+                    <span></span><span></span><span></span>
+                </span>
+                更多
+            </button>
+
+            <!-- 额外链接面板 -->
+            <div class="extra-links-panel" id="extraLinks">
+                <a href="#" class="extra-link-item">
+                    <span class="mini-dot"></span>网页开发日志
+                </a>
+                <a href="#" class="extra-link-item">
+                    <span class="mini-dot"></span>陈奕迅的歌
+                </a>
+                <a href="#" class="extra-link-item">
+                    <span class="mini-dot"></span>自用API
+                </a>
+                <a href="#" class="extra-link-item" target="_blank">
+                    <span class="mini-dot"></span>Bilibili主页
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部状态 -->
+    <div class="bottom-bar">
+        <span class="status-dot"></span>
+        <span class="bottom-text" id="timeDisplay"></span>
+    </div>
+</body>
+
+<script>
+    // ============ 粒子背景系统 ============
+    (function() {
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let animationId;
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.3;
+                this.speedY = (Math.random() - 0.5) * 0.3;
+                this.opacity = Math.random() * 0.5 + 0.1;
+                this.opacityDirection = Math.random() > 0.5 ? 1 : -1;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                // 透明度呼吸效果
+                this.opacity += this.opacityDirection * 0.003;
+                if (this.opacity > 0.6) this.opacityDirection = -1;
+                if (this.opacity < 0.1) this.opacityDirection = 1;
+
+                // 边界循环
+                if (this.x < -10) this.x = canvas.width + 10;
+                if (this.x > canvas.width + 10) this.x = -10;
+                if (this.y < -10) this.y = canvas.height + 10;
+                if (this.y > canvas.height + 10) this.y = -10;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(99, 102, 241, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            const count = Math.floor((canvas.width * canvas.height) / 15000);
+            particles = [];
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function connectParticles() {
+            const maxDistance = 150;
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < maxDistance) {
+                        const opacity = (1 - distance / maxDistance) * 0.15;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.strokeStyle = `rgba(139, 92, 246, ${opacity})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            connectParticles();
+            animationId = requestAnimationFrame(animate);
+        }
+
+        function handleResize() {
+            resize();
+            initParticles();
+        }
+
+        resize();
+        initParticles();
+        animate();
+
+        window.addEventListener('resize', handleResize);
+    })();
+
+    // ============ 鼠标视差效果 ============
+    if (window.matchMedia('(pointer: fine)').matches) {
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            const mouseY = (e.clientY / window.innerHeight) * 2 - 1;
+
+            // 移动几何装饰
+            const circles = document.querySelectorAll('.geo-circle');
+            circles.forEach((circle, index) => {
+                const depth = (index + 1) * 15;
+                circle.style.transform = circle === circles[2] ?
+                    `translate(calc(-50% + ${mouseX * depth}px), calc(-50% + ${mouseY * depth}px))` :
+                    `translate(${mouseX * depth}px, ${mouseY * depth}px)`;
+            });
+
+            // 移动线条
+            const lines = document.querySelectorAll('.geo-line');
+            lines.forEach((line, index) => {
+                const depth = (index + 1) * 8;
+                line.style.transform = `translate(${mouseX * depth}px, ${mouseY * depth}px)`;
+            });
+
+            // 移动左侧装饰线
+            const leftAccent = document.querySelector('.left-accent');
+            if (leftAccent) {
+                leftAccent.style.transform = `translateY(${mouseY * 10}px)`;
+            }
+        });
+    }
+
+    // ============ 卡片入场动画 ============
+    function animateCards() {
+        const cards = document.querySelectorAll('.link-card');
+        const moreBtn = document.querySelector('.more-btn');
+
+        cards.forEach((card, index) => {
+            setTimeout(() => {
+                card.style.animation = `slideInLeft 0.6s ease both`;
+            }, 600 + index * 200);
+        });
+
+        // 更多按钮最后出现
+        setTimeout(() => {
+            if (moreBtn) {
+                moreBtn.style.animation = `slideInLeft 0.6s ease both`;
+            }
+        }, 600 + cards.length * 200);
+    }
+
+    animateCards();
+
+    // ============ 更多按钮交互 ============
+    const moreBtn = document.getElementById('moreBtn');
+    const extraLinks = document.getElementById('extraLinks');
+    let isExpanded = false;
+
+    moreBtn.addEventListener('click', () => {
+        isExpanded = !isExpanded;
+        if (isExpanded) {
+            extraLinks.classList.add('open');
+            moreBtn.querySelector('.more-dots').style.transform = 'rotate(45deg)';
+            moreBtn.style.borderStyle = 'solid';
+            moreBtn.style.borderColor = 'rgba(99, 102, 241, 0.3)';
+        } else {
+            extraLinks.classList.remove('open');
+            moreBtn.querySelector('.more-dots').style.transform = 'rotate(0deg)';
+            moreBtn.style.borderStyle = 'dashed';
+            moreBtn.style.borderColor = 'rgba(255, 255, 255, 0.15)';
+        }
+    });
+
+    // ============ 时间显示 ============
+    function updateTime() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const year = now.getFullYear();
+        const month = now.getMonth() + 1;
+        const day = now.getDate();
+
+        document.getElementById('timeDisplay').textContent =
+            `${year}.${month}.${day} | ${hours}:${minutes}:${seconds} | 在线`;
+    }
+
+    updateTime();
+    setInterval(updateTime, 1000);
+
+    // ============ 键盘快捷键 ============
+    document.addEventListener('keydown', (e) => {
+        switch (e.key.toLowerCase()) {
+            case 'm':
+                // 切换更多面板
+                moreBtn.click();
+                break;
+            case '1':
+                document.querySelector('[data-i="0"]')?.click();
+                break;
+            case '2':
+                document.querySelector('[data-i="1"]')?.click();
+                break;
+            case '3':
+                document.querySelector('[data-i="2"]')?.click();
+                break;
+            case '4':
+                document.querySelector('[data-i="3"]')?.click();
+                break;
+            default:
+                break;
+        }
+    });
+
+    // ============ 性能优化：降低不可见时的动画帧率 ============
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            // 页面不可见时可以降低粒子更新频率
+            console.debug('Page hidden, reducing animation load');
+        }
+    });
+
+    console.log('%c🌿 Welcome to lyx\'s Space %c| %c竹芒云蹊',
+        'color: #6366f1; font-size: 16px;',
+        'color: #94a3b8;',
+        'color: #8b5cf6;');
+</script>
+
+</html>

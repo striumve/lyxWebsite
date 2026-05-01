@@ -11,6 +11,7 @@
     <title>开发日志 - 竹芒云蹊</title>
     <style>
         @media screen and (max-width: 500px) {
+
             /* 最小页面宽适配 */
             body {
                 width: 500px;
@@ -19,7 +20,7 @@
 
         :root {
             user-select: none;
-            cursor: url(../../public/cursor/normal.cur), default;
+            cursor: url(/public/cursor/normal.cur), default;
             --backgroundColor: rgba(255, 255, 255, 1);
             --textColor: rgba(0, 0, 0, 1);
             --itemColor: rgba(200, 230, 200, .7);
@@ -195,7 +196,7 @@
     <div class="bg"></div>
     <div class="head">
         <div class="head-name">竹芒云蹊 | <span style="font-family: 'pingfang';">日志</span></div>
-        <a href="/v4/index.html?page=3&start=1" class="head-back">返回主页</a>
+        <a class="head-back">返回主页</a>
     </div>
     <div class="container">
         <div class="placeholder" style="height: var(--head-height); "> </div>
@@ -315,5 +316,15 @@
         </div>
     </div>
 </body>
+
+<script>
+    document.querySelector('.head-back').addEventListener('click', () => {
+        if (document.referrer) {
+            window.location = document.referrer;
+        } else {
+            window.location = '/v4/';
+        }
+    })
+</script>
 
 </html>

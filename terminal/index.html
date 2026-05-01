@@ -15,6 +15,22 @@
             box-sizing: border-box;
         }
 
+        @font-face {
+            font-family: 'consolas';
+            src: url('/public/fonts/consolas.ttf');
+            font-weight: normal;
+            font-style: normal;
+            font-display: block;
+        }
+
+        @font-face {
+            font-family: 'siyuan';
+            src: url('/public/fonts/SourceHanSerifCN-Regular-1-subset.woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: block;
+        }
+
         body,
         html {
             width: 100%;
@@ -22,7 +38,7 @@
             overflow-y: hidden;
             overflow-x: hidden;
             background-color: #0a0a0a;
-            font-family: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', 'Courier New', 'Source Code Pro', monospace;
+            font-family: 'consolas', 'siyuan', 'Cascadia Code', 'Fira Code', 'JetBrains Mono', 'Courier New', 'Source Code Pro', monospace;
             font-size: 16px;
             line-height: 1.5;
             color: #c0c0c0;
@@ -86,6 +102,7 @@
             resize: none;
             white-space: nowrap;
             overflow: hidden;
+            width: calc(100vw - 44px - 13em - 6px)
         }
 
         #commandInput::placeholder {
@@ -215,19 +232,19 @@
                     url: '/v4/'
                 },
                 {
-                    name: '终端风格主页',
-                    desc: '极简Linux终端个人页面',
-                    url: '#'
+                    name: '终端',
+                    desc: '仿Linux终端',
+                    url: ''
                 },
                 {
-                    name: '轻量笔记',
-                    desc: '基于Markdown的本地笔记工具',
-                    url: '#'
+                    name: '光影集',
+                    desc: '个人摄影展示',
+                    url: '/gallery/'
                 },
                 {
-                    name: '地图漫游',
-                    desc: '交互式地理数据可视化',
-                    url: '#'
+                    name: '二次元',
+                    desc: '二次元属性展示（未完成）',
+                    url: '/otaku/'
                 },
             ];
 
@@ -390,12 +407,13 @@
   projects    项目列表
   neofetch    系统信息
   contact     联系方式
-  bamboo      前往竹芒云蹊
   date        显示当前时间
   cowsay      让牛说句话
-  clear       清空屏幕
-  exit        结束会话
-  help        显示此帮助信息
+  top         显示系统资源
+  cat         跳转至路径或文件
+  clear/cls   清空屏幕
+  exit        结束会话，-w返回欢迎页
+  help        显示帮助信息
   ???         ???
 
 提示: 使用 ↑↓ 箭头键浏览历史命令。
@@ -412,10 +430,14 @@
                 clearScreen();
             }
 
-            function cmdExit() {
+            function cmdExit(param) {
                 appendOutput('会话结束。即将退出终端');
                 setTimeout(() => {
-                    window.location = '/';
+                    if (document.referrer && param != '-w') {
+                        window.location = document.referrer;
+                    } else {
+                        window.location = '/';
+                    }
                 }, 1000);
             }
 
@@ -427,9 +449,10 @@
                 }
             }
 
-            let is_coderained = 0; // 一次会话中只能触发一次
+            let is_coderained = 0; // 一次会话中只能触发一次 code rain
 
             function cmdCode() {
+
                 // --- 代码雨实现 ---
                 let matrixInterval = null;
                 let matrixAnimationId = null;
@@ -450,7 +473,7 @@
 
                     // 字符集：片假名 + 数字 + 字母，经典Matrix风格
                     const chars =
-                        'ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+                        'ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=`~<>?":|{}[];.';
                     const fontSize = 14;
                     const columns = Math.floor(matrixCanvas.width / fontSize);
 
@@ -466,7 +489,7 @@
                         matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
 
                         matrixCtx.fillStyle = '#0F0'; // 经典绿色
-                        matrixCtx.font = fontSize + 'px monospace';
+                        matrixCtx.font = fontSize + 'px consolas';
 
                         for (let i = 0; i < drops.length; i++) {
                             // 随机字符
@@ -529,6 +552,25 @@
                 }
             }
 
+            function cmdTop() {
+                const output = `top - ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()} up 187 days,  load average: 0.08, 0.03, 0.01
+Tasks:  42 total,   3 running,  39 sleeping,   0 stopped,   0 zombie
+
+  PID USER      PR  NI   VIRT   RES   SHR S  %CPU  %MEM     TIME+   
+ 1145 Striumve  20   0   2.5g  500m   25m S   8.3  12.5   1:23.45 思考
+ 2026 YOU       20   0   1.8g  300m   20m S   5.2   7.8   0:45.32 看这个终端
+ 3456 Striumve  20   0   1.2g  200m   15m S   2.1   4.2   0:12.67 睡觉
+ 4567 Striumve  20   0   800m  100m   10m S   0.5   1.8   0:05.89 呼吸`;
+
+                appendOutput(output);
+            }
+
+            function cmdCat(path) {
+                if (path) {
+                    window.location = path;
+                }
+            }
+
             // 处理未知命令
             function cmdNotFound(cmd) {
                 appendOutput(`bash: ${cmd}: 命令未找到`);
@@ -566,9 +608,6 @@
                     case 'contact':
                         cmdContact();
                         break;
-                    case 'bamboo':
-                        cmdBamboo();
-                        break;
                     case 'date':
                         cmdDate();
                         break;
@@ -578,8 +617,11 @@
                     case 'clear':
                         cmdClear();
                         break;
+                    case 'cls':
+                        cmdClear();
+                        break;
                     case 'exit':
-                        cmdExit();
+                        cmdExit(args || null);
                         break;
                     case 'secret':
                         cmdSecret();
@@ -592,6 +634,12 @@
                         break;
                     case 'code':
                         cmdCode();
+                        break;
+                    case 'top':
+                        cmdTop();
+                        break;
+                    case 'cat':
+                        cmdCat(args || null);
                         break;
                     default:
                         cmdNotFound(command);
@@ -606,7 +654,7 @@
             function showWelcome() {
                 // 清空可能已有的内容
                 clearScreen();
-                appendOutput('Striumve Terminal (version 1.0.0)');
+                appendOutput('Striumve Terminal (version 1.1.0)');
                 appendOutput('输入 help 查看可用命令。');
                 appendOutput('');
                 scrollToBottom();

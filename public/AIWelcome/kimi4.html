@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Striumve — LYX</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-deep: #08080c;
+            --text-primary: #e2e2ea;
+            --text-muted: #555560;
+            --str: #c9a96e;
+            --tri: #8ecae6;
+            --mph: #a88cc4;
+        }
+
+        body {
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+        }
+
+        /* ===== 开场动画 ===== */
+        .intro-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: var(--bg-deep);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            animation: introFadeOut 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            animation-delay: 5s;
+        }
+
+        .intro-scene {
+            position: relative;
+            width: 500px;
+            height: 200px;
+        }
+
+        /* 两个词从两侧滑入，在中间碰撞融合 */
+        .word-left, .word-right {
+            position: absolute;
+            top: 50%;
+            font-size: 42px;
+            font-weight: 200;
+            letter-spacing: 0.15em;
+            white-space: nowrap;
+            opacity: 0;
+        }
+
+        .word-left {
+            right: 50%;
+            transform: translateY(-50%) translateX(20px);
+            color: var(--str);
+            animation: slideInLeft 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards,
+                       wordFadeOut 0.8s ease forwards;
+            animation-delay: 0.5s, 2.5s;
+        }
+
+        .word-right {
+            left: 50%;
+            transform: translateY(-50%) translateX(-20px);
+            color: var(--tri);
+            animation: slideInRight 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards,
+                       wordFadeOut 0.8s ease forwards;
+            animation-delay: 0.5s, 2.5s;
+        }
+
+        /* 碰撞闪光 */
+        .collision-flash {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #fff;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            animation: flashExpand 0.6s ease-out 1.8s forwards;
+        }
+
+        /* 融合后的词 */
+        .fused-word {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            font-weight: 200;
+            letter-spacing: 0.25em;
+            opacity: 0;
+            animation: fuseReveal 1.5s cubic-bezier(0.16, 1, 0.3, 1) 2.2s forwards;
+        }
+
+        .fused-word .part-str {
+            color: var(--str);
+        }
+
+        .fused-word .part-tri {
+            color: var(--tri);
+        }
+
+        .fused-word .part-mph {
+            color: var(--mph);
+        }
+
+        /* 融合后的副标题 */
+        .fused-sub {
+            position: absolute;
+            top: 65%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            letter-spacing: 0.4em;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            opacity: 0;
+            white-space: nowrap;
+            animation: fadeIn 1s ease 3.5s forwards;
+        }
+
+        .fused-sub .sub-str { color: var(--str); }
+        .fused-sub .sub-tri { color: var(--tri); }
+
+        @keyframes slideInLeft {
+            to {
+                transform: translateY(-50%) translateX(8px);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            to {
+                transform: translateY(-50%) translateX(-8px);
+                opacity: 1;
+            }
+        }
+
+        @keyframes wordFadeOut {
+            to { opacity: 0; }
+        }
+
+        @keyframes flashExpand {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+                box-shadow: 0 0 0 0 rgba(255,255,255,0.8);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(80);
+                opacity: 0;
+                box-shadow: 0 0 60px 30px rgba(255,255,255,0);
+            }
+        }
+
+        @keyframes fuseReveal {
+            0% {
+                opacity: 0;
+                letter-spacing: 0.6em;
+                filter: blur(8px);
+            }
+            100% {
+                opacity: 1;
+                letter-spacing: 0.25em;
+                filter: blur(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes introFadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* ===== 主页面 ===== */
+        .main-content {
+            position: relative;
+            z-index: 1;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            animation: mainReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 5.2s forwards;
+        }
+
+        @keyframes mainReveal {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 背景 */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 80px 80px;
+            mask-image: radial-gradient(ellipse at center, black 20%, transparent 65%);
+            pointer-events: none;
+        }
+
+        .ambient {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .ambient:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            background: var(--str);
+            top: -150px;
+            right: -100px;
+            animation: drift1 25s ease-in-out infinite;
+        }
+
+        .ambient:nth-child(2) {
+            width: 350px;
+            height: 350px;
+            background: var(--tri);
+            bottom: -120px;
+            left: -80px;
+            animation: drift2 25s ease-in-out infinite;
+        }
+
+        @keyframes drift1 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(-60px, 40px); }
+        }
+
+        @keyframes drift2 {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, -30px); }
+        }
+
+        /* 主标题区：Striumve 用三色分段 */
+        .hero {
+            text-align: center;
+        }
+
+        .monogram {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.35em;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s ease 5.4s forwards;
+        }
+
+        .name-display {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 200;
+            letter-spacing: 0.12em;
+            line-height: 1;
+            margin-bottom: 12px;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s ease 5.6s forwards;
+        }
+
+        .name-display .seg-str {
+            color: var(--str);
+            font-weight: 300;
+        }
+
+        .name-display .seg-tri {
+            color: var(--tri);
+            font-weight: 300;
+        }
+
+        .name-display .seg-mph {
+            color: var(--mph);
+            font-weight: 300;
+        }
+
+        /* 拆解标注线 */
+        .deconstruct {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 20px;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s ease 6s forwards;
+        }
+
+        .decon-item {
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            color: var(--text-muted);
+            position: relative;
+            padding: 4px 12px;
+        }
+
+        .decon-item::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            width: 1px;
+            height: 6px;
+            background: currentColor;
+            opacity: 0.4;
+        }
+
+        .decon-str { color: var(--str); }
+        .decon-tri { color: var(--tri); }
+        .decon-mph { color: var(--mph); }
+
+        .decon-plus {
+            color: var(--text-muted);
+            font-size: 14px;
+            opacity: 0.5;
+        }
+
+        .tagline {
+            font-size: 14px;
+            color: var(--text-muted);
+            letter-spacing: 0.08em;
+            font-weight: 300;
+            margin-top: 8px;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s ease 5.8s forwards;
+        }
+
+        .divider {
+            width: 32px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--str), var(--tri), transparent);
+            margin: 40px auto;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s ease 6.2s forwards;
+        }
+
+        /* 导航 */
+        .nav {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s ease 6.4s forwards;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 13px 36px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            position: relative;
+            border-radius: 3px;
+            min-width: 220px;
+            text-align: center;
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, var(--str), var(--tri));
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover {
+            color: #fff;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .nav-link:hover::after {
+            width: 60%;
+        }
+
+        .nav-link .arrow {
+            display: inline-block;
+            margin-left: 6px;
+            opacity: 0;
+            transform: translateX(-3px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover .arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* 更多 */
+        .more-btn {
+            margin-top: 28px;
+            padding: 10px 24px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.06);
+            color: var(--text-muted);
+            font-size: 12px;
+            letter-spacing: 0.18em;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: all 0.35s ease;
+            font-family: inherit;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s ease 6.6s forwards;
+        }
+
+        .more-btn:hover {
+            border-color: rgba(142, 202, 230, 0.2);
+            color: var(--tri);
+        }
+
+        .more-panel {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .more-panel.active {
+            max-height: 260px;
+            opacity: 1;
+            margin-top: 12px;
+        }
+
+        .more-link {
+            display: block;
+            padding: 9px 24px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 300;
+            letter-spacing: 0.08em;
+            transition: all 0.25s ease;
+            border-radius: 3px;
+            text-align: center;
+        }
+
+        .more-link:hover {
+            color: var(--text-primary);
+            background: rgba(255,255,255,0.02);
+        }
+
+        /* 页脚 */
+        .footer {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            color: rgba(85, 85, 96, 0.4);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeSlideUp 0.8s ease 7s forwards;
+        }
+
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .intro-scene { transform: scale(0.75); }
+            .deconstruct { flex-direction: column; gap: 8px; }
+            .decon-plus { display: none; }
+            .decon-item::before { display: none; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .intro-overlay { display: none; }
+            .main-content, .monogram, .name-display, .tagline, .deconstruct,
+            .divider, .nav, .more-btn, .footer {
+                opacity: 1;
+                animation: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 开场：strive + triumph → Striumve -->
+    <div class="intro-overlay">
+        <div class="intro-scene">
+            <div class="word-left">strive</div>
+            <div class="word-right">triumph</div>
+            <div class="collision-flash"></div>
+            <div class="fused-word">
+                <span class="part-str">Str</span><span class="part-tri">i</span><span class="part-tri">u</span><span class="part-mph">mph</span><span class="part-str">ve</span>
+            </div>
+            <div class="fused-sub">
+                <span class="sub-str">strive</span> + <span class="sub-tri">triumph</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 背景 -->
+    <div class="bg-grid"></div>
+    <div class="ambient"></div>
+    <div class="ambient"></div>
+
+    <!-- 主页 -->
+    <main class="main-content">
+        <div class="hero">
+            <div class="monogram">LYX</div>
+
+            <!-- 主标题：三色分段明示来源 -->
+            <h1 class="name-display">
+                <span class="seg-str">Str</span><span class="seg-tri">i</span><span class="seg-tri">u</span><span class="seg-mph">mph</span><span class="seg-str">ve</span>
+            </h1>
+
+            <p class="tagline">构建 · 探索 · 精进</p>
+
+            <!-- 拆解标注 -->
+            <div class="deconstruct">
+                <span class="decon-item decon-str">strive</span>
+                <span class="decon-plus">+</span>
+                <span class="decon-item decon-tri">tri</span>
+                <span class="decon-plus">+</span>
+                <span class="decon-item decon-mph">umph</span>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <nav class="nav">
+            <a href="#" class="nav-link">
+                竹芒云蹊<span class="arrow">→</span>
+            </a>
+            <a href="#" class="nav-link">
+                GitHub主页<span class="arrow">→</span>
+            </a>
+            <a href="#" class="nav-link">
+                主页v2<span class="arrow">→</span>
+            </a>
+
+            <div class="more-panel" id="morePanel">
+                <a href="#" class="more-link">Blog</a>
+                <a href="#" class="more-link">Projects</a>
+                <a href="#" class="more-link">About</a>
+                <a href="#" class="more-link">Contact</a>
+            </div>
+
+            <button class="more-btn" id="moreBtn" onclick="toggleMore()">更多</button>
+        </nav>
+    </main>
+
+    <footer class="footer">Striumve · 2026</footer>
+
+    <script>
+        function toggleMore() {
+            const panel = document.getElementById('morePanel');
+            const btn = document.getElementById('moreBtn');
+            panel.classList.toggle('active');
+            btn.textContent = panel.classList.contains('active') ? '收起' : '更多';
+        }
+    </script>
+</body>
+</html>

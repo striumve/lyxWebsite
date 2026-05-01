@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开发日志 - lyx的个人网站</title>
+    <link rel="icon" href="/public/images/logo.jpg" sizes="32x32">
+
+    <style>
+        @font-face {
+            font-family: 'siyuan';
+            src: url('/public/fonts/SourceHanSerifCN-Regular-1-subset.woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: block;
+        }
+
+        @font-face {
+            font-family: 'consolas';
+            src: url('/public/fonts/consolas.ttf');
+            font-weight: normal;
+            font-style: normal;
+            font-display: block;
+        }
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #111118;
+            --accent: #e8e6e1;
+            --accent-dim: rgba(232, 230, 225, 0.15);
+            --text-primary: #f5f5f0;
+            --text-secondary: #8a8a8a;
+            --border: rgba(255, 255, 255, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+            user-select: none;
+            cursor: url(/public/cursor/normal.cur), default;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        a:hover {
+            cursor: url(/public/cursor/link.cur), default;
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-section {
+            padding: 6vh 8vw 4vh;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 8vw;
+            width: 200px;
+            height: 1px;
+            background: var(--accent);
+            opacity: 0.5;
+        }
+
+        .back {
+            margin-bottom: 10px;
+            font-size: 20px;
+            cursor: url(/public/cursor/link.cur), default;
+            color: rgb(200, 200, 255);
+        }
+
+        .site-title {
+            font-family: 'siyuan', serif;
+            font-weight: 300;
+            font-size: clamp(2rem, 2.5vw, 3.5rem);
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .version-meta {
+            font-family: 'consolas', 'JetBrains Mono', monospace;
+            font-weight: 300;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .version-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+            box-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(0.8);
+            }
+        }
+
+        /* 日志主体 */
+        .log-body {
+            flex: 1;
+            padding: 4vh 8vw 8vh;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            align-content: start;
+            align-items: start
+        }
+
+        /* 模块卡片 - 玻璃拟态但不俗套 */
+        .module-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-dim), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .module-card:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .module-card:hover::before {
+            opacity: 1;
+        }
+
+        /* 模块头部 */
+        .module-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .module-name {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 600;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            letter-spacing: 0.02em;
+        }
+
+        .module-version {
+            font-family: 'consolas', 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.25rem 0.75rem;
+            border-radius: 2px;
+            border: 1px solid var(--border);
+        }
+
+        /* 更新列表 */
+        .update-list {
+            list-style: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .update-item {
+            padding: 0.5rem 0;
+            padding-left: 1.25rem;
+            position: relative;
+            border-left: 1px solid var(--border);
+            margin-left: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .update-item::before {
+            content: '';
+            position: absolute;
+            left: -3px;
+            top: 1.1rem;
+            width: 5px;
+            height: 5px;
+            background: var(--text-secondary);
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        .update-item:hover {
+            color: var(--text-primary);
+        }
+
+        .update-item:hover::before {
+            background: var(--accent);
+        }
+
+        .update-date {
+            font-family: 'consolas', 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            color: rgba(138, 138, 138, 0.6);
+            margin-right: 0.75rem;
+            white-space: nowrap;
+        }
+
+        .update-content {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+
+        /* 标签 */
+        .tag {
+            display: inline-block;
+            font-size: 0.65rem;
+            /* font-family: 'JetBrains Mono', monospace; */
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.15rem 0.4rem;
+            border-radius: 2px;
+            margin-left: 0.5rem;
+            font-weight: 500;
+        }
+
+        .tag-feature {
+            background: rgba(74, 222, 128, 0.1);
+            color: #4ade80;
+            border: 1px solid rgba(74, 222, 128, 0.2);
+        }
+
+        .tag-fix {
+            background: rgba(96, 165, 250, 0.1);
+            color: #60a5fa;
+            border: 1px solid rgba(96, 165, 250, 0.2);
+        }
+
+        .tag-style {
+            background: rgba(232, 121, 249, 0.1);
+            color: #e879f9;
+            border: 1px solid rgba(232, 121, 249, 0.2);
+        }
+
+        .tag-refactor {
+            background: rgba(251, 191, 36, 0.1);
+            color: #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+        }
+        /* 底部 */
+        .footer-section {
+            padding: 3vh 8vw;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* font-family: 'JetBrains Mono', monospace; */
+            font-size: 1rem;
+            color: rgba(138, 138, 138, 0.4);
+        }
+
+        /* 滚动条美化 */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .log-body {
+                grid-template-columns: 1fr;
+                padding: 2vh 5vw 6vh;
+            }
+
+            .hero-section {
+                padding: 4vh 5vw 3vh;
+            }
+
+            .footer-section {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+
+        /* 入场动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 主内容 -->
+    <div class="main-container">
+
+        <!-- 顶部：全局版本信息 -->
+        <header class="hero-section animate-in" style="animation-delay: 0.1s">
+            <p class="back">返回</p>
+            <h2 class="site-title">网页开发日志</h2>
+            <div class="version-meta">
+                <span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.5">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                    更新：2026.05.01
+                </span>
+            </div>
+        </header>
+
+        <!-- 主体：各模块日志 -->
+        <main class="log-body">
+
+            <!-- 竹芒云蹊 -->
+            <article class="module-card animate-in" style="animation-delay: 0.2s">
+                <div class="module-header">
+                    <h2 class="module-name">竹芒云蹊</h2>
+                    <span class="module-version">v4.4.3</span>
+                </div>
+                <ul class="update-list">
+                    <li class="update-item">
+                        <div class="update-content">
+                            <span class="update-date">05.01</span>
+                            <span>重构交互逻辑，优化api功能<span class="tag tag-feature">功能</span></span>
+                        </div>
+                    </li>
+                    <li class="update-item">
+                        <div class="update-content">
+                            <span class="update-date">04.18</span>
+                            <span>重构部分页面css布局<span class="tag tag-refactor">重构</span></span>
+                        </div>
+                    </li>
+                    <li class="update-item">
+                        <div class="update-content">
+                            <span class="update-date">04.12</span>
+                            <span>修复部分bug<span class="tag tag-fix">修复</span>
+                                增加调色盘功能<span class="tag tag-feature">功能</span></span>
+                        </div>
+                    </li>
+                    <li class="update-item">
+                        <div class="update-content">
+                            <span class="update-date"></span>
+                            <span><a href="./diary4.html">查看全部</a></span>
+                        </div>
+                    </li>
+                </ul>
+            </article>
+
+            <!-- 终端 -->
+            <article class="module-card animate-in" style="animation-delay: 0.3s">
+                <div class="module-header">
+                    <h2 class="module-name">终端</h2>
+                    <span class="module-version">v1.1.0</span>
+                </div>
+                <ul class="update-list">
+                    <li class="update-item">
+                        <div class="update-content">
+                            <span class="update-date">05.02</span>
+                            <span>添加了一些命令<span class="tag tag-feature">功能</span></span>
+                        </div>
+                    </li>
+                    <li class="update-item">
+                        <div class="update-content">
+                            <span class="update-date">05.01</span>
+                            <span>发布终端<span class="tag tag-feature">功能</span></span>
+                        </div>
+                    </li>
+                </ul>
+            </article>
+
+            <!-- 光影集 -->
+            <article class="module-card animate-in" style="animation-delay: 0.4s">
+                <div class="module-header">
+                    <h2 class="module-name">光影集</h2>
+                    <span class="module-version">v1.0.0</span>
+                </div>
+                <ul class="update-list">
+                    <li class="update-item">
+                        <div class="update-content">
+                            <span class="update-date">05.01</span>
+                            <span>发布光影集<span class="tag tag-feature">功能</span></span>
+                        </div>
+                    </li>
+                </ul>
+            </article>
+        </main>
+        <!-- 底部 -->
+        <footer class="footer-section animate-in" style="animation-delay: 0.5s">
+            <span>本页面使用Kimi-K2.6辅助制作</span>
+        </footer>
+    </div>
+
+</body>
+<script>
+    document.querySelector('.back').addEventListener('click', () => {
+        if (document.referrer) {
+            window.location = document.referrer;
+        } else {
+            window.location = '/v4/';
+        }
+    })
+</script>
+
+</html>

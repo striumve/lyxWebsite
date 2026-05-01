@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LYX | Striumve</title>
+    <style>
+        /* --- 全局设定 --- */
+        :root {
+            --bg-color: #050505;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --accent-color: #00f3ff; /* 科技青 */
+            --accent-glow: rgba(0, 243, 255, 0.4);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            height: 100vh;
+            overflow: hidden; /* 防止滚动 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* --- 背景网格与光晕 --- */
+        .bg-grid {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .ambient-light {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.15;
+            filter: blur(80px);
+            z-index: 0;
+            animation: pulseLight 8s ease-in-out infinite;
+        }
+
+        /* --- 开场动画层 --- */
+        #intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            /* 动画结束后隐藏 */
+            animation: overlayExit 1.5s cubic-bezier(0.7, 0, 0.3, 1) 4.5s forwards;
+            pointer-events: none; /* 允许点击穿透 */
+        }
+
+        /* 开场文字容器 */
+        .intro-text-container {
+            position: relative;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 4rem;
+            letter-spacing: 10px;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+        }
+
+        /* 填充动画 */
+        .intro-text-container::before {
+            content: "LYX";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            color: var(--text-primary);
+            overflow: hidden;
+            border-right: 4px solid var(--accent-color);
+            animation: fillText 2.5s cubic-bezier(0.19, 1, 0.22, 1) 0.5s forwards;
+            -webkit-text-stroke: 0;
+            text-shadow: 0 0 20px var(--accent-color);
+        }
+
+        /* 副标题 */
+        .intro-subtitle {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 1s ease 1.5s forwards;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* --- 主内容区域 --- */
+        .main-container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            /* 初始状态：模糊且稍微缩小，等开场动画结束后恢复 */
+            filter: blur(10px);
+            opacity: 0;
+            transform: scale(0.95);
+            animation: contentReveal 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 5s forwards;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+        
+        h1 span {
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, #aaa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 50px;
+            letter-spacing: 1px;
+        }
+
+        /* --- 链接列表 --- */
+        .link-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .link-item {
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 24px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        /* 链接悬停效果 */
+        .link-item:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .link-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            background: var(--accent-color);
+            transform: scaleY(0);
+            transition: transform 0.4s ease;
+            transform-origin: bottom;
+        }
+
+        .link-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .link-text {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .link-arrow {
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            color: var(--accent-color);
+        }
+
+        .link-item:hover .link-arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* --- 更多按钮 --- */
+        .more-btn {
+            margin-top: 30px;
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            padding: 10px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .more-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--text-primary);
+            box-shadow: 0 0 15px rgba(255,255,255,0.1);
+        }
+
+        /* --- 隐藏区域 --- */
+        #more-links {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+        }
+
+        #more-links.expanded {
+            max-height: 200px; /* 足够容纳隐藏链接的高度 */
+            opacity: 1;
+            margin-top: 16px;
+        }
+
+        /* --- 动画关键帧 --- */
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0) translateZ(-200px); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(50px) translateZ(-200px); }
+        }
+
+        @keyframes pulseLight {
+            0%, 100% { opacity: 0.1; transform: translate(-50%, -50%) scale(0.8); }
+            50% { opacity: 0.2; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        @keyframes fillText {
+            0% { width: 0; }
+            100% { width: 100%; border-right-color: transparent; }
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes overlayExit {
+            0% { clip-path: inset(0 0 0 0); }
+            100% { clip-path: inset(0 0 100% 0); background: transparent; pointer-events: none;}
+        }
+
+        @keyframes contentReveal {
+            to { filter: blur(0); opacity: 1; transform: scale(1); }
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 600px) {
+            .intro-text-container { font-size: 2.5rem; }
+            .main-container { padding: 20px; }
+            h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 背景元素 -->
+    <div class="bg-grid"></div>
+    <div class="ambient-light"></div>
+
+    <!-- 开场动画层 -->
+    <div id="intro-overlay">
+        <div class="intro-text-container">LYX</div>
+        <div class="intro-subtitle">Strive · Triumph</div>
+    </div>
+
+    <!-- 主内容 -->
+    <div class="main-container">
+        <h1>Striumve</h1>
+        <div class="subtitle">Personal Digital Space</div>
+
+        <div class="link-group">
+            <a href="#" class="link-item">
+                <span class="link-text">竹芒云蹊</span>
+                <span class="link-arrow">→</span>
+            </a>
+            <a href="#" class="link-item">
+                <span class="link-text">GitHub 主页</span>
+                <span class="link-arrow">→</span>
+            </a>
+            <a href="#" class="link-item">
+                <span class="link-text">主页 v2</span>
+                <span class="link-arrow">→</span>
+            </a>
+        </div>
+
+        <button class="more-btn" onclick="toggleMore()">更多</button>
+
+        <div id="more-links" class="link-group">
+            <a href="#" class="link-item">
+                <span class="link-text">博客文章</span>
+                <span class="link-arrow">→</span>
+            </a>
+            <a href="#" class="link-item">
+                <span class="link-text">联系方式</span>
+                <span class="link-arrow">→</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // 更多按钮切换逻辑
+        function toggleMore() {
+            const moreLinks = document.getElementById('more-links');
+            const btn = document.querySelector('.more-btn');
+            
+            if (moreLinks.classList.contains('expanded')) {
+                moreLinks.classList.remove('expanded');
+                btn.innerText = '更多';
+            } else {
+                moreLinks.classList.add('expanded');
+                btn.innerText = '收起';
+            }
+        }
+
+        // 页面加载后移除 overlay 的 DOM 节点（可选，为了性能）
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const overlay = document.getElementById('intro-overlay');
+                if(overlay) overlay.style.display = 'none';
+            }, 6000); // 6秒后彻底移除，确保动画播放完毕
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome | Striumve</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: linear-gradient(135deg, #0c0e1d 0%, #12152b 100%);
+            color: #e0e0ff;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 粒子背景 */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(100, 200, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            50% { transform: translate(20px, -20px) scale(1.2); opacity: 0.6; }
+        }
+
+        /* 开场动画遮罩 */
+        #intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0c0e1d;
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            animation: intro-outro 5s forwards;
+        }
+
+        @keyframes intro-outro {
+            0% { opacity: 1; clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); }
+            80% { opacity: 1; clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); }
+            100% { opacity: 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%); visibility: hidden; }
+        }
+
+        .intro-text {
+            font-size: 4rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00f3ff, #0077ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
+            animation: intro-text 5s ease-out;
+        }
+
+        @keyframes intro-text {
+            0% { transform: scale(0.5) rotateY(90deg); opacity: 0; }
+            30% { transform: scale(1.2) rotateY(0deg); opacity: 1; }
+            50% { transform: scale(1.3); }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .intro-subtitle {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #a0a0ff;
+            animation: intro-sub 5s ease-out;
+        }
+
+        @keyframes intro-sub {
+            0% { opacity: 0; transform: translateY(20px); }
+            50% { opacity: 0; }
+            70% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 1; }
+        }
+
+        /* 主内容区域 */
+        .container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+            opacity: 0;
+            animation: fade-in-up 1s 5.2s forwards; /* 在开场动画后出现 */
+        }
+
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .welcome-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+            background: linear-gradient(45deg, #ffffff, #a0a0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(160, 160, 255, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #8888cc;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .link-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: rgba(30, 30, 60, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 100, 200, 0.2);
+            border-radius: 16px;
+            color: #e0e0ff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .link-item:hover::before {
+            left: 100%;
+        }
+
+        .link-item:hover {
+            background: rgba(40, 40, 80, 0.6);
+            border-color: rgba(100, 200, 255, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .link-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .link-icon {
+            color: #00f3ff;
+            font-size: 1.2rem;
+            opacity: 0;
+            transform: translateX(10px);
+            transition: all 0.3s ease;
+        }
+
+        .link-item:hover .link-icon {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .more-btn {
+            margin-top: 2rem;
+            padding: 0.8rem 2rem;
+            background: transparent;
+            border: 1px solid rgba(100, 200, 255, 0.3);
+            color: #a0a0ff;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .more-btn:hover {
+            background: rgba(100, 200, 255, 0.1);
+            color: #e0e0ff;
+            border-color: rgba(100, 200, 255, 0.6);
+        }
+
+        .hidden-links {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .hidden-links.expanded {
+            max-height: 300px; /* 调整为足够容纳所有隐藏链接的高度 */
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .intro-text { font-size: 2.5rem; }
+            .welcome-title { font-size: 2.5rem; }
+            .link-item { padding: 1.2rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 粒子背景 -->
+    <div class="particles" id="particles"></div>
+
+    <!-- 开场动画 -->
+    <div id="intro-overlay">
+        <div class="intro-text">LYX</div>
+        <div class="intro-subtitle">Striumve [strive + triumph]</div>
+    </div>
+
+    <!-- 主内容 -->
+    <div class="container">
+        <h1 class="welcome-title">Striumve</h1>
+        <p class="subtitle">Digital Journey & Creative Space</p>
+
+        <div class="links-container">
+            <a href="#" class="link-item">
+                <span class="link-text">竹芒云蹊</span>
+                <span class="link-icon">→</span>
+            </a>
+            <a href="#" class="link-item">
+                <span class="link-text">GitHub主页</span>
+                <span class="link-icon">→</span>
+            </a>
+            <a href="#" class="link-item">
+                <span class="link-text">主页v2</span>
+                <span class="link-icon">→</span>
+            </a>
+        </div>
+
+        <button class="more-btn" onclick="toggleHiddenLinks()">更多</button>
+
+        <div class="hidden-links" id="hiddenLinks">
+            <div class="links-container">
+                <a href="#" class="link-item">
+                    <span class="link-text">项目展示</span>
+                    <span class="link-icon">→</span>
+                </a>
+                <a href="#" class="link-item">
+                    <span class="link-text">关于我</span>
+                    <span class="link-icon">→</span>
+                </a>
+                <a href="#" class="link-item">
+                    <span class="link-text">联系</span>
+                    <span class="link-icon">→</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 创建粒子背景
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // 随机大小和位置
+                const size = Math.random() * 5 + 1;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 6;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // 切换隐藏链接
+        function toggleHiddenLinks() {
+            const hiddenLinks = document.getElementById('hiddenLinks');
+            const button = document.querySelector('.more-btn');
+            
+            if (hiddenLinks.classList.contains('expanded')) {
+                hiddenLinks.classList.remove('expanded');
+                button.textContent = '更多';
+            } else {
+                hiddenLinks.classList.add('expanded');
+                button.textContent = '收起';
+            }
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // 开场动画结束后移除遮罩
+            const introOverlay = document.getElementById('intro-overlay');
+            setTimeout(() => {
+                introOverlay.style.display = 'none';
+            }, 5000); // 与CSS动画时长匹配
+        });
+    </script>
+</body>
+</html>

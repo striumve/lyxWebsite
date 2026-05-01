@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>竹芒云蹊 · 欢迎</title>
+  <style>
+    /* 全局重置与高级感基调 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(circle at 30% 30%, #0b0f1c, #02030a);
+      font-family: 'Inter', 'SF Pro Display', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      position: relative;
+      cursor: default;
+    }
+
+    /* 深邃动态背景：极光 + 网格，不落俗套 */
+    .bg-layer {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .bg-gradient {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse at 20% 50%, rgba(72, 140, 240, 0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 20%, rgba(180, 110, 255, 0.1) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 80%, rgba(30, 200, 200, 0.08) 0%, transparent 55%);
+      filter: blur(40px);
+      animation: subtleShift 18s infinite alternate ease-in-out;
+    }
+
+    @keyframes subtleShift {
+      0% { opacity: 0.7; transform: scale(1) translate(0, 0); }
+      100% { opacity: 1; transform: scale(1.05) translate(-1%, 1%); }
+    }
+
+    .grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(circle at 50% 50%, black 30%, transparent 80%);
+    }
+
+    /* 主容器 */
+    .welcome-container {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 700px;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      backdrop-filter: blur(2px);
+    }
+
+    /* 动画阶段容器：占据视口中心，动画结束后隐藏 */
+    .animation-stage {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      pointer-events: none; /* 让点击穿透到背景，但动画期间不显示链接 */
+      transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .animation-stage.hidden {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s ease, visibility 0s 0.6s;
+    }
+
+    .word-play {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      font-size: clamp(3.5rem, 12vw, 7rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-transform: lowercase;
+      color: #ffffff;
+      text-shadow: 0 0 30px rgba(180, 160, 255, 0.7);
+      position: relative;
+    }
+
+    .word {
+      display: inline-block;
+      background: linear-gradient(135deg, #e0e7ff, #c4b5fd, #a5b4fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 25px rgba(139, 92, 246, 0.6));
+      transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+      white-space: nowrap;
+    }
+
+    .plus-symbol {
+      font-size: 0.8em;
+      background: linear-gradient(135deg, #c084fc, #818cf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 15px #a78bfa);
+      margin: 0 -0.2rem;
+      transition: all 0.6s ease;
+    }
+
+    /* 动画关键帧定义：strive 与 triumph 聚合成 Striumve */
+    .word.strive {
+      transform-origin: right center;
+    }
+    .word.triumph {
+      transform-origin: left center;
+    }
+
+    /* 主内容区域（动画结束后显示） */
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      gap: 2.5rem;
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity 1s ease 0.3s, transform 1s ease 0.3s;
+      pointer-events: none;
+    }
+
+    .main-content.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    /* 标题设计：高级感线条与渐变 */
+    .title-block {
+      text-align: center;
+      position: relative;
+    }
+
+    .main-title {
+      font-size: clamp(3.2rem, 10vw, 5.5rem);
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      background: linear-gradient(180deg, #f0e9ff 10%, #b9a9ff 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 25px rgba(139, 120, 255, 0.5));
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 15px rgba(150, 130, 255, 0.4);
+      /* 实际上背景裁剪文本不需要text-shadow，这里保留视觉效果 */
+      position: relative;
+    }
+
+    .sub-glow {
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(200, 210, 255, 0.7);
+      border-top: 1px solid rgba(180, 160, 255, 0.35);
+      border-bottom: 1px solid rgba(180, 160, 255, 0.25);
+      display: inline-block;
+      padding: 0.6rem 1.8rem;
+      margin-top: 0.8rem;
+      backdrop-filter: blur(8px);
+      background: rgba(20, 15, 40, 0.25);
+      border-radius: 30px;
+    }
+
+    /* 链接组：现代感胶囊按钮 */
+    .links-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-top: 0.8rem;
+    }
+
+    .link-item {
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      padding: 0.7rem 1.8rem;
+      border-radius: 3rem;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(210, 190, 255, 0.25);
+      color: #e4ddff;
+      letter-spacing: 0.04em;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .link-item::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(180, 160, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .link-item:hover {
+      border-color: rgba(200, 170, 255, 0.7);
+      background: rgba(70, 50, 120, 0.25);
+      color: #ffffff;
+      box-shadow: 0 0 28px rgba(150, 120, 255, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .link-item:hover::before {
+      left: 100%;
+    }
+
+    /* 更多按钮特殊样式 */
+    .more-btn {
+      background: rgba(110, 90, 210, 0.2);
+      border-color: rgba(180, 150, 255, 0.5);
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: all 0.3s;
+    }
+
+    .more-btn:hover {
+      background: rgba(130, 100, 240, 0.35);
+    }
+
+    .more-icon {
+      font-size: 1.2rem;
+      transition: transform 0.3s;
+    }
+
+    .more-btn.active .more-icon {
+      transform: rotate(45deg);
+    }
+
+    /* 更多链接下拉面板 - 神秘展开 */
+    .extra-links-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.7s cubic-bezier(0.33, 1, 0.68, 1), opacity 0.4s ease, margin 0.4s;
+      opacity: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.9rem;
+      margin-top: 0;
+      width: 100%;
+    }
+
+    .extra-links-panel.expanded {
+      max-height: 200px;
+      opacity: 1;
+      margin-top: 1.5rem;
+    }
+
+    .extra-link {
+      text-decoration: none;
+      font-size: 0.95rem;
+      padding: 0.5rem 1.5rem;
+      border-radius: 2rem;
+      background: rgba(25, 20, 45, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(160, 140, 240, 0.35);
+      color: #cdc0ff;
+      transition: 0.25s;
+      letter-spacing: 0.03em;
+    }
+
+    .extra-link:hover {
+      background: rgba(80, 60, 160, 0.45);
+      border-color: #b9a6ff;
+      color: white;
+      box-shadow: 0 0 20px rgba(150, 120, 255, 0.5);
+    }
+
+    /* 底部签名缩写 */
+    .signature {
+      margin-top: 2.5rem;
+      color: rgba(210, 200, 255, 0.5);
+      font-size: 0.9rem;
+      letter-spacing: 0.2em;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .signature span {
+      font-weight: 600;
+      background: linear-gradient(135deg, #b9abff, #8e85ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* 响应式调整 */
+    @media (max-width: 480px) {
+      .links-row {
+        gap: 0.6rem;
+      }
+      .link-item {
+        padding: 0.6rem 1.3rem;
+        font-size: 0.95rem;
+      }
+      .word-play {
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-layer">
+    <div class="bg-gradient"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <!-- 开场CSS动画舞台 -->
+  <div class="animation-stage" id="animationStage">
+    <div class="word-play" id="wordPlay">
+      <span class="word strive" id="wordStrive">strive</span>
+      <span class="plus-symbol" id="plusSign">+</span>
+      <span class="word triumph" id="wordTriumph">triumph</span>
+    </div>
+  </div>
+
+  <!-- 主欢迎内容，初始隐藏 -->
+  <div class="welcome-container">
+    <div class="main-content" id="mainContent">
+      <div class="title-block">
+        <h1 class="main-title">Striumve</h1>
+        <div class="sub-glow">LYX · 竹芒云蹊</div>
+      </div>
+
+      <div class="links-row">
+        <a href="#" class="link-item">竹芒云蹊</a>
+        <a href="#" class="link-item">GitHub主页</a>
+        <a href="#" class="link-item">主页v2</a>
+        <div class="link-item more-btn" id="moreButton">
+          更多 <span class="more-icon">+</span>
+        </div>
+      </div>
+
+      <!-- 隐藏的更多链接区域 -->
+      <div class="extra-links-panel" id="extraPanel">
+        <a href="#" class="extra-link">数字花园</a>
+        <a href="#" class="extra-link">项目实验室</a>
+        <a href="#" class="extra-link">关于LYX</a>
+        <a href="#" class="extra-link">随笔</a>
+      </div>
+
+      <div class="signature">
+        <span>LYX</span> · 思行合一
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // 严格遵循要求：CSS动画仅播放一次，开场动画：strive 与 triumph 聚合为 Striumve
+      const animationStage = document.getElementById('animationStage');
+      const wordStrive = document.getElementById('wordStrive');
+      const wordTriumph = document.getElementById('wordTriumph');
+      const plusSign = document.getElementById('plusSign');
+      const mainContent = document.getElementById('mainContent');
+      const moreButton = document.getElementById('moreButton');
+      const extraPanel = document.getElementById('extraPanel');
+
+      // 防止动画重复触发
+      let animationPlayed = false;
+
+      // 动画持续时间设置 (与CSS动画配合)
+      const PHASE1_DURATION = 1100; // strive 和 triumph 出现并停留
+      const PHASE2_DURATION = 1300; // 聚合动画
+      const FADE_OUT_DURATION = 500; // 舞台淡出
+
+      function startAnimation() {
+        if (animationPlayed) return;
+        animationPlayed = true;
+
+        // 确保初始状态：两个单词可见，plus可见
+        animationStage.classList.remove('hidden');
+        wordStrive.style.opacity = '1';
+        wordTriumph.style.opacity = '1';
+        plusSign.style.opacity = '1';
+        wordStrive.style.transform = 'translateX(0)';
+        wordTriumph.style.transform = 'translateX(0)';
+        wordStrive.style.letterSpacing = 'normal';
+        wordTriumph.style.letterSpacing = 'normal';
+        
+        // 主内容先保持隐藏
+        mainContent.classList.remove('visible');
+
+        // 阶段1：短暂展示 strive + triumph (已经可见，加一点微动强化)
+        // 其实页面加载它们就显示了，为了动画节奏，我们使用动态类控制更复杂的聚合。
+        // 使用JavaScript直接操作样式实现更精准的动画序列，避免纯CSS难以控制单次流程。
+        
+        // 设置初始状态 (确保)
+        wordStrive.style.transition = 'all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)';
+        wordTriumph.style.transition = 'all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)';
+        plusSign.style.transition = 'opacity 0.4s, transform 0.6s';
+        
+        // 稍微延迟后开始聚合动画，让用户看清两个单词
+        setTimeout(() => {
+          // 第二阶段：聚合！strive向右移动，triumph向左移动，同时plus消失，合并成Striumve的感觉
+          // 通过位移和透明度变化模拟融合
+          wordStrive.style.transform = 'translateX(28px)';
+          wordTriumph.style.transform = 'translateX(-28px)';
+          plusSign.style.opacity = '0';
+          plusSign.style.transform = 'scale(0.5)';
+          
+          // 同时改变颜色融合感 (渐变统一)
+          wordStrive.style.background = 'linear-gradient(135deg, #e0e7ff, #c4b5fd, #a5b4fc)';
+          wordStrive.style.webkitBackgroundClip = 'text';
+          wordStrive.style.backgroundClip = 'text';
+          wordTriumph.style.background = 'linear-gradient(135deg, #e0e7ff, #c4b5fd, #a5b4fc)';
+          wordTriumph.style.webkitBackgroundClip = 'text';
+          wordTriumph.style.backgroundClip = 'text';
+          
+        }, PHASE1_DURATION);
+
+        // 第三阶段：两个单词进一步靠拢并淡出，同时整体舞台消失，展示主内容
+        setTimeout(() => {
+          // 完全重叠效果：进一步移动并降低透明度，象征合并为Striumve
+          wordStrive.style.transform = 'translateX(45px)';
+          wordTriumph.style.transform = 'translateX(-45px)';
+          wordStrive.style.opacity = '0.4';
+          wordTriumph.style.opacity = '0.4';
+          
+          // 同时让整个动画舞台开始淡出
+          animationStage.style.opacity = '0';
+          
+          // 显示主内容
+          mainContent.classList.add('visible');
+          
+        }, PHASE1_DURATION + PHASE2_DURATION);
+
+        // 最后完全隐藏动画舞台并重置一些样式（以备需要，但不再播放）
+        setTimeout(() => {
+          animationStage.classList.add('hidden');
+          // 重置单词样式，保证DOM干净 (虽然隐藏了)
+          wordStrive.style.transform = '';
+          wordTriumph.style.transform = '';
+          wordStrive.style.opacity = '';
+          wordTriumph.style.opacity = '';
+          plusSign.style.opacity = '';
+          plusSign.style.transform = '';
+          wordStrive.style.letterSpacing = '';
+          wordTriumph.style.letterSpacing = '';
+        }, PHASE1_DURATION + PHASE2_DURATION + FADE_OUT_DURATION);
+      }
+
+      // 页面加载后立即启动动画（给予微小延迟确保渲染）
+      window.addEventListener('load', () => {
+        // 极短延迟让字体等就绪
+        setTimeout(startAnimation, 80);
+      });
+
+      // 更多按钮交互
+      if (moreButton && extraPanel) {
+        moreButton.addEventListener('click', (e) => {
+          e.stopPropagation();
+          extraPanel.classList.toggle('expanded');
+          moreButton.classList.toggle('active');
+        });
+
+        // 点击外部关闭展开面板（可选）
+        document.addEventListener('click', (event) => {
+          if (!moreButton.contains(event.target) && !extraPanel.contains(event.target)) {
+            extraPanel.classList.remove('expanded');
+            moreButton.classList.remove('active');
+          }
+        });
+      }
+
+      // 链接实际跳转占位 (可自行替换href)
+      const allLinks = document.querySelectorAll('a[href="#"]');
+      allLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          // 提示或实际不做跳转，保持演示效果
+          console.log('链接点击：', link.textContent?.trim() || '未知链接');
+        });
+      });
+
+    })();
+  </script>
+</body>
+</html>

@@ -2,7 +2,8 @@ var deviceFlag = 1; // 1: PC; 2: mobile
 var languageFlag = 1; //1: Chinese; 2: English
 // var body = document.querySelector('body');
 const currentVersion = 'v4.4.3';
-const latestUpdateTime = '2026.04.25';
+const latestUpdateTime = '2026.05.01';
+const terminalVersion = 'v1.1.0';
 
 var thisOS = navigator.platform;
 var os = new Array("iPhone", "iPod", "iPad", "android", "Nokia", "SymbianOS", "Symbian", "Windows Phone",
