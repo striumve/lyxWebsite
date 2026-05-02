@@ -67,8 +67,8 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             transition: all 0.5s var(--transition);
-            opacity: 0;
-            animation: fadeIn 1s ease 0.5s forwards;
+            /* opacity: 0; */
+            /* animation: fadeIn 1s ease 0.5s forwards; */
             cursor: url(/public/cursor/link.cur), default;
         }
 
@@ -88,6 +88,87 @@
         .back-nav:hover::before {
             width: 48px;
             background: var(--accent);
+        }
+
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            background: rgba(12, 12, 12, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            transform: translateY(-100%);
+            transition: transform 0.5s var(--transition), opacity 0.5s var(--transition);
+            opacity: 0;
+        }
+
+        .top-bar.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .top-bar-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .top-bar-back {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .top-bar-back::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 1px;
+            background: currentColor;
+            transition: width 0.3s;
+        }
+
+        .top-bar-back:hover {
+            color: var(--text-primary);
+        }
+
+        .top-bar-back:hover::before {
+            width: 16px;
+        }
+
+        .top-bar-title {
+            font-size: 18px;
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            color: var(--text-primary);
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'siyuan';
+        }
+
+        .top-bar-spacer {
+            width: 60px;
+        }
+
+        .top-bar-info {
+            font-family: system-ui;
+            font-size: 15px;
         }
 
         /* 头部区域 */
@@ -206,7 +287,7 @@
             cursor: url(/public/cursor/link.cur), default;
             opacity: 0;
             transform: translateY(50px);
-            transition: opacity 0.9s var(--transition), transform 0.9s var(--transition);
+            transition: opacity 0.7s var(--transition), transform 0.9s var(--transition);
             border-radius: 2px;
         }
 
@@ -217,6 +298,10 @@
 
         .gallery-item.hidden {
             display: none;
+        }
+
+        .gallery-item.invisible {
+            opacity: 0;
         }
 
         .gallery-item img {
@@ -612,6 +697,21 @@
                 letter-spacing: 2px;
             }
 
+            .top-bar-inner {
+                padding: 0 20px;
+                height: 52px;
+            }
+
+            .top-bar-title {
+                font-size: 13px;
+                letter-spacing: 0.2em;
+            }
+
+            .top-bar-back {
+                font-size: 11px;
+                letter-spacing: 2px;
+            }
+
             .back-nav::before {
                 width: 24px;
             }
@@ -702,6 +802,13 @@
 </head>
 
 <body>
+    <header class="top-bar" id="topBar">
+        <div class="top-bar-inner">
+            <a class="top-bar-back">返回</a>
+            <h2 class="top-bar-title">光影集<span class="top-bar-info"></span></h2>
+            <div class="top-bar-spacer"></div>
+        </div>
+    </header>
 
     <a class="back-nav">返回</a>
 
@@ -712,792 +819,22 @@
 
     <nav class="filter-bar">
         <button class="filter-btn active" data-filter="all">全部</button>
+        <button class="filter-btn" data-filter="selected">精选</button>
         <button class="filter-btn" data-filter="landscape">风光</button>
         <button class="filter-btn" data-filter="city">城市</button>
         <button class="filter-btn" data-filter="life">生活</button>
         <button class="filter-btn" data-filter="nature">自然</button>
     </nav>
 
-    <main class="gallery" id="gallery">
-        <!-- 1 -->
-        <div class="gallery-item" data-category="city" data-title="星火燎原" data-date="2025.05" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="夜幕下的红色文化墙庄严肃穆，毛泽东的题词“星星之火，可以燎原”在灯光映照下熠熠生辉，前方的书本雕塑象征着思想的力量，整体画面充满了历史的厚重感与革命豪情。">
-            <img src="images/01.png" alt="星火燎原">
-            <div class="overlay">
-                <div class="photo-title">星火燎原</div>
-                <div class="photo-meta">
-                    <span>2025.05</span>
-                    <span class="tag">城市</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 2 -->
-        <div class="gallery-item" data-category="nature" data-title="枯木逢春" data-date="2025.03" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="在阴云密布的天空下，一棵落尽叶片的古树伸展着遒劲的枝干，虽然看似萧瑟，但线条刚劲有力，仿佛在静默中积蓄力量，等待着春风唤醒新的生机，展现出一种坚韧的生命张力。">
-            <img src="images/02.png" alt="枯木逢春">
-            <div class="overlay">
-                <div class="photo-title">枯木逢春</div>
-                <div class="photo-meta">
-                    <span>2025.03</span>
-                    <span class="tag">自然</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 3 -->
-        <div class="gallery-item" data-category="life" data-title="陶艺渔翁" data-date="2024.08" data-location="福建泉州"
-            data-camera="SONY ILCE-7RM3" data-lens="35mm F1.4 DG HSM | Art 012"
-            data-description="一个精致的陶艺渔翁雕像，头戴斗笠，手捧鱼篓，神态安详。背景中模糊的茶具和书籍为画面增添了一丝文雅的气息，展现出传统手工艺的细腻与魅力。">
-            <img src="images/03.png" alt="陶艺渔翁">
-            <div class="overlay">
-                <div class="photo-title">陶艺渔翁</div>
-                <div class="photo-meta">
-                    <span>2024.08</span>
-                    <span class="tag">生活</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 4 -->
-        <div class="gallery-item" data-category="nature" data-title="紫韵幽香" data-date="2025.03" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="镜头聚焦于一株盛开的巴西野牡丹，深紫色的花瓣娇艳欲滴，白色的花蕊纤细舒展。背景中翠绿的叶片虚化成柔和的色块，衬托出花朵的清雅与高贵，仿佛能闻到淡淡的草木清香。">
-            <img src="images/04.png" alt="紫韵幽香">
-            <div class="overlay">
-                <div class="photo-title">紫韵幽香</div>
-                <div class="photo-meta">
-                    <span>2025.03</span>
-                    <span class="tag">自然</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 5 -->
-        <div class="gallery-item" data-category="life" data-title="端坐狸花" data-date="2025.07" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="一只狸花猫端坐于地，身披虎纹，目光沉静而警惕。它仿佛在倾听远处的风声，又像在守护着什么秘密。猫的威严，在于不语。">
-            <img src="images/05.png" alt="端坐狸花">
-            <div class="overlay">
-                <div class="photo-title">端坐狸花</div>
-                <div class="photo-meta">
-                    <span>2025.07</span>
-                    <span class="tag">生活</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 6 -->
-        <div class="gallery-item" data-category="nature" data-title="椰风海韵" data-date="2025.04" data-location="福建黄金海岸"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="蔚蓝的天空下，几株高大的狐尾椰树随风摇曳，修长的叶片在空中划出优美的弧线。画面充满了热带海滨的闲适气息，让人仿佛置身于阳光明媚的沙滩旁，感受到海风的轻拂。">
-            <img src="images/06.png" alt="椰风海韵">
-            <div class="overlay">
-                <div class="photo-title">椰风海韵</div>
-                <div class="photo-meta">
-                    <span>2025.04</span>
-                    <span class="tag">自然</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 7 -->
-        <div class="gallery-item" data-category="nature" data-title="金桔满枝" data-date="2025.01" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="晴空万里，枝头挂满了圆润饱满的金桔，橙黄的果实与翠绿的叶片交相辉映。这不仅是丰收的喜悦，更寓意着“大吉大利”，明媚的阳光让整个画面洋溢着富足与甜蜜的氛围。">
-            <img src="images/07.png" alt="金桔满枝">
-            <div class="overlay">
-                <div class="photo-title">金桔满枝</div>
-                <div class="photo-meta">
-                    <span>2025.01</span>
-                    <span class="tag">自然</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 8 -->
-        <div class="gallery-item" data-category="nature" data-title="碧空如洗" data-date="2025.03" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="仰视视角下，树冠在蓝天的映衬下显得格外通透。阳光透过层层叠叠的绿叶，斑驳陆离，展现出初夏时节万物蓬勃生长的姿态，给人一种清新、通透的视觉享受。">
-            <img src="images/08.png" alt="碧空如洗">
-            <div class="overlay">
-                <div class="photo-title">碧空如洗</div>
-                <div class="photo-meta">
-                    <span>2025.03</span>
-                    <span class="tag">自然</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 9 -->
-        <div class="gallery-item" data-category="life" data-title="蓝眸萌猫" data-date="2025.01" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="一双湛蓝如深海的眸子，映着窗外天光。布偶猫安静端坐，柔软的毛发如云絮轻拢，眼中有星辰闪动，亦有一尘不染的纯净。">
-            <img src="images/09.png" alt="蓝眸萌猫">
-            <div class="overlay">
-                <div class="photo-title">蓝眸萌猫</div>
-                <div class="photo-meta">
-                    <span>2025.01</span>
-                    <span class="tag">生活</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 10 -->
-        <div class="gallery-item" data-category="city" data-title="灯火阑珊" data-date="2024.02" data-location="福建晋江"
-            data-camera="iPhone 8" data-lens="28mm f1.8"
-            data-description="夜幕降临，五店市的红灯笼高高挂起，莲花灯与宫灯交相辉映，将古街巷装点得如梦似幻。游人漫步其中，光影交错间流露出浓浓的传统文化韵味与节日的喜庆氛围。">
-            <img src="images/10.png" alt="灯火阑珊">
-            <div class="overlay">
-                <div class="photo-title">灯火阑珊</div>
-                <div class="photo-meta">
-                    <span>2024.02</span>
-                    <span class="tag">城市</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 11 -->
-        <div class="gallery-item" data-category="nature" data-title="新绿初绽" data-date="2025.04" data-location="泉州古城"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="镜头聚焦于一枝嫩绿的新叶，在柔和的光线下，叶片的脉络清晰可见，充满了生机与活力。背景虚化处理得恰到好处，突出了前景的清新感，仿佛能闻到雨后泥土与植物的芬芳。">
-            <img src="images/11.png" alt="新绿初绽">
-            <div class="overlay">
-                <div class="photo-title">新绿初绽</div>
-                <div class="photo-meta">
-                    <span>2025.04</span>
-                    <span class="tag">自然</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 12 -->
-        <div class="gallery-item" data-category="life" data-title="生日礼物！" data-date="2025.07" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6" data-description="都是同一个人送的哦！">
-            <img src="images/12.png" alt="生日礼物！">
-            <div class="overlay">
-                <div class="photo-title">生日礼物！</div>
-                <div class="photo-meta">
-                    <span>2025.07</span>
-                    <span class="tag">生活</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 13 -->
-        <div class="gallery-item" data-category="landscape" data-title="夜海灯影" data-date="2025.04" data-location="福建洛伽寺"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="在深邃的夜色中，远处的洛伽寺被暖黄色的灯光勾勒出轮廓，倒映在平静的水面上，形成一片温暖的光斑。整个画面宁静而神秘，仿佛一个远离尘嚣的世外桃源，引人遐想。">
-            <img src="images/13.png" alt="夜海灯影">
-            <div class="overlay">
-                <div class="photo-title">夜海灯影</div>
-                <div class="photo-meta">
-                    <span>2025.04</span>
-                    <span class="tag">风光</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 14 -->
-        <div class="gallery-item" data-category="city" data-title="古今对望" data-date="2025.08" data-location="江西南昌"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="从滕王阁景区的走廊向外望去，雕梁画栋的屋檐下，现代都市的摩天大楼林立。传统与现代在此刻交汇，形成强烈的视觉对比，展现了城市发展的脉络与历史文化的沉淀。">
-            <img src="images/14.png" alt="古今对望">
-            <div class="overlay">
-                <div class="photo-title">古今对望</div>
-                <div class="photo-meta">
-                    <span>2025.08</span>
-                    <span class="tag">城市</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 15 -->
-        <div class="gallery-item" data-category="landscape" data-title="层林尽染" data-date="2024.11" data-location="福建泉州"
-            data-camera="iPhone 8" data-lens="28mm f1.8"
-            data-description="秋日的树林呈现出丰富的色彩层次，从金黄到深红，各种色调交织在一起，构成了一幅绚丽的自然画卷。远处的山峦和房屋在灰蒙蒙的天空下若隐若现，更衬托出秋叶的绚烂，展现了季节更替的壮美。">
-            <img src="images/15.png" alt="层林尽染">
-            <div class="overlay">
-                <div class="photo-title">层林尽染</div>
-                <div class="photo-meta">
-                    <span>2024.11</span>
-                    <span class="tag">风光</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 16 -->
-        <div class="gallery-item" data-category="nature" data-title="层峦叠嶂" data-date="2026.03" data-location="网络"
-            data-camera="来源网络" data-lens=" "
-            data-description="这是一幅极具艺术感的抽象山景图。画面以流畅的线条勾勒出连绵起伏的山峦，色彩从深蓝过渡到浅青，营造出一种空灵、静谧的意境，仿佛置身于云雾缭绕的仙境之中。">
-            <img src="images/16.png" alt="层峦叠嶂">
-            <div class="overlay">
-                <div class="photo-title">层峦叠嶂</div>
-                <div class="photo-meta">
-                    <span>2026.03</span>
-                    <span class="tag">自然</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 17 -->
-        <div class="gallery-item" data-category="nature" data-title="桃之夭夭" data-date="2025.03" data-location="福建泉州"
-            data-camera="朋友拍的" data-lens=" "
-            data-description="一枝盛开的桃花在微风中摇曳，粉嫩的花瓣娇艳欲滴，花蕊清晰可见。背景是朦胧的花海，营造出一种浪漫唯美的氛围，完美诠释了“桃之夭夭，灼灼其华”的诗意。">
-            <img src="images/17.png" alt="桃之夭夭">
-            <div class="overlay">
-                <div class="photo-title">桃之夭夭</div>
-                <div class="photo-meta">
-                    <span>2025.03</span>
-                    <span class="tag">自然</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 18 -->
-        <div class="gallery-item" data-category="life" data-title="数学竞赛" data-date="2025.09" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="落笔的那一刻，所有的公式与演算都归于沉寂。青春的战场上，那些与数字搏斗的日夜，无论胜负，都已开出了花。">
-            <img src="images/18.png" alt="数学竞赛">
-            <div class="overlay">
-                <div class="photo-title">数学竞赛</div>
-                <div class="photo-meta">
-                    <span>2025.09</span>
-                    <span class="tag">生活</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 19 -->
-        <div class="gallery-item" data-category="life" data-title="美味时光" data-date="2025.05" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="人间烟火气，最抚凡人心。金黄的薯条、精致的汉堡、甜蜜的冰淇淋——所谓幸福，不过是此刻盘中餐，身边人。">
-            <img src="images/19.png" alt="美味时光">
-            <div class="overlay">
-                <div class="photo-title">美味时光</div>
-                <div class="photo-meta">
-                    <span>2025.05</span>
-                    <span class="tag">生活</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 20 -->
-        <div class="gallery-item" data-category="nature" data-title="春意盎然" data-date="2025.03" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="阳光透过树枝，照亮了刚刚绽放的桃花。嫩绿的叶子与粉红的花朵相映成趣，背景是模糊的城市街景，展现了春天在城市角落里悄然绽放的美丽，充满了希望与活力。">
-            <img src="images/20.png" alt="春意盎然">
-            <div class="overlay">
-                <div class="photo-title">春意盎然</div>
-                <div class="photo-meta">
-                    <span>2025.03</span>
-                    <span class="tag">自然</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 21 -->
-        <div class="gallery-item" data-category="landscape" data-title="朝霞熔金" data-date="2024.08" data-location="福建泉州"
-            data-camera="iPhone 8" data-lens="28mm f1.8"
-            data-description="朝霞将天空染成一片绚烂的橙红，云层如同被点燃的火焰。城市的高楼在霞光中化为剪影，远处的山峦若隐若现，构成了一幅壮丽而温暖的城市画卷。">
-            <img src="images/21.png" alt="朝霞熔金">
-            <div class="overlay">
-                <div class="photo-title">朝霞熔金</div>
-                <div class="photo-meta">
-                    <span>2024.08</span>
-                    <span class="tag">风光</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 22 -->
-        <div class="gallery-item" data-category="life" data-title="竹影茶韵" data-date="2025.05" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="竹影扫阶尘不动，茶烟透盏香自来。一盏清茶，半室暖光，于静默中品出岁月的回甘。">
-            <img src="images/22.png" alt="竹影茶韵">
-            <div class="overlay">
-                <div class="photo-title">竹影茶韵</div>
-                <div class="photo-meta">
-                    <span>2025.05</span>
-                    <span class="tag">生活</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 23 -->
-        <div class="gallery-item" data-category="city" data-title="一枝红杏出墙来" data-date="2025.04" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="一簇簇鲜艳的三角梅在墙头热烈绽放，与背景中白墙黛瓦的传统建筑相映成趣。阳光洒在花瓣上，色彩明艳动人，充满了浓郁的热带风情和生活气息。">
-            <img src="images/23.png" alt="一枝红杏出墙来">
-            <div class="overlay">
-                <div class="photo-title">一枝红杏出墙来</div>
-                <div class="photo-meta">
-                    <span>2025.04</span>
-                    <span class="tag">城市</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 24 -->
-        <div class="gallery-item" data-category="nature" data-title="蔷薇满架" data-date="2025.05" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="一丛淡粉色的月季在木栏旁盛开，花朵层层叠叠，娇嫩欲滴。背景是模糊的绿意和远处的村落，画面清新自然，充满了田园牧歌式的浪漫。">
-            <img src="images/24.png" alt="蔷薇满架">
-            <div class="overlay">
-                <div class="photo-title">蔷薇满架</div>
-                <div class="photo-meta">
-                    <span>2025.05</span>
-                    <span class="tag">自然</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 25 -->
-        <div class="gallery-item" data-category="life" data-title="新年快乐" data-date="2024.02" data-location="福建泉州"
-            data-camera="iPhone 8" data-lens="28mm f1.8"
-            data-description="地面上，一堆篝火正熊熊燃烧，火光映照着周围的灰烬和杂物。这团火焰在黑暗中显得格外温暖和明亮，仿佛是寒夜中的一丝慰藉，也象征着希望与力量。">
-            <img src="images/25.png" alt="新年快乐">
-            <div class="overlay">
-                <div class="photo-title">新年快乐</div>
-                <div class="photo-meta">
-                    <span>2024.02</span>
-                    <span class="tag">生活</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 26 -->
-        <div class="gallery-item" data-category="city" data-title="砖窑遗梦" data-date="2025.08" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="几座巨大的砖砌拱门在夜色中矗立，内部透出温暖的灯光。这独特的建筑结构充满了工业美感，仿佛是时光的隧道，引人遐想其背后的历史与故事。">
-            <img src="images/26.png" alt="砖窑遗梦">
-            <div class="overlay">
-                <div class="photo-title">砖窑遗梦</div>
-                <div class="photo-meta">
-                    <span>2025.08</span>
-                    <span class="tag">城市</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 27 -->
-        <div class="gallery-item" data-category="city" data-title="水舞霓裳" data-date="2025.08" data-location="江西南昌"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="夜幕下，巨大的音乐喷泉随着旋律起舞，水柱在彩灯的照射下变幻出绚丽的色彩，形成一个巨大的水幕。人群聚集在前方，共同欣赏这场视觉与听觉的盛宴。">
-            <img src="images/27.png" alt="水舞霓裳">
-            <div class="overlay">
-                <div class="photo-title">水舞霓裳</div>
-                <div class="photo-meta">
-                    <span>2025.08</span>
-                    <span class="tag">城市</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 28 -->
-        <div class="gallery-item" data-category="city" data-title="新年灯火" data-date="2025.01" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6" data-description="新年快乐！东风夜放花千树，更吹落，星如雨。">
-            <img src="images/28.png" alt="新年灯火">
-            <div class="overlay">
-                <div class="photo-title">新年灯火</div>
-                <div class="photo-meta">
-                    <span>2025.01</span>
-                    <span class="tag">城市</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 29 -->
-        <div class="gallery-item" data-category="landscape" data-title="云卷云舒" data-date="2025.02" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6" data-description="宠辱不惊，看庭前花开花落；去留无意，漫随天外云卷云舒。">
-            <img src="images/29.png" alt="云卷云舒">
-            <div class="overlay">
-                <div class="photo-title">云卷云舒</div>
-                <div class="photo-meta">
-                    <span>2025.02</span>
-                    <span class="tag">风光</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 30 -->
-        <div class="gallery-item" data-category="city" data-title="阳台一隅" data-date="2024.07" data-location="福建泉州"
-            data-camera="iPhone 8" data-lens="28mm f1.8"
-            data-description="居民楼的阳台上，各种绿植和花卉生机勃勃，有的甚至爬满了栏杆。当时这里让我想起《天气之子》里的鸟居">
-            <img src="images/30.png" alt="阳台一隅">
-            <div class="overlay">
-                <div class="photo-title">阳台一隅</div>
-                <div class="photo-meta">
-                    <span>2024.07</span>
-                    <span class="tag">城市</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 31 -->
-        <div class="gallery-item" data-category="city" data-title="晚霞" data-date="2024.12" data-location="福建泉州"
-            data-camera="iPhone 8" data-lens="28mm f1.8" data-description="天际霞光入水中，水中天际一时红。黄昏将最后的温柔揉碎，洒满人间。">
-            <img src="images/31.png" alt="晚霞">
-            <div class="overlay">
-                <div class="photo-title">晚霞</div>
-                <div class="photo-meta">
-                    <span>2024.12</span>
-                    <span class="tag">城市</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 32 -->
-        <div class="gallery-item" data-category="city" data-title="古韵今风" data-date="2025.08" data-location="江西南昌"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="披绣闼，俯雕甍，山原旷其盈视，川泽纡其骇瞩。闾阎扑地，钟鸣鼎食之家；舸舰迷津，青雀黄龙之舳。云销雨霁，彩彻区明。">
-            <img src="images/32.png" alt="古韵今风">
-            <div class="overlay">
-                <div class="photo-title">古韵今风</div>
-                <div class="photo-meta">
-                    <span>2025.08</span>
-                    <span class="tag">城市</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 33 -->
-        <div class="gallery-item" data-category="landscape" data-title="岱仙飞瀑" data-date="2024.08" data-location="福建石牛山"
-            data-camera="iPhone 8" data-lens="28mm f1.8"
-            data-description="飞流直下三千尺，疑是银河落九天。岱仙瀑布自高崖奔腾而下，水雾漫天，声震山谷，尽显大自然的磅礴与壮阔。">
-            <img src="images/33.png" alt="岱仙飞瀑">
-            <div class="overlay">
-                <div class="photo-title">岱仙飞瀑</div>
-                <div class="photo-meta">
-                    <span>2024.08</span>
-                    <span class="tag">风光</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 34 -->
-        <div class="gallery-item" data-category="landscape" data-title="海天橙影" data-date="2025.04" data-location="福建黄金海岸"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="橙黄色的洛伽寺矗立在海边，与蔚蓝的大海和天空形成鲜明对比。建筑的倒影在海水中若隐若现，海浪拍打着岸边的礁石，整个画面充满了宁静与和谐的氛围。">
-            <img src="images/34.png" alt="海天橙影">
-            <div class="overlay">
-                <div class="photo-title">海天橙影</div>
-                <div class="photo-meta">
-                    <span>2025.04</span>
-                    <span class="tag">风光</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 35 -->
-        <div class="gallery-item" data-category="nature" data-title="古树夜影" data-date="2025.10" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="13mm f2.4"
-            data-description="夜色中，一棵古树在灯光的映照下显得格外苍劲。树干粗壮，纹理清晰，枝叶在黑暗中若隐若现，仿佛在诉说着岁月的故事。灯光与黑暗的对比，营造出一种神秘而静谧的氛围，让人不禁驻足凝望。">
-            <img src="images/35.png" alt="古树夜影">
-            <div class="overlay">
-                <div class="photo-title">古树夜影</div>
-                <div class="photo-meta">
-                    <span>2025.10</span>
-                    <span class="tag">自然</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 36 -->
-        <div class="gallery-item" data-category="city" data-title="晴歌回响" data-date="2025.08" data-location="江西南昌"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="这是一面充满文艺气息的“歌词墙”，位于南昌万寿宫附近。墙面上刻着周杰伦《晴天》的经典歌词“从前从前有个人爱你很久”，旁边装饰着橙色与粉色的玫瑰花。这不仅是一个网红打卡点，更承载了许多人关于青春和音乐的回忆。">
-            <img src="images/36.png" alt="晴歌回响">
-            <div class="overlay">
-                <div class="photo-title">晴歌回响</div>
-                <div class="photo-meta">
-                    <span>2025.08</span>
-                    <span class="tag">城市</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 37 -->
-        <div class="gallery-item" data-category="life" data-title="书香午后" data-date="2025.01" data-location="福建泉州"
-            data-camera="iPhone 8" data-lens="28mm f1.8" data-description="枕上诗书闲处好，门前风景雨来佳。一杯咖啡，一本旧书，偷得浮生半日闲。">
-            <img src="images/37.png" alt="书香午后">
-            <div class="overlay">
-                <div class="photo-title">书香午后</div>
-                <div class="photo-meta">
-                    <span>2025.01</span>
-                    <span class="tag">生活</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 38 -->
-        <div class="gallery-item" data-category="city" data-title="飞檐翘角" data-date="2025.04" data-location="福建洛伽寺"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="仰视视角下，洛伽寺的屋脊显得格外生动。色彩斑斓的龙形雕塑盘踞在翘起的飞檐之上，在纯净蓝天的衬托下，显得栩栩如生，充满了传统文化的韵味和工匠精神的巧思。">
-            <img src="images/38.png" alt="飞檐翘角">
-            <div class="overlay">
-                <div class="photo-title">飞檐翘角</div>
-                <div class="photo-meta">
-                    <span>2025.04</span>
-                    <span class="tag">城市</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 39 -->
-        <div class="gallery-item" data-category="nature" data-title="金菊盛放" data-date="2026.03" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="一片金黄色的万寿菊在阳光下绽放，花朵饱满而鲜艳。背景中模糊的花海与前景的清晰花朵形成层次感，展现出大自然的生机与活力。">
-            <img src="images/39.png" alt="金菊盛放">
-            <div class="overlay">
-                <div class="photo-title">金菊盛放</div>
-                <div class="photo-meta">
-                    <span>2026.03</span>
-                    <span class="tag">自然</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 40 -->
-        <div class="gallery-item" data-category="landscape" data-title="赣江云影" data-date="2025.08" data-location="江西南昌"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="这是一张视野开阔的城市风光照。宽阔的赣江水面平静如镜，对岸是南昌错落有致的城市天际线。天空中云层厚重，阳光穿透云层洒下“丁达尔效应”的光芒，让整座城市笼罩在一种神圣而庄严的光影之中，大气磅礴。">
-            <img src="images/40.png" alt="赣江云影">
-            <div class="overlay">
-                <div class="photo-title">赣江云影</div>
-                <div class="photo-meta">
-                    <span>2025.08</span>
-                    <span class="tag">风光</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 41 -->
-        <div class="gallery-item" data-category="nature" data-title="桃之夭夭" data-date="2025.03" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="镜头捕捉到了桃花盛开的细腻瞬间。粉嫩的花瓣在枝头簇拥绽放，花蕊纤细金黄，背景中错综复杂的枝干与朦胧的粉色花海交相辉映。这不仅展现了春天的生机勃勃，更透出一股“人面桃花相映红”的古典韵味。">
-            <img src="images/41.png" alt="桃之夭夭">
-            <div class="overlay">
-                <div class="photo-title">桃之夭夭</div>
-                <div class="photo-meta">
-                    <span>2025.03</span>
-                    <span class="tag">自然</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 42 -->
-        <div class="gallery-item" data-category="city" data-title="瓷光水影" data-date="2025.10" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="夜幕下，德化“Blanc de Chine”的标志在黑暗中发出柔和的白光，倒影在平静的水面上微微荡漾。这个发光的羽毛标志象征着德化白瓷的轻盈与纯净，整个画面充满了现代艺术感与静谧的东方美学。">
-            <img src="images/42.png" alt="瓷光水影">
-            <div class="overlay">
-                <div class="photo-title">瓷光水影</div>
-                <div class="photo-meta">
-                    <span>2025.10</span>
-                    <span class="tag">城市</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 43 -->
-        <div class="gallery-item" data-category="life" data-title="窗边" data-date="2025.07" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="一盆绿蕨，几缕天光。窗边这方寸之地，便是喧嚣世界里最安静的角落。草木不言，自有春秋。">
-            <img src="images/43.png" alt="窗边">
-            <div class="overlay">
-                <div class="photo-title">窗边</div>
-                <div class="photo-meta">
-                    <span>2025.07</span>
-                    <span class="tag">生活</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 44 -->
-        <div class="gallery-item" data-category="city" data-title="陶溪筑梦" data-date="2025.08" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="这张照片展现了泉州德化红旗坊的独特风貌。前景是具有现代设计感的白色圆柱形建筑与坡屋顶结构，背景则是连绵的城市楼宇与远山。夕阳的余晖洒在建筑上，展现了古老瓷都在现代文旅融合下的新面貌。">
-            <img src="images/44.png" alt="陶溪筑梦">
-            <div class="overlay">
-                <div class="photo-title">陶溪筑梦</div>
-                <div class="photo-meta">
-                    <span>2025.08</span>
-                    <span class="tag">城市</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 45 -->
-        <div class="gallery-item" data-category="city" data-title="月映庭院" data-date="2025.10" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="夜晚的庭院中，一轮巨大的“月亮”装置悬挂在建筑前，散发出柔和的光芒。庭院的地面铺满了石子，两侧的灯光映照出幽静的氛围，仿佛置身于一个梦幻的世界。">
-            <img src="images/45.png" alt="月映庭院">
-            <div class="overlay">
-                <div class="photo-title">月映庭院</div>
-                <div class="photo-meta">
-                    <span>2025.10</span>
-                    <span class="tag">城市</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 46 -->
-        <div class="gallery-item" data-category="life" data-title="薪火相传" data-date="2025.01" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="寒夜客来茶当酒，竹炉汤沸火初红。这团跃动的火焰，是旧岁的告别，亦是新年的序章。">
-            <img src="images/46.png" alt="薪火相传">
-            <div class="overlay">
-                <div class="photo-title">薪火相传</div>
-                <div class="photo-meta">
-                    <span>2025.01</span>
-                    <span class="tag">生活</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 47 -->
-        <div class="gallery-item" data-category="nature" data-title="色彩斑斓" data-date="2025.05" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="一丛色彩斑斓的鸡爪槭占据了画面，叶片呈现出从嫩绿到深红的渐变色彩。这种丰富的色彩层次极具视觉冲击力，展现了植物在季节更替中的独特美感，仿佛将绚烂定格在了这一方天地。">
-            <img src="images/47.png" alt="色彩斑斓">
-            <div class="overlay">
-                <div class="photo-title">色彩斑斓</div>
-                <div class="photo-meta">
-                    <span>2025.05</span>
-                    <span class="tag">自然</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 48 -->
-        <div class="gallery-item" data-category="city" data-title="德化名筑" data-date="2025.05" data-location="德化龙鹏艺术馆"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="这是一个极简风格的室内空间，墙面上用线条勾勒出巨大的“DE HUA”字样，极具设计感。柔和的灯光、粗糙质感的墙面与现代家具形成了鲜明对比，营造出一种高级、静谧的艺术氛围，彰显了德化作为瓷都的文化自信。">
-            <img src="images/48.png" alt="德化名筑">
-            <div class="overlay">
-                <div class="photo-title">德化名筑</div>
-                <div class="photo-meta">
-                    <span>2025.05</span>
-                    <span class="tag">城市</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 49 -->
-        <div class="gallery-item" data-category="city" data-title="天桥通途" data-date="2025.03" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="一座现代化的天桥横跨在城市上空，桥面由金属网格构成，两侧的护栏设计简洁而富有现代感。远处的城市建筑和山峦在背景中若隐若现，展现出城市的繁忙与秩序。">
-            <img src="images/49.png" alt="天桥通途">
-            <div class="overlay">
-                <div class="photo-title">天桥通途</div>
-                <div class="photo-meta">
-                    <span>2025.03</span>
-                    <span class="tag">生活</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 50 -->
-        <div class="gallery-item" data-category="landscape" data-title="湖光城色" data-date="2025.08" data-location="江西南昌"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="平静的湖面如镜子般倒映着岸边的绿树与远处的城市建筑。蓝天、白云、绿树与高楼在画面中和谐共存，构成了一幅宁静致远的城市生态画卷。这里远离了喧嚣，是城市中难得的一方净土，适合静心漫步。">
-            <img src="images/50.png" alt="湖光城色">
-            <div class="overlay">
-                <div class="photo-title">湖光城色</div>
-                <div class="photo-meta">
-                    <span>2025.08</span>
-                    <span class="tag">风光</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 51 -->
-        <div class="gallery-item" data-category="landscape" data-title="霞染城郭" data-date="2024.08" data-location="福建泉州"
-            data-camera="iPhone 8" data-lens="28mm f1.8"
-            data-description="夕阳西下，天空被染成一片绚烂的橙红色，云层如被点燃般壮丽。城市的高楼在霞光中化为剪影，远处的山峦若隐若现，构成了一幅温暖而宁静的城市黄昏画卷。">
-            <img src="images/51.png" alt="霞染城郭">
-            <div class="overlay">
-                <div class="photo-title">霞染城郭</div>
-                <div class="photo-meta">
-                    <span>2024.08</span>
-                    <span class="tag">风光</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 52 -->
-        <div class="gallery-item" data-category="life" data-title="瓷艺禅境" data-date="2025.05" data-location="德化龙鹏艺术馆"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="在粗犷的混凝土墙面上，几件洁白的瓷艺作品被精心陈列在天然石块上，灯光柔和地打在作品上，投下深邃的影子。这种现代与原始、精致与粗粝的对比，营造出一种静谧而富有禅意的艺术氛围，展现了德化白瓷的独特魅力。">
-            <img src="images/52.png" alt="瓷艺禅境">
-            <div class="overlay">
-                <div class="photo-title">瓷艺禅境</div>
-                <div class="photo-meta">
-                    <span>2025.05</span>
-                    <span class="tag">生活</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 53 -->
-        <div class="gallery-item" data-category="landscape" data-title="粉墙蓝天" data-date="2025.04" data-location="福建黄金海岸"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="在清澈的蓝天之下，一栋粉色的建筑与一个白色的几何结构并置，形成了一幅极简而富有现代感的画面。粉墙的柔和与白结构的利落线条相互映衬，色彩的对比与空间的留白，共同营造出一种宁静、干净且充满设计感的视觉体验。">
-            <img src="images/53.png" alt="粉墙蓝天">
-            <div class="overlay">
-                <div class="photo-title">粉墙蓝天</div>
-                <div class="photo-meta">
-                    <span>2025.04</span>
-                    <span class="tag">风光</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 54 -->
-        <div class="gallery-item" data-category="city" data-title="云卷城郭" data-date="2026.02" data-location="福建泉州"
-            data-camera="朋友拍的" data-lens=" "
-            data-description="蓝天白云下，城市建筑错落有致，远处的山峦与近处的绿树相映成趣。天空中云朵形态各异，有的如棉絮般轻盈，有的如山峦般厚重，为城市增添了几分灵动与诗意。阳光洒在建筑上，整个画面充满了生机与活力。">
-            <img src="images/54.png" alt="云卷城郭">
-            <div class="overlay">
-                <div class="photo-title">云卷城郭</div>
-                <div class="photo-meta">
-                    <span>2026.02</span>
-                    <span class="tag">城市</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 55 -->
-        <div class="gallery-item" data-category="life" data-title="烤肉飘香" data-date="2026.04" data-location="福建泉州"
-            data-camera="iPhone 13 mini" data-lens="26mm f1.6"
-            data-description="围炉聚饮欢呼处，百味消融小釜中。烟火升腾，肉香四溢，人间至味是清欢，更是此刻的欢聚与畅快。">
-            <img src="images/55.png" alt="烤肉飘香">
-            <div class="overlay">
-                <div class="photo-title">烤肉飘香</div>
-                <div class="photo-meta">
-                    <span>2026.04</span>
-                    <span class="tag">生活</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 继续添加更多照片... -->
-        <!-- 复制上面的 gallery-item 块，修改 data-* 属性和图片路径即可 -->
-
-    </main>
+    <main class="gallery" id="gallery"></main>
 
     <!-- 灯箱 -->
     <div class="lightbox" id="lightbox">
         <div class="lightbox-inner">
             <div class="lightbox-image-area">
                 <img src="" alt="" id="lightbox-img">
-                <div class="lightbox-nav lightbox-prev" onclick="navigateLightbox(-1)">
-                </div>
-                <div class="lightbox-nav lightbox-next" onclick="navigateLightbox(1)">>
-                </div>
+                <div class="lightbox-nav lightbox-prev" onclick="navigateLightbox(-1)"><</div>
+                <div class="lightbox-nav lightbox-next" onclick="navigateLightbox(1)">></div>
                 <div class="lightbox-close" onclick="closeLightbox()"></div>
                 <div class="lightbox-counter" id="lightbox-counter">1 / 10</div>
             </div>
@@ -1537,51 +874,49 @@
     </footer>
 
     <script>
-        // 筛选功能
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const galleryItems = document.querySelectorAll('.gallery-item');
+        // 把所有的变量定义放到前面，防止出现各种各样的undefined
+        var lightbox;
+        var lightboxImg;
+        var lightboxCounter;
+        var currentIndex = 0;
+        var visibleItems = [];
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+        var item;
+        var img;
 
-                const filter = btn.dataset.filter;
+        var filterBtns;
+        var galleryItems;
 
-                galleryItems.forEach(item => {
-                    if (filter === 'all' || item.dataset.category === filter) {
-                        item.classList.remove('hidden');
-                        setTimeout(() => item.classList.add('visible'), 50);
-                    } else {
-                        item.classList.remove('visible');
-                        setTimeout(() => item.classList.add('hidden'), 600);
-                    }
-                });
-            });
-        });
+        var currentFilter = 'all';
 
-        // 滚动显示动画
-        const observerOptions = {
-            threshold: 0.08,
-            rootMargin: '0px 0px -60px 0px'
+        const categoryMap = {
+            'city': '城市',
+            'nature': '自然',
+            'life': '生活',
+            'landscape': '风光', 
+            'selected': '精选'
         };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
+        async function loadImages() {
+            let response = await fetch('/gallery/list.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('网络响应失败');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    generateGalleryItems(data);
+                })
+                .then(() => {
+                    initApp();
+                })
+                .catch(error => {
+                    console.error('加载 JSON 文件出错：', error);
+                });
+        }
 
-        galleryItems.forEach(item => observer.observe(item));
-
-        // 灯箱功能
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const lightboxCounter = document.getElementById('lightbox-counter');
-        let currentIndex = 0;
-        let visibleItems = [];
+        loadImages();
 
         function updateVisibleItems() {
             visibleItems = Array.from(document.querySelectorAll('.gallery-item:not(.hidden)'));
@@ -1590,12 +925,13 @@
         function openLightbox(index) {
             updateVisibleItems();
             currentIndex = index;
-            const item = visibleItems[index];
-            const img = item.querySelector('img');
+            item = visibleItems[index];
+            img = item.querySelector('img');
 
             // 填充信息
             lightboxImg.src = img.src.replace('w=800', 'w=1600');
-            document.getElementById('lb-category').textContent = getCategoryName(item.dataset.category);
+            document.getElementById('lb-category').textContent = getCategoryName(item.dataset
+                .category);
             document.getElementById('lb-title').textContent = item.dataset.title;
             document.getElementById('lb-description').textContent = item.dataset.description;
             document.getElementById('lb-date').textContent = item.dataset.date;
@@ -1642,57 +978,192 @@
             }, 300);
         }
 
-        // 绑定点击事件
-        galleryItems.forEach((item, index) => {
-            item.addEventListener('click', () => {
-                updateVisibleItems();
-                const visibleIndex = visibleItems.indexOf(item);
-                openLightbox(visibleIndex);
+        function initApp() {
+            // 灯箱
+            lightbox = document.getElementById('lightbox');
+            lightboxImg = document.getElementById('lightbox-img');
+            lightboxCounter = document.getElementById('lightbox-counter');
+            // 筛选
+            filterBtns = document.querySelectorAll('.filter-btn');
+            galleryItems = document.querySelectorAll('.gallery-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+
+                    const filter = btn.dataset.filter;
+                    currentFilter = btn.dataset.filter;
+
+                    galleryItems.forEach(item => {
+                        item.classList.add('invisible');
+                        setTimeout(() => {
+                            item.classList.add('hidden');
+                            if (filter === 'all' || item.dataset.category === filter ||
+                                (filter == 'selected' && item.dataset.selected ==
+                                    'true')) {
+                                item.classList.remove('hidden');
+                                item.classList.remove('invisible');
+                                setTimeout(() => item.classList.add('visible'), 50);
+                            } else {
+                                item.classList.remove('visible');
+                                setTimeout(() => item.classList.add('hidden'), 600);
+                            }
+                        }, 600)
+                    });
+                });
             });
-        });
 
-        // 键盘控制
-        document.addEventListener('keydown', (e) => {
-            if (!lightbox.classList.contains('active')) return;
-            if (e.key === 'Escape') closeLightbox();
-            if (e.key === 'ArrowLeft') navigateLightbox(-1);
-            if (e.key === 'ArrowRight') navigateLightbox(1);
-        });
+            // 滚动显示动画
+            const observerOptions = {
+                threshold: 0.08,
+                rootMargin: '0px 0px -60px 0px'
+            };
 
-        // 点击背景关闭
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox || e.target.classList.contains('lightbox-inner')) {
-                closeLightbox();
-            }
-        });
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
 
-        // 触摸滑动支持
-        let touchStartX = 0;
-        lightbox.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
+            galleryItems.forEach(item => observer.observe(item));
 
-        lightbox.addEventListener('touchend', (e) => {
-            const touchEndX = e.changedTouches[0].screenX;
-            const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) navigateLightbox(1);
-                else navigateLightbox(-1);
-            }
-        });
+            // 绑定点击事件
+            galleryItems.forEach((item, index) => {
+                item.addEventListener('click', () => {
+                    updateVisibleItems();
+                    const visibleIndex = visibleItems.indexOf(item);
+                    openLightbox(visibleIndex);
+                });
+            });
 
-        // 初始化
-        updateVisibleItems();
-    </script>
+            // 键盘控制
+            document.addEventListener('keydown', (e) => {
+                if (!lightbox.classList.contains('active')) return;
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') navigateLightbox(-1);
+                if (e.key === 'ArrowRight') navigateLightbox(1);
+            });
 
-    <script>
+            // 点击背景关闭
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox || e.target.classList.contains('lightbox-inner')) {
+                    closeLightbox();
+                }
+            });
+
+            // 触摸滑动支持
+            let touchStartX = 0;
+            lightbox.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+
+            lightbox.addEventListener('touchend', (e) => {
+                const touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) navigateLightbox(1);
+                    else navigateLightbox(-1);
+                }
+            });
+
+            // 初始化
+            updateVisibleItems();
+        }
+
+        function generateGalleryItems(photos) {
+            const container = document.getElementById('gallery');
+
+            photos.forEach(photo => {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                galleryItem.setAttribute('data-category', photo.category);
+                galleryItem.setAttribute('data-title', photo.title);
+                galleryItem.setAttribute('data-date', photo.date);
+                galleryItem.setAttribute('data-location', photo.location);
+                galleryItem.setAttribute('data-camera', photo.camera);
+                galleryItem.setAttribute('data-lens', photo.lens);
+                galleryItem.setAttribute('data-description', photo.description);
+                galleryItem.setAttribute('data-selected', photo.selected ? photo.selected : 'false');
+
+                const img = document.createElement('img');
+                img.src = photo.src;
+                img.alt = '图片加载失败';
+
+                const overlay = document.createElement('div');
+                overlay.className = 'overlay';
+
+                const photoTitle = document.createElement('div');
+                photoTitle.className = 'photo-title';
+                photoTitle.textContent = photo.title;
+
+                const photoMeta = document.createElement('div');
+                photoMeta.className = 'photo-meta';
+
+                const dateSpan = document.createElement('span');
+                dateSpan.textContent = photo.date;
+
+                const tagSpan = document.createElement('span');
+                tagSpan.className = 'tag';
+                tagSpan.textContent = categoryMap[photo.category] || photo.category;
+
+                photoMeta.appendChild(dateSpan);
+                photoMeta.appendChild(tagSpan);
+
+                overlay.appendChild(photoTitle);
+                overlay.appendChild(photoMeta);
+
+                galleryItem.appendChild(img);
+                galleryItem.appendChild(overlay);
+
+                container.appendChild(galleryItem);
+            });
+        }
+
+
+
         document.querySelector('.back-nav').addEventListener('click', () => {
-            if (document.referrer) {
+            if (document.referrer && document.referrer != window.location.href) {
                 window.location = document.referrer;
             } else {
                 window.location = '/';
             }
         })
+
+        document.querySelector('.top-bar-back').addEventListener('click', () => {
+            if (document.referrer && document.referrer != window.location.href) {
+                window.location = document.referrer;
+            } else {
+                window.location = '/';
+            }
+        })
+
+        // 下划时显示topbar
+        const topBar = document.getElementById('topBar');
+        const topBarInfo = document.querySelector(".top-bar-info");
+        const backNav = document.querySelector('.back-nav');
+        let lastScrollY = 0;
+        const heroHeight = document.querySelector('.hero').offsetHeight;
+
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY > heroHeight * 0.6) {
+                topBar.classList.add('visible');
+                backNav.style.opacity = '0';
+                backNav.style.pointerEvents = 'none';
+
+                topBarInfo.innerHTML = currentFilter == 'all' ? '' : ` - ${categoryMap[currentFilter]}`
+            } else {
+                topBar.classList.remove('visible');
+                backNav.style.opacity = '';
+                backNav.style.pointerEvents = '';
+            }
+
+            lastScrollY = currentScrollY;
+        });
     </script>
 
 </body>

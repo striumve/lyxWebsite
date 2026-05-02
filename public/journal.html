@@ -287,7 +287,7 @@
             border: 1px solid rgba(74, 222, 128, 0.2);
         }
 
-        .tag-fix {
+        .tag-modify {
             background: rgba(96, 165, 250, 0.1);
             color: #60a5fa;
             border: 1px solid rgba(96, 165, 250, 0.2);
@@ -418,7 +418,7 @@
                     <li class="update-item">
                         <div class="update-content">
                             <span class="update-date">04.12</span>
-                            <span>修复部分bug<span class="tag tag-fix">修复</span>
+                            <span>修复部分bug<span class="tag tag-modify">优化</span>
                                 增加调色盘功能<span class="tag tag-feature">功能</span></span>
                         </div>
                     </li>
@@ -435,13 +435,13 @@
             <article class="module-card animate-in" style="animation-delay: 0.3s">
                 <div class="module-header">
                     <h2 class="module-name">终端</h2>
-                    <span class="module-version">v1.1.0</span>
+                    <span class="module-version">v1.2.0</span>
                 </div>
                 <ul class="update-list">
                     <li class="update-item">
                         <div class="update-content">
                             <span class="update-date">05.02</span>
-                            <span>添加了一些命令<span class="tag tag-feature">功能</span></span>
+                            <span>增加了自动纠错<span class="tag tag-feature">功能</span></span>
                         </div>
                     </li>
                     <li class="update-item">
@@ -457,8 +457,16 @@
             <article class="module-card animate-in" style="animation-delay: 0.4s">
                 <div class="module-header">
                     <h2 class="module-name">光影集</h2>
-                    <span class="module-version">v1.0.0</span>
+                    <span class="module-version">v1.1.0</span>
                 </div>
+                <ul class="update-list">
+                    <li class="update-item">
+                        <div class="update-content">
+                            <span class="update-date">05.02</span>
+                            <span>重制图片加载逻辑<span class="tag tag-refactor">重构</span> 添加“精选”类别<span class="tag tag-feature">功能</span></span>
+                        </div>
+                    </li>
+                </ul>
                 <ul class="update-list">
                     <li class="update-item">
                         <div class="update-content">
@@ -478,10 +486,10 @@
 </body>
 <script>
     document.querySelector('.back').addEventListener('click', () => {
-        if (document.referrer) {
+            if (document.referrer && document.referrer != window.location.href) {
             window.location = document.referrer;
         } else {
-            window.location = '/v4/';
+            window.location = '/';
         }
     })
 </script>

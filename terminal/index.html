@@ -115,6 +115,7 @@
             margin: 0;
             padding: 0;
             line-height: 1.45;
+            cursor: url(/public/cursor/text.cur),default;
         }
 
         /* 仅用于命令回显或轻微强调，不使用花哨颜色 */
@@ -433,7 +434,7 @@
             function cmdExit(param) {
                 appendOutput('会话结束。即将退出终端');
                 setTimeout(() => {
-                    if (document.referrer && param != '-w') {
+                    if ((document.referrer && document.referrer != window.location.href) && param != '-w') {
                         window.location = document.referrer;
                     } else {
                         window.location = '/';
@@ -568,12 +569,62 @@ Tasks:  42 total,   3 running,  39 sleeping,   0 stopped,   0 zombie
             function cmdCat(path) {
                 if (path) {
                     window.location = path;
+                } else {
+                    appendOutput('cat: 请输入参数');
                 }
             }
 
-            // 处理未知命令
+            // 计算两个字符串的编辑距离（Levenshtein Distance）
+            function levenshteinDistance(a, b) {
+                const matrix = Array(b.length + 1).fill(null).map(() => Array(a.length + 1).fill(null));
+
+                for (let i = 0; i <= a.length; i++) matrix[0][i] = i;
+                for (let j = 0; j <= b.length; j++) matrix[j][0] = j;
+
+                for (let j = 1; j <= b.length; j++) {
+                    for (let i = 1; i <= a.length; i++) {
+                        const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+                        matrix[j][i] = Math.min(
+                            matrix[j][i - 1] + 1, // 删除
+                            matrix[j - 1][i] + 1, // 插入
+                            matrix[j - 1][i - 1] + cost // 替换
+                        );
+                    }
+                }
+                return matrix[b.length][a.length];
+            }
+
+            // 获取最接近的命令建议
+            function getCommandSuggestion(inputCmd, validCommands, maxDistance = 3) {
+                let bestMatch = null;
+                let minDistance = Infinity;
+
+                for (const cmd of validCommands) {
+                    const distance = levenshteinDistance(inputCmd, cmd);
+                    if (distance < minDistance && distance <= maxDistance) {
+                        minDistance = distance;
+                        bestMatch = cmd;
+                    }
+                }
+
+                return bestMatch;
+            }
+
+            // 可用命令列表
+            const validCommands = [
+                'about', 'whoami', 'projects', 'neofetch', 'contact', 'date',
+                'cowsay', 'clear', 'cls', 'exit', 'secret', 'help', 'sudo',
+                'code', 'top', 'cat'
+            ];
+
             function cmdNotFound(cmd) {
-                appendOutput(`bash: ${cmd}: 命令未找到`);
+                const suggestion = getCommandSuggestion(cmd, validCommands, 2);
+
+                if (suggestion) {
+                    appendOutput(`bash: ${cmd}: 命令未找到。您是否想输入：${suggestion}？`);
+                } else {
+                    appendOutput(`bash: ${cmd}: 命令未找到`);
+                }
             }
 
             // --- 解析并执行命令 ---

@@ -1,50 +1,971 @@
 <!DOCTYPE html>
-<html lang="zh-hans">
+<html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>二次元 - 芒蹊</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="/public/images/logo_otaku.png" sizes="32x32">
+    <title>二次元 - 竹芒云蹊</title>
+    <link rel="icon" href="/public/images/logo.jpg" sizes="32x32">
+    <style>
+        :root {
+            --primary: #e8a0bf;
+            --primary-light: #f5d0e0;
+            --primary-dark: #c97a9a;
+            --accent: #a8d8ea;
+            --accent-warm: #ffd3b6;
+            --text: #5a4a4a;
+            --text-light: #8a7a7a;
+            --bg-card: rgba(230, 255, 230, 0.3);
+            --bg-card-hover: rgba(230, 250, 230, 0.5);
+            --shadow: 0 8px 32px rgba(168, 120, 140, 0.15);
+            --shadow-hover: 0 12px 40px rgba(168, 120, 140, 0.25);
+            --radius: 20px;
+        }
+
+        @font-face {
+            font-family: 'sanji';
+            src: url('/public/fonts/SanJiZhuoSongTi-2-subset.woff');
+            font-weight: normal;
+            font-style: normal;
+            font-display: block;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            color: var(--text);
+            min-height: 100vh;
+            background: url('./images/bg.jpg') center/cover fixed no-repeat;
+            position: relative;
+            overflow-x: hidden;
+            cursor: url(/public/cursor/normal.cur), default;
+            user-select: none;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(2px);
+            z-index: -1;
+        }
+
+        .petals {
+            position: fixed;
+            top: -15px;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .petal {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            border-radius: 50% 0 50% 50%;
+            opacity: 0.6;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg) translateX(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.6;
+            }
+
+            90% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(720deg) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .header h1 {
+            font-family: 'sanji';
+            font-size: 3.5rem;
+            color: var(--primary-dark);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .badge {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(232, 160, 191, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .badge:hover {
+            transform: translateY(-2px);
+        }
+
+        .section {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: 0.4s;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            background: var(--bg-card-hover);
+        }
+
+        .section-title {
+            font-family: 'sanji';
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 28px;
+            background: linear-gradient(to bottom, var(--primary), var(--primary-light));
+            border-radius: 3px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .info-item {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 15px 20px;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s;
+        }
+
+        .info-item:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateX(5px);
+        }
+
+        .info-label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .char-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .char-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .char-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(168, 120, 140, 0.2);
+        }
+
+        .char-img-container {
+            width: 100%;
+            height: 320px;
+            background: linear-gradient(135deg, #f0e6f0, #e6f0f5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .char-img-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 2;
+            object-fit: cover;
+            object-position: top;
+        }
+
+        .char-info {
+            padding: 18px;
+            text-align: center;
+        }
+
+        .char-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+        }
+
+        .char-role {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            background: var(--primary-light);
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 12px;
+        }
+
+        /* 番剧卡片特殊样式 */
+        .anime-card .char-img-container {
+            height: 260px;
+        }
+
+        .anime-card .char-name {
+            font-size: 1.1rem;
+        }
+
+        .anime-card .char-role {
+            font-size: 0.8rem;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .tag {
+            background: linear-gradient(135deg, rgba(232, 160, 191, 0.2), rgba(168, 216, 234, 0.2));
+            border: 2px solid transparent;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .tag:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(232, 160, 191, 0.2);
+        }
+
+        .tag:hover::before {
+            left: 100%;
+        }
+
+        /* 音乐作品列表 */
+        .music-section {
+            margin-top: 20px;
+        }
+
+        .music-artist {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s;
+        }
+
+        .music-artist:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateX(5px);
+        }
+
+        .music-artist-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .music-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding-left: 10px;
+        }
+
+        .music-item {
+            background: linear-gradient(135deg, rgba(168, 216, 234, 0.3), rgba(232, 160, 191, 0.2));
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text);
+            border: 1px solid rgba(168, 216, 234, 0.4);
+            transition: all 0.3s;
+        }
+
+        .music-item:hover {
+            background: linear-gradient(135deg, rgba(168, 216, 234, 0.5), rgba(232, 160, 191, 0.4));
+            transform: scale(1.05);
+        }
+
+        .warning-section {
+            /* background: linear-gradient(135deg, rgba(255, 200, 200, 0.4), rgba(255, 230, 230, 0.4)); */
+            background: rgba(255, 200, 200, .3);
+            border: 2px solid rgba(255, 150, 150, 0.3);
+        }
+
+        .warning-section:hover {
+            background: rgba(255, 200, 200, .5);
+        }
+
+        .warning-section .section-title {
+            color: #c97a7a;
+        }
+
+        .warning-section .section-title::before {
+            background: linear-gradient(to bottom, #e8a0a0, #f5d0d0);
+        }
+
+        .warning-tag {
+            background: rgba(255, 150, 150, 0.15);
+            border: 2px solid rgba(255, 120, 120, 0.3);
+            color: #a06060;
+        }
+
+        .warning-tag:hover {
+            border-color: #e08080;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .footer .emoji {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(232, 160, 191, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-light);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.2rem;
+            }
+
+            .header .subtitle {
+                font-size: 1rem;
+            }
+
+            .section {
+                padding: 20px;
+                margin-bottom: 20px;
+            }
+
+            .section-title {
+                font-size: 1.4rem;
+            }
+
+            .char-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .char-img-container {
+                height: 220px;
+            }
+
+            .anime-card .char-img-container {
+                height: 180px;
+            }
+
+            .char-name {
+                font-size: 1.1rem;
+            }
+
+            .tag {
+                padding: 8px 14px;
+                font-size: 0.9rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .badge-container {
+                gap: 8px;
+            }
+
+            .badge {
+                font-size: 0.8rem;
+                padding: 5px 12px;
+            }
+
+            .music-artist-name {
+                font-size: 1.1rem;
+            }
+
+            .music-item {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .char-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .char-img-container {
+                height: 380px;
+            }
+
+            .anime-card .char-img-container {
+                height: 280px;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 40px 15px 30px;
+            }
+        }
+
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s;
+        }
+
+        .loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-text {
+            font-family: 'sanji';
+            font-size: 2rem;
+            color: var(--primary);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.6;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        /* 分类标签 */
+        .category-label {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: white;
+            padding: 4px 14px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .category-label.sub {
+            background: linear-gradient(135deg, var(--accent), #8ecae6);
+        }
+
+        .category-label.family {
+            background: linear-gradient(135deg, var(--accent-warm), #ffb4a2);
+        }
+    </style>
 </head>
 
 <body>
-    <div class="bg"></div>
-    <div class="nav">
-        <p class="nav-btn active" data-btn="1">&ensp;基本&ensp;</p>
-        <p class="nav-btn" data-btn="2">&ensp;我推&ensp;</p>
-        <p class="nav-btn" data-btn="3">&ensp;我看&ensp;</p>
-        <p class="nav-btn" data-btn="4">&ensp;我玩&ensp;</p>
-        <p class="nav-btn" data-btn="5">&ensp;其他&ensp;</p>
+    <div class="loading" id="loading">
+        <div class="loading-text">正在加载二次元空间...</div>
     </div>
-    <div class="page-container">
-        <div class="page basic" data-page="1">1</div>
-        <div class="page oshi" data-page="2">
-            <div class="oshi-nav">
-                <p class="oshi-nav-btn" data-oshi-btn="1"></p> <!-- 芙宁娜 -->
-                <p class="oshi-nav-btn" data-oshi-btn="2"></p> <!-- 无限 -->
-                <p class="oshi-nav-btn" data-oshi-btn="3"></p> <!-- 琴吹紬 -->
-                <p class="oshi-nav-btn" data-oshi-btn="4"></p> <!-- 芙莉莲 -->
-                <p class="oshi-nav-btn" data-oshi-btn="5"></p> <!-- 井芹仁菜 -->
-            </div>
-            <div class="oshi-page" data-oshi-page="1">
-                <div class="oshi-page-name">芙 宁 娜</div>
-                <div class="oshi-page-intro">「众水、众方、众民与众律法的女王」，<br>深受民众喜爱。<br>热衷于欧庇克莱歌剧院上演的每一场审判，<br>也总是在意着「观众」的眼光。</div>
-                <img src="./test/芙宁娜立绘.png" alt="" class="oshi-page-1-img">
-            </div>
-            <div class="oshi-page" data-oshi-page="2"></div>
-            <div class="oshi-page" data-oshi-page="3"></div>
-            <div class="oshi-page" data-oshi-page="4"></div>
-            <div class="oshi-page" data-oshi-page="5"></div>
-        </div>
-        <div class="page watch" data-page="3">3</div>
-        <div class="page play" data-page="4">4</div>
-        <div class="page other" data-page="5">
-            <a href="/v4/">index</a></div>
-    </div>
-</body>
 
-<script src="./functions.js"></script>
+    <div class="petals" id="petals"></div>
+
+    <div class="container">
+        <header class="header">
+            <h1>芒蹊 / Striumve</h1>
+            <p class="subtitle">欢迎来到我的二次元空间 ~ (*≧▽≦)</p>
+            <div class="badge-container">
+                <span class="badge">🎂 080727</span>
+                <span class="badge">🔮 INFJ</span>
+                <span class="badge">📍 IP福建</span>
+                <span class="badge">🎓 高三走读</span>
+                <span class="badge">📱 空间手动点赞</span>
+                <span class="badge">💬 欢迎小窗</span>
+            </div>
+        </header>
+
+        <section class="section">
+            <h2 class="section-title">基本属性</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">属性偏好</div>
+                    <div class="info-value">二次 ≥ 三次 ＞ 一次</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">当前状态</div>
+                    <div class="info-value">高三走读生</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">社交属性</div>
+                    <div class="info-value">轻微社恐，很好相处</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">空间习惯</div>
+                    <div class="info-value">会发日常，会互动</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 我推 · 主推立绘 -->
+        <section class="section">
+            <h2 class="section-title">我推 · 主推立绘</h2>
+            <p style="color: var(--text-light); margin-bottom: 15px; font-size: 0.95rem;">以下是我的主推角色，点击图片位置替换为你准备的立绘 ~
+            </p>
+            <div class="char-grid">
+                <div class="char-card">
+                    <div class="char-img-container">
+                        <img src="./images/芙莉莲立绘.png" alt="芙莉莲" onerror="this.style.display='none'">
+                    </div>
+                    <div class="char-info">
+                        <div class="char-name">芙莉莲</div>
+                        <div class="char-role">葬送的芙莉莲</div>
+                    </div>
+                </div>
+                <div class="char-card">
+                    <div class="char-img-container">
+                        <img src="./images/芙宁娜立绘.png" alt="芙宁娜" onerror="this.style.display='none'">
+                    </div>
+                    <div class="char-info">
+                        <div class="char-name">芙宁娜</div>
+                        <div class="char-role">原神</div>
+                    </div>
+                </div>
+                <div class="char-card">
+                    <div class="char-img-container">
+                        <img src="./images/琴吹紬立绘.png" alt="琴吹紬" onerror="this.style.display='none'">
+                    </div>
+                    <div class="char-info">
+                        <div class="char-name">琴吹紬</div>
+                        <div class="char-role">轻音少女</div>
+                    </div>
+                </div>
+                <div class="char-card">
+                    <div class="char-img-container">
+                        <img src="./images/无限.png" alt="无限" onerror="this.style.display='none'">
+                    </div>
+                    <div class="char-info">
+                        <div class="char-name">无限</div>
+                        <div class="char-role">罗小黑战记</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 我推 · 副推立绘 -->
+        <section class="section">
+            <h2 class="section-title">我推 · 副推立绘</h2>
+            <div class="char-grid">
+                <div class="char-card">
+                    <div class="char-img-container">
+                        <img src="./images/井芹仁菜立绘.webp" alt="井芹仁菜" onerror="this.style.display='none'">
+                    </div>
+                    <div class="char-info">
+                        <div class="char-name">井芹仁菜</div>
+                        <div class="char-role">GBC</div>
+                    </div>
+                </div>
+                <div class="char-card">
+                    <div class="char-img-container">
+                        <img src="" alt="山田凉" onerror="this.style.display='none'">
+                    </div>
+                    <div class="char-info">
+                        <div class="char-name">山田凉</div>
+                        <div class="char-role">孤独摇滚</div>
+                    </div>
+                </div>
+                <div class="char-card">
+                    <div class="char-img-container">
+                        <img src="" alt="罗小黑" onerror="this.style.display='none'">
+                    </div>
+                    <div class="char-info">
+                        <div class="char-name">罗小黑</div>
+                        <div class="char-role">罗小黑战记</div>
+                    </div>
+                </div>
+                <div class="char-card">
+                    <div class="char-img-container">
+                        <img src="" alt="阿尼亚" onerror="this.style.display='none'">
+                    </div>
+                    <div class="char-info">
+                        <div class="char-name">阿尼亚</div>
+                        <div class="char-role">间谍过家家</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 我推 · 家产 -->
+        <section class="section">
+            <h2 class="section-title">我推 · 家产（CP）</h2>
+            <div class="char-grid"
+                style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); max-width: 700px; margin: 20px auto 0;">
+                <div class="char-card">
+                    <div class="char-img-container">
+                        <img src="" alt="辛芙" onerror="this.style.display='none'">
+                    </div>
+                    <div class="char-info">
+                        <div class="char-name">辛芙</div>
+                        <div class="char-role">辛美尔 × 芙莉莲 · 葬送的芙莉莲</div>
+                    </div>
+                </div>
+                <div class="char-card">
+                    <div class="char-img-container">
+                        <img src="" alt="君清" onerror="this.style.display='none'">
+                    </div>
+                    <div class="char-info">
+                        <div class="char-name">君清</div>
+                        <div class="char-role">老君 × 清凝 · 罗小黑战记</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 二次元 · 番剧立绘 -->
+        <section class="section">
+            <h2 class="section-title">二次元 · 番剧立绘</h2>
+            <p style="color: var(--text-light); margin-bottom: 15px; font-size: 0.9rem;">前五个番剧的展示位，点击图片位置替换为番剧海报 ~</p>
+            <div class="char-grid">
+                <div class="char-card anime-card">
+                    <div class="char-img-container">
+                        <img src="" alt="葬送的芙莉莲" onerror="this.style.display='none'">
+                    </div>
+                    <div class="char-info">
+                        <div class="char-name">葬送的芙莉莲</div>
+                        <div class="char-role">奇幻 / 治愈 / 冒险</div>
+                    </div>
+                </div>
+                <div class="char-card anime-card">
+                    <div class="char-img-container">
+                        <img src="" alt="孤独摇滚" onerror="this.style.display='none'">
+                    </div>
+                    <div class="char-info">
+                        <div class="char-name">孤独摇滚</div>
+                        <div class="char-role">音乐 / 日常 / 轻百合</div>
+                    </div>
+                </div>
+                <div class="char-card anime-card">
+                    <div class="char-img-container">
+                        <img src="" alt="GBC" onerror="this.style.display='none'">
+                    </div>
+                    <div class="char-info">
+                        <div class="char-name">Girls Band Cry</div>
+                        <div class="char-role">音乐 / 原创 / 乐队</div>
+                    </div>
+                </div>
+                <div class="char-card anime-card">
+                    <div class="char-img-container">
+                        <img src="" alt="轻音少女" onerror="this.style.display='none'">
+                    </div>
+                    <div class="char-info">
+                        <div class="char-name">轻音少女</div>
+                        <div class="char-role">音乐 / 日常 / 轻百合</div>
+                    </div>
+                </div>
+                <div class="char-card anime-card">
+                    <div class="char-img-container">
+                        <img src="" alt="埃罗芒阿老师" onerror="this.style.display='none'">
+                    </div>
+                    <div class="char-info">
+                        <div class="char-name">埃罗芒阿老师</div>
+                        <div class="char-role">恋爱 / 喜剧 / 轻小说改</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 二次元 · 番剧列表 -->
+        <section class="section">
+            <h2 class="section-title">二次元 · 番剧完整列表</h2>
+            <p style="color: var(--text-light); margin-bottom: 15px; font-size: 0.9rem;">排序不分先后 ~</p>
+            <div class="tag-list">
+                <span class="tag">葬送的芙莉莲</span>
+                <span class="tag">孤独摇滚</span>
+                <span class="tag">GBC</span>
+                <span class="tag">轻音少女</span>
+                <span class="tag">埃罗芒阿老师</span>
+                <span class="tag">邻桌艾莉</span>
+                <span class="tag">迷宫饭</span>
+                <span class="tag">罗小黑战记</span>
+                <span class="tag">工作细胞</span>
+                <span class="tag">干物妹小埋</span>
+                <span class="tag">间谍过家家</span>
+                <span class="tag">新海诚作品</span>
+            </div>
+        </section>
+
+        <!-- 三次元 · 音乐 -->
+        <section class="section">
+            <h2 class="section-title">三次元 · 音乐</h2>
+
+            <div class="music-section">
+                <div class="music-artist">
+                    <div class="music-artist-name">
+                        <span>🎤</span> 陈奕迅
+                    </div>
+                    <div class="music-list">
+                        <span class="music-item">富士山下</span>
+                        <span class="music-item">十年</span>
+                        <span class="music-item">红玫瑰</span>
+                        <span class="music-item">浮夸</span>
+                        <span class="music-item">K歌之王</span>
+                        <span class="music-item">好久不见</span>
+                        <span class="music-item">爱情转移</span>
+                        <span class="music-item">淘汰</span>
+                        <span class="music-item">孤勇者</span>
+                        <span class="music-item">任我行</span>
+                    </div>
+                </div>
+
+                <div class="music-artist">
+                    <div class="music-artist-name">
+                        <span>🎵</span> YOASOBI
+                    </div>
+                    <div class="music-list">
+                        <span class="music-item">夜に駆ける</span>
+                        <span class="music-item">群青</span>
+                        <span class="music-item">怪物</span>
+                        <span class="music-item">優しい彗星</span>
+                        <span class="music-item">アイドル</span>
+                        <span class="music-item">勇者</span>
+                        <span class="music-item">祝福</span>
+                        <span class="music-item">ハルジオン</span>
+                        <span class="music-item">たぶん</span>
+                        <span class="music-item">RGB</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 我玩 -->
+        <section class="section">
+            <h2 class="section-title">我玩 · 游戏</h2>
+            <div class="tag-list">
+                <span class="tag">🎮 明日方舟</span>
+                <span class="tag">🎮 原神</span>
+                <span class="tag">🎮 邦多利</span>
+                <span class="tag">🎮 Phigros</span>
+                <span class="tag">🎮 MC</span>
+            </div>
+        </section>
+
+        <!-- 我雷 -->
+        <section class="section warning-section">
+            <h2 class="section-title">⚠️ 我雷</h2>
+            <div class="tag-list">
+                <span class="tag warning-tag">rh</span>
+                <span class="tag warning-tag">rn</span>
+            </div>
+            <p style="margin-top: 15px; color: #a06060; font-size: 0.95rem;">其他只要不是太过分的都能接受 ~</p>
+        </section>
+
+        <footer class="footer">
+            <span class="emoji">(*≧▽≦)</span>
+            <p>扩列愉快！欢迎小窗 ~</p>
+            <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.7;">芒蹊 / Striumve</p>
+            <p style="margin-top: 10px; font-size: 0.8rem; opacity: 0.7;">此页面使用Kimi-K2.6辅助制作</p>
+        </footer>
+    </div>
+
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hidden');
+            }, 800);
+        });
+
+        function createPetals() {
+            const container = document.getElementById('petals');
+            const petalCount = 15;
+
+            for (let i = 0; i < petalCount; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.left = Math.random() * 100 + '%';
+                petal.style.animationDuration = (Math.random() * 5 + 8) + 's';
+                petal.style.animationDelay = Math.random() * 10 + 's';
+                petal.style.width = (Math.random() * 10 + 10) + 'px';
+                petal.style.height = petal.style.width;
+                container.appendChild(petal);
+            }
+        }
+
+        createPetals();
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease, background 0.4s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
 
 </html>

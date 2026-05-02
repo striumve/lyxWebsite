@@ -809,6 +809,7 @@
     let morePage = document.querySelector('.more');
 
     moreBtn.addEventListener('click', () => {
+        document.querySelector(':root').style.setProperty('--link-ani-delay', '500ms');
         let containerAnimation = container.animate([{
                 opacity: 1,
                 transform: `translateX(0px)`
