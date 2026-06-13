@@ -1033,7 +1033,7 @@ function newCaptcha() {
         preGroundColor: [10, 80], //前景色区间
         backGroundColor: [150, 250], //背景色区间
         fontSize: captchaCanvasWidth / 8, //字体大小
-        fontFamily: ['consolas'], //字体类型
+        fontFamily: ['jetbrains'], //字体类型
         fontStyle: 'fill', //字体绘制方法，有fill和stroke
         content: 'abcdefghijklmnopqrstuvwxyz0123456789', //验证码内容
         length: 6 //验证码长度

@@ -80,7 +80,7 @@
             top: 0vh;
             font-size: 2.5vh;
             /* margin-left: 1vw; */
-            font-family: 'consolas';
+            font-family: 'jetbrains';
             margin-bottom: 0;
         }
 
@@ -115,7 +115,7 @@
         }
     </script>
     <p class="title">网页开发日志</p>
-    <a class="back" href="./diary4.html">返回</a>
+    <a class="back">返回</a>
     <div class="item">
         <p class="left">2022.06.30 v2.0.0</p>
         <p class="right">开始制作新版网页</p>
@@ -346,5 +346,16 @@
         <p class="right">为各功能窗口增加标题栏</p>
     </div>
 </body>
+
+
+<script>
+    document.querySelector('.back').addEventListener('click', () => {
+        if (document.referrer) {
+            window.location = document.referrer;
+        } else {
+            window.location = '/v4/';
+        }
+    })
+</script>
 
 </html>

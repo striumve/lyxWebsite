@@ -10,7 +10,7 @@ function Captcha(params = {}) {
         preGroundColor: [10, 80],
         backGroundColor: [150, 250],
         fontSize: 20,
-        fontFamily: ['consolas'],
+        fontFamily: ['jetbrains'],
         fontStyle: 'fill',
         content: 'acdefhijkmnpwxyABCDEFGHJKMNPQWXY12345789',
         length: 4

@@ -346,7 +346,7 @@ select:hover {
     /* border: none; */
     background-color: var(--basicColor_purple_a060);
     padding: 1vh;
-    font-family: 'consolas';
+    font-family: 'jetbrains';
     font-size: 1.5vh;
     width: 20vw;
     height: 2vh;
@@ -416,7 +416,7 @@ select:hover {
     margin-left: 5vw;
     font-size: 4vh;
     /* font-weight: 700; */
-    font-family: 'consolas';
+    font-family: 'jetbrains';
     color: var(--basicColor_black_a100);
 }
 
@@ -563,7 +563,7 @@ select:hover {
     height: 10vh;
     margin-left: 15vw;
     resize: none;
-    font-family: 'consolas';
+    font-family: 'jetbrains';
     font-size: 2vh;
     outline: none;
     /* border: none; */
@@ -579,7 +579,7 @@ select:hover {
     position: relative;
     font-size: 2vh;
     margin-top: 3vh;
-    font-family: 'consolas';
+    font-family: 'jetbrains';
     z-index: 10;
 }
 
@@ -592,7 +592,7 @@ select:hover {
     /* border: none; */
     background-color: var(--basicColor_purple_a050);
     height: 3vh;
-    font-family: 'consolas';
+    font-family: 'jetbrains';
     z-index: 10;
 }
 
@@ -623,7 +623,7 @@ select:hover {
     outline: none;
     /* border: none; */
     background-color: var(--basicColor_purple_a050);
-    font-family: 'consolas';
+    font-family: 'jetbrains';
     position: relative;
 }
 
@@ -637,7 +637,7 @@ select:hover {
     outline: none;
     /* border: none; */
     height: 3vh;
-    font-family: 'consolas';
+    font-family: 'jetbrains';
     /* width: 20vw; */
     /* white-space: nowrap;
     overflow: hidden;
@@ -973,7 +973,7 @@ select:hover {
     /* border: none; */
     background-color: var(--basicColor_purple_a050);
     height: 3vh;
-    font-family: 'consolas';
+    font-family: 'jetbrains';
     z-index: 10;
 }
 
@@ -983,7 +983,7 @@ select:hover {
     font-size: 2vh;
     /* margin-top: 3vh; */
     margin-right: 5vw;
-    font-family: 'consolas';
+    font-family: 'jetbrains';
     z-index: 10;
 }
 
