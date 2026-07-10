@@ -35,6 +35,8 @@
   - 评论区 — 访客可留言，数据持久化存储
   - 响应式设计 — 适配桌面与移动端
 
+在local storage中设置debug_stopAutoMusicPlay项为1，可以停止自动播放音乐。
+
 ## 终端
 
 仿Linux风格的终端，支持一些命令

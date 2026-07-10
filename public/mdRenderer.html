@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阅读器 - lyx的个人网站</title>
+    <link rel="stylesheet" href="/v4/style/publicStyle.css">
+    <style>
+        .reader {
+            position: fixed;
+            width: var(--reader_width);
+            height: 100rem;
+            left: calc(var(--box_left) + var(--box_width) + 5rem);
+            /* background-color: black; */
+            padding: 0;
+            z-index: 15;
+        }
+
+        .reader-container {
+            width: calc(var(--readerContainer_width) - var(--reader_padding) * 2);
+            height: calc(100vh - var(--reader_top) - var(--reader_bottom));
+            position: absolute;
+            left: 0;
+            top: var(--reader_top);
+            overflow: auto;
+            font-size: var(--reader_fontSize);
+            background-color: var(--color-reader);
+            padding-left: var(--reader_padding);
+            padding-right: var(--reader_padding);
+            border-radius: 10px;
+            animation: blur_5 ease .5s both;
+            box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
+            transition: .4s;
+            user-select: text;
+            font-family: 'siyuan', '宋体';
+            color: var(--color-basic);
+        }
+
+        .reader-container>p,
+        .reader-container>a,
+        .reader-container>h1,
+        .reader-container>h2,
+        .reader-container>h6,
+        .reader-container>pre>code {
+            cursor: url(/public/cursor/text.cur), default;
+
+        }
+
+        .reader-container>p {
+            text-indent: var(--reader_indent);
+            line-height: var(--reader_lnheight);
+        }
+
+        .reader-container a {
+            text-decoration: underline;
+            /* color: var(--color-purple); */
+        }
+
+        .reader-container>h1 {
+            font-size: calc(var(--reader_fontSize) * 1.5);
+            text-align: center;
+        }
+
+        .reader-container>h2::before {
+            content: '';
+            display: inline-block;
+            width: 0.5rem;
+            height: 1.5rem;
+            background-color: var(--color-theme);
+            position: relative;
+            right: 0.75em;
+            vertical-align: middle;
+            top: 0rem;
+            /* background-color: var(--color-darkgrey); */
+            border-radius: .2rem;
+        }
+
+        .reader-container>h2 {
+            font-size: calc(var(--reader_fontSize) * 1.3);
+        }
+
+        .reader-container>h3 {
+            font-size: calc(var(--reader_fontSize) * 1.2);
+        }
+
+        .reader-container>h6 {
+            text-align: center;
+            font-size: calc(var(--reader_fontSize) * 0.8);
+            font-weight: 400;
+            /* color: var(--color-darkgrey); */
+        }
+
+        .reader-container>pre>code {
+            font-family: 'jetbrains', 'siyuan';
+            /* background-color: black; */
+        }
+
+        .hljs-ln-numbers {
+            color: var(--color-grey);
+        }
+
+        .code-badge-language {
+            font-family: 'jetbrains';
+        }
+
+        .code-badge-copy-icon,
+        .text-success {
+            font-family: 'icomoon';
+            font-style: normal;
+            cursor: url(/public/cursor/link.cur), default;
+        }
+
+        .inline-code {
+            display: inline;
+            font-family: 'jetbrains', 'siyuan';
+            padding-left: 0.5em;
+            padding-right: 0.5em;
+            /* padding: 0.5em; */
+            border-radius: 0.5rem;
+            background: var(--color-box_solid_hover);
+            color: var(--color-basic);
+            padding-top: calc((var(--reader_lnheight) - var(--reader_fontSize)) / 2);
+            padding-bottom: calc((var(--reader_lnheight) - var(--reader_fontSize)) / 2);
+        }
+
+        .reader-back {
+            position: absolute;
+            left: calc(var(--readerContainer_width) + 5rem);
+            top: calc(var(--reader_top));
+            font-size: 2rem;
+            background-color: var(--color-box);
+            line-height: 4rem;
+            padding-left: var(--readerBtn_padding);
+            padding-right: var(--readerBtn_padding);
+            border-radius: .5rem;
+            transition: .3s;
+            color: var(--color-basic);
+        }
+
+        .reader-back:hover {
+            background-color: var(--color-box_hover);
+            color: var(--color-theme);
+        }
+
+        .reader-nav {
+            position: absolute;
+            left: calc(var(--readerContainer_width) + var(--readerBtn_padding) * 2 + 5rem + 4rem + 2rem);
+            top: calc(var(--reader_top));
+            width: 100rem;
+        }
+
+        .reader-btn,
+        .reader-setting-default {
+            display: inline;
+            font-size: 2rem;
+            line-height: 4rem;
+            background: transparent;
+            outline: none;
+            border: none;
+            padding-left: calc(var(--navbtn_padding) / 2);
+            padding-right: calc(var(--navbtn_padding) / 2);
+            /* padding-right: var(--navbtn_padding); */
+            color: var(--color-basic);
+            transition: .3s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .reader-btn:hover,
+        .reader-setting-default:hover {
+            color: var(--color-theme);
+            /* text-decoration: underline; */
+            /* background-color: var(--color-box_hover); */
+        }
+
+        .reader-btn.active {
+            border-bottom: 2px solid var(--color-theme);
+            color: var(--color-theme);
+        }
+
+        .reader-ctrl {
+            width: var(--readerCtrl_width);
+            height: auto;
+            position: absolute;
+            left: var(--readerCtrl_left);
+            top: calc(var(--reader_top) + 4rem + 2rem);
+            font-size: var(--readerCtrl_fs);
+            background-color: var(--color-box);
+            /* line-height: 4rem; */
+            padding-left: var(--navbtn_padding);
+            padding-right: var(--navbtn_padding);
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            /* padding: var(--navbtn_padding); */
+            border-radius: 5px;
+            transition: .3s;
+            color: var(--color-basic);
+            margin: 0;
+        }
+
+        .reader-index-h2 {
+            font-size: var(--readerCtrl_fs);
+            line-height: calc(var(--readerCtrl_fs) * 1.5);
+            color: var(--color-basic);
+            transition: .3s;
+            margin-bottom: 1rem;
+        }
+
+        .reader-index-h2:nth-last-child(1) {
+            margin-bottom: 2rem;
+
+        }
+
+        .reader-index-h3 {
+            font-size: 1.8rem;
+            line-height: 2rem;
+            color: var(--color-basic);
+            transition: .3s;
+            margin-left: 1.5em;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .reader-index-h3::before {
+            content: '-';
+            display: inline-block;
+            width: 2px;
+            height: 1.5rem;
+            position: relative;
+            right: 1em;
+            vertical-align: middle;
+            top: -0.75rem;
+            /* background-color: var(--color-darkgrey); */
+            border-radius: 2px;
+        }
+
+        .reader-index-h2:hover,
+        .reader-index-h2.active,
+        .reader-index-h3:hover,
+        .reader-index-h3.active {
+            color: var(--color-theme);
+        }
+
+        .reader-setting>table {
+            border: none;
+            border-spacing: 0rem;
+        }
+
+        .reader-setting>table>p {
+            font-size: 2rem;
+            line-height: 2rem;
+        }
+
+        input {
+            border: none;
+            outline: none;
+            width: calc(var(--input_fs) * 3);
+            padding: 1rem;
+            background-color: var(--color-input);
+            font-family: 'jetbrains';
+            font-size: var(--input_fs);
+            transition: .3s;
+            border-bottom: 2px solid transparent;
+        }
+
+        input:hover,
+        input:focus {
+            background-color: var(--color-input_hover);
+            /* outline: none; */
+        }
+
+        input:focus {
+            border-bottom: 2px solid var(--color-theme);
+            outline: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 文章阅读器 -->
+    <div class="reader">
+        <div class="reader-container">正在加载文章……</div>
+        <!-- <div class="reader-info">文章标题</div> -->
+        <div class="reader-back">返回</div>
+        <div class="reader-nav">
+            <button class="reader-nav-index reader-btn active">目录</button>
+            <button class="reader-nav-setting reader-btn">设置</button>
+        </div>
+        <div class="reader-index reader-ctrl">正在加载目录……</div>
+        <div class="reader-setting reader-ctrl">
+            <p>阅读器设置</p>
+            <table>
+                <tr>
+                    <td>
+                        <p>字号&emsp14;</p>
+                    </td>
+                    <td><input type="number" min="0" max="255" maxlength="3" class="reader-setting-size reader-input"
+                            data-set-id="1"> px</td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>页边距&emsp14;</p>
+                    </td>
+                    <td><input type="number" min="0" max="40" maxlength="2" class="reader-setting-padding reader-input"
+                            data-set-id="2"> %</td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>行高&emsp14;</p>
+                    </td>
+                    <td><input type="number" min="0" max="50" maxlength="2" class="reader-setting-lnheight reader-input"
+                            data-set-id="3"> px</td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>首行缩进&emsp14;</p>
+                    </td>
+                    <td><input type="number" min="0" max="10" maxlength="2" class="reader-setting-indent reader-input"
+                            data-set-id="4"> 字符</td>
+                </tr>
+            </table>
+            <br>
+            <button class="reader-setting-default">恢复默认</button>
+        </div>
+    </div>
+
+</body>
+
+
+<script src="/v4/js/highlight.min.js"></script>
+<script src="/v4/js/highlight-line.min.js"></script>
+<script src="/v4/js/highlightjs-badge.min.js"></script>
+<script>
+    //文章阅读器
+    let filePath = '{{ FILE }}';
+    let fileType = '{{ TYPE }}';
+
+    var curReading = 0;
+
+    function mdToHtml(md) {
+        let html = md;
+
+        // 1. 标题 (必须放在最前面处理，避免干扰其他规则)
+        html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+        html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+        html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+
+        // 2. 粗体
+        html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        html = html.replace(/__(.*?)__/g, '<strong>$1</strong>');
+
+        // 3. 斜体
+        html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+        html = html.replace(/_(.*?)_/g, '<em>$1</em>');
+
+        // 4. 删除线
+        html = html.replace(/~~(.*?)~~/g, '<del>$1</del>');
+
+        // 5. 代码块 (必须放在行内代码之前)
+        html = html.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+
+        // 5.5 表格
+        html = html.replace(/(^\|.+\|\n)+\n?/gm, function (tableMatch) {
+            // 跳过空行
+            if (!tableMatch.trim()) return tableMatch;
+
+            const lines = tableMatch.trim().split('\n');
+            let result = '<table>\n';
+
+            lines.forEach((line, index) => {
+                // 跳过分隔行（如 |------|------|------|）
+                if (/^\|[\s\-:]+\|[\s\-:|]+$/.test(line.trim())) {
+                    return;
+                }
+
+                const cells = line.trim().replace(/^\||\|$/g, '').split('|');
+                const tag = index === 0 ? 'th' : 'td';
+
+                result += '  <tr>\n';
+                cells.forEach(cell => {
+                    result += `    <${tag}>${cell.trim()}</${tag}>\n`;
+                });
+                result += '  </tr>\n';
+            });
+
+            result += '</table>';
+            return result;
+        });
+
+        // 6. 行内代码
+        html = html.replace(/`(.*?)`/g, '<code>$1</code>');
+
+        // 7. 链接
+        html = html.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>');
+
+        // 8. 图片
+        html = html.replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1">');
+
+        // 9. 无序列表
+        html = html.replace(/^\s*[-*+]\s+(.*$)/gim, '<li>$1</li>');
+        // 包裹ul标签（简单处理）
+        html = html.replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>');
+
+        // 10. 有序列表
+        html = html.replace(/^\s*\d+\.\s+(.*$)/gim, '<li>$1</li>');
+        // html = html.replace(/(<li>.*<\/li>)/s, '<ol>$1</ol>');
+
+        // 11. 引用
+        html = html.replace(/^\s*>\s+(.*$)/gim, '<blockquote>$1</blockquote>');
+
+        // 12. 水平分割线
+        html = html.replace(/^---$/gim, '<hr>');
+        html = html.replace(/^\*\*\*$/gim, '<hr>');
+        html = html.replace(/^___$/gim, '<hr>');
+
+        // 13. 段落（将空行分隔的文本包裹在<p>中）
+        html = html.replace(/^\s*$\n/g, '</p><p>');
+        html = '<p>' + html + '</p>';
+
+        // 14. 换行（保留<br>）
+        // html = html.replace(/\n/g, '<br>');
+
+        return html;
+    }
+
+    async function openReader() {
+        try {
+            const response = await fetch(filePath);
+            const articles = await response.text();
+            const container = document.querySelector(".reader-container");
+            container.innerHTML = fileType == '.md' ? mdToHtml(articles) : articles;
+        } catch (error) {
+            console.error('加载文章失败 ', error);
+            document.querySelector(".article").innerHTML = "加载文章失败，请联系我<br>" + error;
+        }
+
+        loadIndex();
+        is_reader_open = true;
+        hljs.highlightAll();
+        hljs.initLineNumbersOnLoad();
+        window.highlightJsBadge({
+            copyIconContent: "",
+            checkIconContent: ""
+        });
+        document.title = '文章 - 竹芒云蹊';
+    }
+
+    document.querySelector('.reader-back').addEventListener('click', () => {
+        if (document.referrer) {
+            window.location = document.referrer;
+        } else {
+            window.location = '/v4/';
+        }
+    })
+
+    openReader();
+
+
+
+    //文章阅读器-目录与设置
+    //控件切换
+    var readerBtnIndex = document.querySelector('.reader-nav-index');
+    var readerBtnSet = document.querySelector('.reader-nav-setting');
+    var curReaderCtrl = 1;
+    var mobile_is_ctrl_open = false;
+
+    readerBtnIndex.addEventListener('click', function () {
+        if (!mobile_is_ctrl_open) {
+            readerBtnIndex.classList.add('active');
+            curReaderCtrl = 1;
+            mobile_is_ctrl_open = true;
+            show(document.querySelector('.reader-index'));
+            document.querySelector('.reader-container').style.animation = 'public_hide ease .3s both';
+        } else if (curReaderCtrl === 2) {
+            readerBtnSet.classList.remove('active');
+            readerBtnIndex.classList.add('active');
+            curReaderCtrl = 1;
+            mobile_is_ctrl_open = true;
+            document.querySelector('.reader-setting').style.animation = 'readerCtrl_hide_toright ease .3s both';
+            setTimeout(function () {
+                document.querySelector('.reader-setting').style.display = 'none';
+                document.querySelector('.reader-index').style.display = 'block';
+                document.querySelector('.reader-index').style.animation =
+                    'readerCtrl_show_toright ease .3s both';
+            }, 200);
+        } else if (mobile_is_ctrl_open && curReaderCtrl === 1) {
+            readerBtnIndex.classList.remove('active');
+            mobile_is_ctrl_open = false;
+            hide(document.querySelector('.reader-index'));
+            document.querySelector('.reader-container').style.animation = 'public_show ease .3s both';
+        }
+    })
+
+    readerBtnSet.addEventListener('click', function () {
+        if (!mobile_is_ctrl_open) {
+            readerBtnSet.classList.add('active');
+            curReaderCtrl = 2;
+            mobile_is_ctrl_open = true;
+            show(document.querySelector('.reader-setting'));
+            document.querySelector('.reader-container').style.animation = 'public_hide ease .3s both';
+        } else if (curReaderCtrl === 1) {
+            readerBtnIndex.classList.remove('active');
+            readerBtnSet.classList.add('active');
+            curReaderCtrl = 2;
+            mobile_is_ctrl_open = true;
+            document.querySelector('.reader-index').style.animation = 'readerCtrl_hide_toleft ease .3s both';
+            setTimeout(function () {
+                document.querySelector('.reader-index').style.display = 'none';
+                document.querySelector('.reader-setting').style.display = 'block';
+                document.querySelector('.reader-setting').style.animation =
+                    'readerCtrl_show_toleft ease .3s both';
+            }, 200);
+        } else if (mobile_is_ctrl_open && curReaderCtrl === 2) {
+            readerBtnSet.classList.remove('active');
+            mobile_is_ctrl_open = false;
+            hide(document.querySelector('.reader-setting'));
+            document.querySelector('.reader-container').style.animation = 'public_show ease .3s both';
+        }
+    })
+
+    //加载目录
+    function loadIndex() {
+        var headings = document.querySelectorAll(".reader-container>h2, .reader-container>h3");
+        var container = document.querySelector('.reader-container');
+
+        document.querySelector('.reader-index').innerHTML = '';
+        if (headings.length === 0) {
+            document.querySelector('.reader-index').innerHTML = '<br>该文章没有目录<br><br>';
+        }
+        headings.forEach((heading, index) => {
+            var headingLine = document.createElement('p');
+            headingLine.innerHTML = heading.textContent;
+            headingLine.classList.add('reader-index-heading');
+            if (heading.tagName == 'H2') {
+                headingLine.classList.add('reader-index-h2');
+                headingLine.dataset.headType = 'h2';
+            }
+            if (heading.tagName == 'H3') {
+                headingLine.classList.add('reader-index-h3');
+                headingLine.dataset.headType = 'h3';
+            }
+
+            if (index === 0) {
+                headingLine.classList.add('active');
+            }
+            headingLine.dataset.index = index;
+            heading.dataset.index = index;
+            document.querySelector('.reader-index').appendChild(headingLine);
+        })
+
+        //跳转
+        document.querySelector('.reader-index').addEventListener("click", function (event) {
+            // alert(event.target.dataset.index);
+            document.querySelectorAll('.reader-index-heading').forEach(heading => {
+                heading.classList.remove('active');
+            })
+            event.target.classList.add('active');
+            // alert(container.scrollTop);
+            if (event.target.dataset.headType == 'h2') {
+                container.scrollTo({
+                    top: document.querySelector(`h2[data-index='${event.target.dataset.index}']`)
+                        .offsetTop - 50,
+                    behavior: 'smooth'
+                });
+            } else if (event.target.dataset.headType == 'h3') {
+                container.scrollTo({
+                    top: document.querySelector(`h3[data-index='${event.target.dataset.index}']`)
+                        .offsetTop - 50,
+                    behavior: 'smooth'
+                });
+            }
+        })
+
+        //自动高亮
+        container.addEventListener('scroll', function (event) {
+            var headingNum = document.querySelectorAll('.reader-index-heading').length;
+
+            for (var i = 0; i < headingNum; i++) {
+                var currentHeading = document.querySelector(`h2[data-index='${i}'], h3[data-index='${i}']`);
+                var nextHeading = document.querySelector(`h2[data-index='${i+1}'], h3[data-index='${i+1}']`);
+
+                if (!currentHeading) continue; // 跳过不存在的元素
+
+                var currentTop = currentHeading.offsetTop - 200;
+                var nextTop = nextHeading ? nextHeading.offsetTop - 200 : Infinity;
+
+                if (container.scrollTop >= currentTop && container.scrollTop < nextTop) {
+                    document.querySelectorAll('.reader-index-heading').forEach(heading => {
+                        heading.classList.remove('active');
+                    })
+                    document.querySelector(`.reader-index-heading[data-index='${i}']`).classList.add('active');
+                }
+            }
+        });
+    }
+
+    //设置
+
+    var readerFontSize = parseFloat(getComputedStyle(document.querySelector(':root')).getPropertyValue(
+        '--reader_fontSize'));
+    var readerPadding = parseFloat(getComputedStyle(document.querySelector(':root')).getPropertyValue(
+        '--reader_padding'));
+    var readerLnheight = parseFloat(getComputedStyle(document.querySelector(':root')).getPropertyValue(
+        '--reader_lnheight'));
+    var readerIndent = parseFloat(getComputedStyle(document.querySelector(':root')).getPropertyValue(
+        '--reader_indent'));
+    var readerContainerWidth = parseFloat(getComputedStyle(document.querySelector(':root')).getPropertyValue(
+        '--readerContainer_width'));
+    var fontSizeInput = document.querySelector('.reader-setting-size');
+    var paddingInput = document.querySelector('.reader-setting-padding'); //padding存储时全部使用vw值，显示及输入时使用%
+    var lnheightInput = document.querySelector('.reader-setting-lnheight');
+    var indentInput = document.querySelector('.reader-setting-indent');
+
+    if (localStorage.getItem('reader_font_size')) {
+        root.style.setProperty('--reader_fontSize', localStorage.getItem('reader_font_size') + 'px');
+        fontSizeInput.value = localStorage.getItem('reader_font_size');
+        readerFontSize = localStorage.getItem('reader_font_size');
+    }
+    if (localStorage.getItem('reader_padding')) {
+        root.style.setProperty('--reader_padding', localStorage.getItem('reader_padding') + 'vw');
+        paddingInput.value = Math.round(localStorage.getItem('reader_padding') / readerContainerWidth * 100);
+        readerPadding = localStorage.getItem('reader_padding');
+    }
+    if (localStorage.getItem('reader_lnheight')) {
+        root.style.setProperty('--reader_lnheight', localStorage.getItem('reader_lnheight') + 'px');
+        lnheightInput.value = localStorage.getItem('reader_lnheight');
+        readerLnheight = localStorage.getItem('reader_lnheight');
+    }
+    if (localStorage.getItem('reader_indent')) {
+        root.style.setProperty('--reader_indent', localStorage.getItem('reader_indent') + 'em');
+        indentInput.value = localStorage.getItem('reader_indent');
+        readerIndent = localStorage.getItem('reader_indent');
+    }
+
+    fontSizeInput.value = readerFontSize;
+    paddingInput.value = Math.round(readerPadding / readerContainerWidth * 100);
+    lnheightInput.value = readerLnheight;
+    indentInput.value = readerIndent;
+
+    document.querySelectorAll('.reader-input').forEach(input => {
+        input.addEventListener('blur', function () {
+            switch (input.dataset.setId) {
+                case '1':
+                    localStorage.setItem('reader_font_size', input.value);
+                    root.style.setProperty('--reader_fontSize', input.value + 'px');
+                    break;
+
+                case '2':
+                    localStorage.setItem('reader_padding', (input.value / 100) * readerContainerWidth);
+                    root.style.setProperty('--reader_padding', (input.value / 100) *
+                        readerContainerWidth + 'vw');
+                    break;
+
+                case '3':
+                    localStorage.setItem('reader_lnheight', input.value);
+                    root.style.setProperty('--reader_lnheight', input.value + 'px');
+                    break;
+
+                case '4':
+                    localStorage.setItem('reader_indent', input.value);
+                    root.style.setProperty('--reader_indent', input.value + 'em');
+                    break;
+
+                default:
+                    break;
+            }
+        });
+
+        input.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                this.blur();
+            }
+        });
+    })
+
+    document.querySelector('.reader-setting-default').addEventListener('click', function () {
+        localStorage.setItem('reader_font_size', '18');
+        localStorage.setItem('reader_padding', '3');
+        localStorage.setItem('reader_lnheight', '28');
+        localStorage.setItem('reader_indent', '2');
+        root.style.setProperty('--reader_fontSize', '18px');
+        root.style.setProperty('--reader_padding', '3vw');
+        root.style.setProperty('--reader_lnheight', '28px');
+        root.style.setProperty('--reader_indent', '2em');
+        fontSizeInput.value = '18';
+        paddingInput.value = '3';
+        lnheightInput.value = '28';
+        indentInput.value = '2';
+    })
+</script>
+
+</html>

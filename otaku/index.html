@@ -27,7 +27,7 @@
             src: url('/public/fonts/SanJiZhuoSongTi-2-subset.woff');
             font-weight: normal;
             font-style: normal;
-            font-display: block;
+            font-display: swap;
         }
 
         * {
@@ -567,6 +567,8 @@
             justify-content: center;
             z-index: 9999;
             transition: opacity 0.5s;
+            flex-direction: column;
+
         }
 
         .loading.hidden {
@@ -578,7 +580,25 @@
             font-family: 'sanji';
             font-size: 2rem;
             color: var(--primary);
-            animation: pulse 1.5s infinite;
+            /* animation: pulse 1.5s infinite; */
+        }
+
+        .progress {
+            width: 80vw;
+            height: 5px;
+            border-radius: 3px;
+            background-color: transparent;
+            text-align: left;
+        }
+
+        .bar {
+            /* position: absolute; */
+            /* left: 0; */
+            /* top: 0; */
+            height: 5px;
+            width: 0%;
+            background-color: pink;
+            transition: .3s;
         }
 
         @keyframes pulse {
@@ -619,7 +639,10 @@
 
 <body>
     <div class="loading" id="loading">
-        <div class="loading-text">正在加载二次元空间...</div>
+        <div class="loading-text">正在加载二次元空间...<span class="percentShow">0%</span></div><br><br><br>
+        <div class="progress">
+            <div class="bar"></div>
+        </div>
     </div>
 
     <div class="petals" id="petals"></div>
@@ -920,11 +943,62 @@
         </footer>
     </div>
 
+    <script src="/public/javascript/resourcesCount.js"></script>
     <script>
+        const currentUrl = window.location.href;
+        var progressBarLocked = false; // window onload后锁定progress bar，保持在100%不再变化
+
+        async function loadProgressBar() {
+            totalRes = await countResources(currentUrl, 2);
+            let loadedResources = 0;
+            let percentage = 0;
+            const resourceMap = new Map();
+
+            const resObserver = new PerformanceObserver((list) => {
+                const entries = list.getEntries();
+
+                entries.forEach(entry => {
+                    // 只处理资源加载事件
+                    if (entry.entryType === 'resource') {
+                        const key = entry.name;
+
+                        // 去重：避免重复计数
+                        if (!resourceMap.has(key)) {
+                            resourceMap.set(key, entry);
+
+                            // 监听资源加载完成
+                            if (entry.responseEnd > 0) {
+                                loadedResources++;
+                                percentage = (loadedResources / totalRes) * 100;
+                                if (!progressBarLocked) {
+                                    document.querySelector('.bar').style.width = percentage + '%';
+                                    document.querySelector('.percentShow').innerHTML = Math.floor(
+                                        percentage) + '%';
+                                }
+                            }
+                        }
+                        console.log(`已加载: ${loadedResources}`);
+                    }
+                });
+            });
+
+            resObserver.observe({
+                entryTypes: ['resource'],
+                buffered: true // 获取已发生的资源加载
+            });
+            // console.log(totalRes);
+        }
+
+        loadProgressBar();
+
+
         window.addEventListener('load', () => {
+            progressBarLocked = true;
+            document.querySelector('.bar').style.width = '100%';
+            document.querySelector('.percentShow').innerHTML = '100%';
             setTimeout(() => {
                 document.getElementById('loading').classList.add('hidden');
-            }, 800);
+            }, 1000);
         });
 
         function createPetals() {

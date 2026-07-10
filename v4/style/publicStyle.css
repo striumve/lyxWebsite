@@ -200,7 +200,7 @@ textarea::-webkit-scrollbar-track {
         url('/v4/fonts/icomoon/fonts/icomoon.svg') format('svg');
     font-weight: normal;
     font-style: normal;
-    font-display: block;
+    font-display: swap;
 }
 
 @font-face {
@@ -208,7 +208,7 @@ textarea::-webkit-scrollbar-track {
     src: url('/public/fonts/JetBrainsMono-Regular-2.ttf');
     font-weight: normal;
     font-style: normal;
-    font-display: block;
+    font-display: swap;
 }
 
 @font-face {
@@ -216,7 +216,7 @@ textarea::-webkit-scrollbar-track {
     src: url('/public/fonts/DIN-Regular-2.otf');
     font-weight: normal;
     font-style: normal;
-    font-display: block;
+    font-display: swap;
 }
 
 @font-face {
@@ -224,7 +224,7 @@ textarea::-webkit-scrollbar-track {
     src: url('/public/fonts/DIN-Medium-2.otf');
     font-weight: normal;
     font-style: normal;
-    font-display: block;
+    font-display: swap;
 }
 
 @font-face {
@@ -232,7 +232,7 @@ textarea::-webkit-scrollbar-track {
     src: url('/public/fonts/SourceHanSerifCN-Regular-1-subset.woff2');
     font-weight: normal;
     font-style: normal;
-    font-display: block;
+    font-display: swap;
 }
 
 @font-face {
@@ -241,7 +241,7 @@ textarea::-webkit-scrollbar-track {
     /* src: url(https://cdn.jsdelivr.net/gh/striumve/lyxWebsite@main/public/fonts/SourceHanSerifCN-Regular-1-subset.woff2); */
     font-weight: 700;
     font-style: normal;
-    font-display: block;
+    font-display: swap;
 }
 
 @font-face {
@@ -249,7 +249,7 @@ textarea::-webkit-scrollbar-track {
     src: url('/public/fonts/PingFangSC-Regular.woff2');
     font-weight: normal;
     font-style: normal;
-    font-display: block;
+    font-display: swap;
 }
 
 @keyframes startpage_hide {

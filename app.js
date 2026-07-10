@@ -100,6 +100,17 @@ app.get('/api/', (req, res) => {
     res.sendFile(path.join(__dirname, 'api', 'apistatus.html'));
 });
 
+app.get('/read', (req, res) => {
+    // res.status = 200;
+    const requestPath = req.query.f;
+    const rendererPath = path.join(__dirname, 'public', 'mdRenderer.html');
+    let html = fs.readFileSync(rendererPath, 'utf-8');
+    html = html.replace('{{ FILE }}', requestPath || 'False');
+    html = html.replace('{{ TYPE }}', path.extname(requestPath) || 'False');
+    res.send(html);
+});
+
+
 const port = process.env.PORT || 3000;
 server.listen(port, () => {
     console.log(`Server running on port ${port}`);

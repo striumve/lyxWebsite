@@ -19,7 +19,7 @@
             src: url('/public/fonts/DIN-Regular-2.otf');
             font-weight: normal;
             font-style: normal;
-            font-display: block;
+            font-display: swap;
         }
 
         @font-face {
@@ -27,7 +27,7 @@
             src: url('/public/fonts/SourceHanSansSC-Medium-2.otf');
             font-weight: medium;
             font-style: normal;
-            font-display: block;
+            font-display: swap;
         }
 
         @font-face {
@@ -35,7 +35,7 @@
             src: url('/public/fonts/SourceHanSansSC-Regular-2.otf');
             font-weight: normal;
             font-style: normal;
-            font-display: block;
+            font-display: swap;
         }
 
         @font-face {
@@ -43,7 +43,7 @@
             src: url('/public/fonts/SourceHanSerifCN-Regular-1-subset.woff2');
             font-weight: normal;
             font-style: normal;
-            font-display: block;
+            font-display: swap;
         }
 
         @font-face {
@@ -51,7 +51,7 @@
             src: url('/public/fonts/JetBrainsMono-Regular-2.ttf');
             font-weight: normal;
             font-style: normal;
-            font-display: block;
+            font-display: swap;
         }
 
         @keyframes link-in {
@@ -128,7 +128,7 @@
         }
 
         .subtitle {
-            font-family: 'jetbrains';
+            font-family: 'jetbrains', 'Consolas';
             font-size: calc(var(--title-fs) * 0.45);
             position: absolute;
             left: var(--left);
@@ -145,7 +145,7 @@
             display: block;
             width: var(--link-w);
             height: var(--link-h);
-            font-family: 'siyuan';
+            font-family: 'siyuan', '宋体';
             border-radius: 10px;
             position: relative;
             margin-top: calc(var(--link-h) * 0.8);
@@ -160,7 +160,7 @@
 
         .link::after {
             content: '→';
-            font-family: 'siyuan';
+            font-family: 'siyuan', '宋体';
             position: absolute;
             left: var(--link-w);
             opacity: 0;
@@ -623,7 +623,7 @@
 
         .more::-webkit-scrollbar-thumb {
             border-radius: 15px;
-            background: rgba(50,50, 100, .3);
+            background: rgba(50, 50, 100, .3);
             transition: .2s;
             cursor: url(/public/cursor/normal.cur), default;
         }
@@ -658,33 +658,39 @@
 </head>
 
 <body>
-    <div class="title" style="z-index: 0;">Striumve</div>
-    <div class="subtitle">Strive. Triumph.</div>
-    <div class="container">
-        <a href="/v4/" class="link" data-i="0">&ensp;-&emsp;竹芒云蹊</a>
-        <a href="/gallery/" class="link" data-i="1">&ensp;-&emsp;光影集</a>
-        <a href="/terminal/" class="link" data-i="2">&ensp;-&emsp;终端</a>
-        <a class="link link-more" data-i="3">&ensp;-&emsp;更多</a>
+    <div class="load">
+        正在加载
+        Loading
     </div>
-    <div class="more">
-        <p class="more-back">返回</p>
-        <p class="more-title">全部页面</p>
-        <p class="more-subtitle">主要</p>
-        <a href="/v4/" class="more-link" target="_self">&ensp;-&ensp;竹芒云蹊</a>
-        <a href="/gallery/" class="more-link" target="_self">&ensp;-&ensp;光影集</a>
-        <a href="/terminal/" class="more-link" target="_self">&ensp;-&ensp;终端</a>
-        <a href="/public/journal.html" class="more-link" target="_self">&ensp;-&ensp;网站开发日志</a>
-        <a href="https://github.com/striumve" class="more-link" target="_blank">&ensp;-&ensp;GitHub主页</a>
-        <p class="more-subtitle">历史版本</p>
-        <a href="/v3/" class="more-link" target="_blank">&ensp;-&ensp;v3版本</a>
-        <a href="/v2/" class="more-link" target="_blank">&ensp;-&ensp;v2版本</a>
-        <a href="/v1/" class="more-link" target="_blank">&ensp;-&ensp;初版</a>
-        <p class="more-subtitle">开发日志</p>
-        <a href="/public/diary4.html" class="more-link" target="_blank">&ensp;-&ensp;竹芒云蹊</a>
-        <a href="/public/diary.html" class="more-link" target="_blank">&ensp;-&ensp;v2,3版本</a>
-        <a href="/public/diary_origin.html" class="more-link" target="_blank">&ensp;-&ensp;初版</a>
-        <p class="more-subtitle">其他</p>
-        <a href="/public/AIWelcome/" class="more-link" target="_self">&ensp;-&ensp;弃用的欢迎页</a>
+    <div class="content" style="display: none;">
+        <div class="title" style="z-index: 0;">Striumve</div>
+        <div class="subtitle">Strive. Triumph.</div>
+        <div class="container">
+            <a href="/v4/" class="link" data-i="0">&ensp;-&emsp;竹芒云蹊</a>
+            <a href="/gallery/" class="link" data-i="1">&ensp;-&emsp;光影集</a>
+            <a href="/terminal/" class="link" data-i="2">&ensp;-&emsp;终端</a>
+            <a class="link link-more" data-i="3">&ensp;-&emsp;更多</a>
+        </div>
+        <div class="more">
+            <p class="more-back">返回</p>
+            <p class="more-title">全部页面</p>
+            <p class="more-subtitle">主要</p>
+            <a href="/v4/" class="more-link" target="_self">&ensp;-&ensp;竹芒云蹊</a>
+            <a href="/gallery/" class="more-link" target="_self">&ensp;-&ensp;光影集</a>
+            <a href="/terminal/" class="more-link" target="_self">&ensp;-&ensp;终端</a>
+            <a href="/public/journal.html" class="more-link" target="_self">&ensp;-&ensp;网站开发日志</a>
+            <a href="https://github.com/striumve" class="more-link" target="_blank">&ensp;-&ensp;GitHub主页</a>
+            <p class="more-subtitle">历史版本</p>
+            <a href="/v3/" class="more-link" target="_blank">&ensp;-&ensp;v3版本</a>
+            <a href="/v2/" class="more-link" target="_blank">&ensp;-&ensp;v2版本</a>
+            <a href="/v1/" class="more-link" target="_blank">&ensp;-&ensp;初版</a>
+            <p class="more-subtitle">开发日志</p>
+            <a href="/public/diary4.html" class="more-link" target="_blank">&ensp;-&ensp;竹芒云蹊</a>
+            <a href="/public/diary.html" class="more-link" target="_blank">&ensp;-&ensp;v2,3版本</a>
+            <a href="/public/diary_origin.html" class="more-link" target="_blank">&ensp;-&ensp;初版</a>
+            <p class="more-subtitle">其他</p>
+            <a href="/public/AIWelcome/" class="more-link" target="_self">&ensp;-&ensp;弃用的欢迎页</a>
+        </div>
     </div>
 
     <!-- 星空背景 -->
@@ -722,6 +728,42 @@
     </div>
 
 </body>
+
+<script src="/public/javascript/resourcesCount.js"></script>
+
+<script>
+    async function waitForFonts() {
+        // 检查浏览器是否支持 Font Loading API
+        if (!document.fonts) {
+            console.warn('浏览器不支持 Font Loading API');
+            return;
+        }
+
+        try {
+            // 等待所有字体加载完成
+            await document.fonts.ready;
+            console.log('所有字体已加载完成');
+
+            // 额外等待一帧，让浏览器完成渲染
+            await new Promise(resolve => requestAnimationFrame(resolve));
+        } catch (error) {
+            console.warn('字体加载失败:', error);
+        }
+    }
+
+    // 使用方式
+    window.addEventListener('load', async () => {
+        // 先隐藏内容，或者保持加载状态
+        document.querySelector('.load').style.display = 'flex'; // 保持加载显示
+
+        // 等待字体加载完成
+        await waitForFonts();
+
+        console.log('字体已就绪，显示内容');
+        document.querySelector('.load').style.display = 'none';
+        document.querySelector('.content').style.display = 'block';
+    });
+</script>
 
 <script>
     function createShootingStar() {
